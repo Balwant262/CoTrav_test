@@ -1,0 +1,203 @@
+{% extends 'Agent/layout/header.html' %}
+
+{% block content %}
+
+{% if user %}
+
+<!-- The Modal -->
+<div class="modal fade model_custom_style" role="dialog" id="model_add_new_group">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 id="delete_label" class="modal-title-status">Are You Want To Activate Back ? </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+            <form action="/agents/softdeleated_update" method="post" enctype="multipart/form-data" id="form_id">
+                <input type="hidden" name="record_id" id="company_id">
+                <input type="hidden" name="table_name" id="table_name">
+                <input type="hidden" name="user_id" value="{{user.id}}">
+                 <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <button id="delete_btn" type="submit" class="btn btn-primary">Yes</button>
+                </div>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- The Modal -->
+<div class="modal fade model_custom_style" role="dialog" id="model_setting_popup">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title-status ">Select Setting</h4>
+
+            </div>
+            <div class="modal-body">
+
+
+                <div class="list-group">
+    <a href="/agents/rates/0" class="list-group-item list-group-item-info"> <i class="fa fa-inr" aria-hidden="true"></i> Company Rates</a>
+                    <div class="dropdown-divider"></div>
+    <a href="/agents/company-management-fees" class="list-group-item list-group-item-success"><i class="fa fa-money" aria-hidden="true"></i> Management Fees</a>
+                    <div class="dropdown-divider"></div>
+    <a href="/agents/company-operation-management" class="list-group-item list-group-item-warning"><i class="fa fa-user-circle-o" aria-hidden="true"></i> Operation Management</a>
+                    <div class="dropdown-divider"></div>
+    <a href="/agents/company-relationship-manager" class="list-group-item list-group-item-danger"> <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Relationship Manager</a>
+  </div>
+
+
+
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-primary">Yes</button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% include 'cotrav_alert_message.html' %}
+<!-- start page content -->
+            <div class="page-content-wrapper">
+                <div class="page-content">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card card-topline-aqua">
+                                <div class="card-head">
+                                    <header>ALL COMPANIES</header>
+                                        <div class="row p-b-20">
+                                        <div class="col-md-6 col-sm-6 col-6">
+                                            <div class="btn-group">
+                                                <a class="btn btn-info" href="/agents/add-company" > Add New <i class="fa fa-plus"></i> </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tools">
+                                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+	                                    <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+	                                    <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                                    </div>
+                                </div>
+
+                        <div class="card-body ">
+                        <div class = "mdl-tabs mdl-js-tabs">
+                           <div class = "mdl-tabs__tab-bar tab-left-side">
+
+                              <a href = "/agents/companies" class = "mdl-tabs__tab  ">Active Companies</a>
+                              <a href = "/agents/softdeleated/companies/1" class = "mdl-tabs__tab is-active ">Inactive Companies</a>
+
+                           </div>
+                        </div>
+                    </div>
+
+
+
+                                <div class="card-body ">
+
+
+         <div class="text-center">
+             <div style="font-size:14px; font-weight:bold;">
+                 All Companies
+                 </div>
+         </div>
+
+                                  <div class="table-scrollable table-bordered">
+                                    <table id="example1" class="display full-width table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Code</th>
+                                                <th>Person Name</th>
+                                                <th>Person No</th>
+                                                <th>Person Email</th>
+                                                <th>Setting</th>
+                                                <th >Action</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                        {% for company in companies %}
+                                            <tr>
+                                                <td>{{ company.corporate_name }}</td>
+                                                <td>{{ company.corporate_code }}</td>
+                                                <td>{{ company.contact_person_name }}</td>
+                                                <td>{{ company.contact_person_no }}</td>
+                                                <td>{{ company.contact_person_email }}</td>
+
+                                                <td>
+                                                   <a class="btn btn-tbl-edit btn-xs" data-target="#model_setting_popup" data-toggle="modal" href="#">
+                                                        <i class="fa fa-gear"></i>
+                                                    </a>
+                                                </td>
+
+                                                 <td>
+
+
+                                                    <a class="btn btn-tbl-edit btn-xs" data-target="#model_add_new_group"
+                                                       data-id="{{company.id}}" data-delete_id="1" data-toggle="modal" href="#">
+                                                        <i class="fa fa-check "></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                            </tbody>
+                                        </table>
+	                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- end page content -->
+
+
+
+
+
+{% else %}
+    <p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+<script type="text/javascript">
+$(function() {
+
+  $('#model_add_new_group').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var id = button.data('id'); // Extract info from data-* attributes
+    var tbl_name = "corporates";
+    var modal = $(this);
+    modal.find('#company_id').val(id);
+    modal.find('#table_name').val(tbl_name);
+
+
+
+
+
+    });
+
+});
+
+
+
+</script>
+
+
+{% endblock %}

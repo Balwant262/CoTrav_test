@@ -1,0 +1,58 @@
+{% extends 'main_base.html' %}
+
+{% block content %}
+
+{% load static %}
+   
+     <div class="main-wrapper">
+             <!-- start registration form -->
+        <!-- start registration form -->
+        <section class="parallax position-relative box-hover" data-overlay-dark="6" data-background="img/bg/bg-login.jpg">
+            <div class="container">
+
+                <div class="row">
+                    {% include 'cotrav_alert_message.html' %}
+                    <div class="col-lg-6 center-col">
+                        <div class="bg-white padding-30px-all sm-padding-20px-all border border-width-5">
+                            <div class="section-heading section-heading2">
+                                <h3 class="login_btn">Operator Login</h3>
+
+                            </div>
+                            <form method="POST" action="/operator/login" class="registration-form">
+                                <div class="row">
+
+
+
+                                    <div class="alert alert-primary" style="display: none" role="alert"><p style="color:red; font-weight:bold;">{{error}}</p></div>
+                                   
+                                 
+                                    <div class="col-11">
+                                         <img src="{% static 'img/logos/2.png' %}" id="contact_icon1" style="margin-right: 6px;">
+                                        <input type="email" name="email" id="email" required="required" placeholder="Email *" maxlength="70" class="medium-input input_signupform input_signup">
+                                    </div>
+                                  
+                                    <div class="col-11">
+                                        <img src="{% static 'img/logos/4.png' %}" id="contact_icon1" style="margin-right: 6px;">
+                                        <input type="password" name="password" id="password" required="required" placeholder="Password *" maxlength="70" class="medium-input input_signupform input_signup" >
+                                    </div>
+                                       
+                                    <div class="col-12">
+                                        <button class="butn theme medium" type="submit"><span>Login</span></button>
+                                        <p class="no-margin float-right" ><a href="login.html" id="signup-txt-color">Forgot Password?</a></p>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <!-- end registration form -->
+      
+    </div>
+    <!-- end main-wrapper section -->
+
+
+
+{% endblock %}

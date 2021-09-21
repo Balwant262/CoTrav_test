@@ -1,0 +1,552 @@
+{% extends 'Agent/layout/header.html' %}
+
+{% block content %}
+
+{% if user %}
+
+<!-- The Modal -->
+<div class="modal fade model_custom_style" role="dialog" id="model_add_new_group">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 id="delete_label" class="modal-title-status">Are You Want To Delete Guesthouse ? </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+            <form action="/agents/delete-guesthouse/{{user.id}}" method="post" enctype="multipart/form-data" id="form_id">
+                <input type="hidden" name="guesthouse_id" id="guesthouse_id_delete">
+                <input type="hidden" name="user_id" value="{{user.id}}">
+                 <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <button id="delete_btn" type="submit" class="btn btn-primary">Yes</button>
+                </div>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal fade model_custom_style" role="dialog" id="model_guesthouse_edit">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title-status">Guesthouse Form </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+            <form action="/agents/add-guesthouse" method="post" enctype="multipart/form-data" id="form_id_edit">
+                <input type="hidden" name="guesthouse_id" id="guesthouse_id">
+                <input type="hidden" name="user_id" value="{{user.id}}">
+                <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+
+                  <div class="modal-body">
+
+                    <div class="form-group row" id="corporate_id1">
+                        <label class="col-sm-5 control-label">Company Name</label>
+                        <div class="col-sm-7">
+
+                            <select class="form-control myselect" name="corporate_id" id="corporate_name" style="width:100%;">
+                                <option value="">Select Company</option>
+                               {% for company in companies %}
+                                <option value="{{company.id}}">{{company.corporate_name}}</option>
+                                {% endfor %}
+                            </select>
+
+                        </div>
+                    </div>
+
+                     <div class="form-group row" id="city_id1">
+                        <label class="col-sm-5 control-label">City Name</label>
+                        <div class="col-sm-7">
+                            <select class="form-control myselect" name="city_id" id="city_id" style="width:100%;" required>
+                                <option value="">Select City</option>
+                               {% for city in cities %}
+                                <option value="{{city.id}}">{{city.city_name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                     <div class="form-group row" id="guest_house_id1">
+                        <label class="col-sm-5 control-label">Guesthouse ID</label>
+                        <div class="col-sm-7">
+                            <input class="form-control" id="guest_house_id" name="guest_house_id" placeholder="Guesthouse ID" required  type="text">
+                        </div>
+                    </div>
+
+                     <div class="form-group row" id="guest_house_code1">
+                        <label class="col-sm-5 control-label">Guesthouse Code</label>
+                        <div class="col-sm-7">
+                            <input class="form-control" id="guest_house_code" name="guest_house_code" placeholder="Guesthouse Code" required  type="text">
+                        </div>
+                    </div>
+
+                     <div class="form-group row" id="guest_house_name1">
+                        <label class="col-sm-5 control-label">Guesthouse Name</label>
+                        <div class="col-sm-7">
+                            <input class="form-control" id="guest_house_name" name="guest_house_name" placeholder="Guesthouse Name" required  type="text">
+                        </div>
+                    </div>
+
+
+                     <div class="form-group row" id="address1">
+                        <label class="col-sm-5 control-label">Guesthouse Address</label>
+                        <div class="col-sm-7">
+                            <input class="form-control" id="area_location" name="area_location" placeholder="Guesthouse Address" required  type="text">
+                        </div>
+                    </div>
+
+                     <div class="form-group row" id="contact_person_name1">
+                        <label class="col-sm-5 control-label">Contact Person Name</label>
+                        <div class="col-sm-7">
+                            <input class="form-control" id="contact_person_name" name="contact_person_name" placeholder="Contact Person Name" required  type="text">
+                        </div>
+                    </div>
+
+                     <div class="form-group row" id="contact_person_no1">
+                        <label class="col-sm-5 control-label">Contact Person Number</label>
+                        <div class="col-sm-7">
+                            <input class="form-control" id="contact_person_no" name="contact_person_no" placeholder="Contact Person Number" required  type="text">
+                        </div>
+                    </div>
+
+                     <div class="form-group row" id="contact_person_email1">
+                        <label class="col-sm-5 control-label">Contact Person Email</label>
+                        <div class="col-sm-7">
+                            <input class="form-control" id="contact_person_email" name="contact_person_email" placeholder="Contact Person Email" required  type="text">
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-primary">Yes</button>
+                </div>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<!-- The Modal -->
+<div class="modal fade model_custom_style" role="dialog" id="model_guesthouse_amanities">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title-status">Guesthouse Form </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+            <form action="/agents/add-guesthouse-amenities" method="post" enctype="multipart/form-data" id="model_guesthouse_amanities1">
+                <input type="hidden" name="guesthouse_id" id="a_guesthouse_id">
+                <input type="hidden" name="user_id" value="{{user.id}}">
+                <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+
+                  <div class="modal-body">
+
+                    <div class="form-group row" id="is_radio1">
+                        <label class="col-sm-5 control-label">Bed Type</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" name="bed_type" id="bed_type">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                      <div class="form-group row">
+                        <label class="col-sm-5 control-label">Is TV</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" name="tv" id="tv">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                       <div class="form-group row">
+                        <label class="col-sm-5 control-label">WiFi</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" name="wifi" id="wifi">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                       <div class="form-group row">
+                        <label class="col-sm-5 control-label">AC</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" name="ac" id="ac">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                      <div class="form-group row">
+                        <label class="col-sm-5 control-label">Queen Size Bed</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" name="queen_size_bed" id="queen_size_bed">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                      <div class="form-group row">
+                        <label class="col-sm-5 control-label">Functional Living Area</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" name="functional_living_area" id="functional_living_area">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                      <div class="form-group row">
+                        <label class="col-sm-5 control-label">Power Backup</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" name="power_backup" id="power_backup">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                      <div class="form-group row">
+                        <label class="col-sm-5 control-label">Geyser</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" name="geyser" id="geyser">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                      <div class="form-group row">
+                        <label class="col-sm-5 control-label">Elevator</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" name="elevator" id="elevator">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                       <div class="form-group row">
+                        <label class="col-sm-5 control-label">CCTV Cameras</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" name="cctv_cameras" id="cctv_cameras">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                      <div class="form-group row">
+                        <label class="col-sm-5 control-label">Security</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" name="security" id="security">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                      <div class="form-group row">
+                        <label class="col-sm-5 control-label">Fire Extinguisher</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" name="fire_extinguisher" id="fire_extinguisher">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                       <div class="form-group row">
+                        <label class="col-sm-5 control-label">Room Facilities</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" name="room_facilities" id="room_facilities">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                      <div class="form-group row">
+                        <label class="col-sm-5 control-label">Intercom</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" name="intercom" id="intercom">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                      <div class="form-group row">
+                        <label class="col-sm-5 control-label">FAN</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" name="fan" id="fan">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                      <div class="form-group row">
+                        <label class="col-sm-5 control-label">Telephone</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" name="telephone" id="telephone">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-primary">Yes</button>
+                </div>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% include 'cotrav_alert_message.html' %}
+<!-- start page content -->
+            <div class="page-content-wrapper">
+                <div class="page-content">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card card-topline-aqua">
+                                <div class="card-head">
+                                    <header>ALL GUESTHOUSES</header>
+                                        <div class="row p-b-20">
+                                        <div class="col-md-6 col-sm-6 col-6">
+                                            <div class="btn-group">
+                                                <a class="btn btn-info btn-xs" data-target="#model_guesthouse_edit" data-toggle="modal" href="#">
+                                                        <i class="fa fa-plus "></i> add guesthouse
+                                                    </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tools">
+                                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+	                                    <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+	                                    <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                                    </div>
+                                </div>
+
+
+                                <div class="card-body ">
+
+                                  <div class="table-scrollable table-bordered">
+                                    <table id="example1" class="display full-width table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Company Name</th>
+                                                <th>Guesthouse ID</th>
+                                                <th>Guesthouse Code</th>
+                                                <th>Guesthouse Name</th>
+                                                <th>City</th>
+                                                <th>Address</th>
+                                                <th>Contact Person</th>
+                                                <th>Contact Email</th>
+                                                <th>Contact Phone</th>
+                                                <th>Rooms</th>
+                                                <th>Amenities</th>
+                                                <th >Action</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+
+                                        {% for guest in guesthouses %}
+                                            <tr>
+                                                <td>{{ guest.corporate_name }} <br>({{ guest.corporate_code }})</td>
+                                                <td>{{ guest.guest_house_id|default:'' }}</td>
+                                                <td>{{ guest.guest_house_code|default:'' }}</td>
+                                                <td>{{ guest.guest_house_name }}</td>
+                                                <td>{{ guest.city_id_name }}</td>
+                                                <td>{{ guest.area_location|default:'' }}</td>
+                                                <td>{{ guest.contact_person_name|default:'' }}</td>
+                                                <td>{{ guest.contact_person_no|default:'' }}</td>
+                                                <td>{{ guest.contact_person_email|default:'' }}</td>
+
+
+                                                <td>
+                                                   <a href="/agents/get-guesthouse-rooms/{{guest.id}}" class="btn btn-tbl-edit btn-xs" style="background:#6288b1;"> <i class="fa fa-home"></i> </a>
+                                                </td>
+
+                                                <td>
+                                                   <a class="btn btn-tbl-edit btn-xs" data-target="#model_guesthouse_amanities" data-toggle="modal" href="#" data-id="{{guest.id}}"  data-bed_type="{{guest.bed_type|default:'0'}}"
+                                                   data-tv="{{guest.tv|default:'0'}}" data-queen_size_bed="{{guest.queen_size_bed|default:'0'}}" data-ac="{{guest.ac|default:'0'}}" data-functional_living_area="{{guest.functional_living_area|default:'0'}}"
+                                                   data-power_backup="{{guest.power_backup|default:'0'}}" data-geyser="{{guest.geyser|default:'0'}}" data-elevator="{{guest.elevator|default:'0'}}"
+                                                   data-cctv_cameras="{{guest.cctv_cameras|default:'0'}}" data-security="{{guest.security|default:'0'}}" data-fire_extinguisher="{{guest.fire_extinguisher|default:'0'}}"
+                                                   data-room_facilities="{{guest.room_facilities|default:'0'}}" data-intercom="{{guest.intercom|default:'0'}}" data-fan="{{guest.fan|default:'0'}}" data-telephone="{{guest.telephone|default:'0'}}"
+                                                   data-wifi="{{guest.wifi|default:'0'}}" ><i class="fa fa-gear"></i>
+                                                    </a>
+                                                </td>
+
+                                                 <td>
+                                                    <a class="btn btn-tbl-edit btn-xs" data-target="#model_guesthouse_edit" data-toggle="modal" href="#"
+                                                    data-id="{{guest.id}}" data-corporate_name="{{guest.corporate_name}}" data-guest_house_id="{{guest.guest_house_id}}"
+                                                    data-guest_house_code="{{guest.guest_house_code}}" data-guest_house_name="{{guest.guest_house_name}}" data-city_id_name="{{guest.city_id_name}}"
+                                                    data-area_location="{{guest.area_location}}" data-contact_person_name="{{guest.contact_person_name}}" data-contact_person_no="{{guest.contact_person_no}}"
+                                                    data-contact_person_email="{{guest.contact_person_email}}">
+                                                        <i class="fa fa-pencil "></i>
+                                                    </a>
+
+                                                    <a class="btn btn-tbl-delete btn-xs" data-target="#model_add_new_group"
+                                                       data-id="{{guest.id}}" data-delete_id="1" data-toggle="modal" href="#">
+                                                        <i class="fa fa-trash-o "></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                            </tbody>
+                                        </table>
+	                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- end page content -->
+
+
+
+
+
+{% else %}
+    <p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+<script type="text/javascript">
+    var cityidSelect = $("#city_id");
+    var corporateSelect = $('#corporate_name');
+
+    cityidSelect.select2();
+    corporateSelect.select2();
+
+$(function() {
+
+
+  $('#model_add_new_group').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var id = button.data('id'); // Extract info from data-* attributes
+    var modal = $(this);
+    modal.find('#guesthouse_id_delete').val(id);
+
+    });
+
+$('#model_guesthouse_amanities').on('show.bs.modal', function (event) {
+var button = $(event.relatedTarget); // Button that triggered the modal
+var id = button.data('id'); // Extract info from data-* attributes
+var bed_type = button.data('bed_type');
+var tv = button.data('tv');
+var queen_size_bed = button.data('queen_size_bed');
+var ac = button.data('ac');
+var functional_living_area = button.data('functional_living_area');
+var power_backup = button.data('power_backup');
+var geyser = button.data('geyser');
+var elevator = button.data('elevator');
+var cctv_cameras = button.data('cctv_cameras');
+var security = button.data('security');
+var fire_extinguisher = button.data('fire_extinguisher');
+var room_facilities = button.data('room_facilities');
+var intercom = button.data('intercom');
+var fan = button.data('fan');
+var telephone = button.data('telephone');
+var wifi = button.data('wifi');
+
+var modal = $(this);
+
+modal.find('#a_guesthouse_id').val(id);
+modal.find('#bed_type').val(bed_type);
+modal.find('#tv').val(tv);
+modal.find('#queen_size_bed').val(queen_size_bed);
+modal.find('#ac').val(ac);
+modal.find('#functional_living_area').val(functional_living_area);
+modal.find('#power_backup').val(power_backup);
+modal.find('#geyser').val(geyser);
+modal.find('#elevator').val(elevator);
+modal.find('#cctv_cameras').val(cctv_cameras);
+modal.find('#security').val(security);
+modal.find('#fire_extinguisher').val(fire_extinguisher);
+modal.find('#room_facilities').val(room_facilities);
+modal.find('#intercom').val(intercom);
+modal.find('#fan').val(fan);
+modal.find('#telephone').val(telephone);
+modal.find('#wifi').val(wifi);
+
+});
+
+
+$('#model_guesthouse_edit').on('show.bs.modal', function (event) {
+var button = $(event.relatedTarget); // Button that triggered the modal
+var id = button.data('id'); // Extract info from data-* attributes
+var corporate_name = button.data('corporate_name');
+var guest_house_id = button.data('guest_house_id');
+var guest_house_code = button.data('guest_house_code');
+var guest_house_name = button.data('guest_house_name');
+var city_id_name = button.data('city_id_name');
+var area_location = button.data('area_location');
+var contact_person_name = button.data('contact_person_name');
+var contact_person_no = button.data('contact_person_no');
+var contact_person_email = button.data('contact_person_email');
+
+var modal = $(this);
+modal.find('#guesthouse_id').val(id);
+modal.find('#guest_house_id').val(guest_house_id);
+modal.find('#guest_house_code').val(guest_house_code);
+modal.find('#guest_house_name').val(guest_house_name);
+modal.find('#area_location').val(area_location);
+modal.find('#contact_person_name').val(contact_person_name);
+modal.find('#contact_person_no').val(contact_person_no);
+modal.find('#contact_person_email').val(contact_person_email);
+
+corporateSelect.val(corporate_name);
+corporateSelect.trigger('change.select2');
+
+cityidSelect.val(city_id_name);
+cityidSelect.trigger('change.select2');
+
+
+
+});
+
+});
+</script>
+
+
+{% endblock %}

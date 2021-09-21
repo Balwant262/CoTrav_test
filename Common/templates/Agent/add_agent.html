@@ -1,0 +1,530 @@
+{% extends "Agent/layout/header.html" %}
+
+{% block content %}
+
+{% if user %}
+<!-- start page content -->
+{% include 'cotrav_alert_message.html' %}
+<div class="page-content-wrapper">
+    <div class="page-content">
+  <div class="text-center">
+     <div style="font-size:14px; font-weight:bold;">
+         {% if agent %}
+         Edit Agents Details
+         {% else %}
+            Add New Agent Details
+         {% endif %}
+         </div>
+   </div>
+        <form method="post" action="/agents/add-agent/0" id="model_serialize_update">
+             <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+            {% csrf_token %}
+            <input type="hidden" class="col-sm-8 form-control" name="user_id" value="{{user.id }}">
+
+            {% if agent %}
+            {% for agent in agent %}
+            <input type="hidden" class="col-sm-8 form-control" name="agents_id" value="{{agent.id }}">
+            {% endfor %}
+            {% endif %}
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card card-topline-aqua">
+                        <div class="card-head">
+                            <header>General Information</header>
+
+
+                        </div>
+                        <div class="card-body " id="bar-parent">
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Employee ID</label>
+                                {% if agent %}
+                                {% for agent in agent %}
+                                <input type="text" class="col-sm-8 form-control" name="emp_id" value="{{agent.emp_id|default:''}}" required
+                                       placeholder="Employee ID">
+                                {% endfor %}
+                                {% else %}
+                                    <input type="text" class="col-sm-8 form-control" name="emp_id" required
+                                       placeholder="Employee ID">
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >User Name</label>
+                                {% if agent %}
+                                {% for agent in agent %}
+                                <input type="text" class="col-sm-8 form-control" name="username" value="{{agent.user_name|default:''}}" required
+                                       placeholder="User Name">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="username" required
+                                       placeholder="User Name">
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >User Contact</label>
+                                {% if agent %}
+                                {% for agent in agent %}
+                                <input type="text" class="col-sm-8 form-control" name="contact_no" value="{{agent.contact_no|default:''}}"
+                                       placeholder="User Contact">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="contact_no"
+                                       placeholder="User Contact">
+                                {% endif %}
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Login User Email</label>
+                                {% if agent %}
+                                {% for agent in agent %}
+                                <input type="email" class="col-sm-8 form-control" name="email" value="{{agent.email|default:''}}" required
+                                       placeholder="Login User Email">
+                                {% endfor %}
+                                {% else %}
+                                <input type="email" class="col-sm-8 form-control" name="email" required
+                                       placeholder="Login User Email">
+                                  {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Super Admin</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="is_super_admin">
+
+                                        {% if agent %}
+                                        {% for agent in agent %}
+                                         <option value="0" {% if agent.is_super_admin == 0 %} selected {%endif%}>No</option>
+                                         <option value="1" {% if agent.is_super_admin == 1 %} selected {%endif%}>Yes</option>
+                                         {% endfor %}
+                                        {% else %}
+                                        <option value="0">No</option>
+                                         <option value="1">Yes</option>
+                                        {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Relationship Manager</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="is_relationship_manager">
+
+                                        {% if agent %}
+                                        {% for agent in agent %}
+                                         <option value="0" {% if agent.is_relationship_manager == 0 %} selected {%endif%}>No</option>
+                                         <option value="1" {% if agent.is_relationship_manager == 1 %} selected {%endif%}>Yes</option>
+                                         {% endfor %}
+                                        {% else %}
+                                        <option value="0">No</option>
+                                         <option value="1">Yes</option>
+                                        {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Operation Manager</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="is_operation_manager">
+
+                                        {% if agent %}
+                                        {% for agent in agent %}
+                                         <option value="0" {% if agent.is_operation_manager == 0 %} selected {%endif%}>No</option>
+                                         <option value="1" {% if agent.is_operation_manager == 1 %} selected {%endif%}>Yes</option>
+                                         {% endfor %}
+                                        {% else %}
+                                        <option value="0">No</option>
+                                         <option value="1">Yes</option>
+                                        {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="col-md-4">
+                    <div class="card card-topline-aqua">
+                        <div class="card-head">
+                            <header>Access Details</header>
+
+                        </div>
+                        <div class="card-body " id="bar-parent1">
+
+                              <div class="form-group row">
+                                <label class="col-sm-4 control-label">Billing Access</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="has_billing_access">
+
+                                        {% if agent %}
+                                        {% for agent in agent %}
+                                         <option value="0" {% if agent.has_billing_access == 0 %} selected {%endif%}>No</option>
+                                         <option value="1" {% if agent.has_billing_access == 1 %} selected {%endif%}>Yes</option>
+                                         {% endfor %}
+                                        {% else %}
+                                         <option value="0">No</option>
+                                        <option value="1">Yes</option>
+                                        {% endif %}
+
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Voucher Payment Access</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="has_voucher_payment_access">
+
+                                        {% if agent %}
+                                        {% for agent in agent %}
+                                         <option value="0" {% if agent.has_voucher_payment_access == 0 %} selected {%endif%}>No</option>
+                                        <option value="1" {% if agent.has_voucher_payment_access == 1 %} selected {%endif%}>Yes</option>
+                                         {% endfor %}
+                                        {% else %}
+                                         <option value="0">No</option>
+                                        <option value="1">Yes</option>
+                                        {% endif %}
+
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Voucher Payment Approval Access</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="has_voucher_approval_access">
+
+                                        {% if agent %}
+                                        {% for agent in agent %}
+                                         <option value="0" {% if agent.has_voucher_approval_access == 0 %} selected {%endif%}>No</option>
+                                         <option value="1" {% if agent.has_voucher_approval_access == 1 %} selected {%endif%}>Yes</option>
+                                         {% endfor %}
+                                        {% else %}
+                                         <option value="0">No</option>
+                                        <option value="1">Yes</option>
+                                        {% endif %}
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Radio Bookings</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="is_radio">
+
+                                        {% if agent %}
+                                        {% for agent in agent %}
+                                            <option value="0" {% if agent.has_radio_booking_access == 0 %} selected {%endif%}>No</option>
+                                            <option value="1" {% if agent.has_radio_booking_access == 1 %} selected {%endif%}>Yes</option>
+                                        {% endfor %}
+                                        {% else %}
+                                        <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        {% endif %}
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Local Bookings</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="is_local">
+
+                                        {% if agent %}
+                                        {% for agent in agent %}
+                                        <option value="0" {% if agent.has_local_booking_access == 0 %} selected {%endif%}>No</option>
+                                        <option value="1" {% if agent.has_local_booking_access == 1 %} selected {%endif%}>Yes</option>
+                                        {% endfor %}
+                                        {% else %}
+                                         <option value="0">No</option>
+                                         <option value="1">Yes</option>
+                                        {% endif %}
+
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Outstation Bookings</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="is_outstation">
+
+                                        {% if agent %}
+                                        {% for agent in agent %}
+                                         <option value="0" {% if agent.has_outstation_booking_access == 0 %} selected {%endif%}>No</option>
+                                         <option value="1" {% if agent.has_outstation_booking_access == 1 %} selected {%endif%}>Yes</option>
+                                         {% endfor %}
+                                        {% else %}
+                                         <option value="0">No</option>
+                                        <option value="1">Yes</option>
+                                        {% endif %}
+
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Bus Bookings</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="is_bus">
+                                         {% if agent %}
+                                        {% for agent in agent %}
+                                         <option value="0" {% if agent.has_bus_booking_access == 0 %} selected {%endif%}>No</option>
+                                         <option value="1" {% if agent.has_bus_booking_access == 1 %} selected {%endif%}>Yes</option>
+                                         {% endfor %}
+                                        {% else %}
+                                         <option value="0">No</option>
+                                        <option value="1">Yes</option>
+                                        {% endif %}
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Train Bookings</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="is_train">
+
+                                         {% if agent %}
+                                        {% for agent in agent %}
+                                         <option value="0" {% if agent.has_train_booking_access == 0 %} selected {%endif%}>No</option>
+                                         <option value="1" {% if agent.has_train_booking_access == 1 %} selected {%endif%}>Yes</option>
+                                         {% endfor %}
+                                        {% else %}
+                                         <option value="0">No</option>
+                                        <option value="1">Yes</option>
+                                        {% endif %}
+
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Hotel Bookings</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="is_hotel">
+
+                                         {% if agent %}
+                                        {% for agent in agent %}
+                                         <option value="0" {% if agent.has_hotel_booking_access == 0 %} selected {%endif%}>No</option>
+                                         <option value="1" {% if agent.has_hotel_booking_access == 1 %} selected {%endif%}>Yes</option>
+                                         {% endfor %}
+                                        {% else %}
+                                         <option value="0">No</option>
+                                        <option value="1">Yes</option>
+                                        {% endif %}
+
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Flight Bookings</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="is_flight">
+
+                                         {% if agent %}
+                                        {% for agent in agent %}
+                                         <option value="0" {% if agent.has_flight_booking_access == 0 %} selected {%endif%}>No</option>
+                                         <option value="1" {% if agent.has_flight_booking_access == 1 %} selected {%endif%}>Yes</option>
+                                         {% endfor %}
+                                        {% else %}
+                                         <option value="0">No</option>
+                                        <option value="1">Yes</option>
+                                        {% endif %}
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Meal Bookings</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="is_meal">
+
+                                         {% if agent %}
+                                        {% for agent in agent %}
+                                         <option value="0" {% if agent.has_meal_booking_access == 0 %} selected {%endif%}>No</option>
+                                         <option value="1" {% if agent.has_meal_booking_access == 1 %} selected {%endif%}>Yes</option>
+                                         {% endfor %}
+                                        {% else %}
+                                         <option value="0">No</option>
+                                        <option value="1">Yes</option>
+                                        {% endif %}
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Water Bottles Bookings</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="is_water_bottles">
+
+                                         {% if agent %}
+                                        {% for agent in agent %}
+                                         <option value="0" {% if agent.has_water_bottles_booking_access == 0 %} selected {%endif%}>No</option>
+                                         <option value="1" {% if agent.has_water_bottles_booking_access == 1 %} selected {%endif%}>Yes</option>
+                                         {% endfor %}
+                                        {% else %}
+                                         <option value="0">No</option>
+                                        <option value="1">Yes</option>
+                                        {% endif %}
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Reverse Logistics</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="is_reverse_logistics">
+
+                                         {% if agent %}
+                                        {% for agent in agent %}
+                                         <option value="0" {% if agent.has_reverse_logistics_booking_access == 0 %} selected {%endif%}>No</option>
+                                         <option value="1" {% if agent.has_reverse_logistics_booking_access == 1 %} selected {%endif%}>Yes</option>
+                                         {% endfor %}
+                                        {% else %}
+                                         <option value="0">No</option>
+                                        <option value="1">Yes</option>
+                                        {% endif %}
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Visa Bookings</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="is_visa">
+
+                                         {% if agent %}
+                                        {% for agent in agent %}
+                                         <option value="0" {% if agent.has_visa_booking_access == 0 %} selected {%endif%}>No</option>
+                                         <option value="1" {% if agent.has_visa_booking_access == 1 %} selected {%endif%}>Yes</option>
+                                         {% endfor %}
+                                        {% else %}
+                                         <option value="0">No</option>
+                                        <option value="1">Yes</option>
+                                        {% endif %}
+
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">FRRO Bookings</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="is_frro">
+
+                                         {% if agent %}
+                                        {% for agent in agent %}
+                                         <option value="0" {% if agent.has_frro_booking_access == 0 %} selected {%endif%}>No</option>
+                                         <option value="1" {% if agent.has_frro_booking_access == 1 %} selected {%endif%}>Yes</option>
+                                         {% endfor %}
+                                        {% else %}
+                                         <option value="0">No</option>
+                                        <option value="1">Yes</option>
+                                        {% endif %}
+
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Guesthouse Bookings</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="is_guesthouse">
+
+                                         {% if agent %}
+                                        {% for agent in agent %}
+                                         <option value="0" {% if agent.has_guesthouse_booking_access == 0 %} selected {%endif%}>No</option>
+                                         <option value="1" {% if agent.has_guesthouse_booking_access == 1 %} selected {%endif%}>Yes</option>
+                                         {% endfor %}
+                                        {% else %}
+                                         <option value="0">No</option>
+                                        <option value="1">Yes</option>
+                                        {% endif %}
+
+                                    </select>
+                                </div>
+                            </div>
+
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                    <div class="text-center">
+                        <input type="submit" value="Submit" class="btn btn-info">
+                        <a href="{{request.META.HTTP_REFERER}}" class="btn btn-default">  Cancel  </a>
+                    </div>
+                </div>
+                <div class="col-sm-4"></div>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- end page content -->
+
+
+{% else %}
+<p>Welcome, new user. Please log in.<a href="/login">Login</a></p>
+{% endif %}
+<script>
+$( document ).ready(function() {
+
+$('#model_serialize_update')
+.each(function(){
+$(this).data('serialized', $(this).serialize())
+})
+    .on('change input', function(){
+        $(this)
+            .find('input:submit, button:submit')
+                .attr('disabled', $(this).serialize() == $(this).data('serialized'))
+        ;
+     })
+.find('input:submit, button:submit')
+.attr('disabled', true);
+
+});
+
+$(document.body).on("change",".myselect",function(){
+  $('form')
+      .find('input:submit, button:submit')
+          .attr('disabled', $('#model_serialize_update').serialize() == $('#model_serialize_update').data('serialized'))
+  ;
+});
+
+</script>
+
+
+{% endblock %}

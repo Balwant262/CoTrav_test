@@ -1,0 +1,342 @@
+{% extends 'Company/Admin/layout/header.html' %}
+
+{% block content %}
+
+
+{% if user %}
+<!-- start page content -->
+
+
+{% if user %}
+			<!-- start page content -->
+            <div class="page-content-wrapper">
+                <div class="page-content">
+
+            <div class="text-center">
+                 <div style="font-size:14px; font-weight:bold;">
+                     Add Companies
+                     </div>
+            </div>
+
+ <form method="post" action="/Corporate/agents/corporate">
+      {% csrf_token %}
+     <input type="hidden" class="col-sm-8 form-control" name="cotrav_agent_id"  value="{{user.id }}">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4">
+                            <div class="card card-box">
+                                <div class="card-head">
+                                    <header>General Information</header>
+
+				                        <ul class = "mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+				                           data-mdl-for = "panel-button">
+				                           <li class = "mdl-menu__item"><i class="material-icons">assistant_photo</i>Action</li>
+				                           <li class = "mdl-menu__item"><i class="material-icons">print</i>Another action</li>
+				                           <li class = "mdl-menu__item"><i class="material-icons">favorite</i>Something else here</li>
+				                        </ul>
+                                </div>
+                                <div class="card-body " id="bar-parent">
+
+                                          <div class="form-group row">
+                                            <label class="col-sm-4" for="simpleFormEmail">Corporate Name</label>
+                                            <input type="text" class="col-sm-8 form-control" id="simpleFormEmail" name="corporate_name" placeholder="Corporate Name" required>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4" for="simpleFormEmail">Corporate Code</label>
+                                            <input type="text" class="col-sm-8 form-control" name="corporate_code"  placeholder="Corporate Code" required>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4" for="simpleFormEmail">Contact Name</label>
+                                            <input type="text" class="col-sm-8 form-control" name="contact_person_name" placeholder="Contact Name" required >
+                                        </div>
+
+                                         <div class="form-group row">
+                                            <label class="col-sm-4" for="simpleFormEmail">Contact No</label>
+                                            <input type="number" class="col-sm-8 form-control" name="contact_person_no" placeholder="Contact No" required>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4" for="simpleFormEmail">Contact Email</label>
+                                            <input type="email" class="col-sm-8 form-control" name="contact_person_email" placeholder="Enter email address" required>
+                                        </div>
+
+                                      <div class="form-group row">
+                                                <label class="col-sm-4" for="simpleFormEmail">IS SPOC</label>
+                                                <select class="col-sm-8 form-control" name="is_spoc">
+	                                                <option value="1">Yes</option>
+	                                                <option value="0">No</option>
+	                                            </select>
+                                            </div>
+
+
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-md-4 col-sm-4">
+                            <div class="card card-box">
+                                <div class="card-head">
+                                    <header>Billing Details</header>
+                                     <button
+				                           class = "mdl-button mdl-js-button mdl-button--icon pull-right"
+				                           data-upgraded = ",MaterialButton">
+				                           <i class = "material-icons">more_vert</i>
+				                        </button>
+				                        <ul class = "mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+				                           data-mdl-for = "panel-button">
+				                           <li class = "mdl-menu__item"><i class="material-icons">assistant_photo</i>Action</li>
+				                           <li class = "mdl-menu__item"><i class="material-icons">print</i>Another action</li>
+				                           <li class = "mdl-menu__item"><i class="material-icons">favorite</i>Something else here</li>
+				                        </ul>
+                                </div>
+                                <div class="card-body " >
+
+                                          <div class="form-group row">
+                                            <label class="col-sm-4" for="simpleFormEmail">Billing Company Name</label>
+                                            <input type="text" class="col-sm-8 form-control" name="bill_corporate_name" placeholder="Corporate Name" required>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4" for="simpleFormEmail">Billing Address Line 1</label>
+                                            <input type="text" class="col-sm-8 form-control" name="address_line_1"  placeholder="Billing Address Line 1">
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4"  for="simpleFormEmail">Billing Address Line 2</label>
+                                            <input type="text" class="col-sm-8 form-control" name="address_line_2" placeholder="Billing Address Line 2">
+                                        </div>
+
+                                         <div class="form-group row">
+                                            <label class="col-sm-4"  for="simpleFormEmail">Billing Address Line 3</label>
+                                            <input type="text" class="col-sm-8 form-control" name="address_line_3" placeholder="Billing Address Line 3">
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4"  for="simpleFormEmail">GSTIN</label>
+                                            <input type="text" class="col-sm-8 form-control" name="gst_id" placeholder="GSTIN">
+                                        </div>
+
+                                         <div class="form-group row">
+                                                <label class="col-sm-4"  for="simpleFormEmail">Has Billing SPOC Approval Level</label>
+                                              <select class="col-sm-8 form-control" name="has_billing_spoc_level">
+	                                                <option value="1">Yes</option>
+	                                                <option value="0">No</option>
+	                                            </select>
+                                            </div>
+
+                                         <div class="form-group row">
+                                                <label class="col-sm-4" for="simpleFormEmail">Has Billing Admin Approval Level</label>
+                                                <select class="col-sm-8 form-control" name="has_bill_approved_level">
+	                                                <option value="1">Yes</option>
+	                                                <option value="0">No</option>
+	                                            </select>
+                                            </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-md-4 col-sm-4">
+                            <div class="card card-box">
+                                <div class="card-head">
+                                    <header>Access Details</header>
+                                    <button id = "panel-button2"
+				                           class = "mdl-button mdl-js-button mdl-button--icon pull-right"
+				                           data-upgraded = ",MaterialButton">
+				                           <i class = "material-icons">more_vert</i>
+				                        </button>
+				                        <ul class = "mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+				                           data-mdl-for = "panel-button2">
+				                           <li class = "mdl-menu__item"><i class="material-icons">assistant_photo</i>Action</li>
+				                           <li class = "mdl-menu__item"><i class="material-icons">print</i>Another action</li>
+				                           <li class = "mdl-menu__item"><i class="material-icons">favorite</i>Something else here</li>
+				                        </ul>
+                                </div>
+                                <div class="card-body " id="bar-parent1">
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 control-label">Has Booking Approval Levels</label>
+                                            <div class="col-sm-8">
+                                                <select id="has_auth_level" class="form-control" name="has_auth_level">
+	                                                <option value="0">No</option>
+                                                    <option value="1">Yes</option>
+
+	                                            </select>
+                                            </div>
+                                        </div>
+
+                                    <div style="display: none;" id="no_of_auth_level" class="form-group row">
+                                            <label class="col-sm-4 control-label">Select Approval Levels</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" name="no_of_auth_level">
+	                                                <option value="1">1</option>
+                                                    <option value="2">2</option>
+
+	                                            </select>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 control-label">Has Assessment Codes</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" name="has_assessment_codes">
+	                                                <option value="1">Yes</option>
+	                                                <option value="0">No</option>
+	                                            </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 control-label">Radio Bookings</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" name="is_radio">
+	                                                <option value="1">Yes</option>
+	                                                <option value="0">No</option>
+	                                            </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 control-label">Local Bookings</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" name="is_local">
+	                                                <option value="1">Yes</option>
+	                                                <option value="0">No</option>
+	                                            </select>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 control-label" >Outstation Bookings</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" name="is_outstation">
+	                                                <option value="1">Yes</option>
+	                                                <option value="0">No</option>
+	                                            </select>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 control-label">Bus Bookings</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" name="is_bus" >
+	                                                <option value="1">Yes</option>
+	                                                <option value="0">No</option>
+	                                            </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 control-label">Train Bookings</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" name="is_train">
+	                                                <option value="1">Yes</option>
+	                                                <option value="0">No</option>
+	                                            </select>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 control-label">Hotel Bookings</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" name="is_hotel">
+	                                                <option value="1">Yes</option>
+	                                                <option value="0">No</option>
+	                                            </select>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 control-label">Flight Bookings</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" name="is_flight">
+	                                                <option value="1">Yes</option>
+	                                                <option value="0">No</option>
+	                                            </select>
+                                            </div>
+                                        </div>
+
+                                         <div class="form-group row">
+                                            <label class="col-sm-4 control-label">Meal Bookings</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" name="is_meal">
+	                                                <option value="1">Yes</option>
+	                                                <option value="0">No</option>
+	                                            </select>
+                                            </div>
+                                        </div>
+
+                                         <div class="form-group row">
+                                            <label class="col-sm-4 control-label">Water Bottles Bookings</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" name="is_water_bottles">
+	                                                <option value="1">Yes</option>
+	                                                <option value="0">No</option>
+	                                            </select>
+                                            </div>
+                                        </div>
+
+                                          <div class="form-group row">
+                                            <label class="col-sm-4 control-label">Reverse Logistics</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" name="is_reverse_logistics">
+	                                                <option value="1">Yes</option>
+	                                                <option value="0">No</option>
+	                                            </select>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <div class="offset-md-3 col-md-9">
+                                                <button type="submit" class="btn btn-info">Submit</button>
+                                                <button type="button" onclick="history.back();" class="btn btn-default">Cancel</button>
+                                            </div>
+                                        </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+ </form>
+  </div>
+</div>
+
+<!-- end page content -->
+
+
+
+
+{% else %}
+    <p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+<script type="text/javascript">
+ $(function() {
+    $("#has_auth_level").on('change',function(){
+    var getValue=$(this).val();
+    if(getValue == '1'){
+        $("#no_of_auth_level").show("slow");
+    }else{
+        $("#no_of_auth_level").hide("slow");
+    }
+  });
+ });
+</script>
+
+
+{% endblock %}
+
+

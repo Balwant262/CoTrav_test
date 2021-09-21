@@ -1,0 +1,111 @@
+{% extends 'Company/Approver_2/layout/header.html' %}
+
+{% block content %}
+
+{% if user %}
+
+<!-- start page content -->
+            <div class="page-content-wrapper">
+                <div class="page-content">
+
+{% include 'cotrav_alert_message.html' %}
+
+            <div class="row">
+
+                <div class="col-md-4">
+
+                 <div class="card">
+                    <div class="card-head card-topline-aqua">
+                        <header>Profile Details</header>
+                    </div>
+                    <div class="card-body no-padding height-9">
+
+                        <div class="form-group row">
+                            <table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+
+                                <tr>
+                                    <th>User ID</th>
+                                    <td>CT00{{user.id}}</td>
+                                </tr>
+                                <tr>
+                                    <th >Name</th>
+                                    <td>{{user.name}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Email</th>
+                                    <td>{{user.email}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Contact No</th>
+                                    <td>{{user.contact_no}}</td>
+                                </tr>
+
+                            </table>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+                <div class="col-md-4 col-sm-4">
+                    <div class="card card-box">
+                        <div class="card-head card-topline-aqua">
+                            <header>Change Password</header>
+
+                        </div>
+                        <div class="card-body no-padding height-9" id="bar-parent">
+
+
+
+                            <form method="post" action="/change_password">
+                            <input type="hidden" name="user_id" value="{{user.id}}">
+                            <input type="hidden" name="user_type" value="{{request.session.login_type}}">
+                            <input type="hidden" name="user_password" value="{{request.user.password}}">
+                            <input type="hidden" name="user_email" value="{{user.email}}">
+                            <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+                                  <div class="form-group row">
+                                    <label class="col-sm-4">Current Password</label>
+                                        <input class="form-control col-sm-8" name="current_password" placeholder="Current Password" type="password">
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-4">New Password</label>
+                                        <input class="form-control col-sm-8" name="new_password" placeholder="New Password" type="password">
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-4">Confirm New Password</label>
+                                        <input class="form-control col-sm-8" name="conf_password" placeholder="Confirm New Password" type="password">
+                                </div>
+
+                                <button type="submit" class="btn btn-info">CHANGE</button>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+            </div>
+
+
+
+
+                </div>
+            </div>
+            <!-- end page content -->
+
+{% else %}
+    <p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+{% endblock %}

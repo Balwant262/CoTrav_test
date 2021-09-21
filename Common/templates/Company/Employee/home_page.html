@@ -1,0 +1,194 @@
+{% extends 'Company/Employee/layout/header.html' %}
+
+{% block content %}
+
+{% for Dashboard in dataDashboard %}
+{% if user %}
+
+<!-- start page content -->
+            <div class="page-content-wrapper">
+                <div class="page-content">
+
+					<div class="row">
+
+
+
+
+                         <div class="col-md-3">
+                              <div class="info-box bg-b-purple">
+							            <span class="info-box-icon"><i class="material-icons">card_travel</i></span>
+
+							            <div class="info-box-content">
+                                            <span class="info-box-text"></span>
+                                          <span class="info-box-text">Total Number of Bookings</span>
+                                            <span class="info-box-number" >{{Dashboard.total_bookings_count|default:'0'}}</span>
+							            </div>
+							          </div>
+
+                                <div class="info-box bg-b-green">
+							            <span class="info-box-icon"><i class="material-icons">assignment_turned_in</i></span>
+							            <div class="info-box-content">
+							              <span class="info-box-text">Active Assigned</span>
+							              <span class="info-box-number">{{Dashboard.uc_total_bookings_count|default:'0'}}</span>
+							            </div>
+							          </div>
+
+                                  <div class="info-box bg-b-blue">
+							            <span class="info-box-icon"><i class="material-icons">assignment_late</i></span>
+							            <div class="info-box-content">
+							              <span class="info-box-text">Active Unassigned</span>
+							              <span class="info-box-number">{{Dashboard.tom_total_bookings_count|default:'0'}}</span>
+							            </div>
+							          </div>
+
+
+                                  <div class="info-box bg-b-orange">
+							            <span class="info-box-icon"><i class="material-icons">done_all</i></span>
+							            <div class="info-box-content">
+							              <span class="info-box-text">Pending Approval</span>
+							              <span class="info-box-number">{{Dashboard.pa_total_bookings_count|default:'0'}}</span>
+							            </div>
+							          </div>
+
+
+                            </div>
+
+						    <div class="col-md-9">
+
+								 <div class="card card-topline-lightblue">
+                                <div class="card-head">
+                                    <header>Booking summary: (till {% now "jS \o\f F" %})</header>
+
+                                </div>
+                                <div class="card-body" id="chartjs_bar_parent" >
+                                    <div class="row">
+
+										<canvas id="myChart501"  height="120"></canvas>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+							</div>
+
+					</div>
+
+
+
+    <!--Chart JS-->
+{% load static %}
+    <script src="{% static 'assets/plugins/chart-js/Chart.bundle.js' %}" ></script>
+    <script src="{% static 'assets/plugins/chart-js/utils.js' %}" ></script>
+
+{% else %}
+    <p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+<script>
+
+var ctx = document.getElementById("myChart501").getContext("2d");
+
+var data = {
+  labels: ["Total Bookings", "Active Assigned", "Active Unassigned", "Pending Approval",  "Archived Assigned"],
+  datasets: [{
+    label: "Taxi",
+    backgroundColor: "pink",
+    data: [{{Dashboard.taxi_bookings_count}}, {{Dashboard.uc_taxi_bookings_count}}, {{Dashboard.tom_taxi_bookings_count}}, {{Dashboard.pa_taxi_bookings_count}}, {{Dashboard.archiv_taxi_bookings_count}}]
+  }, {
+    label: "Bus",
+    backgroundColor: "blue",
+    data: [{{Dashboard.bus_bookings_count}}, {{Dashboard.uc_bus_bookings_count}}, {{Dashboard.tom_bus_bookings_count}}, {{Dashboard.pa_bus_bookings_count}}, {{Dashboard.archiv_bus_bookings_count}}]
+  }, {
+    label: "Train",
+    backgroundColor: "grey",
+    data: [{{Dashboard.train_bookings_count}}, {{Dashboard.uc_train_bookings_count}}, {{Dashboard.tom_train_bookings_count}}, {{Dashboard.pa_train_bookings_count}}, {{Dashboard.archiv_train_bookings_count}}]
+  }, {
+    label: "Hotel",
+    backgroundColor: "green",
+    data: [{{Dashboard.hotel_bookings_count}}, {{Dashboard.uc_hotel_bookings_count}}, {{Dashboard.tom_hotel_bookings_count}}, {{Dashboard.pa_hotel_bookings_count}}, {{Dashboard.archiv_hotel_bookings_count}}]
+  }, {
+    label: "Flight",
+    backgroundColor: "orange",
+    data: [{{Dashboard.flight_bookings_count}}, {{Dashboard.uc_flight_bookings_count}}, {{Dashboard.tom_flight_bookings_count}}, {{Dashboard.pa_flight_bookings_count}}, {{Dashboard.archiv_flight_bookings_count}}]
+  }, {
+    label: "Visa",
+    backgroundColor: "yellow",
+    data: [{{Dashboard.visa_bookings_count|default:'0'}}, {{Dashboard.uc_visa_bookings_count|default:'0'}}, {{Dashboard.tom_visa_bookings_count|default:'0'}}, {{Dashboard.pa_visa_bookings_count|default:'0'}}, {{Dashboard.archiv_visa_bookings_count|default:'0'}}]
+  }, {
+    label: "FRRO",
+    backgroundColor: "purple",
+    data: [{{Dashboard.frro_bookings_count|default:'0'}}, {{Dashboard.uc_frro_bookings_count|default:'0'}}, {{Dashboard.tom_frro_bookings_count|default:'0'}}, {{Dashboard.pa_frro_bookings_count|default:'0'}}, {{Dashboard.archiv_frro_bookings_count|default:'0'}}]
+  },]
+};
+
+var myBarChart = new Chart(ctx, {
+  type: 'bar',
+  data: data,
+  options: {
+    barValueSpacing: 10,
+    scales: {
+       xAxes: [{
+
+            barPercentage: 0.7
+         }],
+      yAxes: [{
+        ticks: {
+          min: 0,
+        },
+              scaleLabel: {
+                        display: true,
+                        labelString: 'Number of bookings',
+              },
+      }]
+    },
+          animation: {
+      onComplete: function(animation) {
+
+                const chartInstance = this.chart,
+                ctx = chartInstance.ctx;
+
+                const fontSize = 10;
+                const fontStyle = '600';
+                const fontFamily = 'Open Sans';
+                ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
+
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'bottom';
+                ctx.fillStyle = '#676A6C';
+
+                this.data.datasets.forEach(function (dataset, i) {
+                const meta = chartInstance.controller.getDatasetMeta(i);
+                meta.data.forEach(function (bar, index) {
+                if(dataset.data[index] != 0){
+                  const data = dataset.data[index];
+                  ctx.fillText(data, bar._model.x+2, bar._model.y-1);
+            }
+          });
+        });
+
+         }
+      }
+  }
+});
+
+
+
+</script>
+
+
+
+
+
+{% endfor %}
+
+{% endblock %}
+
+
+
+
+

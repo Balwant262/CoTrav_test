@@ -1,0 +1,610 @@
+{% extends 'Agent/layout/header.html' %}
+
+{% block content %}
+
+
+{% if user %}
+			<!-- start page content -->
+{% include 'cotrav_alert_message.html' %}
+            <div class="page-content-wrapper">
+                <div class="page-content">
+
+           <div class="text-center">
+     <div style="font-size:14px; font-weight:bold;">
+         {% if operators %}
+         Edit Operators Details
+         {% else %}
+            Add New Operators Details
+         {% endif %}
+         </div>
+   </div>
+
+ <form method="post" action="/agents/add-operator/0" id="model_serialize_update">
+      {% csrf_token %}
+     <input type="hidden" class="col-sm-8 form-control" name="cotrav_agent_id"  value="{{user.id }}">
+ <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+            {% if operators %}
+            {% for operator in operators %}
+            <input type="hidden" class="col-sm-8 form-control" name="operator_id" value="{{operator.id }}">
+            {% endfor %}
+            {% endif %}
+
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4">
+                            <div class="card card-topline-aqua">
+                                <div class="card-head">
+                                    <header>General Information</header>
+
+				                        <ul class = "mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+				                           data-mdl-for = "panel-button">
+				                           <li class = "mdl-menu__item"><i class="material-icons">assistant_photo</i>Action</li>
+				                           <li class = "mdl-menu__item"><i class="material-icons">print</i>Another action</li>
+				                           <li class = "mdl-menu__item"><i class="material-icons">favorite</i>Something else here</li>
+				                        </ul>
+                                </div>
+                                <div class="card-body " id="bar-parent">
+
+                                          <div class="form-group row">
+                                            <label class="col-sm-4" for="simpleFormEmail">Login User Name</label>
+
+                                            {% if operators %}
+                                            {% for operator in operators %}
+                                            <input type="text" class="col-sm-8 form-control" name="username" placeholder="Login User Name" value="{{operator.username}}" required>
+                                            {% endfor %}
+                                              {% else %}
+                                               <input type="text" class="col-sm-8 form-control" id="simpleFormEmail" name="username" placeholder="Login User Name" required>
+                                            {% endif %}
+                                        </div>
+
+                                    <div class="form-group row">
+                                            <label class="col-sm-4" for="simpleFormEmail">Operator Name</label>
+                                            {% if operators %}
+                                            {% for operator in operators %}
+                                            <input type="text" class="col-sm-8 form-control" name="operator_name" value="{{operator.operator_name}}" required>
+                                            {% endfor %}
+                                              {% else %}
+                                            <input type="text" class="col-sm-8 form-control" name="operator_name" placeholder="Operator Name" required>
+                                                {% endif %}
+                                        </div>
+
+                                      <div class="form-group row">
+                                            <label class="col-sm-4" for="simpleFormEmail">Operator Email</label>
+                                          {% if operators %}
+                                            {% for operator in operators %}
+                                            <input type="text" class="col-sm-8 form-control" name="operator_email" value="{{operator.operator_email}}" required>
+                                            {% endfor %}
+                                              {% else %}
+                                            <input type="email" class="col-sm-8 form-control" name="operator_email" placeholder="Operator Email" required>
+                                          {% endif %}
+                                        </div>
+
+                                      <div class="form-group row">
+                                            <label class="col-sm-4" for="simpleFormEmail">Operator Contact</label>
+                                          {% if operators %}
+                                            {% for operator in operators %}
+                                            <input type="text" class="col-sm-8 form-control" name="operator_contact" value="{{operator.operator_contact}}" required>
+                                            {% endfor %}
+                                              {% else %}
+                                            <input type="text" class="col-sm-8 form-control" name="operator_contact" placeholder="Operator Contact" required>
+                                          {% endif %}
+                                        </div>
+
+                                    <div class="form-group row">
+                                            <label class="col-sm-4" for="simpleFormEmail">Website</label>
+                                        {% if operators %}
+                                            {% for operator in operators %}
+                                            <input type="text" class="col-sm-8 form-control" name="website" value="{{operator.website}}">
+                                            {% endfor %}
+                                              {% else %}
+                                            <input type="text" class="col-sm-8 form-control" name="website" placeholder="Website">
+                                        {% endif %}
+                                        </div>
+
+                                    <div class="form-group row">
+                                            <label class="col-sm-4" for="simpleFormEmail">Operator Address</label>
+                                        {% if operators %}
+                                            {% for operator in operators %}
+                                            <input type="text" class="col-sm-8 form-control" name="operator_address" value="{{operator.operator_address}}">
+                                            {% endfor %}
+                                              {% else %}
+                                            <input type="text" class="col-sm-8 form-control" name="operator_address" placeholder="Operator Address">
+                                        {% endif %}
+                                        </div>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-md-4 col-sm-4">
+                            <div class="card card-topline-aqua">
+                                <div class="card-head">
+                                    <header>Other Details</header>
+                                    <button id = "panel-button2"
+				                           class = "mdl-button mdl-js-button mdl-button--icon pull-right"
+				                           data-upgraded = ",MaterialButton">
+				                           <i class = "material-icons">more_vert</i>
+				                        </button>
+				                        <ul class = "mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+				                           data-mdl-for = "panel-button2">
+				                           <li class = "mdl-menu__item"><i class="material-icons">assistant_photo</i>Action</li>
+				                           <li class = "mdl-menu__item"><i class="material-icons">print</i>Another action</li>
+				                           <li class = "mdl-menu__item"><i class="material-icons">favorite</i>Something else here</li>
+				                        </ul>
+                                </div>
+                                <div class="card-body " id="bar-parent1">
+
+                                     <div class="form-group row">
+                                                <label class="col-sm-4">Tax Applicable</label>
+                                         {% if operators %}
+                                            {% for operator in operators %}
+
+                                              <select class="col-sm-8 form-control " name="is_service_tax_applicable">
+	                                                <option value="1" {% if operator.is_service_tax_applicable == 1 %} selected {%endif%}>Yes</option>
+	                                                <option value="0" {% if operator.is_service_tax_applicable == 0 %} selected {%endif%}>No</option>
+	                                            </select>
+
+                                            {% endfor %}
+                                              {% else %}
+
+                                                <select class="col-sm-8 form-control" name="is_service_tax_applicable">
+	                                                <option value="1">Yes</option>
+	                                                <option value="0">No</option>
+	                                            </select>
+
+                                         {% endif %}
+
+                                            </div>
+
+
+                                     <div class="form-group row " id="row_start_time" style="display:none;">
+                                            <label class="col-sm-4" for="simpleFormEmail">Night Start Time</label>
+                                         {% if operators %}
+                                            {% for operator in operators %}
+                                            <input type="text" class="col-sm-8 form-control timepicker1" autocomplete="off" id="night_start_time" name="night_start_time" value="{{operator.night_start_time}}">
+                                            {% endfor %}
+                                              {% else %}
+                                            <input type="text" class="col-sm-8 form-control timepicker1" autocomplete="off" id="night_start_time" name="night_start_time" placeholder="Night Start Time">
+                                         {% endif %}
+                                        </div>
+
+                                     <div class="form-group row" id="row_end_time" style="display:none;">
+                                            <label class="col-sm-4" for="simpleFormEmail">Night End Time</label>{% if operators %}
+                                            {% for operator in operators %}
+                                            <input type="text" class="col-sm-8 form-control timepicker1" autocomplete="off" id="night_end_time" name="night_end_time"  value="{{operator.night_end_time}}">
+                                            {% endfor %}
+                                              {% else %}
+                                            <input type="text" class="col-sm-8 form-control timepicker1" autocomplete="off" id="night_end_time" name="night_end_time" placeholder="Night End Time">
+                                         {% endif %}
+                                        </div>
+
+                                     <div class="form-group row">
+                                            <label class="col-sm-4" for="simpleFormEmail">TDS Rate</label>
+                                         {% if operators %}
+                                            {% for operator in operators %}
+                                            <input type="text" class="col-sm-8 form-control" name="tds_rate" value="{{operator.tds_rate}}">
+                                            {% endfor %}
+                                              {% else %}
+                                            <input type="text" class="col-sm-8 form-control" name="tds_rate" placeholder="TDS Rate">
+                                         {% endif %}
+                                        </div>
+
+                                     <div class="form-group row">
+                                            <label class="col-sm-4" for="simpleFormEmail">GST ID</label>
+                                         {% if operators %}
+                                            {% for operator in operators %}
+                                            <input type="text" class="col-sm-8 form-control" name="gst_id" value="{{operator.gst_id}}">
+                                            {% endfor %}
+                                              {% else %}
+                                            <input type="text" class="col-sm-8 form-control" name="gst_id" placeholder="GST ID">
+                                         {% endif %}
+                                        </div>
+
+                                     <div class="form-group row">
+                                            <label class="col-sm-4" for="simpleFormEmail">PAN NO</label>
+                                         {% if operators %}
+                                            {% for operator in operators %}
+                                             <input type="text" class="col-sm-8 form-control" name="pan_no" placeholder="PAN NO" value="{{operator.pan_no}}">
+                                            {% endfor %}
+                                              {% else %}
+                                            <input type="text" class="col-sm-8 form-control" name="pan_no" placeholder="PAN NO">
+                                         {% endif %}
+                                        </div>
+
+                                     <div class="form-group row" id="row_name" style="display:none;">
+                                    <label class="col-sm-4" for="simpleFormEmail">Portal Login Name</label>
+                                 {% if operators %}
+                                         <input type="text" class="col-sm-8 form-control" id="portal_login_name" name="portal_login_name" placeholder="Portal Login Name">
+                                      {% else %}
+                                    <input type="text" class="col-sm-8 form-control" id="portal_login_name" name="portal_login_name" placeholder="Portal Login Name">
+                                 {% endif %}
+                                </div>
+
+                            <div class="form-group row" id="row_password" style="display:none;">
+                                    <label class="col-sm-4" for="simpleFormEmail">Portal Login Password</label>
+                                 {% if operators %}
+                                <input type="text" class="col-sm-8 form-control" id="portal_login_password" name="portal_login_password" placeholder="Portal Login Password">
+                                      {% else %}
+                                    <input type="text" class="col-sm-8 form-control" id="portal_login_password" name="portal_login_password" placeholder="Portal Login Password">
+                                 {% endif %}
+                                </div>
+
+
+                                    <div class="form-group row" id="row_city_id" style="display:none;">
+                                    <label class="col-sm-4" for="simpleFormEmail">Select City</label>
+
+                                        {% if operators %}
+                                {% for operator in operators %}
+                                    <select class="col-sm-8 form-control  myselect" style="width:66%"  name="city_id" id="city_id">
+                                        <option value="">Select City</option>
+                                        {% for citie in cities %}
+
+                                        <option value="{{citie.id}}" {% if operator.city_id == citie.id %} selected {%endif%}>{{citie.city_name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                {% endfor %}
+                                {% else %}
+
+                                     <select class="col-sm-8 form-control  myselect" style="width:66%"  name="city_id" id="city_id"  required>
+                                        <option value="">Select City</option>
+                                        {% for citie in cities %}
+                                        <option value="{{citie.id}}">{{citie.city_name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                {% endif %}
+
+                                </div>
+
+
+
+
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                                        <div class="col-md-4 col-sm-4">
+                    <div class="card card-topline-aqua">
+                        <div class="card-head">
+                            <header>Service Details</header>
+                            <button id="panel-button1"
+                                    class="mdl-button mdl-js-button mdl-button--icon pull-right"
+                                    data-upgraded=",MaterialButton">
+                                <i class="material-icons">more_vert</i>
+                            </button>
+                            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                                data-mdl-for="panel-button2">
+                                <li class="mdl-menu__item"><i class="material-icons">assistant_photo</i>Action</li>
+                                <li class="mdl-menu__item"><i class="material-icons">print</i>Another action</li>
+                                <li class="mdl-menu__item"><i class="material-icons">favorite</i>Something else here
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body " id="bar-parent1">
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Radio Bookings</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control taxi_service" name="is_radio">
+                                        <option value="0">No</option>
+                                        {% if operators %}
+                                        {% for operator in operators %}
+                                            <option value="1" {% if operator.is_radio == 1 %} selected {%endif%}>Yes</option>
+                                        {% endfor %}
+                                        {% else %}
+                                            <option value="1">Yes</option>
+                                        {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Local Bookings</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control taxi_service" name="is_local">
+                                        <option value="0">No</option>
+                                        {% if operators %}
+                                        {% for operator in operators %}
+                                        <option value="1" {% if operator.is_local == 1 %} selected {%endif%}>Yes</option>
+                                        {% endfor %}
+                                        {% else %}
+                                         <option value="1">Yes</option>
+                                        {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Outstation Bookings</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control taxi_service" name="is_outstation">
+                                        <option value="0">No</option>
+                                        {% if operators %}
+                                        {% for operator in operators %}
+                                         <option value="1" {% if operator.is_outstation == 1 %} selected {%endif%}>Yes</option>
+                                         {% endfor %}
+                                        {% else %}
+                                         <option value="1">Yes</option>
+                                        {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Bus Bookings</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control bus_service" name="is_bus">
+                                        <option value="0">No</option>
+                                         {% if operators %}
+                                        {% for operator in operators %}
+                                         <option value="1" {% if operator.is_bus == 1 %} selected {%endif%}>Yes</option>
+                                         {% endfor %}
+                                        {% else %}
+                                         <option value="1">Yes</option>
+                                        {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Train Bookings</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="is_train">
+                                        <option value="0">No</option>
+                                         {% if operators %}
+                                        {% for operator in operators %}
+                                         <option value="1" {% if operator.is_train == 1 %} selected {%endif%}>Yes</option>
+                                         {% endfor %}
+                                        {% else %}
+                                         <option value="0">Yes</option>
+                                        {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Hotel Bookings</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control hotel_service" name="is_hotel">
+                                        <option value="0">No</option>
+                                         {% if operators %}
+                                        {% for operator in operators %}
+                                         <option value="1" {% if operator.is_hotel == 1 %} selected {%endif%}>Yes</option>
+                                         {% endfor %}
+                                        {% else %}
+                                         <option value="1">Yes</option>
+                                        {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Flight Bookings</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="is_flight">
+                                        <option value="0">No</option>
+                                         {% if operators %}
+                                        {% for operator in operators %}
+                                         <option value="1" {% if operator.is_flight == 1 %} selected {%endif%}>Yes</option>
+                                         {% endfor %}
+                                        {% else %}
+                                         <option value="1">Yes</option>
+                                        {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Meal Bookings</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="is_meal">
+                                        <option value="0">No</option>
+                                         {% if operators %}
+                                        {% for operator in operators %}
+                                         <option value="1" {% if operator.is_meal == 1 %} selected {%endif%}>Yes</option>
+                                         {% endfor %}
+                                        {% else %}
+                                         <option value="1">Yes</option>
+                                        {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Water Bottles Bookings</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="is_water_bottles">
+                                        <option value="0">No</option>
+                                         {% if operators %}
+                                        {% for operator in operators %}
+                                         <option value="1" {% if operator.is_water_bottles == 1 %} selected {%endif%}>Yes</option>
+                                         {% endfor %}
+                                        {% else %}
+                                         <option value="1">Yes</option>
+                                        {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Reverse Logistics</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="is_reverse_logistics">
+                                        <option value="0">No</option>
+                                         {% if operators %}
+                                        {% for operator in operators %}
+                                         <option value="1" {% if operator.is_reverse_logistics == 1 %} selected {%endif%}>Yes</option>
+                                         {% endfor %}
+                                        {% else %}
+                                         <option value="1">Yes</option>
+                                        {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+                    </div>
+
+     <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                    <div class="text-center">
+                        <input type="submit" value="Submit" class="btn btn-info">
+                        <a href="{{request.META.HTTP_REFERER}}" class="btn btn-default">  Cancel  </a>
+                    </div>
+                </div>
+                <div class="col-sm-4"></div>
+
+                
+
+ </form>
+  </div>
+</div>
+
+<!-- end page content -->
+
+<script type="text/javascript">
+   $(".myselect").select2();
+</script>
+
+
+{% else %}
+    <p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+<script type="text/javascript">
+
+$('.taxi_service').on('change', function (e) {
+    var optionSelected = $("option:selected", this);
+    var type = this.value;
+
+    if(type == 1){
+        $('#row_start_time').show();
+        $('#row_end_time').show();
+        $("#night_start_time").attr('required',true);
+        $("#night_end_time").attr('required',true);
+    }else{
+        $('#row_start_time').hide();
+        $('#row_end_time').hide();
+        $("#night_start_time").attr('required',false);
+        $("#night_end_time").attr('required',false);
+    }
+
+});
+
+$('.bus_service').on('change', function (e) {
+    var optionSelected = $("option:selected", this);
+    var type = this.value;
+
+    if(type == 1){
+        $('#row_name').show();
+        $('#row_password').show();
+        $("#portal_login_name").attr('required',true);
+        $("#portal_login_password").attr('required',true);
+    }else{
+        $('#row_name').hide();
+        $('#row_password').hide();
+        $("#portal_login_name").attr('required',false);
+        $("#portal_login_password").attr('required',false);
+    }
+
+});
+
+$('.hotel_service').on('change', function (e) {
+    var optionSelected = $("option:selected", this);
+    var type = this.value;
+    if(type == 1){
+        $('#row_city_id').show();
+        $("#row_city_id").attr('required',true);
+    }else{
+       $('#row_city_id').hide();
+        $("#row_city_id").attr('required',false);
+    }
+});
+
+
+
+
+</script>
+<script>
+$( document ).ready(function() {
+
+var hotel_service = $('.hotel_service').val();
+if(hotel_service == 1){
+        $('#row_city_id').show();
+        $("#row_city_id").attr('required',true);
+    }else{
+       $('#row_city_id').hide();
+        $("#row_city_id").attr('required',false);
+    }
+
+
+var bus_service = $('.bus_service').val();
+if(bus_service == 1){
+        $('#row_name').show();
+        $('#row_password').show();
+        $("#portal_login_name").attr('required',true);
+        $("#portal_login_password").attr('required',true);
+    }else{
+        $('#row_name').hide();
+        $('#row_password').hide();
+        $("#portal_login_name").attr('required',false);
+        $("#portal_login_password").attr('required',false);
+    }
+
+var taxi_service = $('.taxi_service').val();
+    if(taxi_service == 1){
+        $('#row_start_time').show();
+        $('#row_end_time').show();
+        $("#night_start_time").attr('required',true);
+        $("#night_end_time").attr('required',true);
+    }else{
+        $('#row_start_time').hide();
+        $('#row_end_time').hide();
+        $("#night_start_time").attr('required',false);
+        $("#night_end_time").attr('required',false);
+    }
+
+
+$('#model_serialize_update')
+.each(function(){
+$(this).data('serialized', $(this).serialize())
+})
+    .on('change input', function(){
+        $(this)
+            .find('input:submit, button:submit')
+                .attr('disabled', $(this).serialize() == $(this).data('serialized'))
+        ;
+     })
+.find('input:submit, button:submit')
+.attr('disabled', true);
+
+});
+
+$(document.body).on("change",".myselect",function(){
+  $('form')
+      .find('input:submit, button:submit')
+          .attr('disabled', $('#model_serialize_update').serialize() == $('#model_serialize_update').data('serialized'))
+  ;
+});
+
+</script>
+{% endblock %}

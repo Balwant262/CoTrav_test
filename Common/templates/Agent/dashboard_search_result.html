@@ -1,0 +1,716 @@
+{% extends 'Agent/layout/header.html' %}
+
+{% block content %}
+
+
+{% if user %}
+			<!-- start page content -->
+{% include 'cotrav_alert_message.html' %}
+            <div class="page-content-wrapper">
+                <div class="page-content">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card card-topline-aqua">
+
+                     <div class="card-body ">
+
+
+                    </div>
+
+
+                {% if serveType == 1 %}
+
+                      <div class="card-head">
+                                    <header>Taxi Bookings Search Result</header>
+                                    <div class="tools">
+                                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+	                                    <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+	                                    <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                                    </div>
+                                </div>
+
+
+                    <div class="card-body ">
+
+                        <br>
+
+                        <div class="table-scrollable table-bordered">
+
+                            <table id="example1" class="display full-width table-striped">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Booking ID</th>
+                                    <th>City</th>
+                                    <th>Booking Date | Time</th>
+                                    <th>Pickup Date | Time</th>
+                                    <th>Pickup Location</th>
+                                    <th>Drop Location</th>
+                                    <th>Tour Type</th>
+                                    <th>Client Status</th>
+                                    <th>CoTrav Status</th>
+                                    <th>Action</th>
+                                    <th>Operator Details</th>
+                                    <th>Taxi/Driver Details</th>
+                                    <th>SPOC Details</th>
+
+                                    <th>Passenger Details</th>
+                                    <th>Booking Notes</th>
+                                    <th>Assign To</th>
+
+                                    <th>Details</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                {% for booking in bookings %}
+                                <tr>
+                                    <td>{{ booking.id }}</td>
+                                    <td>{{ booking.reference_no }}<br>({{booking.corporate_name}})</td>
+                                    <td>{{ booking.city_name }}</td>
+                                    <td>{{ booking.booking_date}}</td>
+                                    <td>{{ booking.pickup_datetime }}</td>
+                                    <td>{{ booking.pickup_location }}</td>
+                                    <td>{{ booking.drop_location }}</td>
+                                    {% if booking.tour_type == 1 %}
+                                    <td>Radio</td>
+                                    {% elif booking.tour_type == 2 %}
+                                    <td>Local</td>
+                                    {% else %}
+                                    <td>Outstation</td>
+                                    {% endif %}
+
+
+
+                                    <td>{{ booking.client_status }} </td>
+                                    <td>{{ booking.cotrav_status }}<br/>
+                                        {% if booking.status_cotrav > 1 %}
+                                            ({{ booking.cotrav_agent_name|default:'' }})
+                                        {% endif %}
+                                    <td style="display: inline-flex;">
+                                        {% if booking.status_cotrav == 1 %}
+                                     <a title="Accept Booking" style="background:cadetblue; color:white;" data-target="#model_action" data-id="{{booking.id}}" data-accept_id="1"
+                                           data-toggle="modal" class="btn btn-tbl-edit btn-xs">  <i class="fa fa-check"></i> </a>
+                                    {% endif %}
+                                        <a title="Reject Booking"  data-target="#model_action" data-id="{{booking.id}}" data-reject_id="1"
+                                           data-toggle="modal" class="btn btn-tbl-delete btn-xs" >  <i class="fa fa-times "></i> </a>
+
+                                        {% if booking.status_cotrav == 2 %}
+                                        <a title="Assign Booking" href="/agents/assign-taxi-booking/{{booking.id}}" class="btn btn-tbl-edit btn-xs" style="background:#6288b1;">  <i class="fa fa-pencil"></i> </a>
+
+                                        {% endif %}
+
+                                    {% if booking.status_cotrav == 4 %}
+                                    <a title="Add Invoice" href="/agents/add-taxi-invoice/{{booking.id}}" class="btn btn-tbl-edit btn-xs" style="background:#6288b1;">  <i class="fa fa-plus"></i> </a>
+                                    {% endif %}
+
+                                    </td>
+
+                                    {% if booking.operator_name %}
+                                    <td>{{ booking.operator_name|default:'' }}<br/>({{ booking.operator_contact|default:'' }})</td>
+                                    {% else %}
+                                    <td>
+
+                                        {% if booking.status_cotrav == 2 %}
+
+                                        <a title="Assign Operator" style="background:cadetblue; color:white;" data-target="#model_action_assign_oper" data-id="{{booking.id}}" data-accept_id="1"
+                                           data-toggle="modal" class="btn btn-tbl-edit btn-xs">  <i class="fa fa-plus"></i> </a>
+                                        {% endif %}
+
+                                    </td>
+                                    {% endif %}
+
+
+                                    {% if booking.driver_name %}
+                                    <td>{{ booking.driver_name|default:'' }}<br/>({{ booking.driver_contact|default:'' }})</td>
+                                    {% else %}
+                                    <td></td>
+                                    {% endif %}
+
+                                    <td>{{ booking.user_name }}<br/>({{ booking.user_contact }})</td>
+
+
+
+                                    <td>
+                                        {% for passanger in booking.Passangers %}
+                                        {{ passanger.employee_name|default:'' }} <br/>({{ passanger.employee_contact|default:''}})<br/>
+                                        {% endfor %}
+                                    </td>
+
+                                    <td>
+
+                                        {% for tracking in booking.TrackingStatus %}
+                                        <b>{{ tracking.user_name|default:'' }}</b> [ {{tracking.status_date}} ]: {{tracking.tracking_status}} <br/>
+                                        {% endfor %}
+                                        <a title="Add Tracking Status" style="background:cadetblue; color:white;" data-target="#model_action_tracking" data-id="{{booking.id}}"
+                                           data-toggle="modal" class="btn btn-tbl-edit btn-xs">  <i class="fa fa-comment"></i> </a>
+
+                                    </td>
+
+                                    <td>
+                                        {% if booking.assigned_by_agent_name %}
+                                        Assigned by :<b>{{booking.assigned_by_agent_name}}</b><br/>Assigned to :<b>{{booking.assigned_to_agent_name}}</b>
+                                        {% endif %}
+                                        <a title="Add Tracking Status" style="background:cadetblue; color:white;" data-target="#model_action_assign" data-id="{{booking.id}}"
+                                           data-toggle="modal" class="btn btn-tbl-edit btn-xs">  <i class="fa fa-user"></i> </a>
+
+                                    </td>
+
+                                    <td>
+                                        <a title="Booking Details" href="/agents/view-taxi-booking/{{ booking.id }}" class="btn btn-tbl-edit btn-xs" style="background:#6288b1;"> <i  class="fa fa-search"></i> </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                {% endif %}
+
+               {% if serveType == 2 %}
+                    <div class="card-head">
+                                    <header>Bus Bookings Search Result</header>
+                                    <div class="tools">
+                                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+	                                    <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+	                                    <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                                    </div>
+                                </div>
+
+                    <div class="card-body ">
+
+                        <div class="table-scrollable table-bordered">
+
+                            <table id="example1" class="display full-width table-striped">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Booking ID</th>
+                                    <th>Pickup City</th>
+                                    <th>Drop City</th>
+                                    <th>Booking Date | Time</th>
+                                    <th>Boarding Point</th>
+                                    <th>Boarding Date | Time</th>
+                                    <th>Date of Journey</th>
+                                    <th>Bus Type (Assigned)</th>
+                                    <th>Client Status</th>
+                                    <th>CoTrav Status</th>
+                                    <th>Accept/Reject</th>
+                                    <th>Operator Details</th>
+                                    <th>SPOC Details</th>
+                                    <th>Passenger Details</th>
+                                    <th>Booking Notes</th>
+                                    <th>Assign To</th>
+                                    <th>Details</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for booking in bookings %}
+                                <tr>
+                                    <td>{{ booking.id }}</td>
+                                    <td>{{ booking.reference_no|default:'' }}<br>({{booking.corporate_name}})</td>
+                                    <td>{{ booking.pickup_location|default:'' }}</td>
+                                    <td>{{ booking.drop_location|default:''}}</td>
+                                    <td>{{ booking.booking_datetime|default:'' }}</td>
+                                    <td>{{ booking.boarding_point|default:'' }}</td>
+                                    <td>{{ booking.boarding_datetime|default:'' }}</td>
+                                    <td>{{ booking.pickup_from_datetime|default:''}} To {{ booking.pickup_to_datetime|default:'' }} </td>
+                                    <td>{{ booking.bus_types_assign_name|default:''}}</td>
+                                    <td>{{ booking.client_status }} </td>
+                                    <td>{{ booking.cotrav_status }}
+                                        {% if booking.status_cotrav > 1 %}
+                                            ({{ booking.cotrav_agent_name|default:'' }})
+                                        {% endif %}</td>
+
+                                    <td style="display: inline-flex;">
+                                        {% if booking.status_cotrav == 1 %}
+                                     <a style="margin-left:10px; background:cadetblue; color:white;" data-target="#model_action" data-id="{{booking.id}}" data-accept_id="1"
+                                           data-toggle="modal" class="btn btn-tbl-edit btn-xs"> <i class="fa fa-check"></i>  </a>
+                                    {% endif %}
+                                        <a style="margin-left:10px;" data-target="#model_action" data-id="{{booking.id}}" data-reject_id="1"
+                                           data-toggle="modal" class="btn btn-tbl-delete btn-xs" >  <i class="fa fa-times "></i></a>
+
+                                        {% if booking.status_cotrav == 2 %}
+                                        <a href="/agents/assign-bus-booking/{{booking.id}}" class="btn btn-tbl-edit btn-xs" style="margin-left:10px; background:#6288b1;">  <i class="fa fa-book"></i> </a>
+                                        {% endif %}
+
+                                    </td>
+
+
+
+
+                                    {% if booking.operator_name %}
+                                    <td>{{ booking.operator_name|default:'' }}<br/>({{ booking.operator_contact|default:'' }})</td>
+                                    {% else %}
+                                    <td></td>
+                                    {% endif %}
+
+                                    <td>{{ booking.user_name }}<br/>({{ booking.user_contact }})</td>
+
+
+                                     <td>
+                                        {% for passanger in booking.Passangers %}
+                                        {{ passanger.employee_name|default:'' }} <br/>({{ passanger.employee_contact|default:''}})<br/>
+                                        {% endfor %}
+                                    </td>
+
+                                    <td>
+
+                                        {% for tracking in booking.TrackingStatus %}
+                                        <b>{{ tracking.user_name|default:'' }}</b> [ {{tracking.status_date}} ]: {{tracking.tracking_status}} <br/>
+                                        {% endfor %}
+                                        <a title="Add Tracking Status" style="background:cadetblue; color:white;" data-target="#model_action_tracking" data-id="{{booking.id}}"
+                                           data-toggle="modal" class="btn btn-tbl-edit btn-xs">  <i class="fa fa-comment"></i> </a>
+
+                                    </td>
+
+                                     <td>
+                                        {% if booking.assigned_by_agent_name %}
+                                        Assigned by :<b>{{booking.assigned_by_agent_name}}</b><br/>Assigned to :<b>{{booking.assigned_to_agent_name}}</b>
+                                        {% endif %}
+                                        <a title="Add Tracking Status" style="background:cadetblue; color:white;" data-target="#model_action_assign" data-id="{{booking.id}}"
+                                           data-toggle="modal" class="btn btn-tbl-edit btn-xs">  <i class="fa fa-user"></i> </a>
+
+                                    </td>
+
+
+
+                                    <td>
+                                        <a href="/agents/view-bus-booking/{{ booking.id }}" class="btn btn-tbl-edit btn-xs" style="background:#6288b1;"> <i class="fa fa-search"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                {% endif %}
+
+
+
+                {% if serveType == 3 %}
+                    <div class="card-head">
+                                    <header>Train Bookings Search Result</header>
+                                    <div class="tools">
+                                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+	                                    <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+	                                    <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                                    </div>
+                                </div>
+
+                    <div class="card-body ">
+
+                           <div class="text-center">
+     <div style="font-size:14px; font-weight:bold;">
+        {% if booking_type == 2 %} Active Bookings(Unassigned) -General  {% endif %}
+        {% if booking_type == 8 %} Active Bookings(Unassigned) -Tatkal {% endif %}
+        {% if booking_type == 9 %} Active Bookings(Unassigned) -Not Booked In Tatkal {% endif %}
+         </div>
+   </div>
+
+                        <div class="table-scrollable table-bordered">
+
+                            <table id="example1" class="display full-width table-striped">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Booking ID</th>
+                                    <th>From</th>
+                                    <th>To</th>
+                                    <th>Booking Date | Time</th>
+                                    <th>Boarding Point</th>
+                                    <th>Date of Journey</th>
+                                    <th>Train Type</th>
+                                    <th>Client Status</th>
+                                    <th>CoTrav Status</th>
+                                    <th>Accept / Reject</th>
+                                    <th>Action</th>
+                                    <th>SPOC Details</th>
+                                    <th>Passenger Details</th>
+                                    <th>Booking Notes</th>
+                                    <th>Assign To</th>
+                                    <th>Change Status</th>
+                                    <th>Details</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for booking in bookings %}
+                                <tr>
+                                    <td>{{ booking.id }}</td>
+                                    <td>{{ booking.reference_no }}<br>({{booking.corporate_name}})</td>
+                                    <td>{{ booking.pickup_location }}</td>
+                                    <td>{{ booking.drop_location}}</td>
+                                    <td>{{ booking.booking_datetime }}</td>
+                                    <td>{{ booking.boarding_point }}</td>
+                                    <td>{{ booking.boarding_datetime }}</td>
+                                    <td>{{ booking.assign_bus_type_id}}</td>
+                                    <td>{{ booking.client_status }} </td>
+                                    <td>{{ booking.cotrav_status }}
+                                     {% if booking.status_cotrav > 1 %}
+                                            ({{ booking.cotrav_agent_name|default:'' }})
+                                        {% endif %}
+                                    </td>
+
+                                    <td style="display: inline-flex;">
+                                        {% if booking.status_cotrav == 1 %}
+                                     <a style="margin-left:10px; background:cadetblue; color:white;" data-target="#model_action" data-id="{{booking.id}}" data-accept_id="1"
+                                           data-toggle="modal" class="btn btn-tbl-edit btn-xs"> <i class="fa fa-check"></i> </a>
+                                    {% endif %}
+                                        <a style="margin-left:10px;" data-target="#model_action" data-id="{{booking.id}}" data-reject_id="1"
+                                           data-toggle="modal" class="btn btn-tbl-delete btn-xs" >  <i class="fa fa-trash-o "></i> </a>
+                                    </td>
+
+
+
+
+                                    {% if booking.status_cotrav == 2 %}
+                                    <td><a href="/agents/assign-train-booking/{{booking.id}}" class="btn btn-tbl-edit btn-xs" style="margin-left:10px; background:#6288b1;">  <i class="fa fa-book"></i> </a></td>
+                                    {% else %}
+                                    <td></td>
+                                    {% endif %}
+
+                                    <td>{{ booking.user_name }}<br/>({{ booking.user_contact }})</td>
+
+                                    <td>
+                                        {% for passanger in booking.Passangers %}
+                                        {{ passanger.employee_name|default:'' }} <br/>({{ passanger.employee_contact|default:''}})<br/>
+                                        {% endfor %}
+                                    </td>
+
+                                    <td>
+
+                                        {% for tracking in booking.TrackingStatus %}
+                                        <b>{{ tracking.user_name|default:'' }}</b> [ {{tracking.status_date}} ]: {{tracking.tracking_status}} <br/>
+                                        {% endfor %}
+                                        <a title="Add Tracking Status" style="background:cadetblue; color:white;" data-target="#model_action_tracking" data-id="{{booking.id}}"
+                                           data-toggle="modal" class="btn btn-tbl-edit btn-xs">  <i class="fa fa-comment"></i> </a>
+
+                                    </td>
+
+                                     <td>
+                                        {% if booking.assigned_by_agent_name %}
+                                        Assigned by :<b>{{booking.assigned_by_agent_name}}</b><br/>Assigned to :<b>{{booking.assigned_to_agent_name}}</b>
+                                        {% endif %}
+                                        <a title="Assign Booking To Agent" style="background:cadetblue; color:white;" data-target="#model_action_assign" data-id="{{booking.id}}"
+                                           data-toggle="modal" class="btn btn-tbl-edit btn-xs">  <i class="fa fa-user"></i> </a>
+
+                                    </td>
+
+                                    <td>
+                                        <a title="Change Status" style="background:cadetblue; color:white;" data-target="#model_action_status" data-id="{{booking.id}}"
+                                           data-toggle="modal" class="btn btn-tbl-edit btn-xs">  <i class="fa fa-random"></i> </a>
+
+                                    </td>
+
+
+                                    <td>
+                                        <a href="/agents/view-train-booking/{{ booking.id }}" class="btn btn-tbl-edit btn-xs" style="background:#6288b1;"> <i class="fa fa-search"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                {% endif %}
+
+                {% if serveType == 4 %}
+                    <div class="card-head">
+                                    <header>Flight Bookings Search Result</header>
+                                    <div class="tools">
+                                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+	                                    <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+	                                    <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                                    </div>
+                                </div>
+
+                    <div class="card-body ">
+
+
+                        <div class="table-scrollable table-bordered">
+
+                            <table id="example1" class="display full-width table-striped">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Booking Date | Time</th>
+                                    <th>Booking ID</th>
+                                    <th>Assessment Code</th>
+                                    <th>From City</th>
+                                    <th>To City</th>
+                                    <th>Departure Date</th>
+                                    <th>Usage Type</th>
+                                    <th>Journey Type</th>
+                                    <th>Flight Class</th>
+                                    <th>SPOC Details</th>
+                                    <th>Passenger Details</th>
+                                    <th>No. Of Seats</th>
+                                    <th>Client Status</th>
+                                    <th>CoTrav Status</th>
+                                    <th>Accept/Reject</th>
+                                    <th>Passenger</th>
+                                    <th>Booking Notes</th>
+                                    <th>Assign To</th>
+                                    <th>Details</th>
+                                    {% if booking_type == 30 %}
+                                    <th>Self Booking Flight Status</th>
+                                    {% endif %}
+
+
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for booking in bookings %}
+                                <tr>
+                                    <td>{{ booking.id }}</td>
+                                    <td>{{ booking.booking_datetime }}</td>
+                                     <td>{{ booking.reference_no }}<br>({{booking.corporate_name}})</td>
+                                    <td>{{ booking.assessment_code }}</td>
+                                     <td>{{ booking.from_location }}</td>
+                                    <td>{{ booking.to_location}}</td>
+                                     <td>{{ booking.departure_datetime }}</td>
+                                     <td>{{ booking.usage_type }}</td>
+                                     <td>{{ booking.journey_type }}</td>
+                                    <td>{{  booking.flight_class }}</td>
+                                     <td>{{ booking.user_name }}<br/>({{ booking.user_contact }})</td>
+
+                                     <td>
+                                        {% for passanger in booking.Passangers %}
+                                        {{ passanger.employee_name|default:'' }} <br/>({{ passanger.employee_contact|default:''}})<br/>
+                                        {% endfor %}
+                                    </td>
+
+
+
+                                    <td>{{ booking.no_of_seats }} </td>
+
+                                    <td>{{ booking.client_status }} </td>
+                                    <td>{{ booking.cotrav_status }}
+                                        {% if booking.status_cotrav > 1 %}
+                                            ({{ booking.cotrav_agent_name|default:'' }})
+                                        {% endif %}</td>
+
+
+                                    <td style="display: inline-flex;">
+                                        {% if booking.status_cotrav == 1 %}
+                                     <a style="margin-left:10px; background:cadetblue; color:white;" data-target="#model_action" data-id="{{booking.id}}" data-accept_id="1"
+                                           data-toggle="modal" class="btn btn-tbl-edit btn-xs"> <i class="fa fa-check"></i>  </a>
+
+
+                                    {% endif %}
+                                       <a style="margin-left:10px;" data-target="#model_action" data-id="{{booking.id}}" data-reject_id="1"
+                                           data-toggle="modal" class="btn btn-tbl-delete btn-xs" >  <i class="fa fa-trash-o "></i> </a>
+
+                                        {% if booking.status_cotrav == 2 %}
+                                    <a href="/agents/assign-flight-booking/{{booking.id}}" class="btn btn-tbl-edit btn-xs" style="margin-left:10px; background:#6288b1;">  <i class="fa fa-book"></i> </a>
+                                        {% endif %}
+                                    </td>
+
+
+
+                                      <td>
+                                        {% for passanger in booking.Passangers %}
+                                        {{ passanger.employee_name|default:'' }} <br/>({{ passanger.employee_contact|default:''}})<br/>
+                                        {% endfor %}
+                                    </td>
+
+                                    <td>
+
+                                        {% for tracking in booking.TrackingStatus %}
+                                        <b>{{ tracking.user_name|default:'' }}</b> [ {{tracking.status_date}} ]: {{tracking.tracking_status}} <br/>
+                                        {% endfor %}
+                                        <a title="Add Tracking Status" style="background:cadetblue; color:white;" data-target="#model_action_tracking" data-id="{{booking.id}}"
+                                           data-toggle="modal" class="btn btn-tbl-edit btn-xs">  <i class="fa fa-comment"></i> </a>
+
+                                    </td>
+
+                                     <td>
+                                        {% if booking.assigned_by_agent_name %}
+                                        Assigned by :<b>{{booking.assigned_by_agent_name}}</b><br/>Assigned to :<b>{{booking.assigned_to_agent_name}}</b>
+                                        {% endif %}
+                                        <a title="Add Tracking Status" style="background:cadetblue; color:white;" data-target="#model_action_assign" data-id="{{booking.id}}"
+                                           data-toggle="modal" class="btn btn-tbl-edit btn-xs">  <i class="fa fa-user"></i> </a>
+
+                                    </td>
+
+
+                                    <td>
+
+                                        <a href="/agents/view-flight-booking/{{ booking.id }}" class="btn btn-tbl-edit btn-xs" style="background:#6288b1;"> <i class="fa fa-search"></i> </a>
+
+                                    </td>
+                                    {% if booking_type == 30 and booking.status_cotrav == 1 %}
+                                        <td><a href="#" id="option1" data-booking_id="{{booking.id}}" data-api_bookigid="{{ booking.vendor_booking_id }}" data-journey_type="{{booking.journey_type}}" onclick="goDoSomething(this);" class="btn btn-tbl-edit btn-xs" style="background:#6288b1;" > <i class="fa fa-plane"></i> </a></td>
+                                        {% endif %}
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                {% endif %}
+
+                {% if serveType == 5 %}
+                     <div class="card-head">
+                                    <header>Hotel Bookings Search Result</header>
+                                    <div class="tools">
+                                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+	                                    <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+	                                    <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                                    </div>
+                                </div>
+
+                     <div class="card-body ">
+
+
+                        <div class="table-scrollable table-bordered">
+
+                            <table id="example1" class="display full-width table-striped">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Booking ID</th>
+                                    <th>City</th>
+                                    <th>Area</th>
+                                    <th>Booking Date | Time</th>
+                                    <th>Check-In Date</th>
+                                    <th>Check-Out Date</th>
+                                    <th>Assessment Code</th>
+                                     <th>Preferred Hotel</th>
+                                     <th>Client Status</th>
+                                    <th>CoTrav Status</th>
+                                    <th>Accept/Reject</th>
+                                    <th>Hotels Details</th>
+                                    <th>SPOC Details</th>
+                                    <th>Passenger Details</th>
+                                    <th>Booking Notes</th>
+                                    <th>Assign To</th>
+                                    <th>Details</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for booking in bookings %}
+                                <tr>
+                                    <td>{{ booking.id }}</td>
+                                    <td>{{ booking.reference_no }}<br>({{booking.corporate_name}})</td>
+                                    <td>{{ booking.from_city_name }}</td>
+                                    <td>{{ booking.from_area_id_name}}</td>
+                                    <td>{{ booking.booking_datetime}}</td>
+                                    <td>{{ booking.checkin_datetime }}</td>
+                                    <td>{{ booking.checkout_datetime }}</td>
+                                    <td>{{ booking.assessment_code }}</td>
+                                    <td>{{ booking.preferred_hotel }}</td>
+
+
+
+                                     <td>{{ booking.client_status }}</td>
+                                    <td>{{ booking.cotrav_status }}<br/>
+                                        {% if booking.status_cotrav > 1 %}
+                                            ({{ booking.cotrav_agent_name|default:'' }})
+                                        {% endif %}
+                                    </td>
+
+                                     <td style="display: inline-flex;">
+                                        {% if booking.status_cotrav == 1 %}
+                                    <a style="margin-left:10px; background:cadetblue; color:white;" data-target="#model_action" data-id="{{booking.id}}" data-accept_id="1"
+                                           data-toggle="modal" class="btn btn-tbl-edit btn-xs">  <i class="fa fa-check"></i> </a>
+                                    {% endif %}
+                                        <a style="margin-left:10px;" data-target="#model_action" data-id="{{booking.id}}" data-reject_id="1"
+                                           data-toggle="modal" class="btn btn-tbl-delete btn-xs" >  <i class="fa fa-trash-o "></i> </a>
+
+                                      {% if booking.status_cotrav == 2 %}
+                                         <a href="/agents/assign-hotel-booking/{{booking.id}}" class="btn btn-tbl-edit btn-xs" style="margin-left:10px; background:#6288b1;">  <i class="fa fa-book"></i> </a>
+
+                                    {% endif %}
+                                     </td>
+
+                                    {% if booking.operator_name %}
+                                    <td>{{ booking.operator_name|default:'' }}<br/>({{ booking.operator_contact|default:'' }})</td>
+                                    {% else %}
+                                    <td></td>
+                                    {% endif %}
+
+
+
+                                    <td>{{ booking.user_name }}<br/>({{ booking.user_contact }})</td>
+
+                                     <td>
+                                        {% for passanger in booking.Passangers %}
+                                        {{ passanger.employee_name|default:'' }} <br/>({{ passanger.employee_contact|default:''}})<br/>
+                                        {% endfor %}
+                                    </td>
+
+                                    <td>
+
+                                        {% for tracking in booking.TrackingStatus %}
+                                        <b>{{ tracking.user_name|default:'' }}</b> [ {{tracking.status_date}} ]: {{tracking.tracking_status}} <br/>
+                                        {% endfor %}
+                                        <a title="Add Tracking Status" style="background:cadetblue; color:white;" data-target="#model_action_tracking" data-id="{{booking.id}}"
+                                           data-toggle="modal" class="btn btn-tbl-edit btn-xs">  <i class="fa fa-comment"></i> </a>
+
+                                    </td>
+
+                                     <td>
+                                        {% if booking.assigned_by_agent_name %}
+                                        Assigned by :<b>{{booking.assigned_by_agent_name}}</b><br/>Assigned to :<b>{{booking.assigned_to_agent_name}}</b>
+                                        {% endif %}
+                                        <a title="Add Tracking Status" style="background:cadetblue; color:white;" data-target="#model_action_assign" data-id="{{booking.id}}"
+                                           data-toggle="modal" class="btn btn-tbl-edit btn-xs">  <i class="fa fa-user"></i> </a>
+
+                                    </td>
+
+
+
+                                    <td>
+
+
+                                          <a href="/agents/view-hotel-booking/{{ booking.id }}" class="btn btn-tbl-edit btn-xs" style="background:#6288b1;"> <i class="fa fa-search"></i> </a>
+
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                {% endif %}
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+  </div>
+</div>
+
+<!-- end page content -->
+
+<script type="text/javascript">
+   $(".myselect").select2();
+</script>
+
+
+{% else %}
+    <p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+
+
+{% endblock %}
+
+
+

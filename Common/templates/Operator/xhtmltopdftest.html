@@ -1,0 +1,286 @@
+<html>
+<head>
+<style>
+@page {
+size: a4 portrait;
+
+font-family:Montserrat;
+ background: whitesmoke;
+
+
+@frame header_frame { /* Static Frame */
+-pdf-frame-content: header_content;
+ position: fixed;
+  top: 0;
+  left: 0;
+  height:50%;
+
+}
+
+@frame header_frame { /* Static Frame */
+-pdf-frame-content: logo_content;
+ position: fixed;
+  top: 40px;
+  left: 20px;
+}
+
+
+@frame content_frame { /* Content Frame */
+left: 50pt; width: 512pt; top: 90pt; height: 632pt;
+
+}
+
+
+@frame footer_frame { /* Another static Frame */
+-pdf-frame-content: footer_content;
+position: fixed;
+  bottom: 0pt;
+  left: 0;
+  top: 726pt;
+
+}
+
+@frame footer_frame { /* Another static Frame */
+-pdf-frame-content: ftr_content;
+position: fixed;
+  bottom: 0pt;
+  left: 250;
+  top: 800pt;
+
+}
+
+@frame footer_frame { /* Another static Frame */
+-pdf-frame-content: bus_logo;
+position: fixed;
+  bottom: 0pt;
+  left: 0;
+  top: 800pt;
+
+}
+
+
+
+
+
+
+}
+
+
+.logo{
+      margin-top: -163px;
+       margin-left: 68px;
+        width: 175px;
+         margin-bottom: 77px;
+    }
+
+.bus-logo{
+      margin-top: 700px;
+       margin-left: 0px;
+        width: 175px;
+         margin-bottom: 0px;
+    }
+h5 {
+   font-family: Montserrat;
+   font-weight: 600;
+   font-size: 19px;
+   }
+
+h6{
+   font-family: montserrat,san-serif;
+   font-weight: 600;
+   font-size: 17px;
+   }
+h4{
+   font-family: montserrat,san-serif;
+   font-weight: 600;
+   font-size: 20px;
+  }
+p{
+   font-family: montserrat,san-serif;
+   font-weight: 500;
+   font-size: 16px;
+  }
+.p-1{
+     font-size: 13px;
+  }
+
+.sec{
+  text-align: center;
+}
+
+.section2{
+  line-height: 35px;
+}
+td{
+  font-size: 15px;
+}
+.footer{
+  height: 153px;
+}
+.img1{
+  margin-top: -94px;
+    margin-bottom: 37px;
+}
+.BAI{
+
+    margin-bottom: -45px;
+    margin-top: -58px;
+    color: white;
+      font-family: montserrat,san-serif;
+      line-height: 2px;
+      font-size: 17px;
+      text-align: center;}
+
+.agent{
+  margin-top: 45px;
+    margin-left: 304px;
+    font-size: 12px;
+    color: white;
+    font-family: montserrat,san-serif;
+    padding-top: 12px;
+}
+
+pdftoc {
+color: #666;
+}
+pdftoc.pdftoclevel0 {
+font-weight: bold;
+margin-top: 0.5em;
+}
+pdftoc.pdftoclevel1 {
+margin-left: 1em;
+}
+pdftoc.pdftoclevel2 {
+margin-left: 2em;
+font-style: italic;
+}
+
+
+</style>
+<head>
+<body>
+<div id="header_content">
+
+  <img src="http://localhost:8000/static/img/test/bg1.png">
+
+</div>
+<div id="logo_content">
+    <img src="http://localhost:8000/static/img/test/logo.png" class="logo">
+
+</div>
+
+<div id="footer_content">
+    <img src="http://localhost:8000/static/img/test/bg2.png">
+
+</div>
+<div id="bus_logo">
+    <img src="http://localhost:8000/static/img/test/bus.png">
+</div>
+
+ <div id="ftr_content" >BAI INFOSOLUTION PVT LTD  <pdf:pagenumber>
+of <pdf:pagecount>
+      <br> <small style="font-weight: 500;font-size: 13px;">AGENT CONTACT : 0987654321<small>
+ </div>
+
+ <table>
+  <tbody>
+  <tr>
+    <td align="center" class="border-bottom">
+    <h5>"Dear Suresh Kumar"</h5>
+    <p> Your Booking is Confirmed </p>
+      <p class="p-1"> Thank You For using Taxivaxi.com to book your hotels. For Your Reference, Your TaxiVaxi Booking ID is...<strong> TVHWEIHTL13082 </strong> Agent Booking ID is...<strong> TVHWEIHTL13082 </strong> </p>
+  </td>
+   </tr>
+
+
+<table  class="border-bottom">
+
+    <tr>
+      <h6 align="center" class="section">User Detail</h6>
+    </tr>
+    <tr>
+     <td align="center">
+      Name : Suresh Kumar
+     </td>
+      <td td align="center">
+      Email : example@gmail.com
+     </td>
+
+   </tr>
+</table>
+
+
+
+    <table  class="section2 border-bottom">
+
+    <tr>
+      <h6 align="center" class="section">Hotel Detail</h6>
+    </tr>
+    <tr>
+     <td align="center">
+    Check in : 19-10-2019 (12:00 PM)
+
+     </td>
+      <td td align="center">
+      Check out  :19-10-2019 (12:00 PM)
+     </td>
+
+   </tr>
+     <tr>
+     <td align="center">
+     #Nights  : 12
+     </td>
+      <td td align="center">
+     Travellers  : 5
+     </td>
+
+   </tr>
+     <tr>
+     <td align="center">
+     Is Room AC  : Yes
+     </td>
+      <td td align="center">
+     Contact  :  9313931393
+     </td>
+
+   </tr>
+
+     <tr>
+     <td align="center">
+    E-Mail : NA
+
+     </td>
+      <td td align="center">
+      Email : example@gmail.com
+     </td>
+
+   </tr>
+
+
+</table>
+
+
+
+    <table  class="border-bottom">
+
+   <tr>
+      <h6 align="center" class="section">Hotel Cancellation Policy </h6>
+    </tr>
+
+ <tr>
+     <td  align="center">
+   Following Cancellation charges will be applicable  Following Cancellation charges <br>
+  Following Cancellation charges will be applicable  Following Cancellation charges <br></td>
+
+   </tr>
+
+
+</table>
+
+
+
+ </tbody>
+</table>
+
+</body>
+</html>

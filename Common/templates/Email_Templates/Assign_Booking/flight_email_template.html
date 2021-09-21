@@ -1,0 +1,415 @@
+{% include 'Email_Templates/email_header.html' %}
+
+
+<center>
+
+     
+                    {% for booking in bookings %}
+
+                    <table width="680" cellpadding="0" cellspacing="0" class="wrapper" bgcolor="#FFFFFF" style="border-left:solid 1px gray; border-right:solid 1px gray;" >
+                        <tr>
+                            <td align="center" valign="top" >
+                                <table width="600" cellpadding="0" cellspacing="0" class="container" >
+
+                                      <tr>
+                                        <td width="300" class="mobile" align="center" valign="top" >
+                                            <h1 style=" font-size: 14px; line-height: 30px; color: #000000; text-align: center; font-weight: normal; background-color: #ffffff;"> <img src="http://cotrav.co/static/email_template_images/dot.png" alt="img">   Booking Assigned  <br><small style="font-size: 14px; color: #000000;">Booking ID : {{ booking.reference_no }} </small></h1>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="10" style="font-size:10px; line-height:10px;">&nbsp;</td>
+                        </tr>
+                    </table>
+
+                    <table width="680" cellpadding="0" cellspacing="0" class="wrapper" bgcolor="#FFFFFF"style="border-left:solid 1px gray; border-right:solid 1px gray;" >
+                        <tr>
+                            <td align="center" valign="top" >
+                                <table width="600" cellpadding="0" cellspacing="0" class="container" >
+                                    <tr>
+                                        <td class="mobile" align="center" valign="top" >
+                                            <h1 style="font-size: 14px ; color: #000000;"> Dear {{user_name}},</h1>
+                                            <p style="font-size: 13px;color: #000000;">This is to inform you that your flight booking has been confirmed by CoTrav Team.The details of your booking are mentioned below:</p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="10" style="font-size:10px; line-height:10px;">&nbsp;</td>
+                        </tr>
+                    </table>
+                          <table width="680" cellpadding="0" cellspacing="0" class="wrapper" bgcolor="#FFFFFF" style="border-left:solid 1px gray; border-right:solid 1px gray;">
+                            <tr>
+                              <td align="center" valign="top" >
+
+
+                                    <table width="600" cellspacing="0" border="0" class="container" >
+
+                                         <tr>
+                                    <td width="39%"><hr style="border-top: 3px double #8c8b8b;"></td>
+                                             <td style="text-align: center;font-size: 14px;color: #000000;"><strong>Booking  Details</strong></td>
+                                      <td width="39%"><hr style="border-top: 3px double #8c8b8b;"></td>
+                                   </tr>
+
+                                        <tr>
+                                            <td width="300" class="mobile" align="center" valign="top" style="font-size: 13px;word-wrap: break-word;color: #000000;">
+                                                <img src="http://cotrav.co/static/email_template_images/dot_1_1.png"> <strong>From City </strong><br>  {{ booking.from_location|default:'NA' }}<br>{{ booking.departure_datetime|default:'NA' }}
+                                            </td>
+                                            <td width="" class="mobile" align="center" valign="top">
+                                                &nbsp;
+                                            </td>
+                                            <td width="300" class="mobile" align="center" valign="top" style="font-size: 13px;word-wrap: break-word;color: #000000;">
+                                                <img src="http://cotrav.co/static/email_template_images/dot_1_2.png"><strong>To City </strong><br>  {{ booking.to_location|default:'NA' }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="300" class="mobile" align="center" valign="top" style="font-size: 13px;word-wrap: break-word;color: #000000;">
+                                                <strong>Departure Time </strong> <br>{{ booking.departure_datetime|default:'NA' }}
+                                            </td>
+                                            <td width="" class="mobile" align="center" valign="top">
+                                                &nbsp;
+                                            </td>
+                                            <td width="300" class="mobile" align="center" valign="top" style="font-size: 13px;word-wrap: break-word;color: #000000;">
+                                                <strong>No Of Seats </strong><br>{{ booking.no_of_seats|default:'NA' }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="200" class="mobile" align="center" valign="top" style="font-size: 13px; padding-top: 14px; word-wrap: break-word;color: #000000;">
+                                                <strong>Flight Type</strong>  <br>{{ booking.flight_type|default:'NA' }}
+                                            </td>
+                                            <td width="200" class="mobile" align="center" valign="top" style="padding-top: 14px; word-wrap: break-word;font-size: 13px;color: #000000;">
+                                                <strong>Seat Type</strong> <br> {{ booking.seat_type|default:'NA' }}
+                                            </td>
+                                            <td width="200" class="mobile" align="center" valign="top" style="font-size: 13px;padding-top: 14px; word-wrap: break-word;color: #000000;">
+                                                <strong>Trip Type</strong><br> {{ booking.trip_type|default:'NA' }}
+                                            </td>
+                                        </tr>
+
+                                              <tr>
+                                            <td width="200" class="mobile" align="center" valign="top" style="font-size: 13px; padding-top: 14px; word-wrap: break-word;color: #000000;">
+                                                <strong>Meal Available</strong> <br> {{ booking.meal_is_include|yesno:'Yes,No' }}
+                                            </td>
+                                            <td width="200" class="mobile" align="center" valign="top" style="padding-top: 14px; word-wrap: break-word;font-size: 13px;color: #000000;">
+                                                <strong>No Of Stops</strong> <br> {{ booking.no_of_stops|default:'NA' }}
+                                            </td>
+                                            <td width="200" class="mobile" align="center" valign="top" style="font-size: 13px;padding-top: 14px; word-wrap: break-word;color: #000000;">
+                                                <strong>Trip Type </strong> <br>{{ booking.trip_type|default:'NA' }}
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="10" style="font-size:10px; line-height:10px;">&nbsp;</td>
+                        </tr>
+                    </table>
+
+
+
+                                <table width="680" cellpadding="0" cellspacing="0" class="wrapper" bgcolor="#FFFFFF" style="border-left:solid 1px gray; border-right:solid 1px gray;">
+                            <tr>
+                              <td align="center" valign="top" >
+
+                                {% for flight in booking.Flights %}
+                                    <table width="600" cellspacing="0" border="0" class="container" >
+
+                                         <tr>
+                                    <td width="39%"><hr style="border-top: 3px double #8c8b8b;"></td>
+                                             <td style="text-align: center;font-size: 14px;color: #000000;"><strong> {% if booking.journey_type == 'Round Trip' %}OnWords {% endif %} Flight {{ forloop.counter }} Details</strong></td>
+                                      <td width="39%"><hr style="border-top: 3px double #8c8b8b;"></td>
+                                   </tr>
+
+                                        {% if flight.is_return_flight == '0' %}
+                                        <tr>
+                                            <td width="300" class="mobile" align="center" valign="top" style="font-size: 13px;word-wrap: break-word;color: #000000;">
+                                                <strong>Flight Name </strong>    <br>   {{ flight.flight_name|default:'NA' }}
+                                            </td>
+                                            <td width="" class="mobile" align="center" valign="top" style="font-size: 13px;word-wrap: break-word;color: #000000;">
+                                                <strong>Flight No </strong>     <br>  {{ flight.flight_no|default:'NA' }}
+                                            </td>
+                                            <td width="300" class="mobile" align="center" valign="top" style="font-size: 13px;word-wrap: break-word;color: #000000;">
+                                                <strong>PNR No </strong>    <br> {{ flight.pnr_no|default:'NA' }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="200" class="mobile" align="center" valign="top" style="font-size: 13px; padding-top: 14px; word-wrap: break-word;color: #000000;">
+                                                <strong>From City </strong>    <br>   {{ flight.from_city|default:'NA' }}
+                                            </td>
+                                            <td width="200" class="mobile" align="center" valign="top" style="padding-top: 14px; word-wrap: break-word;font-size: 13px;color: #000000;">
+                                              &nbsp;
+                                            </td>
+                                            <td width="200" class="mobile" align="center" valign="top" style="font-size: 13px;padding-top: 14px; word-wrap: break-word;color: #000000;">
+                                                <strong>To City  </strong>     <br>  {{ flight.to_city|default:'NA' }}
+                                            </td>
+                                        </tr>
+
+                                              <tr>
+                                            <td width="200" class="mobile" align="center" valign="top" style="font-size: 13px; padding-top: 14px; word-wrap: break-word;color: #000000;">
+                                                <strong>Departure Datetime </strong>   <br>  {{ flight.departure_datetime|default:'NA' }}
+                                            </td>
+                                            <td width="200" class="mobile" align="center" valign="top" style="padding-top: 14px; word-wrap: break-word;font-size: 13px;color: #000000;">
+                                             &nbsp;
+                                            </td>
+                                            <td width="200" class="mobile" align="center" valign="top" style="font-size: 13px;padding-top: 14px; word-wrap: break-word;color: #000000;">
+                                                <strong>Arrival Datetime </strong>   <br>  {{ flight.arrival_datetime|default:'NA' }}
+                                            </td>
+                                        </tr>
+                                        {% else %}
+
+                                        <tr>
+
+                                        <td width="39%"><hr style="border-top: 3px double #8c8b8b;"></td>
+                                                 <td style="text-align: center;font-size: 14px;color: #000000;"><strong>Return Flight {{ forloop.counter }} Details</strong></td>
+                                          <td width="39%"><hr style="border-top: 3px double #8c8b8b;"></td>
+                                       </tr>
+
+                                        <tr>
+                                            <td width="300" class="mobile" align="center" valign="top" style="font-size: 13px;word-wrap: break-word;color: #000000;">
+                                                <strong>Flight Name </strong>    <br>   {{ flight.flight_name|default:'NA' }}
+                                            </td>
+                                            <td width="" class="mobile" align="center" valign="top" style="font-size: 13px;word-wrap: break-word;color: #000000;">
+                                                <strong>Flight No </strong>     <br>  {{ flight.flight_no|default:'NA' }}
+                                            </td>
+                                            <td width="300" class="mobile" align="center" valign="top" style="font-size: 13px;word-wrap: break-word;color: #000000;">
+                                                <strong>PNR No </strong>    <br> {{ flight.pnr_no|default:'NA' }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="200" class="mobile" align="center" valign="top" style="font-size: 13px; padding-top: 14px; word-wrap: break-word;color: #000000;">
+                                                <strong>From City </strong>    <br>   {{ flight.from_city|default:'NA' }}
+                                            </td>
+                                            <td width="200" class="mobile" align="center" valign="top" style="padding-top: 14px; word-wrap: break-word;font-size: 13px;color: #000000;">
+                                              &nbsp;
+                                            </td>
+                                            <td width="200" class="mobile" align="center" valign="top" style="font-size: 13px;padding-top: 14px; word-wrap: break-word;color: #000000;">
+                                                <strong>To City </strong>     <br>  {{ flight.to_city|default:'NA' }}
+                                            </td>
+                                        </tr>
+
+                                              <tr>
+                                            <td width="200" class="mobile" align="center" valign="top" style="font-size: 13px; padding-top: 14px; word-wrap: break-word;color: #000000;">
+                                                <strong>Departure Datetime </strong>   <br>  {{ flight.departure_datetime|default:'NA' }}
+                                            </td>
+                                            <td width="200" class="mobile" align="center" valign="top" style="padding-top: 14px; word-wrap: break-word;font-size: 13px;color: #000000;">
+                                             &nbsp;
+                                            </td>
+                                            <td width="200" class="mobile" align="center" valign="top" style="font-size: 13px;padding-top: 14px; word-wrap: break-word;color: #000000;">
+                                                <strong>Arrival Datetime </strong>   <br>  {{ flight.arrival_datetime|default:'NA' }}
+                                            </td>
+                                        </tr>
+
+
+
+                                        {% endif %}
+
+
+                                    </table>
+                                  {% endfor %}
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="10" style="font-size:10px; line-height:10px;">&nbsp;</td>
+                        </tr>
+                    </table>
+
+                    <table width="680" cellpadding="0" cellspacing="0" class="wrapper" bgcolor="#FFFFFF" style="border-left:solid 1px gray; border-right:solid 1px gray;">
+                        <tr>
+                            <td align="center" valign="top" >
+
+                                    <table width="600" cellspacing="0" border="0" class="container " style="color: #000000;">
+
+
+                                         <tr>
+                                    <td width="38%"><hr style="border-top: 3px double #8c8b8b;"></td>
+                                             <td style="text-align: center;font-size: 14px;color: #000000;"><strong>Company Details</strong></td>
+                                      <td width="38%"><hr style="border-top: 3px double #8c8b8b;"></td>
+                                   </tr>
+
+
+                                        <tr>
+                                            <td width="200" class="mobile" align="center" valign="top" style="font-size: 13px; padding-top: 12px; word-wrap: break-word;color: #000000;">
+                                                <strong>Company Name </strong> <br> {{ booking.corporate_name|default:'NA' }}
+                                            </td>
+                                            <td width="200" class="mobile" align="center" valign="top" style="padding-top: 10px; word-wrap: break-word;color: #000000;">
+                                                <a href="" style="font-size: 13px;  text-decoration: none;color: #000000;"><strong> Contact Person Name </strong> <br>{{ booking.contact_person_name|default:'NA' }}</a>
+                                            </td>
+                                            <td width="200" class="mobile" align="center" valign="top" style="font-size: 13px;padding-top: 12px; word-wrap: break-word;color: #000000;">
+                                                <strong>Contact No. </strong> <br>{{ booking.contact_person_no|default:'NA' }}
+                                            </td>
+
+                                        </tr>
+                                         <tr>
+                                            <td width="200" class="mobile" align="center" valign="top" style="font-size: 13px;padding-top: 12px; word-wrap: break-word;color: #000000;">
+                                                <strong>Contact Person Email</strong> <br>{{ booking.contact_person_email|default:'NA' }}
+                                            </td>
+                                        </tr>
+
+                                    </table>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="10" style="font-size:10px; line-height:10px;">&nbsp;</td>
+                        </tr>
+                    </table>
+
+                        <table width="680" cellpadding="0" cellspacing="0" class="wrapper" bgcolor="#FFFFFF" style="border-left:solid 1px gray; border-right:solid 1px gray;">
+                        <tr>
+                            <td align="center" valign="top" >
+
+                                    <table width="600" cellspacing="0" border="0" class="container " style="color: #000000;">
+
+
+                                         <tr>
+                                    <td width="39%"><hr style="border-top: 3px double #8c8b8b;"></td>
+                                             <td style="text-align: center;font-size: 14px;color: #000000;"><strong>Spoc  Details</strong></td>
+                                      <td width="39%"><hr style="border-top: 3px double #8c8b8b;"></td>
+                                   </tr>
+
+
+                                        <tr>
+                                            <td width="200" class="mobile" align="center" valign="top" style="font-size: 13px; padding-top: 12px; word-wrap: break-word;color: #000000;">
+                                                <strong>SPOC Name </strong> <br> {{ booking.user_name|default:'NA' }}
+                                            </td>
+                                            <td width="200" class="mobile" align="center" valign="top" style="padding-top: 10px; word-wrap: break-word;color: #000000;">
+                                                <a href="" style="font-size: 13px;  text-decoration: none;color: #000000;"><strong>Email </strong> <br>{{ booking.user_email|default:'NA' }}</a>
+                                            </td>
+                                            <td width="200" class="mobile" align="center" valign="top" style="font-size: 13px;padding-top: 12px; word-wrap: break-word;color: #000000;">
+                                                <strong> Contact </strong> <br>{{ booking.user_contact|default:'NA' }}
+                                            </td>
+                                        </tr>
+
+                                    </table>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="10" style="font-size:10px; line-height:10px;">&nbsp;</td>
+                        </tr>
+                    </table>
+
+                        <table width="680" cellpadding="0" cellspacing="0" class="wrapper" bgcolor="#FFFFFF" style="border-left:solid 1px gray; border-right:solid 1px gray;">
+                        <tr>
+                            <td align="center" valign="top" >
+
+                                    <table width="600" cellspacing="0" border="0" class="container " style="color: #000000;">
+
+
+                                         <tr>
+                                    <td width="38%"><hr style="border-top: 3px double #8c8b8b;"></td>
+                                             <td style="text-align: center;font-size: 14px;"><strong>Passenger  Details</strong></td>
+                                      <td width="38%"><hr style="border-top: 3px double #8c8b8b;"></td>
+                                   </tr>
+
+
+                                        {% for passanger in booking.Passangers %}
+                                      <tr>
+                                            <td width="200" class="mobile" align="center" valign="top" style="font-size: 13px; padding-top: 12px; word-wrap: break-word;color: #000000;">
+                                                <strong>Name </strong> <br>{{ passanger.employee_name|default:'NA' }}
+                                            </td>
+                                            <td width="200" class="mobile" align="center" valign="top" style="padding-top: 10px; word-wrap: break-word; color: #000000;">
+                                                <a href="" style="color: #000000;font-size: 13px; text-decoration: none;"><strong>Email </strong> <br>{{ passanger.employee_email|default:'NA' }}</a>
+                                            </td>
+                                            <td width="200" class="mobile" align="center" valign="top" style="font-size: 13px;padding-top: 12px; word-wrap: break-word;color: #000000;">
+                                                <strong>Contact </strong> <br>{{ passanger.employee_contact|default:'NA' }}
+                                            </td>
+                                        </tr>
+                                         {% endfor %}
+                                    </table>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="10" style="font-size:10px; line-height:10px;">&nbsp;</td>
+                        </tr>
+                    </table>
+
+                    {% endfor %}
+
+
+                                        <span style="display: block; width: 680px; max-width: 680px; height: 1px border:solid 1px gray;" class="mobileOff"></span>
+                                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" bgcolor="#ffffff" width="680"  style="border-left:solid 1px gray; border-right:solid 1px gray;">
+                                            <tr>
+                                                <td style="padding: 20px; font-size: 13px; line-height: 15px; text-align: center; color: #888888;">
+
+                                                </td>
+                                            </tr>
+                                        </table>
+
+
+
+                                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="680" style=" background-color: #ffffff;border-left:solid 1px gray; border-right:solid 1px gray;">
+                                        <tr>
+                                            <td>
+                                                <div align="center" style="max-width: 680px; margin: auto;">
+
+                                                    <table width="600" cellspacing="0" border="0" class="container" style="font-family: 'Trebuchet MS';">
+                                                        <tr>
+                                                        <td width="39%"><hr style="border-top: 3px double #8c8b8b;"></td>
+                                                        </tr>
+                                                    </table>
+
+                                                    <table  role="presentation" cellspacing="0" cellpadding="0" border="0" >
+
+                                                        <tr>
+                                                          <td style="text-align: center; font-size: 13px; "> For any further queries, please contact us at : </td>
+                                                        </tr>
+
+
+
+                                                 </table>
+                                                       <br>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                     </table>
+
+
+
+                                     <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="680" style=" background-color: #ffffff;border-left:solid 1px gray; border-right:solid 1px gray;">
+                                        <tr>
+                                            <td>
+                                                <div align="center" style=" margin: auto;">
+
+                                                    <table  role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+
+                                                          <tr>
+                                                             <td align="center" style="font-size: 13px; "> <img src="http://cotrav.co/static/email_template_images/email_2.png" > <a href="#" style="color: #000000;text-decoration: none;">    support@cotrav.co</a></td>
+
+                                                             <td align="center" style="font-size: 13px;  "><img src="http://cotrav.co/static/email_template_images/email_1.png" >
+                                                              9881102875 / 8860375872 </td>
+                                                            </tr>
+
+                                                 </table>
+
+
+                                                </div>
+                                            </td>
+                                        </tr>
+                                     </table>
+                                     <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="680" style="  background-color: #ffffff;border-left:solid 1px gray; border-right:solid 1px gray;">
+                                      <tr>
+                                          <td>
+                                              <div align="center" style=" margin: auto;">
+
+                                                  <table  role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+
+                                                        <tr>
+
+                                                          </tr>
+
+                                               </table>
+                                                     <br>
+                                              </div>
+                                          </td>
+                                      </tr>
+                                     </table>
+
+                            </center>
+
+{% include 'Email_Templates/email_footer.html' %}

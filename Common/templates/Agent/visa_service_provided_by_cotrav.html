@@ -1,0 +1,251 @@
+{% extends 'Agent/layout/header.html' %}
+
+{% block content %}
+
+{% if user %}
+<!-- start page content -->
+
+<!-- The Modal -->
+<div class="modal fade model_custom_style" role="dialog" id="model_add_new_group">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4  class="modal-title-status">Visa Service Provided By Cotrav Details </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+            <form action="/agents/visa-service-provided" method="post" enctype="multipart/form-data" >
+                <input type="hidden" name="visa_id" id="model_id">
+                <input type="hidden" name="user_id" value="{{user.id}}">
+                <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+                 <div class="form-group row" >
+                       <label class="col-sm-5 control-label">Country Name</label>
+                            <div class="col-sm-7">
+                                <select class="form-control myselect" name="country_id" id="country_id" style="width:100%;" required>
+                                    <option value="">Select Country Name</option>
+                                   {% for country in countries %}
+                                    <option value="{{country.id}}">{{country.name}}</option>
+                                    {% endfor %}
+                            </select>
+                            </div>
+                    </div>
+
+                 <div class="form-group row" >
+                       <label class="col-sm-5 control-label">Visa Service Type</label>
+                            <div class="col-sm-7">
+                                <select class="form-control myselect" name="visa_service_type_id" id="visa_service_type_id" style="width:100%;" required>
+                                    <option value="">Select Service Type</option>
+                                   {% for visas_type in visas_types %}
+                                    <option value="{{visas_type.id}}">{{visas_type.service_name}}</option>
+                                    {% endfor %}
+                            </select>
+                            </div>
+                    </div>
+
+                <div class="form-group row" >
+                       <label class="col-sm-5 control-label">Visa Type</label>
+                            <div class="col-sm-7">
+                                <select class="form-control myselect" name="visa_type_id" id="visa_type_id" style="width:100%;" required>
+                                    <option value="">Select Visa Type</option>
+                                   {% for visa_type in visa_types %}
+                                    <option value="{{visa_type.id}}">{{visa_type.visa_type_name}}</option>
+                                    {% endfor %}
+                            </select>
+                            </div>
+                    </div>
+
+                <div class="form-group row" >
+                       <label class="col-sm-5 control-label">Consulate Office</label>
+                            <div class="col-sm-7">
+                                <select class="form-control myselect" name="consulate_office_id" id="consulate_office_id" style="width:100%;" required>
+                                    <option value="">Select Consulate Office</option>
+                                   {% for office in offices %}
+                                    <option value="{{office.id}}">{{office.city_name}}</option>
+                                    {% endfor %}
+                            </select>
+                            </div>
+                    </div>
+
+                <div class="form-group row" >
+                       <label class="col-sm-5 control-label">Instruction</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" name="instructions_attachment" id="instructions_attachment" placeholder="Instruction" type="file" required>
+                            </div>
+                    </div>
+
+                <div class="form-group row" >
+                       <label class="col-sm-5 control-label">Application Form Link</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" name="link_visa_application_form" id="link_visa_application_form" placeholder="Application Form" type="text" required>
+                            </div>
+                    </div>
+
+
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+  {% include 'cotrav_alert_message.html' %}
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-topline-aqua">
+                    <div class="card-head">
+                        <header>ALL VISA SERVICE PROVIDED BY COTRAV LIST</header>
+                          <div class="row p-b-20">
+                            <div class="col-md-6 col-sm-6 col-6">
+                                <div class="btn-group">
+                                    <a class="btn btn-info" href="#" data-toggle="modal"
+                                       data-target="#model_add_new_group"> Add New <i class="fa fa-plus"></i> </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tools">
+                            <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                            <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                            <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                        </div>
+                    </div>
+
+                    <div class="card-body ">
+
+
+
+                                    <div class="text-center">
+                 <div style="font-size:14px; font-weight:bold;">
+                     Visa Service Provided By Cotrav Details
+                     </div>
+            </div>
+
+                        <div class="table-scrollable table-bordered ">
+                            <table id="example1" class="display full-width table-striped">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Country Name</th>
+                                    <th>Visa Service Type</th>
+                                    <th>Visa Type</th>
+                                    <th>Consulate Office</th>
+                                    <th>Instruction</th>
+                                    <th>Application Form</th>
+                                    <th>Action</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for visa in visas %}
+                                <tr>
+                                    <td>{{ visa.id }}</td>
+                                    <td>{{ visa.country_name }}</td>
+                                    <td>{{ visa.service_name }}</td>
+                                    <td>{{ visa.visa_type_name }}</td>
+                                    <td>{{ visa.city_name }}</td>
+                                    <td><a target="_blank" href="/media/visa_requirements/{{ visa.instructions_attachment }}">Download</a></td>
+                                    <td><a target="_blank" href="{{ visa.link_visa_application_form }}">Download</a></td>
+
+                                    <td>
+
+                                        <a class="btn btn-tbl-edit btn-xs" data-target="#model_add_new_group"
+                                            data-toggle="modal" data-id="{{visa.id}}" data-country_id="{{visa.country_id}}" data-visa_service_type_id="{{visa.visa_service_type_id}}"
+                                           data-visa_type_id="{{visa.visa_type_id}}" data-consulate_office_id="{{visa.consulate_office_id}}"
+                                           data-link_visa_application_form="{{visa.link_visa_application_form}}" data-instructions_attachment="{{visa.instructions_attachment}}" href="#">
+                                            <i class="fa fa-pencil "></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- end page content -->
+<script type="text/javascript">
+   $(".myselect").select2();
+
+   var country_id1 = $("#country_id");
+   country_id1.select2();
+
+   var visa_service_type_id1 = $("#visa_service_type_id");
+   visa_service_type_id1.select2();
+
+   var visa_type_id1 = $("#visa_type_id");
+   visa_type_id1.select2();
+
+   var consulate_office_id1 = $("#consulate_office_id");
+   consulate_office_id1.select2();
+
+
+
+</script>
+
+{% else %}
+<p>Welcome, new user. Please log in.<a href="/login">Login</a></p>
+{% endif %}
+
+
+
+<script type="text/javascript">
+$(function() {
+
+  $('#model_add_new_group').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var id = button.data('id'); // Extract info from data-* attributes
+    var country_id = button.data('country_id');
+    var visa_service_type_id = button.data('visa_service_type_id');
+    var visa_type_id = button.data('visa_type_id');
+    var consulate_office_id = button.data('consulate_office_id');
+
+    var instructions_attachment = button.data('instructions_attachment');
+    var link_visa_application_form = button.data('link_visa_application_form');
+
+    var modal = $(this);
+
+    modal.find('#model_id').val(id);
+    country_id1.val(country_id);
+    country_id1.trigger('change.select2');
+    visa_service_type_id1.val(visa_service_type_id);
+    visa_service_type_id1.trigger('change.select2');
+    visa_type_id1.val(visa_type_id);
+    visa_type_id1.trigger('change.select2');
+    consulate_office_id1.val(consulate_office_id);
+    consulate_office_id1.trigger('change.select2');
+
+
+    modal.find('#link_visa_application_form').val(link_visa_application_form);
+
+    });
+
+
+
+
+
+});
+
+
+
+</script>
+
+
+{% endblock %}

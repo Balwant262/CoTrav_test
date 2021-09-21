@@ -1,0 +1,96 @@
+{% extends 'Company/Approver_2/layout/header.html' %}
+
+{% block content %}
+
+
+{% if user %}
+<!-- start page content -->
+            <div class="page-content-wrapper">
+                <div class="page-content">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card card-topline-aqua">
+                                <div class="card-head">
+                                    <header>ALL CORPORATE RATES LIST</header>
+                                    <div class="btn-group">
+                                           <a href="/Corporate/Approver_2/download-rates" class="btn btn-success pull-right">Download</a>
+
+                                  </div>
+                                    <div class="tools">
+                                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+	                                    <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+	                                    <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                                    </div>
+                                </div>
+                                <div class="card-body ">
+
+                         <div class="text-center">
+                 <div style="font-size:14px; font-weight:bold;">
+                     Comapny Rate List
+                     </div>
+            </div>
+                                  <div class="table-scrollable table-bordered">
+                                    <table id="example1" class="display full-width table-striped">
+                                        <thead>
+                                            <tr>
+<!--                                                <th>ID</th>-->
+                                                <th>Operator Name</th>
+                                                <th>Package Name</th>
+                                                <th>City</th>
+                                                <th>Taxi Type</th>
+                                                <th>Tour Type</th>
+                                                <th>Kms Included</th>
+                                                <th>Hours Included</th>
+                                                <th>Extra Rate/Km(Rs.)</th>
+                                                <th>Extra Rate/Hr(Rs.)</th>
+                                                <th>Base Rate(Rs.)</th>
+                                                <th>Night Rate(Rs.)</th>
+
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                        {% for corporate_rate in corporate_rates %}
+                                            <tr>
+<!--                                                <td>{{ corporate_rate.id }}</td>-->
+                                                <td>{{ corporate_rate.corporate_name }}</td>
+                                                <td>{{ corporate_rate.package_name }}</td>
+                                                <td>{{ corporate_rate.city_name }}</td>
+                                                <td>{{ corporate_rate.taxi_type }}</td>
+                                                <td>{{ corporate_rate.tour_type }}</td>
+                                                <td>{{ corporate_rate.kms }}</td>
+                                                <td>{{ corporate_rate.hours }} hrs</td>
+                                                <td>{{ corporate_rate.km_rate }}</td>
+                                                <td>{{ corporate_rate.hour_rate }}</td>
+                                                <td>{{ corporate_rate.base_rate }}</td>
+                                                <td>{{ corporate_rate.night_rate }}</td>
+
+
+                                            </tr>
+                                        {% endfor %}
+                                            </tbody>
+                                        </table>
+	                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- end page content -->
+
+
+
+
+
+{% else %}
+    <p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+{% endblock %}
+
+
+
+
+

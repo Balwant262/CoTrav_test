@@ -1,0 +1,271 @@
+{% extends 'Company/Admin/layout/header.html' %}
+
+{% block content %}
+
+
+{% if user %}
+<!-- start page content -->
+
+<!-- The Modal -->
+<div class="modal fade" role="dialog" id="model_add_new_entities">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 id="delete_label" class="modal-title-status">Add New Corporate Bank Account Form</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <form action="/Corporate/Admin/add-corporate-accounts/0" method="post" enctype="multipart/form-data" id="model_serialize_update">
+                <input type="hidden" name="account_id" id="account_id">
+                <input type="hidden" name="corporate_id" value="{{user.corporate_id}}">
+                <input type="hidden" name="user_id" value="{{user.id}}">
+                <input type="hidden" name="delete_id" id="delete_id">
+                 <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+                <!-- Modal footer -->
+                <div class="modal-body">
+
+                    <div class="form-group row" id="bank_name1">
+                        <label class="col-sm-3 control-label">Bank Name</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="bank_name" id="bank_name" placeholder="Bank Name" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="bank_branch1">
+                        <label class="col-sm-3 control-label">Branch Name</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="bank_branch" id="bank_branch" required placeholder="Branch Name">
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="acoount_no1">
+                        <label class="col-sm-3 control-label">Account Number</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="acoount_no" id="acoount_no" required placeholder="Account Number">
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="acoount_holder_name1" >
+                        <label class="col-sm-3 control-label">Acoount Holder Name</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="acoount_holder_name"  id="acoount_holder_name" placeholder="Account Holder Name">
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="ifsc_code1" >
+                        <label class="col-sm-3 control-label">IFSC Code</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="ifsc_code"  id="ifsc_code" placeholder="IFSC Code">
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="micr_code1" >
+                        <label class="col-sm-3 control-label">MICR Code</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="micr_code"  id="micr_code" placeholder="MICR Code">
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button id="delete_btn" type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+</div>
+
+
+{% include 'cotrav_alert_message.html' %}
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-topline-aqua">
+                    <div class="card-head">
+                        <header>ALL CORPORATE BANK ACCOUNT LIST</header>
+                          <div class="row p-b-20">
+                            <div class="col-md-6 col-sm-6 col-6">
+                                <div class="btn-group">
+                                    <a class="btn btn-info" href="#" data-toggle="modal"
+                                       data-target="#model_add_new_entities"> Add New  <i class="fa fa-plus"></i> </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tools">
+                            <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                            <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                            <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                        </div>
+                    </div>
+                    <div class="card-body ">
+
+
+
+
+                        <div class="table-scrollable table-bordered">
+                            <table id="example1" class="display full-width table-striped">
+                                <thead>
+                                <tr>
+<!--                                    <th>ID</th>-->
+
+                                    <th>Bank Name</th>
+                                    <th>Branch Name</th>
+                                    <th>Account Number</th>
+                                    <th>Acoount Holder Name</th>
+                                    <th>IFSC Code</th>
+                                    <th>MICR Code</th>
+
+                                    <th>Edit/Delete</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for be in accounts %}
+                                <tr>
+<!--                                    <td>{{ be.id }}</td>-->
+
+                                    <td>{{ be.bank_name }}</td>
+                                    <td>{{ be.bank_branch }}</td>
+                                    <td>{{ be.acoount_no|default:'' }}</td>
+                                    <td>{{ be.acoount_holder_name|default:'' }}</td>
+                                    <td>{{ be.ifsc_code|default:'' }}</td>
+                                    <td>{{ be.micr_code|default:'' }}</td>
+
+                                    <td>
+                                        <a href="#" data-toggle="modal" data-target="#model_add_new_entities"
+                                           class="btn btn-tbl-edit btn-xs" data-id="{{be.id}}" data-corporate_id="{{be.corporate_id}}"  data-bank_name="{{be.bank_name}}"
+                                        data-bank_branch="{{be.bank_branch}}" data-acoount_no="{{be.acoount_no}}" data-acoount_holder_name="{{be.acoount_holder_name}}" data-ifsc_code="{{be.ifsc_code}}"
+                                        data-micr_code="{{be.micr_code}}" >
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                        <a  href="#" data-toggle="modal" class="btn btn-tbl-delete btn-xs" data-target="#model_add_new_entities"  data-id="{{be.id}}"
+                                            data-corporate_id="{{be.corporate_id}}" data-bank_name="{{be.bank_name}}"
+                                        data-bank_branch="{{be.bank_branch}}" data-acoount_no="{{be.acoount_no}}" data-acoount_holder_name="{{be.acoount_holder_name}}" data-ifsc_code="{{be.ifsc_code}}"
+                                        data-micr_code="{{be.micr_code}}" data-delete_id="1">
+                                            <i class="fa fa-trash-o "></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- end page content -->
+
+
+{% else %}
+<p>Welcome, new user. Please log in.<a href="/login">Login</a></p>
+{% endif %}
+
+
+<script>
+
+        $(".myselect").select2();
+
+        var mymod = $('#corporate_id');
+
+        mymod.select2();
+
+        var billingcitySelect = $('#billing_city_id');
+
+        billingcitySelect.select2();
+
+</script>
+
+
+<script type="text/javascript">
+$(function() {
+  $('#model_add_new_entities').on('shown.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var id = button.data('id'); // Extract info from data-* attributes
+    var corporate_id = button.data('corporate_id');
+    var bank_name = button.data('bank_name');
+    var bank_branch = button.data('bank_branch');
+    var acoount_no = button.data('acoount_no');
+    var acoount_holder_name = button.data('acoount_holder_name');
+    var micr_code = button.data('micr_code');
+    var ifsc_code = button.data('ifsc_code');
+
+    var delete_id = button.data('delete_id');
+
+    var modal = $(this);
+
+    if(delete_id == 1){
+    modal.find('#delete_id').val(delete_id);
+    modal.find('#account_id').val(id);
+
+    mymod.val(corporate_id);
+    mymod.trigger('change.select2');
+
+    modal.find('#bank_name').val(bank_name);
+    modal.find('#bank_branch').val(bank_branch);
+    modal.find('#acoount_no').val(acoount_no);
+    modal.find('#acoount_holder_name').val(acoount_holder_name);
+    modal.find('#micr_code').val(micr_code);
+    modal.find('#ifsc_code').val(ifsc_code);
+
+    $('#delete_label').text("do you want to delete this record");
+    $('#delete_btn').html("Yes");
+
+    $('#bank_name1').hide();
+    $('#corporate_id1').hide();
+    $("#bank_branch1").val(po_date).hide();
+    $('#acoount_no1').hide();
+    $('#acoount_holder_name1').hide();
+    $('#micr_code1').hide();
+    $('#ifsc_code1').hide();
+
+    }else{
+
+    modal.find('#account_id').val(id);
+
+    mymod.val(corporate_id);
+    mymod.trigger('change.select2');
+
+    modal.find('#bank_name').val(bank_name);
+    modal.find('#bank_branch').val(bank_branch);
+    modal.find('#acoount_no').val(acoount_no);
+    modal.find('#acoount_holder_name').val(acoount_holder_name);
+    modal.find('#micr_code').val(micr_code);
+    modal.find('#ifsc_code').val(ifsc_code);
+    modal.find('#delete_id').val('');
+
+    $('#delete_label').text("Account Details");
+    $('#delete_btn').html("Save");
+
+    $('#bank_name1').show();
+    $('#corporate_id1').show();
+    $("#bank_branch1").val(po_date).show();
+    $('#acoount_no1').show();
+    $('#acoount_holder_name1').show();
+    $('#micr_code1').show();
+    $('#ifsc_code1').show();
+
+    }
+
+    });
+
+});
+
+</script>
+
+{% endblock %}
+
+

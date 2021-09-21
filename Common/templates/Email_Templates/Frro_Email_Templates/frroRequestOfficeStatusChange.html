@@ -1,0 +1,23 @@
+{% include 'Email_Templates/Frro_Email_Templates/header.html' %}
+ {% for booking in bookings %}
+Dear {{user_name}}<br><br>
+Greetings from CoTrav..!<br><br>
+PFA, the drafted letters for {{booking.frro_request_type_name|default:'NA'}} of {{ booking.reference_no|default:'NA' }}
+<br><br>
+We have got an FRRO Request Office status changed by user details are as follows:<br>
+	<br>
+	<b>Request ID: </b>{{ booking.reference_no|default:'NA' }}<br>
+	<b>Request Type: </b>{{booking.frro_request_type_name|default:'NA'}}<br>
+	<b>City: </b>{{booking.hotel_city_name|default:'NA'}}<br>
+	<b>Registered Email: </b>{{booking.registered_email|default:'NA'}}<br>
+	<b>Name: </b>{{booking.user_name|default:'NA'}}
+
+<br><br>
+Office details are as follows:<br>
+<br>
+<b>Status Type: </b>{{status_type}}<br>
+<b>Status: </b>{{status}}<br>
+<b>Comment: </b>{{status_comment}}<br>
+
+{% endfor %}
+{% include 'Email_Templates/Frro_Email_Templates/footer.html' %}

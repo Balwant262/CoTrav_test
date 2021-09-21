@@ -1,0 +1,231 @@
+{% extends 'Company/Admin/layout/header.html' %}
+
+{% block content %}
+
+
+{% if user %}
+			<!-- start page content -->
+            <div class="page-content-wrapper">
+                <div class="page-content">
+{% include 'cotrav_alert_message.html' %}
+                                     <div class="text-center">
+                 <div style="font-size:14px; font-weight:bold;">
+                     Edit Company
+                     </div>
+            </div>
+
+ <form method="post" action="/Corporate/agents/corporate">
+      <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+      {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <div class="card card-box">
+                                <div class="card-head">
+                                    <header>General Information</header>
+
+				                        <ul class = "mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+				                           data-mdl-for = "panel-button">
+				                           <li class = "mdl-menu__item"><i class="material-icons">assistant_photo</i>Action</li>
+				                           <li class = "mdl-menu__item"><i class="material-icons">print</i>Another action</li>
+				                           <li class = "mdl-menu__item"><i class="material-icons">favorite</i>Something else here</li>
+				                        </ul>
+                                </div>
+                                <div class="card-body " id="bar-parent">
+
+                                          <div class="form-group">
+                                            <label for="simpleFormEmail">Corporate Name</label>
+                                            <input type="text" class="form-control" id="simpleFormEmail" name="corporate_name" placeholder="Corporate Name" value="{{ corporate.corporate_name }}">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="simpleFormEmail">Corporate Code</label>
+                                            <input type="text" class="form-control" name="corporate_code"  placeholder="Corporate Code" value="{{ corporate.corporate_code }}">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="simpleFormEmail">Contact Name</label>
+                                            <input type="text" class="form-control" name="contact_person_name" placeholder="Contact Name" value="{{ corporate.contact_person_name }}">
+                                        </div>
+
+                                         <div class="form-group">
+                                            <label for="simpleFormEmail">Contact No</label>
+                                            <input type="number" class="form-control" name="contact_person_no" placeholder="Contact No" value="{{ corporate.contact_person_no }}">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="simpleFormEmail">Contact Email</label>
+                                            <input type="email" class="form-control" name="contact_person_email" placeholder="Enter email address" value="{{ corporate.contact_person_email }}">
+                                        </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="card card-box">
+                                <div class="card-head">
+                                    <header>Access Details</header>
+                                    <button id = "panel-button2"
+				                           class = "mdl-button mdl-js-button mdl-button--icon pull-right"
+				                           data-upgraded = ",MaterialButton">
+				                           <i class = "material-icons">more_vert</i>
+				                        </button>
+				                        <ul class = "mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+				                           data-mdl-for = "panel-button2">
+				                           <li class = "mdl-menu__item"><i class="material-icons">assistant_photo</i>Action</li>
+				                           <li class = "mdl-menu__item"><i class="material-icons">print</i>Another action</li>
+				                           <li class = "mdl-menu__item"><i class="material-icons">favorite</i>Something else here</li>
+				                        </ul>
+                                </div>
+                                <div class="card-body " id="bar-parent1">
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 control-label">Has Booking Approval Levels</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" name="has_auth_level">
+	                                                <option value="1" {% if corporate.has_auth_level == True %} selected {% endif %}>Yes</option>
+	                                                <option value="0" {% if corporate.has_auth_level == False %} selected {% endif %}>No</option>
+	                                            </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 control-label">Has Assessment Codes</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" name="has_assessment_codes">
+	                                               <option value="1" {% if corporate.has_assessment_codes == True %} selected {% endif %}>Yes</option>
+	                                                <option value="0" {% if corporate.has_assessment_codes == False %} selected {% endif %}>No</option>
+	                                            </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 control-label">Radio Bookings</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" name="is_radio">
+	                                               <option value="1" {% if corporate.is_radio == True %} selected {% endif %}>Yes</option>
+	                                                <option value="0" {% if corporate.is_radio == False %} selected {% endif %}>No</option>
+	                                            </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 control-label">Local Bookings</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" name="is_local">
+	                                              <option value="1" {% if corporate.is_local == True %} selected {% endif %}>Yes</option>
+	                                                <option value="0" {% if corporate.is_local == False %} selected {% endif %}>No</option>
+	                                            </select>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 control-label" name="is_outstation">Outstation Bookings</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control">
+	                                                <option value="1" {% if corporate.is_outstation == True %} selected {% endif %}>Yes</option>
+	                                                <option value="0" {% if corporate.is_outstation == False %} selected {% endif %}>No</option>
+	                                            </select>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 control-label">Bus Bookings</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" name="is_bus" >
+	                                                <option value="1" {% if corporate.is_bus == True %} selected {% endif %}>Yes</option>
+	                                                <option value="0" {% if corporate.is_bus == False %} selected {% endif %}>No</option>
+	                                            </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 control-label">Train Bookings</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" name="is_train">
+	                                                <option value="1" {% if corporate.is_train == True %} selected {% endif %}>Yes</option>
+	                                                <option value="0" {% if corporate.is_train == False %} selected {% endif %}>No</option>
+	                                            </select>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 control-label">Hotel Bookings</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" name="is_hotel">
+	                                                <option value="1" {% if corporate.is_hotel == True %} selected {% endif %}>Yes</option>
+	                                                <option value="0" {% if corporate.is_hotel == False %} selected {% endif %}>No</option>
+	                                            </select>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 control-label">Flight Bookings</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" name="is_flight">
+	                                                <option value="1" {% if corporate.is_flight == True %} selected {% endif %}>Yes</option>
+	                                                <option value="0" {% if corporate.is_flight == False %} selected {% endif %}>No</option>
+	                                            </select>
+                                            </div>
+                                        </div>
+
+                                         <div class="form-group row">
+                                            <label class="col-sm-4 control-label">Meal Bookings</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" name="is_meal">
+	                                                <option value="1" {% if corporate.is_meal == True %} selected {% endif %}>Yes</option>
+	                                                <option value="0" {% if corporate.is_meal == False %} selected {% endif %}>No</option>
+	                                            </select>
+                                            </div>
+                                        </div>
+
+                                         <div class="form-group row">
+                                            <label class="col-sm-4 control-label">Water Bottles Bookings</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" name="is_water_bottles">
+	                                                <option value="1" {% if corporate.is_water_bottles == True %} selected {% endif %}>Yes</option>
+	                                                <option value="0" {% if corporate.is_water_bottles == False %} selected {% endif %}>No</option>
+	                                            </select>
+                                            </div>
+                                        </div>
+
+                                          <div class="form-group row">
+                                            <label class="col-sm-4 control-label">Reverse Logistics</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" name="is_reverse_logistics">
+	                                               <option value="1" {% if corporate.is_reverse_logistics == True %} selected {% endif %}>Yes</option>
+	                                                <option value="0" {% if corporate.is_reverse_logistics == False %} selected {% endif %}>No</option>
+	                                            </select>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <div class="offset-md-3 col-md-9">
+                                                <button type="submit" class="btn btn-info">Submit</button>
+                                                <button type="button" onclick="history.back();" class="btn btn-default">Cancel</button>
+                                            </div>
+                                        </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+ </form>
+  </div>
+</div>
+
+<!-- end page content -->
+
+
+
+
+{% else %}
+    <p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+{% endblock %}

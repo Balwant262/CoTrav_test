@@ -1,0 +1,412 @@
+{% extends 'Agent/layout/header.html' %}
+
+{% block content %}
+<style>
+    .lead-form {
+        align: center;
+    }
+
+    .errorlist li {
+    color: red;
+
+    }
+
+ol.comments {
+  padding: 20px;
+}
+
+ol.comments li {
+  padding: 5px;
+  margin-left: 35px;
+  font-size: 15px;
+}
+
+</style>
+
+{% if user %}
+
+<!-- start page content -->
+{% include 'cotrav_alert_message.html' %}
+
+      <div class="page-content-wrapper">
+            <div class="page-content">
+
+                        <div class="row p-b-20">
+                                        <div class="col-md-6 col-sm-6 col-6">
+                                            <div class="btn-group">
+                                                 <a class="btn btn-primary" href="/agents/lead" > << Back </a>
+                                            </div>
+                                        </div>
+                        </div>
+        
+                <div class="text-center">
+                     <div style="font-size:14px; font-weight:bold;">
+                         {% if form_title %}
+                         {{form_title}}
+                         {% else %}
+                         Leads
+                         {% endif %}
+                     </div>
+                 </div>
+
+                 <form action=""  enctype="multipart/form-data" method="post" class="lead-form" >
+
+                     {% csrf_token %}
+                    
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card card-topline-aqua">
+                            <div class="card-head">
+                                <header>Lead Basic Details</header>
+                                <div class="tools">
+                                    <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                                    <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                                    <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                                </div>
+                            </div>
+                            <div class="card-body ">
+
+                                        <div class="form-group row">
+
+
+
+                                                <label class="col-sm-4" for="{{ form.Contact_Name.Contact_Name }}">Contact Name:</label>
+                                                {{ form.Contact_Name }}
+                                                {{ form.Contact_Name.errors }}
+
+                                        </div>
+
+                                            <div class="form-group row">
+
+                                                <label class="col-sm-4" for="{{ form.Company_Name.Company_Name }}">Company Name:</label>
+                                                {{ form.Company_Name }}
+                                                {{ form.Company_Name.errors }}
+
+                                            </div>
+
+                                            <div class="form-group row">
+
+                                                    <label class="col-sm-4" for="{{ form.Contact_Number.Contact_Number }}">Contact Number:</label>
+                                                    {{ form.Contact_Number }}
+                                                    {{ form.Contact_Number.errors }}
+
+                                            </div>
+                                            
+
+                                            <div class="form-group row">
+
+                                                    <label class="col-sm-4" for="{{ form.Contact_Email.Contact_Email }}">Contact Email:</label>
+                                                    {{ form.Contact_Email }}
+                                                    <span>{{ form.Contact_Email.errors }}</span>
+
+                                            </div>
+
+                                            <div class="form-group row">
+
+                                                    <label class="col-sm-4" for="{{ form.Company_Location.Company_Location }}">Company Location:</label>
+                                                    {{ form.Company_Location }}
+                                                    {{ form.Company_Location.errors }}
+
+                                            </div>
+
+                                            <div class="form-group row">
+
+                                                    <label class="col-sm-4" for="{{ form.Contact_Address.Contact_Address }}">Address Line 1:</label>
+                                                    {{ form.Contact_Address }}
+                                                    {{ form.Contact_Address.errors }}
+
+                                            </div>
+
+                                            <div class="form-group row">
+
+                                                    <label class="col-sm-4" for="{{ form.Contact_Address.Contact_Address_Line2 }}">Address Line 2:</label>
+                                                    {{ form.Contact_Address_Line2 }}
+                                                    {{ form.Contact_Address_Line2.errors }}
+
+                                            </div>
+
+                                            <div class="form-group row">
+
+                                                    <label class="col-sm-4" for="{{ form.Contact_Address.Contact_Address_Line3 }}">Address Line 3:</label>
+                                                    {{ form.Contact_Address_Line3 }}
+                                                    {{ form.Contact_Address_Line3.errors }}
+
+                                            </div>
+
+                                            <div class="form-group row">
+
+                                                    <label class="col-sm-4" for="{{ form.Company_Website.Company_Website }}">Company Website:</label>
+                                                    {{ form.Company_Website }}
+                                                    {{ form.Company_Website.errors }}
+
+                                            </div>
+
+                                            <div class="form-group row">
+
+                                                    <label class="col-sm-4" for="{{ form.Message.Message }}">Message:</label>
+                                                    {{ form.Message }}
+                                                    {{ form.Message.errors }}
+
+                                            </div>
+
+                                        <div class="form-group row">
+
+                                                    <label class="col-sm-4" for="{{ form.Message.Hear_About_Us }}">Referenced From:</label>
+                                                    {{form.Hear_About_Us}}
+
+                                            </div>
+
+                                    {% if status_msg %}
+                                        <div class="form-group row">
+                                                <div class="col-sm-4"><label >{{status_msg}}</label></div>
+                                            <div class="col-sm-8 "><label > {{diff_date|default:'1'}} Days</label></div>
+                                         </div>
+                                    {% endif %}
+
+                                            
+        
+                                </div>
+                             
+        
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-4">
+                                <div class="card card-topline-aqua">
+                                       <div class="card-head">
+                                           <header>Lead Status Details</header>
+                                           <div class="tools">
+                                               <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                                               <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                                               <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                                           </div>
+                                       </div>
+                                       <div class="card-body ">
+
+                                            <div class="form-group row">
+
+                                                    <label class="col-sm-4" for="{{ form.Assigned_Sales_Person.Assigned_Sales_Person }}">Assigned Sales Person:</label>
+                                                    {{ form.Assigned_Sales_Person }}
+                                                    {{ form.Assigned_Sales_Person.errors }}
+
+                                            </div>
+
+                                            <div class="form-group row">
+
+                                                    <label class="col-sm-4" for="{{ form.Status.Status }}">Status:</label>
+                                                    {{ form.Status }}
+                                                    {{ form.Status.errors }}
+
+                                            </div>
+
+                                            <div class="form-group row">
+
+                                                    <label class="col-sm-4" for="{{ form.Lead_Source.Lead_Source }}">Lead Source:</label>
+                                                    {{ form.Lead_Source }}
+                                                    {{ form.Lead_Source.errors }}
+
+                                            </div>
+
+
+
+                                            <div class="form-group row">
+
+                                                    <label class="col-sm-4" for="{{ form.Lead_Communication.Lead_Communication }}">Further Communication:</label>
+                                                    {{ form.Lead_Communication }}
+                                                    {{ form.Lead_Communication.errors }}
+
+                                            </div>
+
+
+                                           <div class="form-group row">
+                                            <label class="col-sm-4">All Document</label>
+                                                {% if attachments %}
+
+                                               <ol class="col-sm-8">
+                                                 {% for attachment in attachments %}
+                                                   <li>{{attachment.doc_name}}: <a href="../../media/uploads/{{attachment.document}}" download >Download</a> / <a href="#" onclick="doc_del({{attachment.id}})"  >Delete</a></li>
+
+                                                 {% endfor %}
+                                               </ol>
+                                            {% else %}
+                                               <label class="col-sm-8">No Previous Documents</label>
+                                            {% endif %}
+
+                                            </div>
+
+
+                                            <div class="form-group row">
+
+                                                        <label class="col-sm-4" for="{{ form.Attachments.Attachments }}">New Document Name:</label>
+                                                <input type="text" name="doc_name" class="form-control col-sm-8">
+
+                                            </div>
+
+                                            <div class="form-group row">
+
+                                                        <label class="col-sm-4" for="{{ form.Attachments.Attachments }}">Attachments:</label>
+
+
+
+                                                <input type="file" name="Attachments" id="id_Attachments">
+
+                                            </div>
+
+
+
+
+
+                                       </div>
+                                       
+                        </div>               
+                   
+
+
+
+
+                     </div>
+
+
+                    <div class="col-md-4">
+                                <div class="card card-topline-aqua">
+                                       <div class="card-head">
+                                           <header>Lead Comments Detail</header>
+                                           <div class="tools">
+                                               <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                                               <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                                               <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                                           </div>
+                                       </div>
+                                       <div class="card-body ">
+
+                                          <div class="form-group row">
+                                            <label class="col-sm-3">Comment List</label>
+                                            {% if comments %}
+
+                                               <ul class="col-sm-9" style="list-style:none; font-size:10px;">
+                                                 {% for cmt in comments %}
+                                                   <li>{{cmt.created_by.user_name}} [{{cmt.created_at|date:"d-m-yy h:i"}}]: {{cmt.comment}}</li>
+                                                 {% endfor %}
+                                               </ul>
+                                            {% else %}
+                                               <label class="col-sm-8">No Previous Comments</label>
+                                            {% endif %}
+
+                                           </div>
+
+
+                                            <div class="form-group row">
+
+                                                    <label class="col-sm-4" for="{{ form.Comments.Comments }}">Add New Comment:</label>
+                                                    {{ form.Comments }}
+
+                                            </div>
+                                           <div class="form-group row">
+
+                                                    <label class="col-sm-4">Send Email:</label>
+                                               <select name="is_email" class="col-sm-8 form-control">
+                                                   <option value="0">NO</option>
+                                                   <option value="1">Yes</option>
+                                               </select>
+
+                                            </div>
+
+                                            <div class="form-group row">
+
+                                                    <label class="col-sm-4">Send SMS:</label>
+                                               <select name="is_sms" class="col-sm-8 form-control">
+                                                   <option value="0">NO</option>
+                                                   <option value="1">Yes</option>
+                                               </select>
+
+                                            </div>
+
+
+
+
+                                            <div class="form-group">
+                                                <div class="offset-md-3 col-md-9">
+                                                    <button type="submit" value="Submit" class="btn btn-info">Submit</button>
+                                                    <a class="btn btn-default" href="/agents/lead" > Cancel </a>
+
+                                                </div>
+                                            </div>
+
+
+
+
+                                       </div>
+
+                        </div>
+
+
+
+
+
+                     </div>
+        
+            
+</div>
+               
+
+                </form>
+
+                
+            </div>
+        </div>
+        <!-- end page content -->
+
+
+
+{% else %}
+<p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCstbhex4F6X2-AXz3B1sR1oRvxssE3sc&libraries=places"></script>
+
+<script>
+    var status_select = $('#status');
+    status_select.select2();
+
+$("#sales_person").on("change", function() {
+
+var status =  $("#status").val();
+if(status == 'Lead Created'){
+ status_select.val('Assigned');
+ status_select.trigger('change.select2');
+
+}
+});
+
+  var company_location = document.getElementById('company_location');
+  var autocomplete = new google.maps.places.Autocomplete(company_location);
+
+</script>
+
+<script>
+
+function doc_del(del)
+{
+$.post("../lead-doc-delete/"+del,
+  {
+    pk: del,
+
+  },
+  function(data, status){
+    //alert("Data: " + data + "\nStatus: " + status);
+    location.reload();
+  });
+
+}
+
+
+
+
+</script>
+
+
+
+{% endblock %}
+
+

@@ -1,0 +1,5318 @@
+{% extends 'Agent/layout/header.html' %}
+
+{% block content %}
+
+{% for db in dataDashboard %}
+
+
+{% if user %}
+<!-- start page content -->
+ {% include 'cotrav_alert_message.html' %}
+
+            <div class="page-content-wrapper">
+                <div class="page-content">
+
+
+
+                  <!-- <div class="row">
+                       <div class="col-lg-2">
+                                <div class="info-box bg-b-cyan">
+                                    <span class="info-box-icon"><i class="material-icons">list</i></span>
+                                    <div class="info-box-content">
+                                      <span class="info-box-text" >Total Bookings</span>
+                                      <span class="info-box-number">{{db.total_booking_count}}</span>
+                                    </div>
+                                  </div>
+                        </div>
+                        <div class="col-lg-2">
+                                <div class="info-box bg-b-cyan">
+                                    <span class="info-box-icon"><i class="material-icons">playlist_add_check</i></span>
+                                    <div class="info-box-content">
+                                      <span class="info-box-text" >Active-Assigned</span>
+                                      <span class="info-box-number">{{db.aa_total_count}}</span>
+                                    </div>
+                                  </div>
+                        </div>
+                       <div class="col-lg-2">
+                                <div class="info-box bg-b-cyan">
+                                    <span class="info-box-icon"><i class="material-icons">list</i></span>
+                                    <div class="info-box-content">
+                                      <span class="info-box-text" >Active-Unassigned </span>
+                                      <span class="info-box-number">{{db.aua_total_count}}</span>
+                                    </div>
+                                  </div>
+                        </div>
+                       <div class="col-lg-2">
+                                <div class="info-box bg-b-cyan">
+                                    <span class="info-box-icon"><i class="material-icons">card_travel</i></span>
+                                    <div class="info-box-content">
+                                      <span class="info-box-text" >Upcoming Trips</span>
+                                      <span class="info-box-number">{{db.uc_total_count}}</span>
+                                    </div>
+                                  </div>
+                        </div>
+                       <div class="col-lg-2">
+                                <div class="info-box bg-b-cyan">
+                                    <span class="info-box-icon"><i class="material-icons">cancel</i></span>
+                                    <div class="info-box-content">
+                                      <span class="info-box-text" >Cancelled Trips</span>
+                                      <span class="info-box-number">{{db.c_total_count}}</span>
+                                    </div>
+                                  </div>
+                        </div>
+                        <div class="col-lg-2">
+                                <div class="info-box bg-b-cyan">
+                                    <span class="info-box-icon"><i class="material-icons">warning</i></span>
+                                    <div class="info-box-content">
+                                      <span class="info-box-text" >Bookings with Issues</span>
+                                      <span class="info-box-number">{{db.issue_total_count}}</span>
+                                    </div>
+                                  </div>
+                        </div>
+
+
+                  </div>
+                  <div class="row">
+                       <div class="col-lg-2">
+                                <div class="info-box bg-b-blue">
+                                    <span class="info-box-icon"><i class="material-icons">list</i></span>
+                                    <div class="info-box-content">
+                                      <span class="info-box-text" >Total Leads</span>
+                                      <span class="info-box-number">{{db.lead_count}}</span>
+                                    </div>
+                                  </div>
+                        </div>
+                        <div class="col-lg-2">
+                                <div class="info-box bg-b-blue">
+                                    <span class="info-box-icon"><i class="material-icons">warning</i></span>
+                                    <div class="info-box-content">
+                                      <span class="info-box-text" >Pending Leads</span>
+                                      <span class="info-box-number">{{db.lead_pending_count}}</span>
+                                    </div>
+                                  </div>
+                        </div>
+                       <div class="col-lg-2">
+                                <div class="info-box bg-b-blue">
+                                    <span class="info-box-icon"><i class="material-icons">done</i></span>
+                                    <div class="info-box-content">
+                                      <span class="info-box-text" >Converted Leads </span>
+                                      <span class="info-box-number">{{db.lead_converted_count}}</span>
+                                    </div>
+                                  </div>
+                        </div>
+                       <div class="col-lg-2">
+                                <div class="info-box bg-b-blue">
+                                    <span class="info-box-icon"><i class="material-icons">warning</i></span>
+                                    <div class="info-box-content">
+                                      <span class="info-box-text" >Lost Leads</span>
+                                      <span class="info-box-number">{{db.lead_lost_count}}</span>
+                                    </div>
+                                  </div>
+                        </div>
+                       <div class="col-lg-2">
+                                <div class="info-box bg-b-blue">
+                                    <span class="info-box-icon"><i class="material-icons">playlist_add_check</i></span>
+                                    <div class="info-box-content">
+                                      <span class="info-box-text" >Total Invoices</span>
+                                      <span class="info-box-number">{{db.total_invoice_count}}</span>
+                                    </div>
+                                  </div>
+                        </div>
+                        <div class="col-lg-2">
+                                <div class="info-box bg-b-blue">
+                                    <span class="info-box-icon"><i class="material-icons">list</i></span>
+                                    <div class="info-box-content">
+                                      <span class="info-box-text" >Total Invoice Amount</span>
+                                      <span class="info-box-number">{{db.total_invoice_amount|default:'0'}}</span>
+                                    </div>
+                                  </div>
+                        </div>
+                  </div> -->
+
+                  <div class="row">
+
+                    <div class="col-lg-2">
+                      <div class="col-lg-12">
+                            <div class="info-box bg-b-yellow">
+
+                                <div class="info-box-content" style="margin-left: 15px">
+                                  <span class="info-box-text">{{db.lead_count}}</span>
+                                  <span class="info-box-text" style="font-weight:500;">Total Leads</span>
+                                  <div class="progress"><div class="progress-bar" width-60></div></div>
+                                  <span class="info-box-text">{{db.lead_pending_count}} </span>
+                                  <span class="info-box-text" style="font-weight:500;">Pending Leads</span>
+                                  <div class="progress"><div class="progress-bar" width-60></div></div>
+                                  <span class="info-box-text"> {{db.lead_converted_count}} </span>
+                                  <span class="info-box-text" style="font-weight:500;">Converted Leads</span>
+                                  <div class="progress"><div class="progress-bar" width-60></div></div>
+                                  <span class="info-box-text">{{db.lead_lost_count}} </span>
+                                  <span class="info-box-text" style="font-weight:500;">Lost Leads</span>
+                                </div>
+                              </div>
+                    </div>
+
+                    </div>
+
+                    <div class="col-lg-3">
+
+
+
+                      <div class="row">
+                        <div class="col-lg-12">
+                        <div class="info-box  bg-white">
+
+                            <div class="info-box-content" style="margin-left: 45px">
+                              <span class="info-box-text" style="display: contents; font-weight:500;">Total Bookings : </span>
+                              <span class="info-box-number" style="padding: 0 0 0 20px;">{{db.total_booking_count}}</span>
+                            </div>
+                          </div>
+                          </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-lg-12">
+                        <div class="info-box bg-white" style="min-height: 40px">
+
+                            <div class="info-box-content" style="margin-left: 45px">
+                              <span class="info-box-text" style="display: contents; font-weight:500;">Active-Assigned :</span>
+                              <span class="info-box-number" style="padding: 0 0 0 20px;">{{db.aa_total_count}}</span>
+                            </div>
+                          </div>
+                          </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-lg-12">
+                        <div class="info-box bg-white" style="min-height: 40px">
+
+                            <div class="info-box-content" style="margin-left: 45px">
+                              <span class="info-box-text" style="display: contents; font-weight:500;">Active-Unassigned :</span>
+                              <span class="info-box-number" style="padding: 0 0 0 20px;">{{db.aua_total_count}}</span>
+                            </div>
+                          </div>
+                      </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <div style="border-top: 6px solid purple"></div>
+                      </div>
+                      </div>
+
+
+                    </div>
+
+
+                    <div class="col-lg-2">
+
+
+
+                      <div class="row">
+                        <div class="col-lg-12">
+                        <div class="info-box  bg-white">
+
+                            <div class="info-box-content" style="margin-left: 45px">
+                              <span class="info-box-text" style="display: contents; font-weight:500;">Total Visa: </span>
+                              <span class="info-box-number" style="padding: 0 0 0 5px;">0</span>
+                            </div>
+                          </div>
+                          </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-lg-12">
+                        <div class="info-box bg-white" style="min-height: 40px">
+
+                            <div class="info-box-content" style="margin-left: 45px">
+                              <span class="info-box-text" style="display: contents; font-weight:500;">Total FRRO:</span>
+                              <span class="info-box-number" style="padding: 0 0 0 5px;">2</span>
+                            </div>
+                          </div>
+                          </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-lg-12">
+                        <div class="info-box bg-white" style="min-height: 40px">
+
+                            <div class="info-box-content" style="margin-left: 45px">
+                              <span class="info-box-text" style="display: contents; font-weight:500;">Total Approved:</span>
+                              <span class="info-box-number" style="padding: 0 0 0 5px;">2</span>
+                            </div>
+                          </div>
+                      </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <div style="border-top: 6px solid purple"></div>
+                      </div>
+                      </div>
+
+
+                    </div>
+
+
+
+                    <div class="col-lg-3">
+
+
+                      <div class="row">
+                        <div class="col-lg-12">
+                        <div class="info-box bg-white" style="min-height: 40px">
+
+                            <div class="info-box-content" style="margin-left: 45px">
+                              <span class="info-box-text" style="display: contents; font-weight:500;">Upcoming Trips :</span>
+                              <span class="info-box-number" style="padding: 0 0 0 20px;">{{db.uc_total_count}}</span>
+                            </div>
+                          </div>
+                      </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-lg-12">
+                        <div class="info-box bg-white" style="min-height: 40px">
+
+                            <div class="info-box-content" style="margin-left: 45px">
+                              <span class="info-box-text" style="display: contents; font-weight:500;">Cancelled Trips :</span>
+                              <span class="info-box-number" style="padding: 0 0 0 20px;">{{db.c_total_count}}</span>
+                            </div>
+                          </div>
+                      </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-lg-12">
+                        <div class="info-box bg-white" style="min-height: 40px">
+
+                            <div class="info-box-content" style="margin-left: 45px">
+                              <span class="info-box-text"  style="display: contents; font-weight:500;">Bookings with Issues :</span>
+                              <span class="info-box-number" style="padding: 0 0 0 20px;">{{db.issue_total_count}}</span>
+                            </div>
+                          </div>
+                          </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <div style="border-top: 6px solid purple"></div>
+                      </div>
+                      </div>
+
+                    </div>
+
+
+                    <div class="col-lg-2">
+
+                       <div class="row">
+                         <div class="col-lg-12">
+                         <div class="info-box bg-b-green" style="min-height: 120px">
+                           <span class="info-box-icon"><i class="material-icons">receipt</i></span>
+                             <div class="info-box-content" style="margin-left: 55px">
+                               <span class="info-box-text" style="font-weight:500;">Total Invoices</span>
+                               <span class="info-box-number">{{db.total_invoice_count}}</span>
+                               <div class="progress"><div class="progress-bar" width-60></div></div>
+                             </div>
+                           </div>
+                        </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-lg-12">
+                          <div class="info-box bg-b-green" style="min-height: 120px">
+                            <span class="info-box-icon"><i class="material-icons">attach_money</i></span>
+                              <div class="info-box-content" style="margin-left: 55px">
+                                <span class="info-box-text" style="font-weight:500;">Billed Amount</span>
+                                <span class="info-box-number">{{db.total_invoice_amount|default:'0'}}</span>
+                                <div class="progress"><div class="progress-bar" width-60></div></div>
+                              </div>
+                            </div>
+                         </div>
+                         </div>
+
+
+
+                    </div>
+
+
+                  </div>
+
+
+
+
+
+
+
+
+<!--            {% if agent_user_type == 101 or agent_user_type == 102  %}-->
+
+
+                 <div class="row">
+                     <div class="col-md-8">
+                            <div class="card card-topline-lightblue" >
+                                 <div class="card-head">
+                                     <header>
+                                      <button class="btn btn-success11" id="btn1" style="margin: 3px 20px;" >Six Months Booking Summary</button>
+                                      <button class="btn btn-success11" id="btn2" style="margin: 3px 20px;" >Six Months Sales Summary</button>
+                                      <button class="btn btn-success11" id="btn3" style="margin: 3px 20px;" >Average Response Time</button>
+                                    </header>
+                                 </div>
+                                <div class="card-body" >
+                                    <div class="row">
+                                           <canvas id="booking-chart-by-months" height="100"   ></canvas>
+                                           <canvas id="chart-by-months" height="100" ></canvas>
+                                           <div class="tools" id="tools1">
+                                            <span onclick="prev3()"><i class="fa fa-arrow-circle-left fa-3x" ></i></span>
+                                            <span onclick="next3()"><i class="fa fa-arrow-circle-right fa-3x" ></i></span>
+                                            <input type="hidden" name="yr" id="yr-3" value="2019">
+                                            <input type="hidden" name="mnt" id="mnt-3" value="7">
+                                           </div>
+                                    </div>
+                                </div>
+                                <div class="card-body" id="chartjs_bar_parent1" >
+                                    <div class="row">
+										                            <canvas id="myChart601"  height="100"></canvas>
+
+                                    </div>
+                                </div>
+                            </div>
+                     </div>
+                     <div class="col-md-4">
+                            <div class="card card-topline-lightblue" >
+                                <div class="card-head">
+                                     <header> </header>
+                                     <button class="btn btn-success11" id="btnpie1" style="margin: 3px 20px;">Invoice Amount (in lacs)</button>
+                                     <button class="btn btn-success11" id="btnpie2" style="margin: 3px 20px;">Pending Invoices</button>
+                                 </div>
+                                <div class="card-body" id="chartjs_pie_parent1">
+                                      <div class="row">
+                                        <canvas id="canvasPendingInvoices" height="80"></canvas>
+                                      </div>
+                                </div>
+                                <div class="card-body" id="chartjs_pie_parent2">
+                                      <div class="row">
+                                        <canvas id="canvasPendingInvoiceAmount" height="80"></canvas>
+                                      </div>
+                                </div>
+                            </div>
+                              <div class="card card-topline-lightblue" >
+                                  <div class="card-head">
+                                       <header>  </header>
+                                       <button class="btn btn-success11" id="btnpie3" style="margin: 3px 20px;">Pending Bookings</button>
+                                       <button class="btn btn-success11" id="btnpie4" style="margin: 3px 20px;">Pending for next 2 days</button>
+                                   </div>
+                                  <div class="card-body" id="chartjs_pie_parent3">
+                                        <div class="row">
+                                          <canvas id="canvasTotalPendingBookings" height="100"></canvas>
+                                        </div>
+                                  </div>
+                                  <div class="card-body" id="chartjs_pie_parent4">
+                                        <div class="row">
+                                          <canvas id="canvasPendingBookings" height="100"></canvas>
+                                        </div>
+                                  </div>
+                              </div>
+
+                     </div>
+
+
+                 </div>
+
+
+
+
+
+
+                     <div class="row">
+
+					    <div class="col-md-6">
+
+                             <!-- <div class="card card-topline-lightblue">
+                                <div class="card-head">
+                                    <header>Six Months Booking Summary</header>
+
+                                </div>
+                                <div class="card-body " >
+                                    <div class="row">
+                                        <div class="tools" id="result-graph-container-3">
+
+                                        </div>
+
+                                        <canvas id="booking-chart-by-months" ></canvas>
+
+                                        <div class="tools">
+                                        <span onclick="prev3()"><i class="fa fa-arrow-circle-left fa-3x" ></i></span>
+                                        <span onclick="next3()"><i class="fa fa-arrow-circle-right fa-3x" ></i></span>
+
+                                        <input type="hidden" name="yr" id="yr-3" value="2019">
+                                        <input type="hidden" name="mnt" id="mnt-3" value="7">
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+ -->
+
+
+                        </div>
+
+                         <div class="col-md-6">
+
+                             <!-- <div class="card card-topline-lightblue">
+                                <div class="card-head">
+                                    <header>Six Months Sales Summary</header>
+
+                                </div>
+                                <div class="card-body " >
+                                    <div class="row">
+                                        <div class="tools" id="result-graph-container">
+
+                                        </div>
+
+                                        <canvas id="chart-by-months" ></canvas>
+                                        <canvas id="chartjs_bar2"></canvas>-->
+                                        <div class="tools">
+
+                                        <input type="hidden" name="yr" id="yr" value="2019">
+                                        <input type="hidden" name="mnt" id="mnt" value="7">
+
+
+                                        </div>
+
+                       </div>
+
+                     </div>
+
+                      <div class="row">
+
+
+
+                            <div class="col-md-5">
+
+                             <div class="card card-topline-lightblue">
+                                <div class="card-head">
+                                    <header>Tax Amount Summary</header>
+                                    <div class="tools">
+                                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+	                                    <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+	                                    <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                                    </div>
+                                </div>
+                                <div class="card-body " >
+                                    <div class="row">
+
+                                          <div class="tools" id="result-graph-container-4">
+
+                                              <b>From Date: </b> <input type = "date" id="from_date" name="from_datetime" >
+
+                                              <b>To Date: </b><input   type = "date" id="to_date" name="to_datetime" >
+                                         </div>
+                                        <div id="table-data" >
+                                            <table class="table">
+                                              <thead>
+                                                    <tr>
+                                                      <th scope="col">Service Type</th>
+                                                      <th scope="col">Pre-tax Amount</th>
+                                                      <th scope="col" colspan="3" style="text-align:center;">GST</th>
+                                                      <th scope="col">Others</th>
+                                                      <th scope="col">Total</th>
+                                                      <th scope="col" colspan="3" style="text-align:center;">Payment Status</th>
+
+                                                    </tr>
+                                                    <tr>
+                                                      <th scope="col"></th>
+                                                      <th scope="col">
+
+                                                        <th scope="col">IGST</th>
+                                                        <th scope="col">CGST</th>
+                                                        <th scope="col">SGST</th>
+
+                                                      </th>
+                                                      <th scope="col"></th>
+                                                      <th scope="col"></th>
+                                                      <th scope="col">
+
+                                                        <th scope="col">Paid</th>
+                                                        <th scope="col">Pending</th>
+                                                        <th scope="col">Partial Paid</th>
+
+                                                      </th>
+                                                    </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                    <tr id="row_hotel">
+
+                                                      <th scope="row">Hotel</th>
+                                                      <td></td>
+                                                      <td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                      </td>
+                                                      <td></td>
+                                                      <td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                      </td>
+
+                                                    </tr>
+                                                    <tr id="row_bus">
+
+                                                      <th scope="row">Bus</th>
+                                                      <td></td>
+                                                      <td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                      </td>
+                                                      <td></td>
+                                                      <td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                      </td>
+                                                    </tr>
+                                                    <tr id="row_train">
+
+                                                      <th scope="row">Train</th>
+                                                      <td></td>
+                                                      <td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                      </td>
+                                                      <td></td>
+                                                      <td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                      </td>
+                                                    </tr>
+                                                  <tr id="row_flight">
+
+                                                      <th scope="row">Flight</th>
+                                                      <td></td>
+                                                      <td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                      </td>
+                                                      <td></td>
+                                                      <td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                      </td>
+                                                    </tr>
+                                                  <tr id="row_taxi">
+
+                                                      <th scope="row">Taxi</th>
+                                                      <td></td>
+                                                      <td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                      </td>
+                                                      <td></td>
+                                                      <td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                      </td>
+                                                    </tr>
+
+                                                  <tr id="row_visa">
+
+                                                  <th scope="row">Visa</th>
+                                                  <td></td>
+                                                  <td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                  </td>
+                                                  <td></td>
+                                                  <td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                  </td>
+                                                </tr>
+                                                <tr id="row_frro">
+
+                                                  <th scope="row">FRRO</th>
+                                                  <td></td>
+                                                  <td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                  </td>
+                                                  <td></td>
+                                                  <td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                  </td>
+                                                </tr>
+
+                                                  </tbody>
+                                                </table>
+
+
+
+                                        </div>
+                                        <!--<canvas id="chartjs_bar2"></canvas>-->
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="col-md-7">
+                          <div class="card card-topline-lightblue">
+                                <div class="card-head">
+                                    <header></header>
+                                    <button class="btn btn-success11" id="10btnsales" style="margin: 3px 20px;">Top 10 Cities Sales Summary for {% now " M Y" %}</button>
+                                    <button class="btn btn-success11" id="10btnpay" style="margin: 3px 20px;">Payment pending from clients:</button>
+                                </div>
+                                <div class="card-body " id="10cardsales">
+                                    <div class="row">
+
+                                              <ul class="nav nav-tabs" id="myTab">
+                                                  <li class="active"><a data-target="#chart-1" data-toggle="tab">Taxi</a></li>
+                                                  <li><a data-target="#chart-2" data-toggle="tab">Bus</a></li>
+                                                  <li><a data-target="#chart-3" data-toggle="tab">Train</a></li>
+                                                  <li><a data-target="#chart-4" data-toggle="tab">Hotel</a></li>
+                                                  <li><a data-target="#chart-5" data-toggle="tab">Flight</a></li>
+                                                  <li><a data-target="#chart-6" data-toggle="tab">Visa</a></li>
+                                                  <li><a data-target="#chart-7" data-toggle="tab">FRRO</a></li>
+                                                </ul>
+
+                                                <div class="tab-content" style="width:800px; height=250px;">
+                                                  <div class="tab-pane active" id="chart-1" style="height: 250px">
+                                                    <canvas id="myChart201" height="100" width="800"></canvas>
+                                                  </div>
+                                                  <div class="tab-pane" id="chart-2" style="height: 250px">
+                                                    <canvas id="myChart202" height="100" width="800" ></canvas>
+                                                  </div>
+                                                  <div class="tab-pane" id="chart-3" style="height: 250px">
+                                                    <canvas id="myChart203" width="800" height="100"></canvas>
+                                                  </div>
+                                                  <div class="tab-pane" id="chart-4" style="height: 250px">
+                                                    <canvas id="myChart204" width="800" height="100"></canvas>
+                                                  </div>
+                                                  <div class="tab-pane" id="chart-5" style="height: 250px">
+                                                    <canvas id="myChart205" width="800" height="100"></canvas>
+                                                  </div>
+                                                    <div class="tab-pane" id="chart-6" style="height: 250px">
+                                                    <canvas id="myChart206" width="600" height="350"></canvas>
+                                                  </div>
+                                                    <div class="tab-pane" id="chart-7" style="height: 250px">
+                                                    <canvas id="myChart207" width="600" height="350"></canvas>
+                                                  </div>
+                                                </div>
+
+
+
+
+                                    </div>
+                                </div>
+
+
+                                <div class="card-body " id="10cardpay">
+                                  <div class="row">
+
+                                            <ul class="nav nav-tabs" id="myTab2">
+                                                <li class="active"><a data-target="#chart-11" data-toggle="tab">Taxi</a></li>
+                                                <li><a data-target="#chart-22" data-toggle="tab">Bus</a></li>
+                                                <li><a data-target="#chart-33" data-toggle="tab">Train</a></li>
+                                                <li><a data-target="#chart-44" data-toggle="tab">Hotel</a></li>
+                                                <li><a data-target="#chart-55" data-toggle="tab">Flight</a></li>
+                                                <li><a data-target="#chart-66" data-toggle="tab">Visa</a></li>
+                                                <li><a data-target="#chart-77" data-toggle="tab">FRRO</a></li>
+                                              </ul>
+
+                                              <div class="tab-content" style="width:800px; height=250px;">
+                                                <div class="tab-pane active" id="chart-11" style="height: 250px">
+                                                  <canvas id="myChart301" height="250" width="800"></canvas>
+                                                </div>
+                                                <div class="tab-pane" id="chart-22" style="height: 250px">
+                                                  <canvas id="myChart302" height="250" width="800" ></canvas>
+                                                </div>
+                                                <div class="tab-pane" id="chart-33" style="height: 250px">
+                                                  <canvas id="myChart303" width="800" height="250"></canvas>
+                                                </div>
+                                                <div class="tab-pane" id="chart-44" style="height: 250px">
+                                                  <canvas id="myChart304" width="800" height="250"></canvas>
+                                                </div>
+                                                <div class="tab-pane" id="chart-55" style="height: 250px">
+                                                  <canvas id="myChart305" width="800" height="250"></canvas>
+                                                </div>
+                                                  <div class="tab-pane" id="chart-66" style="height: 250px">
+                                                    <canvas id="myChart306" width="600" height="350"></canvas>
+                                                  </div>
+                                                    <div class="tab-pane" id="chart-77" style="height: 250px">
+                                                    <canvas id="myChart307" width="600" height="350"></canvas>
+                                                  </div>
+                                              </div>
+
+
+
+
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                     </div>
+
+
+                     </div>
+
+                {% endif %}
+
+            </div>
+            <!-- end page content -->
+
+
+    <!--Chart JS-->
+{% load static %}
+    <script src="{% static 'assets/plugins/chart-js/Chart.bundle.js' %}" ></script>
+    <script src="{% static 'assets/plugins/chart-js/utils.js' %}" ></script>
+
+
+
+{% else %}
+    <p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCstbhex4F6X2-AXz3B1sR1oRvxssE3sc&libraries=places"></script>
+
+<script>
+
+  var pickup_location = document.getElementById('pickup_location1');
+  var autocomplete = new google.maps.places.Autocomplete(pickup_location);
+
+   var city2 = document.getElementById('city2');
+   var autocomplete = new google.maps.places.Autocomplete(city2);
+
+   var city3 = document.getElementById('city3');
+   var autocomplete = new google.maps.places.Autocomplete(city3);
+
+   var city4 = document.getElementById('city4');
+   var autocomplete = new google.maps.places.Autocomplete(city4);
+
+   var city5 = document.getElementById('city5');
+   var autocomplete = new google.maps.places.Autocomplete(city5);
+
+</script>
+
+<script>
+  $(document).ready(function(){
+     $("#booking-chart-by-months").show();
+     $("#chart-by-months").hide();
+     $("#chartjs_bar_parent1").hide();
+     $("#chartjs_pie_parent1").hide();
+     $("#chartjs_pie_parent2").show();
+     $("#chartjs_pie_parent3").show();
+     $("#chartjs_pie_parent4").hide();
+     $("#tools1").show();
+     $("#10cardpay").hide();
+     $("#10cardsales").show();
+
+
+    $("#btn1").click(function(){
+      $("#booking-chart-by-months").show();
+      $("#chart-by-months").hide();
+      $("#chartjs_bar_parent1").hide();
+      $("#tools1").show();
+    });
+    $("#btn2").click(function(){
+      $("#booking-chart-by-months").hide();
+      $("#chart-by-months").show();
+      $("#chartjs_bar_parent1").hide();
+      $("#tools1").show();
+    });
+    $("#btn3").click(function(){
+      $("#booking-chart-by-months").hide();
+      $("#chart-by-months").hide();
+      $("#chartjs_bar_parent1").show();
+      $("#tools1").hide();
+    });
+    $("#btnpie1").click(function(){
+      $("#chartjs_pie_parent1").hide();
+      $("#chartjs_pie_parent2").show();
+    });
+    $("#btnpie2").click(function(){
+      $("#chartjs_pie_parent1").show();
+      $("#chartjs_pie_parent2").hide();
+    });
+    $("#btnpie3").click(function(){
+      $("#chartjs_pie_parent3").show();
+      $("#chartjs_pie_parent4").hide();
+    });
+    $("#btnpie4").click(function(){
+      $("#chartjs_pie_parent3").hide();
+      $("#chartjs_pie_parent4").show();
+    });
+    $("#10btnsales").click(function(){
+      $("#10cardpay").hide();
+      $("#10cardsales").show();
+    });
+    $("#10btnpay").click(function(){
+      $("#10cardpay").show();
+      $("#10cardsales").hide();
+    });
+
+  });
+</script>
+
+<script>
+
+
+<!--Invoice Amount (in lacs)  -->
+
+
+	  var ctx21 = document.getElementById("canvasPendingInvoiceAmount");
+	  var data = {
+		labels: ["Taxi ({% widthratio db.taxi_invoice_amount 100000 1 %})","Bus ({% widthratio db.bus_invoice_amount 100000 1 %})","Train ({% widthratio db.train_invoice_amount 100000 1 %})","Hotel ({% widthratio db.hotel_invoice_amount 100000 1 %})","Flight ({% widthratio db.flight_invoice_amount 100000 1 %})","Visa ({% widthratio db.visa_invoice_amount 100000 1 %})","FRRO ({% widthratio db.frro_invoice_amount 100000 1 %})"],
+		datasets: [{
+		  data: [{% widthratio db.taxi_invoice_amount 100000 1 %},{% widthratio db.bus_invoice_amount 100000 1 %},{% widthratio db.train_invoice_amount 100000 1 %},{% widthratio db.hotel_invoice_amount 100000 1 %},{% widthratio db.flight_invoice_amount 100000 1 %},{% widthratio db.visa_invoice_amount 100000 1 %},{% widthratio db.frro_invoice_amount 100000 1 %}],
+		  backgroundColor: ["#FC94AF","#EE82EE","#BDC3C7","#dfe8e8","#8b8f8f","#26B99A","#3498DB","#3498EW","#3498DB"],
+		  hoverBackgroundColor: ["#FC94AF","#EE82EE","#BDC3C7","#dfe8e8","#8b8f8f","#26B99A","#3498DB","#3498EW","#3498DB"]
+
+		}]
+	  };
+	  var canvasPendingInvoiceAmount = new Chart(ctx21, {
+		type: 'pie',
+		tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+		data: data,
+		options: {
+            responsive: true,
+            legend: {
+                position: 'right',
+                labels: {
+                  usePointStyle: true,
+                },
+
+
+            },
+
+            animation: {
+
+  }
+            }
+	  });
+
+
+
+
+/*Pending Invoice*/
+	  var ctx22 = document.getElementById("canvasPendingInvoices");
+	  var data = {
+		labels: ["Taxi ({{db.taxi_invoice_count}})","Bus ({{db.bus_invoice_count}})","Train ({{db.train_invoice_count}})","Hotel ({{db.hotel_invoice_count}})","Flight ({{db.flight_invoice_count}})","Visa ({{db.visa_invoice_count}})","Frro ({{db.frro_invoice_count}})"],
+		datasets: [{
+		  data: [{{db.taxi_invoice_count}},{{db.bus_invoice_count}},{{db.train_invoice_count}},{{db.hotel_invoice_count}},{{db.flight_invoice_count}},{{db.visa_invoice_count}},{{db.frro_invoice_count}}],
+		  backgroundColor: ["#FC94AF","#EE82EE","#BDC3C7","#26B99A","#3498DB","#3498SD","#3442DF"],
+		  hoverBackgroundColor: ["#FC94AF","#EE82EE","#BDC3C7","#26B99A","#3498DB","#3498SD","#3442DF"]
+
+		}]
+	  };
+	  var canvasPendingInvoices = new Chart(ctx22, {
+		type: 'pie',
+		tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+		data: data,
+		options: {
+		    responsive: true,
+            legend: {
+                position: 'right',
+                labels: {
+                  usePointStyle: true,
+                },
+            },
+            animation: {
+
+  }
+            }
+	  });
+
+<!--Total Pending Bookings Summary   -->
+
+
+	  var ctx23 = document.getElementById("canvasTotalPendingBookings");
+	  var data = {
+        labels: ["Taxi ({{db.un_taxi_booking_count}})","Bus ({{db.un_bus_booking_count}})","Train-General ({{db.un_train_booking_count}})","Train-Tatkal ({{db.un_train_t_bcount}})","Train-NotBookedInTatkal ({{db.un_train_nbt_bcount}})","Hotel ({{db.un_hotel_booking_count}})","Flight ({{db.un_flight_booking_count}})","Visa ({{db.un_flight_booking_count}})","FRRO ({{db.un_flight_booking_count}})"],
+        datasets: [{
+          data: [{{db.un_taxi_booking_count}},{{db.un_bus_booking_count}},{{db.un_train_booking_count}},{{db.un_train_t_booking_count}},{{db.un_train_nbt_booking_count}},{{db.un_hotel_booking_count}},{{db.un_flight_booking_count}}],
+          backgroundColor: ["#FC94AF","#EE82EE","#BDC3C7","#dfe8e8","#8b8f8f","#26B99A","#3498DB","#3498SD","#3442DF"],
+		  hoverBackgroundColor: ["#FC94AF","#EE82EE","#BDC3C7","#dfe8e8","#8b8f8f","#26B99A","#3498DB","#3498SD","#3442DF"]
+
+		}]
+	  };
+	  var canvasTotalPendingBookings = new Chart(ctx23, {
+		type: 'pie',
+		tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+		data: data,
+		options: {
+            responsive: true,
+            legend: {
+                position: 'right',
+                labels: {
+                  usePointStyle: true,
+                },
+
+
+            },
+
+            animation: {
+
+  }
+            }
+	  });
+
+
+<!--Pending Bookings Summary for next 2 days  -->
+
+
+	  var ctx24 = document.getElementById("canvasPendingBookings");
+	  var data = {
+                labels: ["Taxi ({{db.un_taxi_booking_count2}})","Bus ({{db.un_bus_booking_count2}})","Train-General ({{db.un_train_booking_count2}})","Train-Tatkal ({{db.un_train_t_bcount2}})","Train-NotBookedInTatkal ({{db.un_train_nbt_bcount2}})","Hotel ({{db.un_hotel_booking_count2}})","Flight ({{db.un_flight_booking_count2}})","Visa ({{db.un_flight_booking_count2}})","FRRO ({{db.un_flight_booking_count2}})"],
+		datasets: [{
+            data: [{{db.un_taxi_booking_count2}},{{db.un_bus_booking_count2}},{{db.un_train_booking_count2}},{{db.un_train_t_bcount2}},{{db.un_train_nbt_bcount2}},{{db.un_hotel_booking_count2}},{{db.un_flight_booking_count2}}],
+            backgroundColor: ["#FC94AF","#EE82EE","#BDC3C7","#dfe8e8","#8b8f8f","#26B99A","#3498DB","#3498SD","#3442DF"],
+		  hoverBackgroundColor: ["#FC94AF","#EE82EE","#BDC3C7","#dfe8e8","#8b8f8f","#26B99A","#3498DB","#3498SD","#3442DF"]
+
+		}]
+	  };
+	  var canvasPendingBookings = new Chart(ctx24, {
+		type: 'pie',
+		tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+		data: data,
+		options: {
+            responsive: true,
+            legend: {
+                position: 'right',
+                labels: {
+                  usePointStyle: true,
+                },
+
+
+            },
+
+            animation: {
+
+  }
+            }
+	  });
+
+
+
+<!-- Average response time summary -->
+
+var ctx601 = document.getElementById("myChart601").getContext("2d");
+
+var data = {
+  labels: ["Avg Accept Time", "Avg Reject Time", "Avg Assign Time"],
+  datasets: [{
+    label: "Taxi",
+    backgroundColor: "pink",
+    data: [{{db.a_time_taxi}}, {{db.r_time_taxi}}, {{db.as_time_taxi}}]
+  }, {
+    label: "Bus",
+    backgroundColor: "blue",
+    data: [{{db.a_time_bus}}, {{db.r_time_bus}}, {{db.as_time_bus}}]
+  }, {
+    label: "Train",
+    backgroundColor: "grey",
+    data: [{{db.a_time_train}}, {{db.r_time_train}}, {{db.as_time_train}}]
+  }, {
+    label: "Hotel",
+    backgroundColor: "green",
+    data: [{{db.a_time_hotel}}, {{db.r_time_hotel}}, {{db.as_time_hotel}}]
+  },{
+    label: "Flight",
+    backgroundColor: "orange",
+    data: [{{db.a_time_flight}}, {{db.r_time_flight}}, {{db.as_time_flight}}]
+  },{
+    label: "Visa",
+    backgroundColor: "orange",
+    data: [{{db.a_time_visa}}, {{db.r_time_visa}}, {{db.as_time_visa}}]
+  },{
+    label: "FRRO",
+    backgroundColor: "orange",
+    data: [{{db.a_time_frro}}, {{db.r_time_frro}}, {{db.as_time_frro}}]
+  }]
+};
+
+var myBarChart = new Chart(ctx601, {
+  type: 'bar',
+  data: data,
+  options: {
+    barValueSpacing: 10,
+
+    scales: {
+       xAxes: [{
+
+            barPercentage: 0.5,
+            ticks: {
+               autoSkip: false,
+               maxRotation: 0,
+               minRotation: 0
+            }
+         }],
+      yAxes: [{
+        ticks: {
+
+          min: 0,
+        },
+              scaleLabel: {
+                        display: true,
+                        labelString: 'Time in Minutes',
+              },
+      }]
+    },
+          animation: {
+      onComplete: function(animation) {
+
+                const chartInstance = this.chart,
+                ctx = chartInstance.ctx;
+
+                const fontSize = 10;
+                const fontStyle = '600';
+                const fontFamily = 'Open Sans';
+                ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
+
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'bottom';
+                ctx.fillStyle = '#676A6C';
+
+                this.data.datasets.forEach(function (dataset, i) {
+                const meta = chartInstance.controller.getDatasetMeta(i);
+                meta.data.forEach(function (bar, index) {
+                if(dataset.data[index] != 0){
+                  const data = dataset.data[index];
+                  ctx.fillText(data, bar._model.x+2, bar._model.y-1);
+            }
+          });
+        });
+
+         }
+      }
+  }
+});
+
+</script>
+
+
+<script>
+
+$('#from_date').change(TaxAmountTable);
+
+$('#to_date').change(TaxAmountTable);
+
+function nullCheck(val)
+{
+     if(typeof val === 'undefined') {
+                    val = 0;
+                    } else if(val === null){
+                    val = 0;
+                    }
+     return val;
+
+}
+
+function TaxAmountTable()
+{
+
+var x = document.getElementById("from_date");
+var xx = document.getElementById("to_date");
+
+var from_date = x.value;
+var to_date = xx.value;
+
+// var from_date = $("#from_date :selected").val();
+// var to_date = $("#to_date :selected").val();
+
+var today_date = new Date();
+
+ var six_month_back = from_date;
+
+today_date_value = ('0' + (today_date.getMonth() + 1)).slice(-2) + '/' + ('0' + today_date.getDate()).slice(-2) + '/' + today_date.getFullYear()  ;
+
+ var f_date = from_date;
+
+ var t_date = to_date;
+
+ console.log("call datesssssssssss");
+ console.log(f_date);
+ console.log(today_date_value);
+
+
+callTaxAmountTable(f_date,t_date);
+
+}
+
+
+
+function callTaxAmountTable(frm_date,too_date){
+
+
+ var today_date = new Date();
+
+ var six_month_back = moment().subtract(180, 'days').calendar();
+
+today_date_value = today_date.getFullYear() + '/' + ('0' + (today_date.getMonth() + 1)).slice(-2) + '/' + ('0' + today_date.getDate()).slice(-2);
+
+console.log('date isss');
+console.log(today_date_value);
+console.log(six_month_back);
+
+ var from_date = frm_date;
+
+ var to_date = too_date;
+
+ var_url = '/api/'+'dashboard_taxable_amount_table'
+    $.ajaxSetup({
+            headers:{
+                'Authorization': "Token {{request.session.agent_access_token}}",
+                'usertype': 10
+            }
+
+        });
+
+$.post(var_url,{'from_date':from_date,'to_date':to_date},
+      function(data)
+      {
+
+        for (k=0;k<data['Tax'].length;k++)
+        {
+            var pre_tax_amt = 0;
+            var igst_amt = 0;
+            var cgst_amt = 0;
+            var sgst_amt = 0;
+            var others_amt = 0;
+            var total_amt = 0;
+            var paid_amt = 0;
+            var pending_amt = 0;
+            var partial_paid_amt = 0;
+
+
+            		switch(k){
+
+            case 0:
+
+             if (nullCheck(data['Tax'][k][0]))
+            {
+
+                pre_tax_amt = nullCheck(data['Tax'][k][0].pre_tax_amount);
+                igst_amt = nullCheck(data['Tax'][k][0].igst);
+                cgst_amt = nullCheck(data['Tax'][k][0].cgst);
+                sgst_amt = nullCheck(data['Tax'][k][0].sgst);
+                others_amt = nullCheck(data['Tax'][k][0].other_charge);
+                total_amt = nullCheck(data['Tax'][k][0].total);
+
+            }else{
+
+                 pre_tax_amt = 0;
+                igst_amt = 0;
+                cgst_amt = 0;
+                sgst_amt = 0;
+                others_amt = 0;
+                total_amt = 0;
+
+            }
+
+
+               table_row_str = '<th scope="row">Taxi</th><td>'+ pre_tax_amt + '</td><td>'+ igst_amt + '</td><td>' + cgst_amt +'</td><td>' + sgst_amt + '</td></td>' +
+                '<td>' + others_amt + '</td><td>' + total_amt + '</td><td><td>' + paid_amt + '</td><td>' + pending_amt + '</td><td>' + partial_paid_amt + '</td></td>';
+
+
+                $('#row_taxi').html(table_row_str);
+
+                break;
+
+            case 1:
+
+
+                  if (nullCheck(data['Tax'][k][0]))
+            {
+
+                pre_tax_amt = nullCheck(data['Tax'][k][0].pre_tax_amount);
+                igst_amt = nullCheck(data['Tax'][k][0].igst);
+                cgst_amt = nullCheck(data['Tax'][k][0].cgst);
+                sgst_amt = nullCheck(data['Tax'][k][0].sgst);
+                others_amt = nullCheck(data['Tax'][k][0].other_charge);
+                total_amt = nullCheck(data['Tax'][k][0].total);
+
+            }else{
+
+                 pre_tax_amt = 0;
+                igst_amt = 0;
+                cgst_amt = 0;
+                sgst_amt = 0;
+                others_amt = 0;
+                total_amt = 0;
+
+            }
+
+
+                table_row_str = '<th scope="row">Bus</th><td>'+ pre_tax_amt + '</td><td>'+ igst_amt + '</td><td>' + cgst_amt +'</td><td>' + sgst_amt + '</td></td>' +
+                '<td>' + others_amt + '</td><td>' + total_amt + '</td><td><td>' + paid_amt + '</td><td>' + pending_amt + '</td><td>' + partial_paid_amt + '</td></td>';
+
+                $('#row_bus').html(table_row_str);
+
+                break;
+
+            case 2:
+
+                 if (nullCheck(data['Tax'][k][0]))
+            {
+
+                pre_tax_amt = nullCheck(data['Tax'][k][0].pre_tax_amount);
+                igst_amt = nullCheck(data['Tax'][k][0].igst);
+                cgst_amt = nullCheck(data['Tax'][k][0].cgst);
+                sgst_amt = nullCheck(data['Tax'][k][0].sgst);
+                others_amt = nullCheck(data['Tax'][k][0].other_charge);
+                total_amt = nullCheck(data['Tax'][k][0].total);
+
+            }else{
+
+                 pre_tax_amt = 0;
+                igst_amt = 0;
+                cgst_amt = 0;
+                sgst_amt = 0;
+                others_amt = 0;
+                total_amt = 0;
+
+            }
+
+
+               table_row_str = '<th scope="row">Train</th><td>'+ pre_tax_amt + '</td><td>'+ igst_amt + '</td><td>' + cgst_amt +'</td><td>' + sgst_amt + '</td></td>' +
+                '<td>' + others_amt + '</td><td>' + total_amt + '</td><td><td>' + paid_amt + '</td><td>' + pending_amt + '</td><td>' + partial_paid_amt + '</td></td>';
+
+                $('#row_train').html(table_row_str);
+
+
+                break;
+
+            case 3:
+
+
+                  if (nullCheck(data['Tax'][k][0]))
+            {
+
+                pre_tax_amt = nullCheck(data['Tax'][k][0].pre_tax_amount);
+                igst_amt = nullCheck(data['Tax'][k][0].igst);
+                cgst_amt = nullCheck(data['Tax'][k][0].cgst);
+                sgst_amt = nullCheck(data['Tax'][k][0].sgst);
+                others_amt = nullCheck(data['Tax'][k][0].other_charge);
+                total_amt = nullCheck(data['Tax'][k][0].total);
+
+            }else{
+
+                 pre_tax_amt = 0;
+                igst_amt = 0;
+                cgst_amt = 0;
+                sgst_amt = 0;
+                others_amt = 0;
+                total_amt = 0;
+
+            }
+
+
+               table_row_str = '<th scope="row">Flight</th><td>'+ pre_tax_amt + '</td><td>'+ igst_amt + '</td><td>' + cgst_amt +'</td><td>' + sgst_amt + '</td></td>' +
+                '<td>' + others_amt + '</td><td>' + total_amt + '</td><td><td>' + paid_amt + '</td><td>' + pending_amt + '</td><td>' + partial_paid_amt + '</td></td>';
+
+                $('#row_flight').html(table_row_str);
+
+
+                break;
+
+            case 4:
+
+
+                  if (nullCheck(data['Tax'][k][0]))
+            {
+
+                pre_tax_amt = nullCheck(data['Tax'][k][0].pre_tax_amount);
+                igst_amt = nullCheck(data['Tax'][k][0].igst);
+                cgst_amt = nullCheck(data['Tax'][k][0].cgst);
+                sgst_amt = nullCheck(data['Tax'][k][0].sgst);
+                others_amt = nullCheck(data['Tax'][k][0].other_charge);
+                total_amt = nullCheck(data['Tax'][k][0].total);
+
+            }else{
+
+                 pre_tax_amt = 0;
+                igst_amt = 0;
+                cgst_amt = 0;
+                sgst_amt = 0;
+                others_amt = 0;
+                total_amt = 0;
+
+            }
+
+
+               table_row_str = '<th scope="row">Hotel</th><td>'+ pre_tax_amt + '</td><td>'+ igst_amt + '</td><td>' + cgst_amt +'</td><td>' + sgst_amt + '</td></td>' +
+                '<td>' + others_amt + '</td><td>' + total_amt + '</td><td><td>' + paid_amt + '</td><td>' + pending_amt + '</td><td>' + partial_paid_amt + '</td></td>';
+
+                $('#row_hotel').html(table_row_str);
+
+
+                break;
+
+
+
+                case 5:
+
+
+                  if (nullCheck(data['Tax'][k][0]))
+            {
+
+                pre_tax_amt = nullCheck(data['Tax'][k][0].pre_tax_amount);
+                igst_amt = nullCheck(data['Tax'][k][0].igst);
+                cgst_amt = nullCheck(data['Tax'][k][0].cgst);
+                sgst_amt = nullCheck(data['Tax'][k][0].sgst);
+                others_amt = nullCheck(data['Tax'][k][0].other_charge);
+                total_amt = nullCheck(data['Tax'][k][0].total);
+
+            }else{
+
+                 pre_tax_amt = 0;
+                igst_amt = 0;
+                cgst_amt = 0;
+                sgst_amt = 0;
+                others_amt = 0;
+                total_amt = 0;
+
+            }
+
+
+               table_row_str = '<th scope="row">Visa</th><td>'+ pre_tax_amt + '</td><td>'+ igst_amt + '</td><td>' + cgst_amt +'</td><td>' + sgst_amt + '</td></td>' +
+                '<td>' + others_amt + '</td><td>' + total_amt + '</td><td><td>' + paid_amt + '</td><td>' + pending_amt + '</td><td>' + partial_paid_amt + '</td></td>';
+
+                $('#row_hotel').html(table_row_str);
+
+
+                break;
+
+
+                case 6:
+
+
+                  if (nullCheck(data['Tax'][k][0]))
+            {
+
+                pre_tax_amt = nullCheck(data['Tax'][k][0].pre_tax_amount);
+                igst_amt = nullCheck(data['Tax'][k][0].igst);
+                cgst_amt = nullCheck(data['Tax'][k][0].cgst);
+                sgst_amt = nullCheck(data['Tax'][k][0].sgst);
+                others_amt = nullCheck(data['Tax'][k][0].other_charge);
+                total_amt = nullCheck(data['Tax'][k][0].total);
+
+            }else{
+
+                 pre_tax_amt = 0;
+                igst_amt = 0;
+                cgst_amt = 0;
+                sgst_amt = 0;
+                others_amt = 0;
+                total_amt = 0;
+
+            }
+
+
+               table_row_str = '<th scope="row">FRRO</th><td>'+ pre_tax_amt + '</td><td>'+ igst_amt + '</td><td>' + cgst_amt +'</td><td>' + sgst_amt + '</td></td>' +
+                '<td>' + others_amt + '</td><td>' + total_amt + '</td><td><td>' + paid_amt + '</td><td>' + pending_amt + '</td><td>' + partial_paid_amt + '</td></td>';
+
+                $('#row_hotel').html(table_row_str);
+
+
+                break;
+
+                    }
+
+
+
+        }
+
+
+
+       });
+
+}
+
+
+
+</script>
+
+<script>
+
+$('#from_date').change(TaxAmountTable);
+
+$('#to_date').change(TaxAmountTable);
+
+function nullCheck(val)
+{
+     if(typeof val === 'undefined') {
+                    val = 0;
+                    } else if(val === null){
+                    val = 0;
+                    }
+     return val;
+
+}
+
+function TaxAmountTable()
+{
+
+var x = document.getElementById("from_date");
+var xx = document.getElementById("to_date");
+
+var from_date = x.value;
+var to_date = xx.value;
+
+// var from_date = $("#from_date :selected").val();
+// var to_date = $("#to_date :selected").val();
+
+var today_date = new Date();
+
+ var six_month_back = from_date;
+
+today_date_value = ('0' + (today_date.getMonth() + 1)).slice(-2) + '/' + ('0' + today_date.getDate()).slice(-2) + '/' + today_date.getFullYear()  ;
+
+ var f_date = from_date;
+
+ var t_date = to_date;
+
+ console.log("call datesssssssssss");
+ console.log(f_date);
+ console.log(today_date_value);
+
+
+callTaxAmountTable(f_date,t_date);
+
+}
+
+
+
+function callTaxAmountTable(frm_date,too_date){
+
+
+ var today_date = new Date();
+
+ var six_month_back = moment().subtract(180, 'days').calendar();
+
+today_date_value = today_date.getFullYear() + '/' + ('0' + (today_date.getMonth() + 1)).slice(-2) + '/' + ('0' + today_date.getDate()).slice(-2);
+
+console.log('date isss');
+console.log(today_date_value);
+console.log(six_month_back);
+
+ var from_date = frm_date;
+
+ var to_date = too_date;
+
+ var_url = '/api/'+'dashboard_taxable_amount_table'
+    $.ajaxSetup({
+            headers:{
+                'Authorization': "Token {{request.session.agent_access_token}}",
+                'usertype': 10
+            }
+
+        });
+
+$.post(var_url,{'from_date':from_date,'to_date':to_date},
+      function(data)
+      {
+
+        for (k=0;k<data['Tax'].length;k++)
+        {
+            var pre_tax_amt = 0;
+            var igst_amt = 0;
+            var cgst_amt = 0;
+            var sgst_amt = 0;
+            var others_amt = 0;
+            var total_amt = 0;
+            var paid_amt = 0;
+            var pending_amt = 0;
+            var partial_paid_amt = 0;
+
+
+            		switch(k){
+
+            case 0:
+
+             if (nullCheck(data['Tax'][k][0]))
+            {
+
+                pre_tax_amt = nullCheck(data['Tax'][k][0].pre_tax_amount);
+                igst_amt = nullCheck(data['Tax'][k][0].igst);
+                cgst_amt = nullCheck(data['Tax'][k][0].cgst);
+                sgst_amt = nullCheck(data['Tax'][k][0].sgst);
+                others_amt = nullCheck(data['Tax'][k][0].other_charge);
+                total_amt = nullCheck(data['Tax'][k][0].total);
+
+            }else{
+
+                 pre_tax_amt = 0;
+                igst_amt = 0;
+                cgst_amt = 0;
+                sgst_amt = 0;
+                others_amt = 0;
+                total_amt = 0;
+
+            }
+
+
+               table_row_str = '<th scope="row">Taxi</th><td>'+ pre_tax_amt + '</td><td>'+ igst_amt + '</td><td>' + cgst_amt +'</td><td>' + sgst_amt + '</td></td>' +
+                '<td>' + others_amt + '</td><td>' + total_amt + '</td><td><td>' + paid_amt + '</td><td>' + pending_amt + '</td><td>' + partial_paid_amt + '</td></td>';
+
+
+                $('#row_taxi').html(table_row_str);
+
+                break;
+
+            case 1:
+
+
+                  if (nullCheck(data['Tax'][k][0]))
+            {
+
+                pre_tax_amt = nullCheck(data['Tax'][k][0].pre_tax_amount);
+                igst_amt = nullCheck(data['Tax'][k][0].igst);
+                cgst_amt = nullCheck(data['Tax'][k][0].cgst);
+                sgst_amt = nullCheck(data['Tax'][k][0].sgst);
+                others_amt = nullCheck(data['Tax'][k][0].other_charge);
+                total_amt = nullCheck(data['Tax'][k][0].total);
+
+            }else{
+
+                 pre_tax_amt = 0;
+                igst_amt = 0;
+                cgst_amt = 0;
+                sgst_amt = 0;
+                others_amt = 0;
+                total_amt = 0;
+
+            }
+
+
+                table_row_str = '<th scope="row">Bus</th><td>'+ pre_tax_amt + '</td><td>'+ igst_amt + '</td><td>' + cgst_amt +'</td><td>' + sgst_amt + '</td></td>' +
+                '<td>' + others_amt + '</td><td>' + total_amt + '</td><td><td>' + paid_amt + '</td><td>' + pending_amt + '</td><td>' + partial_paid_amt + '</td></td>';
+
+                $('#row_bus').html(table_row_str);
+
+                break;
+
+            case 2:
+
+                 if (nullCheck(data['Tax'][k][0]))
+            {
+
+                pre_tax_amt = nullCheck(data['Tax'][k][0].pre_tax_amount);
+                igst_amt = nullCheck(data['Tax'][k][0].igst);
+                cgst_amt = nullCheck(data['Tax'][k][0].cgst);
+                sgst_amt = nullCheck(data['Tax'][k][0].sgst);
+                others_amt = nullCheck(data['Tax'][k][0].other_charge);
+                total_amt = nullCheck(data['Tax'][k][0].total);
+
+            }else{
+
+                 pre_tax_amt = 0;
+                igst_amt = 0;
+                cgst_amt = 0;
+                sgst_amt = 0;
+                others_amt = 0;
+                total_amt = 0;
+
+            }
+
+
+               table_row_str = '<th scope="row">Train</th><td>'+ pre_tax_amt + '</td><td>'+ igst_amt + '</td><td>' + cgst_amt +'</td><td>' + sgst_amt + '</td></td>' +
+                '<td>' + others_amt + '</td><td>' + total_amt + '</td><td><td>' + paid_amt + '</td><td>' + pending_amt + '</td><td>' + partial_paid_amt + '</td></td>';
+
+                $('#row_train').html(table_row_str);
+
+
+                break;
+
+            case 3:
+
+
+                  if (nullCheck(data['Tax'][k][0]))
+            {
+
+                pre_tax_amt = nullCheck(data['Tax'][k][0].pre_tax_amount);
+                igst_amt = nullCheck(data['Tax'][k][0].igst);
+                cgst_amt = nullCheck(data['Tax'][k][0].cgst);
+                sgst_amt = nullCheck(data['Tax'][k][0].sgst);
+                others_amt = nullCheck(data['Tax'][k][0].other_charge);
+                total_amt = nullCheck(data['Tax'][k][0].total);
+
+            }else{
+
+                 pre_tax_amt = 0;
+                igst_amt = 0;
+                cgst_amt = 0;
+                sgst_amt = 0;
+                others_amt = 0;
+                total_amt = 0;
+
+            }
+
+
+               table_row_str = '<th scope="row">Flight</th><td>'+ pre_tax_amt + '</td><td>'+ igst_amt + '</td><td>' + cgst_amt +'</td><td>' + sgst_amt + '</td></td>' +
+                '<td>' + others_amt + '</td><td>' + total_amt + '</td><td><td>' + paid_amt + '</td><td>' + pending_amt + '</td><td>' + partial_paid_amt + '</td></td>';
+
+                $('#row_flight').html(table_row_str);
+
+
+                break;
+
+            case 4:
+
+
+                  if (nullCheck(data['Tax'][k][0]))
+            {
+
+                pre_tax_amt = nullCheck(data['Tax'][k][0].pre_tax_amount);
+                igst_amt = nullCheck(data['Tax'][k][0].igst);
+                cgst_amt = nullCheck(data['Tax'][k][0].cgst);
+                sgst_amt = nullCheck(data['Tax'][k][0].sgst);
+                others_amt = nullCheck(data['Tax'][k][0].other_charge);
+                total_amt = nullCheck(data['Tax'][k][0].total);
+
+            }else{
+
+                 pre_tax_amt = 0;
+                igst_amt = 0;
+                cgst_amt = 0;
+                sgst_amt = 0;
+                others_amt = 0;
+                total_amt = 0;
+
+            }
+
+
+               table_row_str = '<th scope="row">Hotel</th><td>'+ pre_tax_amt + '</td><td>'+ igst_amt + '</td><td>' + cgst_amt +'</td><td>' + sgst_amt + '</td></td>' +
+                '<td>' + others_amt + '</td><td>' + total_amt + '</td><td><td>' + paid_amt + '</td><td>' + pending_amt + '</td><td>' + partial_paid_amt + '</td></td>';
+
+                $('#row_hotel').html(table_row_str);
+
+
+                break;
+
+                case 5:
+
+
+                  if (nullCheck(data['Tax'][k][0]))
+            {
+
+                pre_tax_amt = nullCheck(data['Tax'][k][0].pre_tax_amount);
+                igst_amt = nullCheck(data['Tax'][k][0].igst);
+                cgst_amt = nullCheck(data['Tax'][k][0].cgst);
+                sgst_amt = nullCheck(data['Tax'][k][0].sgst);
+                others_amt = nullCheck(data['Tax'][k][0].other_charge);
+                total_amt = nullCheck(data['Tax'][k][0].total);
+
+            }else{
+
+                 pre_tax_amt = 0;
+                igst_amt = 0;
+                cgst_amt = 0;
+                sgst_amt = 0;
+                others_amt = 0;
+                total_amt = 0;
+
+            }
+
+
+               table_row_str = '<th scope="row">Visa</th><td>'+ pre_tax_amt + '</td><td>'+ igst_amt + '</td><td>' + cgst_amt +'</td><td>' + sgst_amt + '</td></td>' +
+                '<td>' + others_amt + '</td><td>' + total_amt + '</td><td><td>' + paid_amt + '</td><td>' + pending_amt + '</td><td>' + partial_paid_amt + '</td></td>';
+
+                $('#row_hotel').html(table_row_str);
+
+
+                break;
+
+                case 6:
+
+
+                  if (nullCheck(data['Tax'][k][0]))
+            {
+
+                pre_tax_amt = nullCheck(data['Tax'][k][0].pre_tax_amount);
+                igst_amt = nullCheck(data['Tax'][k][0].igst);
+                cgst_amt = nullCheck(data['Tax'][k][0].cgst);
+                sgst_amt = nullCheck(data['Tax'][k][0].sgst);
+                others_amt = nullCheck(data['Tax'][k][0].other_charge);
+                total_amt = nullCheck(data['Tax'][k][0].total);
+
+            }else{
+
+                 pre_tax_amt = 0;
+                igst_amt = 0;
+                cgst_amt = 0;
+                sgst_amt = 0;
+                others_amt = 0;
+                total_amt = 0;
+
+            }
+
+
+               table_row_str = '<th scope="row">FRRO</th><td>'+ pre_tax_amt + '</td><td>'+ igst_amt + '</td><td>' + cgst_amt +'</td><td>' + sgst_amt + '</td></td>' +
+                '<td>' + others_amt + '</td><td>' + total_amt + '</td><td><td>' + paid_amt + '</td><td>' + pending_amt + '</td><td>' + partial_paid_amt + '</td></td>';
+
+                $('#row_hotel').html(table_row_str);
+
+
+                break;
+
+
+                    }
+
+
+
+        }
+
+
+
+       });
+
+}
+
+
+
+</script>
+
+<script>
+
+     $(document).ready(function() {
+
+
+    var d = new Date();
+
+    var date = d.getDate();
+    var month = d.getMonth() + 1; // Since getMonth() returns month from 0-11 not 1-12
+    var year = d.getFullYear();
+
+    v_yr = parseInt(year);
+    v_month = parseInt(month);
+
+     document.getElementById("yr").value = v_yr;
+     document.getElementById("mnt").value = v_month;
+
+     document.getElementById("yr-3").value = v_yr;
+     document.getElementById("mnt-3").value = v_month;
+
+    //city_wise_summery();
+
+     var today_date = new Date();
+
+     var six_month_back = moment().subtract(180, 'days').calendar();
+
+     var date2 = new Date(six_month_back);
+
+    today_date_value = today_date.getFullYear()  + '-' + ('0' + (today_date.getMonth() + 1)).slice(-2) + '-' + ('0' + today_date.getDate()).slice(-2) ;
+
+    date3 = date2.getFullYear()  + '-' + ('0' + (date2.getMonth() + 1)).slice(-2) + '-' + ('0' + date2.getDate()).slice(-2) ;
+
+    var from_date = date3;
+
+    var to_date = today_date_value;
+
+    document.getElementById("to_date").defaultValue = to_date;
+    document.getElementById("from_date").defaultValue = from_date;
+
+    callMonthWiseBookingsSummery(v_yr,v_month);
+
+    callMonthWiseSummery(v_yr,v_month);
+
+    callTaxAmountTable(from_date,to_date);
+
+    callChartByCity();
+    callChartByClientPendingPayment();
+
+
+	});
+
+
+</script>
+
+
+
+
+
+<script>
+
+
+/*  bookings chart by month */
+
+
+function slice2(array, chunk, offset) {
+    var subarray = [];
+    for (var i = 0; i<chunk; i++) {
+        var ind = (offset + i) % array.length;
+        subarray.push(array[ind]);
+    }
+
+    return subarray;
+}
+
+
+/* javascript for booking summery */
+
+    function next3(){
+    v_yr = parseInt(document.getElementById("yr-3").value);
+    v_month = parseInt(document.getElementById("mnt-3").value);
+    console.log('####');
+    console.log(v_yr);
+    console.log(v_month);
+    console.log('####');
+
+
+    if (v_month == 12)
+    {
+        document.getElementById("mnt-3").value = 1;
+        document.getElementById("yr-3").value = v_yr + 1 ;
+        v_month = 1
+    }else{
+        document.getElementById("mnt-3").value = v_month+1;
+        v_month = v_month+1;
+    }
+
+    //ctx1.destroy();
+    callMonthWiseBookingsSummery(v_yr,v_month);
+}
+
+function prev3(){
+    v_yr = parseInt(document.getElementById("yr-3").value);
+    v_month = parseInt(document.getElementById("mnt-3").value);
+    console.log('####');
+    console.log(v_yr);
+    console.log(v_month);
+    console.log('####');
+
+    if (v_month == 1)
+    {
+        document.getElementById("mnt-3").value = 12;
+        document.getElementById("yr-3").value = v_yr - 1;
+        v_month = 12;
+    }else{
+
+        document.getElementById("mnt-3").value = v_month-1;
+
+        v_month = v_month-1;
+    }
+
+    //ctx1.destroy();
+    callMonthWiseBookingsSummery(v_yr,v_month);
+}
+
+    function callMonthWiseBookingsSummery(yr,mnt)
+    {
+
+        var_url = '/api/'+'dashboard_bookings_for_six_months'
+    $.ajaxSetup({
+            headers:{
+                'Authorization': "Token {{request.session.agent_access_token}}",
+                'usertype': 10
+            }
+
+        });
+
+$.post(var_url,{'year':yr,'month':mnt},
+      function(data)
+      {
+
+         var chk = mnt;
+
+        taxi_ar = [];
+        bus_ar = [];
+        train_ar = [];
+        flight_ar = [];
+        hotel_ar = [];
+        visa_ar = [];
+        frro_ar = [];
+
+        var chk_ar = [];
+        var chkk_ar = [];
+
+
+        chk_ar.push(chk);
+        taxi_ar.push(chk);
+        bus_ar.push(chk);
+        train_ar.push(chk);
+        flight_ar.push(chk);
+        hotel_ar.push(chk);
+        visa_ar.push(chk);
+        frro_ar.push(chk);
+        for(i=1;i<=5;i++)
+        {
+            if(chk == 1)
+            {
+                chk = 13;
+            }
+            chk--;
+            taxi_ar.push(chk);
+            bus_ar.push(chk);
+            train_ar.push(chk);
+            flight_ar.push(chk);
+            hotel_ar.push(chk);
+            visa_ar.push(chk);
+            frro_ar.push(chk);
+            chk_ar.push(chk);
+
+        }
+
+        console.log(chk_ar);
+        taxi_arr = [];
+        bus_arr = [];
+        train_arr = [];
+        flight_arr = [];
+        hotel_arr = [];
+        visa_arr = [];
+        frro_arr = [];
+
+        chk_arr = [];
+        taxi = [];
+        bus = [];
+        train = [];
+        flight = [];
+        hotel = [];
+        visa = [];
+        frro = [];
+        console.log('###');
+        console.log(data['Sales']);
+
+        for (k=0;k<data['Sales'].length;k++)
+        {
+        for (i=0;i<data['Sales'][k].length;i++)
+        {
+
+            switch(k){
+
+            case 0:
+            var a = taxi_ar.indexOf(data['Sales'][k][i].m);
+                if ( a != -1 )
+                {
+                taxi_ar[a] = data['Sales'][k][i].taxi_total;
+                taxi_arr.push(a);
+                }
+
+                break;
+
+            case 1:
+             console.log(data['Sales'][k][i].m);
+            var a = bus_ar.indexOf(data['Sales'][k][i].m);
+                if ( a != -1 )
+                {
+                bus_ar[a] = data['Sales'][k][i].bus_total;
+                bus_arr.push(a);
+                }
+
+                break;
+
+            case 2:
+
+            var a = train_ar.indexOf(data['Sales'][k][i].m);
+                if ( a != -1 )
+                {
+                train_ar[a] = data['Sales'][k][i].train_total;
+                train_arr.push(a);
+                }
+
+                break;
+
+            case 3:
+
+            var a = flight_ar.indexOf(data['Sales'][k][i].m);
+                if ( a != -1 )
+                {
+                flight_ar[a] = data['Sales'][k][i].flight_total;
+                flight_arr.push(a);
+                }
+
+                break;
+
+            case 4:
+
+            var a = hotel_ar.indexOf(data['Sales'][k][i].m);
+                if ( a != -1 )
+                {
+                hotel_ar[a] = data['Sales'][k][i].hotel_total;
+                hotel_arr.push(a);
+                }
+
+                break;
+
+             case 5:
+            var a = visa_ar.indexOf(data['Sales'][k][i].m);
+            if ( a != -1 )
+            {
+            visa_ar[a] = data['Sales'][k][i].visa_total;
+            visa_arr.push(a);
+            }
+            break;
+
+
+            case 6:
+            var a = frro_ar.indexOf(data['Sales'][k][i].m);
+            if ( a != -1 )
+            {
+            frro_ar[a] = data['Sales'][k][i].frro_total;
+            frro_arr.push(a);
+            }
+            break;
+
+                    }
+
+        }
+
+        }
+
+
+
+        for(l=1;l<=5;l++)
+        {
+
+
+        switch(l) {
+  case 1:
+
+    for (j=0;j<taxi_ar.length;j++)
+        {
+
+        b = taxi_arr.indexOf(j);
+            if ( b == -1 )
+            {
+            taxi_ar[j] = 0;
+            }
+
+        }
+    break;
+  case 2:
+    for (j=0;j<bus_ar.length;j++)
+        {
+
+        b = bus_arr.indexOf(j);
+            if ( b == -1 )
+            {
+            bus_ar[j] = 0;
+            }
+
+        }
+    break;
+  case 3:
+    for (j=0;j<train_ar.length;j++)
+        {
+
+        b = train_arr.indexOf(j);
+            if ( b == -1 )
+            {
+            train_ar[j] = 0;
+            }
+
+        }
+    break;
+  case 4:
+    for (j=0;j<flight_ar.length;j++)
+        {
+
+        b = flight_arr.indexOf(j);
+            if ( b == -1 )
+            {
+            flight_ar[j] = 0;
+            }
+
+        }
+    break;
+  case 5:
+    for (j=0;j<hotel_ar.length;j++)
+        {
+
+        b = hotel_arr.indexOf(j);
+            if ( b == -1 )
+            {
+            hotel_ar[j] = 0;
+            }
+
+        }
+    break;
+
+    case 6:
+    for (j=0;j<visa_ar.length;j++)
+        {
+        b = visa_arr.indexOf(j);
+            if ( b == -1 )
+            {
+            visa_ar[j] = 0;
+            }
+        }
+    break;
+
+
+    case 7:
+    for (j=0;j<frro_ar.length;j++)
+        {
+
+        b = frro_arr.indexOf(j);
+            if ( b == -1 )
+            {
+            frro_ar[j] = 0;
+            }
+
+        }
+    break;
+  default:
+    // code block
+
+}
+
+
+
+        }
+
+        taxi = taxi_ar.reverse();
+        bus = bus_ar.reverse();;
+        train = train_ar.reverse();;
+        flight = flight_ar.reverse();;
+        hotel = hotel_ar.reverse();;
+        visa = visa_ar.reverse();;
+        frro = frro_ar.reverse();;
+
+        month_wise_bookings_summery(taxi,bus,train,flight,hotel,visa,frro,yr,mnt,chk_ar);
+
+
+       });
+
+
+
+
+
+    }
+
+
+    function month_wise_bookings_summery(taxi,bus,train,flight,hotel,visa,frro,yr,mnt,chk_ar) {
+
+    var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+
+
+if(chk_ar[5] > 1)
+{
+mnth = parseInt(chk_ar[5]-1);
+}else{
+mnth = parseInt(12);
+}
+ar = slice2(MONTHS,6,mnth);
+
+//ar = [MONTHS[chk_ar[0]],MONTHS[chk_ar[1]],MONTHS[chk_ar[2]],MONTHS[chk_ar[3]],MONTHS[chk_ar[4]],MONTHS[chk_ar[5]]]
+
+//alert(ar);
+
+//alert(current);
+
+
+     var color = Chart.helpers.color;
+     var barChartData3 = {
+         labels: ar,
+         datasets: [{
+             label: 'Taxi',
+             backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+             borderColor: window.chartColors.red,
+             borderWidth: 1,
+             data: [
+                 taxi[0],taxi[1],taxi[2],taxi[3],taxi[4],taxi[5]
+             ]
+         }, {
+             label: 'Bus',
+             backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
+             borderColor: window.chartColors.blue,
+             borderWidth: 1,
+             data: [
+                bus[0],bus[1],bus[2],bus[3],bus[4],bus[5]
+             ]
+         },{
+             label: 'Train',
+             backgroundColor: color(window.chartColors.green).alpha(0.5).rgbString(),
+             borderColor: window.chartColors.green,
+             borderWidth: 1,
+             data: [
+                 train[0],train[1],train[2],train[3],train[4],train[5]
+             ]
+         },{
+             label: 'Flight',
+             backgroundColor: color(window.chartColors.pink).alpha(0.5).rgbString(),
+             borderColor: window.chartColors.pink,
+             borderWidth: 1,
+             data: [
+                 flight[0],flight[1],flight[2],flight[3],flight[4],flight[5]
+             ]
+         },{
+             label: 'Hotel',
+             backgroundColor: color(window.chartColors.yellow).alpha(0.5).rgbString(),
+             borderColor: window.chartColors.yellow,
+             borderWidth: 1,
+             data: [
+                 hotel[0],hotel[1],hotel[2],hotel[3],hotel[4],hotel[5]
+             ]
+         }
+         ,{
+             label: 'Visa',
+             backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+             borderColor: window.chartColors.red,
+             borderWidth: 1,
+             data: [
+                 visa[0],visa[1],visa[2],visa[3],visa[4],visa[5]
+             ]
+         }
+         ,{
+             label: 'Frro',
+             backgroundColor: color(window.chartColors.pink).alpha(0.5).rgbString(),
+             borderColor: window.chartColors.pink,
+             borderWidth: 1,
+             data: [
+                 frro[0],frro[1],frro[2],frro[3],frro[4],frro[5]
+             ]
+         }
+
+         ]
+
+     };
+
+        if (typeof window.myBar3 != "undefined")
+        {
+
+        window.myBar3.destroy();
+
+        }else{
+
+        //alert("not exist");
+
+        }
+
+
+
+         var ctx3 = document.getElementById("booking-chart-by-months").getContext("2d");
+         window.myBar3 = new Chart(ctx3, {
+             type: 'bar',
+             data: barChartData3,
+             options: {
+              "animation": {
+                            "duration": 1,
+                            "onComplete": function() {
+                                                        var chartInstance = this.chart,
+                                                        ctx = chartInstance.ctx;
+
+                                                        ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+                                                        ctx.textAlign = 'center';
+                                                        ctx.textBaseline = 'bottom';
+
+                            this.data.datasets.forEach(function(dataset, i) {
+                                                              var meta = chartInstance.controller.getDatasetMeta(i);
+                                                              meta.data.forEach(function(bar, index) {
+                                                                var data = dataset.data[index];
+                                                                Math.round(Number(data)) == 0 ?
+
+                                                                ctx.fillText('', bar._model.x, bar._model.y - 10) :
+
+                                                                ctx.fillText(data, bar._model.x, bar._model.y - 10);
+
+                                                              });
+                                                            });
+                                                          }
+                                                        },
+                                                        legend: {
+                                                          "display": false
+                                                        },
+                                                        tooltips: {
+                                                          "enabled": true
+                                                        },
+
+                scales: {
+                            yAxes: [{
+                        scaleLabel: {
+                        display: true,
+                        labelString: 'Total No Of Bookings'
+                                    }
+                                    }]
+                        },
+                 responsive: true,
+                 legend: {
+                     position: 'top',
+                 },
+                //  title: {
+                //      display: true,
+                //      text: 'Six Months Bookings Summary'
+                //  }
+             }
+         });
+
+
+         }
+
+
+/* end bookings chart by month */
+
+</script>
+
+<script>
+
+/* start sales wise booking summery */
+
+function next(){
+    v_yr = parseInt(document.getElementById("yr").value);
+    v_month = parseInt(document.getElementById("mnt").value);
+    console.log('####');
+    console.log(v_yr);
+    console.log(v_month);
+    console.log('####');
+
+
+    if (v_month == 12)
+    {
+        document.getElementById("mnt").value = 1;
+        document.getElementById("yr").value = v_yr + 1 ;
+        v_month = 1;
+        v_yr = v_yr + 1 ;
+    }else{
+        document.getElementById("mnt").value = v_month+1;
+        v_month = v_month+1;
+    }
+
+    //ctx1.destroy();
+    callMonthWiseSummery(v_yr,v_month);
+}
+
+function prev(){
+    v_yr = parseInt(document.getElementById("yr").value);
+    v_month = parseInt(document.getElementById("mnt").value);
+    console.log('####');
+    console.log(v_yr);
+    console.log(v_month);
+    console.log('####');
+
+    if (v_month == 1)
+    {
+        document.getElementById("mnt").value = 12;
+        document.getElementById("yr").value = v_yr - 1;
+        v_month = 12;
+        v_yr = v_yr -1 ;
+    }else{
+
+        document.getElementById("mnt").value = v_month-1;
+
+        v_month = v_month-1;
+    }
+
+    //ctx1.destroy();
+    callMonthWiseSummery(v_yr,v_month);
+}
+
+
+function callMonthWiseSummery(yr,mnt)
+    {
+
+      var today = new Date();
+
+ curr_yr = parseInt(today.getFullYear()) ;
+ curr_month = parseInt(today.getMonth() + 1) ;
+
+ if( (yr == curr_yr) && (mnt == curr_month) )
+ {
+   //document.getElementById("next").disabled = true;
+
+   $('#next').hide();
+
+ }else{
+
+ //document.getElementById("next").disabled = false;
+
+ $('#next').show();
+
+ }
+
+
+        var_url = '/api/'+'dashboard_sales_for_six_months'
+    $.ajaxSetup({
+            headers:{
+                'Authorization': "Token {{request.session.agent_access_token}}",
+                'usertype': 10
+            }
+
+        });
+
+$.post(var_url,{'year':yr,'month':mnt},
+      function(data)
+      {
+
+         var chk = mnt;
+
+        taxi_ar = [];
+        bus_ar = [];
+        train_ar = [];
+        flight_ar = [];
+        hotel_ar = [];
+        visa_ar = [];
+        frro_ar = [];
+
+        taxi_yr_ar = [];
+        bus_yr_ar = [];
+        train_yr_ar = [];
+        flight_yr_ar = [];
+        hotel_yr_ar = [];
+        visa_yr_ar = [];
+        frro_yr_ar = [];
+
+        var chk_ar = [];
+        var chkk_ar = [];
+
+
+        chk_ar.push(chk);
+        taxi_ar.push(chk);
+        bus_ar.push(chk);
+        train_ar.push(chk);
+        flight_ar.push(chk);
+        hotel_ar.push(chk);
+        visa_ar.push(chk);
+        frro_ar.push(chk);
+
+        for(i=1;i<=5;i++)
+        {
+            if(chk == 1)
+            {
+                chk = 13;
+            }
+            chk--;
+            taxi_ar.push(chk);
+            bus_ar.push(chk);
+            train_ar.push(chk);
+            flight_ar.push(chk);
+            hotel_ar.push(chk);
+            visa_ar.push(chk);
+            frro_ar.push(chk);
+            chk_ar.push(chk);
+
+        }
+
+        console.log('## date array is ###')
+        console.log(chk_ar);
+        console.log('## end ###')
+        taxi_arr = [];
+        bus_arr = [];
+        train_arr = [];
+        flight_arr = [];
+        hotel_arr = [];
+        visa_arr = [];
+        frro_arr = [];
+
+        chk_arr = [];
+        taxi = [];
+        bus = [];
+        train = [];
+        flight = [];
+        hotel = [];
+        visa = [];
+        frro = [];
+
+        console.log('###');
+        console.log(data['Sales']);
+
+        for (k=0;k<data['Sales'].length;k++)
+        {
+
+
+            switch(k){
+
+            case 0:
+            for (i=0;i<data['Sales'][k].length;i++)
+            {
+               var a = taxi_ar.indexOf(data['Sales'][k][i].m);
+
+                if ( a != -1 )
+                {
+                taxi_ar[a] = data['Sales'][k][i].taxi_total;
+                taxi_arr.push(a);
+                }
+
+            }
+
+                break;
+
+            case 1:
+             for (i=0;i<data['Sales'][k].length;i++)
+            {
+             console.log(data['Sales'][k][i].m);
+               var a = bus_ar.indexOf(data['Sales'][k][i].m);
+                if ( a != -1 )
+                {
+                bus_ar[a] = data['Sales'][k][i].bus_total;
+                bus_arr.push(a);
+                }
+
+             }
+
+                break;
+
+            case 2:
+
+              for (i=0;i<data['Sales'][k].length;i++)
+            {
+
+            var a = train_ar.indexOf(data['Sales'][k][i].m);
+                if ( a != -1 )
+                {
+                train_ar[a] = data['Sales'][k][i].train_total;
+                train_arr.push(a);
+                }
+
+            }
+
+                break;
+
+            case 3:
+
+              for (i=0;i<data['Sales'][k].length;i++)
+            {
+
+            var a = flight_ar.indexOf(data['Sales'][k][i].m);
+                if ( a != -1 )
+                {
+                flight_ar[a] = data['Sales'][k][i].flight_total;
+                flight_arr.push(a);
+                }
+
+            }
+
+                break;
+
+            case 4:
+
+              for (i=0;i<data['Sales'][k].length;i++)
+            {
+
+            var a = hotel_ar.indexOf(data['Sales'][k][i].m);
+                if ( a != -1 )
+                {
+                hotel_ar[a] = data['Sales'][k][i].hotel_total;
+                hotel_arr.push(a);
+                }
+
+            }
+
+                break;
+
+           case 5:
+
+              for (i=0;i<data['Sales'][k].length;i++)
+            {
+
+            var a = visa_ar.indexOf(data['Sales'][k][i].m);
+                if ( a != -1 )
+                {
+                visa_ar[a] = data['Sales'][k][i].visa_total;
+                visa_arr.push(a);
+                }
+
+            }
+
+                break;
+
+                case 6:
+
+              for (i=0;i<data['Sales'][k].length;i++)
+            {
+
+            var a = frro_ar.indexOf(data['Sales'][k][i].m);
+                if ( a != -1 )
+                {
+                frro_ar[a] = data['Sales'][k][i].frro_total;
+                frro_arr.push(a);
+                }
+
+            }
+
+                break;
+
+                    }
+
+
+
+        }
+
+
+
+        for(l=1;l<=5;l++)
+        {
+
+
+        switch(l) {
+  case 1:
+
+    for (j=0;j<taxi_ar.length;j++)
+        {
+        //val = taxi_ar[j];
+
+        b = taxi_arr.indexOf(j);
+            if ( b == -1 )
+            {
+            taxi_ar[j] = 0;
+            }
+
+        }
+
+
+
+    break;
+  case 2:
+    for (j=0;j<bus_ar.length;j++)
+        {
+
+        //val = bus_ar[j];
+
+        b = bus_arr.indexOf(j);
+            if ( b == -1 )
+            {
+            bus_ar[j] = 0;
+            }
+
+        }
+    break;
+  case 3:
+    for (j=0;j<train_ar.length;j++)
+        {
+
+        //val = train_ar[j];
+
+        b = train_arr.indexOf(j);
+            if ( b == -1 )
+            {
+            train_ar[j] = 0;
+            }
+
+        }
+    break;
+  case 4:
+    for (j=0;j<flight_ar.length;j++)
+        {
+
+       // val = flight_ar[j];
+
+        b = flight_arr.indexOf(j);
+            if ( b == -1 )
+            {
+            flight_ar[j] = 0;
+            }
+
+        }
+    break;
+  case 5:
+    for (j=0;j<hotel_ar.length;j++)
+        {
+           // val = flight_ar[j];
+
+        b = hotel_arr.indexOf(j);
+            if ( b == -1 )
+            {
+            hotel_ar[j] = 0;
+            }
+
+        }
+    break;
+
+    case 6:
+    for (j=0;j<visa_ar.length;j++)
+        {
+           // val = visa_ar[j];
+
+        b = visa_arr.indexOf(j);
+            if ( b == -1 )
+            {
+            visa_ar[j] = 0;
+            }
+
+        }
+    break;
+
+
+    case 7:
+    for (j=0;j<frro_ar.length;j++)
+        {
+           // val = frro_ar[j];
+
+        b = frro_arr.indexOf(j);
+            if ( b == -1 )
+            {
+            frro_ar[j] = 0;
+            }
+
+        }
+    break;
+
+  default:
+    // code block
+
+}
+
+
+
+        }
+
+        taxi = taxi_ar.reverse();
+        bus = bus_ar.reverse();
+        train = train_ar.reverse();
+        flight = flight_ar.reverse();
+        hotel = hotel_ar.reverse();
+        visa = hotel_ar.reverse();
+        frro = hotel_ar.reverse();
+
+        month_wise_summery(taxi,bus,train,flight,hotel,visa,frro,yr,mnt,chk_ar);
+
+
+       });
+
+    }
+
+
+
+
+function month_wise_summery(taxi,bus,train,flight,hotel,visa,frro,yr,mnt,chk_ar) {
+
+    var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+
+if(chk_ar[5] > 1)
+{
+mnth = parseInt(chk_ar[5]-1);
+}else{
+mnth = parseInt(12);
+}
+ar = slice2(MONTHS,6,mnth);
+
+//ar = [MONTHS[chk_ar[0]],MONTHS[chk_ar[1]],MONTHS[chk_ar[2]],MONTHS[chk_ar[3]],MONTHS[chk_ar[4]],MONTHS[chk_ar[5]]]
+
+//alert(ar);
+
+//alert(current);
+
+
+     var color = Chart.helpers.color;
+     var barChartData = {
+         labels: ar,
+         datasets: [{
+             label: 'Taxi',
+             backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+             borderColor: window.chartColors.red,
+             borderWidth: 1,
+             data: [
+                 taxi[0],taxi[1],taxi[2],taxi[3],taxi[4],taxi[5]
+             ]
+         }, {
+             label: 'Bus',
+             backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
+             borderColor: window.chartColors.blue,
+             borderWidth: 1,
+             data: [
+                bus[0],bus[1],bus[2],bus[3],bus[4],bus[5]
+             ]
+         },{
+             label: 'Train',
+             backgroundColor: color(window.chartColors.orange).alpha(0.5).rgbString(),
+             borderColor: window.chartColors.green,
+             borderWidth: 1,
+             data: [
+                 train[0],train[1],train[2],train[3],train[4],train[5]
+             ]
+         },{
+             label: 'Flight',
+             backgroundColor: color(window.chartColors.pink).alpha(0.5).rgbString(),
+             borderColor: window.chartColors.pink,
+             borderWidth: 1,
+             data: [
+                 flight[0],flight[1],flight[2],flight[3],flight[4],flight[5]
+             ]
+         },{
+             label: 'Hotel',
+             backgroundColor: color(window.chartColors.yellow).alpha(0.5).rgbString(),
+             borderColor: window.chartColors.yellow,
+             borderWidth: 1,
+             data: [
+                 hotel[0],hotel[1],hotel[2],hotel[3],hotel[4],hotel[5]
+             ]
+         },{
+             label: 'Visa',
+             backgroundColor: color(window.chartColors.orange).alpha(0.5).rgbString(),
+             borderColor: window.chartColors.orange,
+             borderWidth: 1,
+             data: [
+                 visa[0],visa[1],visa[2],visa[3],visa[4],visa[5]
+             ]
+         },{
+             label: 'Frro',
+             backgroundColor: color(window.chartColors.brown).alpha(0.5).rgbString(),
+             borderColor: window.chartColors.brown,
+             borderWidth: 1,
+             data: [
+                 frro[0],frro[1],frro[2],frro[3],frro[4],frro[5]
+             ]
+         }
+
+         ]
+
+     };
+
+        if (typeof window.myBar1 != "undefined")
+        {
+        // object exists
+
+        //alert("exist");
+
+        window.myBar1.destroy();
+
+        }else{
+
+        //alert("not exist");
+
+        }
+
+
+
+         var ctx1 = document.getElementById("chart-by-months").getContext("2d");
+         window.myBar1 = new Chart(ctx1, {
+             type: 'bar',
+
+             data: barChartData,
+
+             options: {
+
+             suggestedMin:0,
+             suggestedMax:15,
+
+              "animation": {
+                            "duration": 1,
+                            "onComplete": function() {
+                                                        var chartInstance = this.chart,
+                                                        ctx = chartInstance.ctx;
+
+                                                        ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+                                                        ctx.textAlign = 'center';
+                                                        ctx.textBaseline = 'bottom';
+
+                            this.data.datasets.forEach(function(dataset, i) {
+                                                              var meta = chartInstance.controller.getDatasetMeta(i);
+                                                              meta.data.forEach(function(bar, index) {
+                                                                var data = dataset.data[index];
+                                                                Math.round(Number(data)) == 0 ?
+
+                                                                ctx.fillText('', bar._model.x, bar._model.y - 10) :
+
+                                                                ctx.fillText(data, bar._model.x, bar._model.y - 10);
+
+                                                              });
+                                                            });
+                                                          }
+                                                        },
+                                                        legend: {
+                                                           position: 'top',
+                                                          "display": false
+                                                        },
+                                                        tooltips: {
+                                                          "enabled": true
+                                                        },
+
+                scales: {
+                            yAxes: [{
+
+                        scaleLabel: {
+                        display: true,
+                        labelString: 'Total Sales In Lacs'
+                                    }
+
+                                    }]
+                        },
+                 responsive: true,
+
+                  legend: {
+                     position: 'top',
+                 },
+
+                 title: {
+                     display: true,
+                     text: 'Six Months Sales Summary'
+                 }
+             }
+         });
+
+
+         }
+
+
+/* end month wise sales summery */
+
+
+
+</script>
+
+
+<script>
+
+/* script for tax amount table */
+
+$('#from_date').change(TaxAmountTable);
+
+$('#to_date').change(TaxAmountTable);
+
+function nullCheck(val)
+{
+     if(typeof val === 'undefined') {
+                    val = 0;
+                    } else if(val === null){
+                    val = 0;
+                    }
+     return val;
+
+}
+
+function TaxAmountTable()
+{
+
+var x = document.getElementById("from_date");
+var xx = document.getElementById("to_date");
+
+var from_date = x.value;
+var to_date = xx.value;
+
+// var from_date = $("#from_date :selected").val();
+// var to_date = $("#to_date :selected").val();
+
+var today_date = new Date();
+
+ var six_month_back = from_date;
+
+today_date_value = ('0' + (today_date.getMonth() + 1)).slice(-2) + '/' + ('0' + today_date.getDate()).slice(-2) + '/' + today_date.getFullYear()  ;
+
+ var f_date = from_date;
+
+ var t_date = to_date;
+
+ console.log("call datesssssssssss");
+ console.log(f_date);
+ console.log(today_date_value);
+
+
+callTaxAmountTable(f_date,t_date);
+
+}
+
+
+
+function callTaxAmountTable(frm_date,too_date){
+
+
+ var today_date = new Date();
+
+ var six_month_back = moment().subtract(180, 'days').calendar();
+
+today_date_value = today_date.getFullYear() + '/' + ('0' + (today_date.getMonth() + 1)).slice(-2) + '/' + ('0' + today_date.getDate()).slice(-2);
+
+console.log('date isss');
+console.log(today_date_value);
+console.log(six_month_back);
+
+ var from_date = frm_date;
+
+ var to_date = too_date;
+
+ var_url = '/api/'+'dashboard_taxable_amount_table'
+    $.ajaxSetup({
+            headers:{
+                'Authorization': "Token {{request.session.agent_access_token}}",
+                'usertype': 10
+            }
+
+        });
+
+$.post(var_url,{'from_date':from_date,'to_date':to_date},
+      function(data)
+      {
+
+        for (k=0;k<data['Tax'].length;k++)
+        {
+            var pre_tax_amt = 0;
+            var igst_amt = 0;
+            var cgst_amt = 0;
+            var sgst_amt = 0;
+            var others_amt = 0;
+            var total_amt = 0;
+            var paid_amt = 0;
+            var pending_amt = 0;
+            var partial_paid_amt = 0;
+
+
+            		switch(k){
+
+            case 0:
+
+             if (nullCheck(data['Tax'][k][0]))
+            {
+
+                pre_tax_amt = nullCheck(data['Tax'][k][0].pre_tax_amount);
+                igst_amt = nullCheck(data['Tax'][k][0].igst);
+                cgst_amt = nullCheck(data['Tax'][k][0].cgst);
+                sgst_amt = nullCheck(data['Tax'][k][0].sgst);
+                others_amt = nullCheck(data['Tax'][k][0].other_charge);
+                total_amt = nullCheck(data['Tax'][k][0].total);
+
+            }else{
+
+                 pre_tax_amt = 0;
+                igst_amt = 0;
+                cgst_amt = 0;
+                sgst_amt = 0;
+                others_amt = 0;
+                total_amt = 0;
+
+            }
+
+
+               table_row_str = '<th scope="row">Taxi</th><td>'+ pre_tax_amt + '</td><td>'+ igst_amt + '</td><td>' + cgst_amt +'</td><td>' + sgst_amt + '</td></td>' +
+                '<td>' + others_amt + '</td><td>' + total_amt + '</td><td><td>' + paid_amt + '</td><td>' + pending_amt + '</td><td>' + partial_paid_amt + '</td></td>';
+
+
+                $('#row_taxi').html(table_row_str);
+
+                break;
+
+            case 1:
+
+
+                  if (nullCheck(data['Tax'][k][0]))
+            {
+
+                pre_tax_amt = nullCheck(data['Tax'][k][0].pre_tax_amount);
+                igst_amt = nullCheck(data['Tax'][k][0].igst);
+                cgst_amt = nullCheck(data['Tax'][k][0].cgst);
+                sgst_amt = nullCheck(data['Tax'][k][0].sgst);
+                others_amt = nullCheck(data['Tax'][k][0].other_charge);
+                total_amt = nullCheck(data['Tax'][k][0].total);
+
+            }else{
+
+                 pre_tax_amt = 0;
+                igst_amt = 0;
+                cgst_amt = 0;
+                sgst_amt = 0;
+                others_amt = 0;
+                total_amt = 0;
+
+            }
+
+
+                table_row_str = '<th scope="row">Bus</th><td>'+ pre_tax_amt + '</td><td>'+ igst_amt + '</td><td>' + cgst_amt +'</td><td>' + sgst_amt + '</td></td>' +
+                '<td>' + others_amt + '</td><td>' + total_amt + '</td><td><td>' + paid_amt + '</td><td>' + pending_amt + '</td><td>' + partial_paid_amt + '</td></td>';
+
+                $('#row_bus').html(table_row_str);
+
+                break;
+
+            case 2:
+
+                 if (nullCheck(data['Tax'][k][0]))
+            {
+
+                pre_tax_amt = nullCheck(data['Tax'][k][0].pre_tax_amount);
+                igst_amt = nullCheck(data['Tax'][k][0].igst);
+                cgst_amt = nullCheck(data['Tax'][k][0].cgst);
+                sgst_amt = nullCheck(data['Tax'][k][0].sgst);
+                others_amt = nullCheck(data['Tax'][k][0].other_charge);
+                total_amt = nullCheck(data['Tax'][k][0].total);
+
+            }else{
+
+                 pre_tax_amt = 0;
+                igst_amt = 0;
+                cgst_amt = 0;
+                sgst_amt = 0;
+                others_amt = 0;
+                total_amt = 0;
+
+            }
+
+
+               table_row_str = '<th scope="row">Train</th><td>'+ pre_tax_amt + '</td><td>'+ igst_amt + '</td><td>' + cgst_amt +'</td><td>' + sgst_amt + '</td></td>' +
+                '<td>' + others_amt + '</td><td>' + total_amt + '</td><td><td>' + paid_amt + '</td><td>' + pending_amt + '</td><td>' + partial_paid_amt + '</td></td>';
+
+                $('#row_train').html(table_row_str);
+
+
+                break;
+
+            case 3:
+
+
+                  if (nullCheck(data['Tax'][k][0]))
+            {
+
+                pre_tax_amt = nullCheck(data['Tax'][k][0].pre_tax_amount);
+                igst_amt = nullCheck(data['Tax'][k][0].igst);
+                cgst_amt = nullCheck(data['Tax'][k][0].cgst);
+                sgst_amt = nullCheck(data['Tax'][k][0].sgst);
+                others_amt = nullCheck(data['Tax'][k][0].other_charge);
+                total_amt = nullCheck(data['Tax'][k][0].total);
+
+            }else{
+
+                 pre_tax_amt = 0;
+                igst_amt = 0;
+                cgst_amt = 0;
+                sgst_amt = 0;
+                others_amt = 0;
+                total_amt = 0;
+
+            }
+
+
+               table_row_str = '<th scope="row">Flight</th><td>'+ pre_tax_amt + '</td><td>'+ igst_amt + '</td><td>' + cgst_amt +'</td><td>' + sgst_amt + '</td></td>' +
+                '<td>' + others_amt + '</td><td>' + total_amt + '</td><td><td>' + paid_amt + '</td><td>' + pending_amt + '</td><td>' + partial_paid_amt + '</td></td>';
+
+                $('#row_flight').html(table_row_str);
+
+
+                break;
+
+            case 4:
+
+
+                  if (nullCheck(data['Tax'][k][0]))
+            {
+
+                pre_tax_amt = nullCheck(data['Tax'][k][0].pre_tax_amount);
+                igst_amt = nullCheck(data['Tax'][k][0].igst);
+                cgst_amt = nullCheck(data['Tax'][k][0].cgst);
+                sgst_amt = nullCheck(data['Tax'][k][0].sgst);
+                others_amt = nullCheck(data['Tax'][k][0].other_charge);
+                total_amt = nullCheck(data['Tax'][k][0].total);
+
+            }else{
+
+                 pre_tax_amt = 0;
+                igst_amt = 0;
+                cgst_amt = 0;
+                sgst_amt = 0;
+                others_amt = 0;
+                total_amt = 0;
+
+            }
+
+
+               table_row_str = '<th scope="row">Hotel</th><td>'+ pre_tax_amt + '</td><td>'+ igst_amt + '</td><td>' + cgst_amt +'</td><td>' + sgst_amt + '</td></td>' +
+                '<td>' + others_amt + '</td><td>' + total_amt + '</td><td><td>' + paid_amt + '</td><td>' + pending_amt + '</td><td>' + partial_paid_amt + '</td></td>';
+
+                $('#row_hotel').html(table_row_str);
+
+
+                break;
+
+
+                case 5:
+
+                pre_tax_amt = nullCheck(data['Tax'][k][0].pre_tax_amount);
+                igst_amt = nullCheck(data['Tax'][k][0].igst);
+                cgst_amt = nullCheck(data['Tax'][k][0].cgst);
+                sgst_amt = nullCheck(data['Tax'][k][0].sgst);
+                others_amt = nullCheck(data['Tax'][k][0].other_charge);
+                total_amt = nullCheck(data['Tax'][k][0].total);
+
+
+
+
+               table_row_str = '<th scope="row">Visa</th><td>'+ pre_tax_amt + '</td><td>'+ igst_amt + '</td><td>' + cgst_amt +'</td><td>' + sgst_amt + '</td></td>' +
+                '<td>' + others_amt + '</td><td>' + total_amt + '</td><td><td>' + paid_amt + '</td><td>' + pending_amt + '</td><td>' + partial_paid_amt + '</td></td>';
+
+                $('#row_visa').html(table_row_str);
+
+
+                break;
+
+                case 6:
+
+                pre_tax_amt = nullCheck(data['Tax'][k][0].pre_tax_amount);
+                igst_amt = nullCheck(data['Tax'][k][0].igst);
+                cgst_amt = nullCheck(data['Tax'][k][0].cgst);
+                sgst_amt = nullCheck(data['Tax'][k][0].sgst);
+                others_amt = nullCheck(data['Tax'][k][0].other_charge);
+                total_amt = nullCheck(data['Tax'][k][0].total);
+
+
+
+
+               table_row_str = '<th scope="row">FRRO</th><td>'+ pre_tax_amt + '</td><td>'+ igst_amt + '</td><td>' + cgst_amt +'</td><td>' + sgst_amt + '</td></td>' +
+                '<td>' + others_amt + '</td><td>' + total_amt + '</td><td><td>' + paid_amt + '</td><td>' + pending_amt + '</td><td>' + partial_paid_amt + '</td></td>';
+
+                $('#row_frro').html(table_row_str);
+
+
+                break;
+
+                    }
+
+
+
+        }
+
+
+
+       });
+
+}
+
+
+
+</script>
+
+
+
+<script>
+
+
+function ChartByCity2(taxi_x,taxi_y,bus_x,bus_y,train_x,train_y,flight_x,flight_y,hotel_x,hotel_y,visa_x,visa_y,frro_x,frro_y){
+
+<!--Top 10 cities - Taxi  -->
+
+var ctx201 = document.getElementById("myChart201").getContext("2d");
+
+var chart201 = {
+   options: {
+       barValueSpacing: 10,
+      scales: {
+         yAxes: [{
+
+            barPercentage: 0.5,
+
+         }],
+          xAxes: [{
+
+             ticks: {
+                beginAtZero: true,
+              },
+              scaleLabel: {
+                        display: true,
+                        labelString: 'Sales In Lacs',
+              },
+
+         }],
+      },
+      tooltips: {
+         mode: 'nearest', //<- set this
+         callbacks: {
+            label: function(tooltipItem, data) {
+               console.log(tooltipItem);
+               return data.datasets[tooltipItem.datasetIndex].label + ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].toLocaleString();
+            }
+         }
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+                display: false,
+
+            },
+      animation: {
+                    onComplete: function(animation) {
+
+                const chartInstance = this.chart,
+                ctx = chartInstance.ctx;
+
+                const fontSize = 10;
+                const fontStyle = '600';
+                const fontFamily = 'Open Sans';
+                ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
+
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'bottom';
+                ctx.fillStyle = '#676A6C';
+
+                this.data.datasets.forEach(function (dataset, i) {
+                const meta = chartInstance.controller.getDatasetMeta(i);
+                meta.data.forEach(function (bar, index) {
+                if(dataset.data[index] != 0){
+                  const data = dataset.data[index];
+                  ctx.fillText(data, bar._model.x+10, bar._model.y+5);
+            }
+          });
+        });
+
+         }
+      }
+   },
+   type: 'horizontalBar',
+   data: {
+      labels: taxi_x,
+      datasets: [{
+         label: 'Taxi',
+         borderColor: 'red',
+         borderWidth: 1,
+         backgroundColor: Color('red').alpha(0.5).rgbString(),
+         data: taxi_y,
+         fill: false
+      }]
+
+
+
+
+
+   },
+
+};
+
+var myChart201 = new Chart(ctx201, chart201);
+
+<!--  Top 10 cities - Bus  -->
+
+
+var ctx202 = document.getElementById("myChart202").getContext("2d");
+
+var chart202 = {
+   options: {
+       barValueSpacing: 10,
+      scales: {
+         yAxes: [{
+
+            barPercentage: 0.5
+         }],
+          xAxes: [{
+
+             ticks: {
+                beginAtZero: true,
+              },
+              scaleLabel: {
+                        display: true,
+                        labelString: 'Sales In Lacs',
+              },
+
+         }],
+      },
+      tooltips: {
+         mode: 'nearest', //<- set this
+         callbacks: {
+            label: function(tooltipItem, data) {
+               console.log(tooltipItem);
+               return data.datasets[tooltipItem.datasetIndex].label + ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].toLocaleString();
+            }
+         }
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+                display: false,
+
+            },
+      animation: {
+                         onComplete: function(animation) {
+
+                const chartInstance = this.chart,
+                ctx = chartInstance.ctx;
+
+                const fontSize = 10;
+                const fontStyle = '600';
+                const fontFamily = 'Open Sans';
+                ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
+
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'bottom';
+                ctx.fillStyle = '#676A6C';
+
+                this.data.datasets.forEach(function (dataset, i) {
+                const meta = chartInstance.controller.getDatasetMeta(i);
+                meta.data.forEach(function (bar, index) {
+                if(dataset.data[index] != 0){
+                  const data = dataset.data[index];
+                  ctx.fillText(data, bar._model.x+10, bar._model.y+5);
+            }
+          });
+        });
+
+         }
+      }
+   },
+   type: 'horizontalBar',
+   data: {
+      labels: bus_x,
+      datasets: [{
+         label: 'Bus',
+         borderColor: 'purple',
+         borderWidth: 1,
+         backgroundColor: Color('purple').alpha(0.5).rgbString(),
+         data: bus_y,
+         fill: false
+      }]
+
+
+
+
+
+   },
+
+};
+
+
+var myChart202 = new Chart(ctx202, chart202);
+
+<!-- Top 10 cities - Train  -->
+
+var ctx203 = document.getElementById("myChart203").getContext("2d");
+
+var chart203 = {
+   options: {
+       barValueSpacing: 10,
+      scales: {
+         yAxes: [{
+
+            barPercentage: 0.5
+         }],
+          xAxes: [{
+
+             ticks: {
+                beginAtZero: true,
+              },
+              scaleLabel: {
+                        display: true,
+                        labelString: 'Sales In Lacs',
+              },
+
+         }],
+      },
+      tooltips: {
+         mode: 'nearest', //<- set this
+         callbacks: {
+            label: function(tooltipItem, data) {
+               console.log(tooltipItem);
+               return data.datasets[tooltipItem.datasetIndex].label + ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].toLocaleString();
+            }
+         }
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+                display: false,
+
+            },
+      animation: {
+                     onComplete: function(animation) {
+
+                const chartInstance = this.chart,
+                ctx = chartInstance.ctx;
+
+                const fontSize = 10;
+                const fontStyle = '600';
+                const fontFamily = 'Open Sans';
+                ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
+
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'bottom';
+                ctx.fillStyle = '#676A6C';
+
+                this.data.datasets.forEach(function (dataset, i) {
+                const meta = chartInstance.controller.getDatasetMeta(i);
+                meta.data.forEach(function (bar, index) {
+                if(dataset.data[index] != 0){
+                  const data = dataset.data[index];
+                  ctx.fillText(data, bar._model.x+10, bar._model.y+5);
+            }
+          });
+        });
+
+         }
+      }
+   },
+   type: 'horizontalBar',
+   data: {
+      labels: train_x,
+      datasets: [{
+         label: 'Train',
+         borderColor: 'grey',
+         borderWidth: 1,
+         backgroundColor: Color('grey').alpha(0.5).rgbString(),
+         data: train_y,
+         fill: false
+      }]
+
+
+
+
+
+   },
+
+};
+
+
+var myChart203 = new Chart(ctx203, chart203);
+
+
+<!--  Top 10 cities - Hotel     -->
+
+
+var ctx204 = document.getElementById("myChart204").getContext("2d");
+
+var chart204 = {
+   options: {
+       barValueSpacing: 10,
+      scales: {
+         yAxes: [{
+
+            barPercentage: 0.5
+         }],
+          xAxes: [{
+
+             ticks: {
+                beginAtZero: true,
+              },
+              scaleLabel: {
+                        display: true,
+                        labelString: 'Sales In Lacs',
+              },
+
+         }],
+      },
+      tooltips: {
+         mode: 'nearest', //<- set this
+         callbacks: {
+            label: function(tooltipItem, data) {
+               console.log(tooltipItem);
+               return data.datasets[tooltipItem.datasetIndex].label + ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].toLocaleString();
+            }
+         }
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+                display: false,
+
+            },
+      animation: {
+                     onComplete: function(animation) {
+
+                const chartInstance = this.chart,
+                ctx = chartInstance.ctx;
+
+                const fontSize = 10;
+                const fontStyle = '600';
+                const fontFamily = 'Open Sans';
+                ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
+
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'bottom';
+                ctx.fillStyle = '#676A6C';
+
+                this.data.datasets.forEach(function (dataset, i) {
+                const meta = chartInstance.controller.getDatasetMeta(i);
+                meta.data.forEach(function (bar, index) {
+                if(dataset.data[index] != 0){
+                  const data = dataset.data[index];
+                  ctx.fillText(data, bar._model.x+10, bar._model.y+5);
+            }
+          });
+        });
+
+         }
+      }
+   },
+   type: 'horizontalBar',
+   data: {
+      labels: hotel_x,
+      datasets: [{
+         label: 'Hotel',
+         borderColor: 'green',
+         borderWidth: 1,
+         backgroundColor: Color('green').alpha(0.5).rgbString(),
+         data: hotel_y,
+         fill: false
+      }]
+
+
+
+
+
+   },
+
+};
+
+
+var myChart204 = new Chart(ctx204, chart204);
+
+<!-- Top 10 routes - Flight -->
+
+var ctx205 = document.getElementById("myChart205").getContext("2d");
+
+var chart205 = {
+   options: {
+       barValueSpacing: 10,
+      scales: {
+         yAxes: [{
+
+            barPercentage: 0.5
+         }],
+          xAxes: [{
+
+             ticks: {
+                beginAtZero: true,
+              },
+              scaleLabel: {
+                        display: true,
+                        labelString: 'Sales In Lacs',
+              },
+
+         }],
+      },
+
+      tooltips: {
+         mode: 'nearest', //<- set this
+         callbacks: {
+            label: function(tooltipItem, data) {
+               console.log(tooltipItem);
+               return data.datasets[tooltipItem.datasetIndex].label + ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].toLocaleString();
+            }
+         }
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+                display: false,
+
+            },
+      animation: {
+      onComplete: function(animation) {
+
+                const chartInstance = this.chart,
+                ctx = chartInstance.ctx;
+
+                const fontSize = 10;
+                const fontStyle = '600';
+                const fontFamily = 'Open Sans';
+                ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
+
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'bottom';
+                ctx.fillStyle = '#676A6C';
+
+                this.data.datasets.forEach(function (dataset, i) {
+                const meta = chartInstance.controller.getDatasetMeta(i);
+                meta.data.forEach(function (bar, index) {
+                if(dataset.data[index] != 0){
+                  const data = dataset.data[index];
+                  ctx.fillText(data, bar._model.x+10, bar._model.y+5);
+            }
+          });
+        });
+
+         }
+      }
+   },
+   type: 'horizontalBar',
+   data: {
+      labels: flight_x,
+      datasets: [{
+         label: 'Flight routes',
+         borderColor: 'blue',
+         borderWidth: 1,
+         backgroundColor: Color('blue').alpha(0.5).rgbString(),
+         data: flight_y,
+         fill: false
+      }]
+
+   },
+
+
+};
+
+
+var myChart205 = new Chart(ctx205, chart205);
+
+
+
+<!--  Top 10 cities - Visa     -->
+
+
+var ctx206 = document.getElementById("myChart206").getContext("2d");
+
+var chart206 = {
+   options: {
+       barValueSpacing: 10,
+      scales: {
+         yAxes: [{
+
+            barPercentage: 0.5
+         }],
+          xAxes: [{
+
+             ticks: {
+                beginAtZero: true,
+              },
+              scaleLabel: {
+                        display: true,
+                        labelString: 'Expense In Lacs',
+              },
+
+         }],
+      },
+      tooltips: {
+         mode: 'nearest', //<- set this
+         callbacks: {
+            label: function(tooltipItem, data) {
+               console.log(tooltipItem);
+               return data.datasets[tooltipItem.datasetIndex].label + ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].toLocaleString();
+            }
+         }
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+                display: false,
+
+            },
+      animation: {
+                     onComplete: function(animation) {
+
+                const chartInstance = this.chart,
+                ctx = chartInstance.ctx;
+
+                const fontSize = 10;
+                const fontStyle = '600';
+                const fontFamily = 'Open Sans';
+                ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
+
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'bottom';
+                ctx.fillStyle = '#676A6C';
+
+                this.data.datasets.forEach(function (dataset, i) {
+                const meta = chartInstance.controller.getDatasetMeta(i);
+                meta.data.forEach(function (bar, index) {
+                if(dataset.data[index] != 0){
+                  const data = dataset.data[index];
+                  ctx.fillText(data, bar._model.x+10, bar._model.y+5);
+            }
+          });
+        });
+
+         }
+      }
+   },
+   type: 'horizontalBar',
+   data: {
+      labels: visa_x,
+      datasets: [{
+         label: 'Visa',
+         borderColor: 'green',
+         borderWidth: 1,
+         backgroundColor: Color('green').alpha(0.5).rgbString(),
+         data: visa_y,
+         fill: false
+      }]
+
+
+
+
+
+   },
+
+};
+
+
+var myChart206 = new Chart(ctx206, chart206);
+
+
+<!--  Top 10 cities - Frro     -->
+
+
+var ctx207 = document.getElementById("myChart207").getContext("2d");
+
+var chart207 = {
+   options: {
+       barValueSpacing: 10,
+      scales: {
+         yAxes: [{
+
+            barPercentage: 0.5
+         }],
+          xAxes: [{
+
+             ticks: {
+                beginAtZero: true,
+              },
+              scaleLabel: {
+                        display: true,
+                        labelString: 'Expense In Lacs',
+              },
+
+         }],
+      },
+      tooltips: {
+         mode: 'nearest', //<- set this
+         callbacks: {
+            label: function(tooltipItem, data) {
+               console.log(tooltipItem);
+               return data.datasets[tooltipItem.datasetIndex].label + ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].toLocaleString();
+            }
+         }
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+                display: false,
+
+            },
+      animation: {
+                     onComplete: function(animation) {
+
+                const chartInstance = this.chart,
+                ctx = chartInstance.ctx;
+
+                const fontSize = 10;
+                const fontStyle = '600';
+                const fontFamily = 'Open Sans';
+                ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
+
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'bottom';
+                ctx.fillStyle = '#676A6C';
+
+                this.data.datasets.forEach(function (dataset, i) {
+                const meta = chartInstance.controller.getDatasetMeta(i);
+                meta.data.forEach(function (bar, index) {
+                if(dataset.data[index] != 0){
+                  const data = dataset.data[index];
+                  ctx.fillText(data, bar._model.x+10, bar._model.y+5);
+            }
+          });
+        });
+
+         }
+      }
+   },
+   type: 'horizontalBar',
+   data: {
+      labels: frro_x,
+      datasets: [{
+         label: 'Frro',
+         borderColor: 'green',
+         borderWidth: 1,
+         backgroundColor: Color('green').alpha(0.5).rgbString(),
+         data: frro_y,
+         fill: false
+      }]
+
+
+
+
+
+   },
+
+};
+
+
+var myChart207 = new Chart(ctx207, chart207);
+
+}
+
+// function endddd
+
+
+function callChartByCity(){
+
+ var serveType = $("#serveType :selected").val();
+
+
+ var_url = '/api/'+'agent_dashboard_sales_by_city'
+    $.ajaxSetup({
+            headers:{
+                'Authorization': "Token {{request.session.agent_access_token}}",
+                'usertype': 10
+            }
+
+        });
+
+$.post(var_url,{'login_type':101},
+      function(data)
+      {
+
+        taxi_x = [];
+        taxi_y = [];
+
+        bus_x = [];
+        bus_y = [];
+
+        train_x = [];
+        train_y = [];
+
+        flight_x = [];
+        flight_y = [];
+
+        hotel_x = [];
+        hotel_y = [];
+
+        visa_x = [];
+        visa_y = [];
+
+        frro_x = [];
+        frro_y = [];
+
+        var v_x = 0;
+        var v_y = 0;
+
+
+       for (k=0;k<data['Sales'].length;k++)
+        {
+            switch(k){
+
+            case 0:
+
+            console.log("taxi counttttt");
+            console.log(data['Sales'][k].length);
+
+            var other_total = 0;
+            var flag_set = 0 ;
+            var len = 0 ;
+            if ( data['Sales'][k].length > 9 )
+            {
+                len = 9;
+                flag_set = 1 ;
+
+                for (i=len ; i < data['Sales'][k].length ; i++)
+            {
+                    number = data['Sales'][k][i].taxi_total;
+                    if(Number.isInteger(number))
+                    {
+                        other_total = other_total + parseInt(number);
+                    }
+
+            }
+
+            }else{
+
+            len = data['Sales'][k].length ;
+
+            }
+
+            for (i=0;i<len;i++)
+            {
+            v_x = data['Sales'][k][i].cities;
+            v_y = parseInt(data['Sales'][k][i].taxi_total);
+
+            taxi_x.push(v_x);
+            taxi_y.push(v_y);
+            }
+
+             if (flag_set)
+            {
+                taxi_x.push('Other');
+                taxi_y.push(other_total);
+
+            }
+
+                break;
+
+            case 1:
+            var other_total = 0;
+            var flag_set = 0 ;
+            var len = 0 ;
+            if ( data['Sales'][k].length > 9 )
+            {
+                len = 9;
+                flag_set = 1 ;
+
+                for (i=len ; i < data['Sales'][k].length ; i++)
+            {
+                    number = data['Sales'][k][i].bus_total;
+                    if(Number.isInteger(number))
+                    {
+                        other_total = other_total + parseInt(number);
+                    }
+
+            }
+
+            }else{
+
+            len = data['Sales'][k].length ;
+
+            }
+
+            for (i=0;i<len;i++)
+            {
+                v_x = data['Sales'][k][i].cities;
+                v_y = parseInt(data['Sales'][k][i].bus_total);
+                bus_x.push(v_x);
+                bus_y.push(v_y);
+            }
+
+             if (flag_set)
+            {
+                bus_x.push('Other');
+                bus_y.push(other_total);
+
+            }
+
+                break;
+
+            case 2:
+            var other_total = 0;
+            var flag_set = 0 ;
+            var len = 0 ;
+            if ( data['Sales'][k].length > 9 )
+            {
+                len = 9;
+                flag_set = 1 ;
+
+                for (i=len ; i < data['Sales'][k].length ; i++)
+            {
+                    number = data['Sales'][k][i].train_total;
+                    if(Number.isInteger(number))
+                    {
+                        other_total = other_total + parseInt(number);
+                    }
+
+            }
+
+            }else{
+
+            len = data['Sales'][k].length ;
+
+            }
+
+            for (i=0;i<len;i++)
+            {
+                    v_x = data['Sales'][k][i].cities;
+                    v_y = parseInt(data['Sales'][k][i].train_total);
+                    train_x.push(v_x);
+                    train_y.push(v_y);
+            }
+
+             if (flag_set)
+            {
+                train_x.push('Other');
+                train_y.push(other_total);
+
+            }
+
+                break;
+
+            case 3:
+            var other_total = 0;
+            var flag_set = 0 ;
+            var len = 0 ;
+            if ( data['Sales'][k].length > 9 )
+            {
+                len = 9;
+                flag_set = 1 ;
+
+                for (i=len ; i < data['Sales'][k].length ; i++)
+            {
+                    number = data['Sales'][k][i].flight_total;
+                    if(Number.isInteger(number))
+                    {
+                        other_total = other_total + parseInt(number);
+                    }
+
+            }
+
+            }else{
+
+            len = data['Sales'][k].length ;
+
+            }
+
+            for (i=0 ; i < len ; i++)
+            {
+                    v_x = data['Sales'][k][i].city;
+                    v_y = parseInt(data['Sales'][k][i].flight_total);
+
+                    flight_x.push(v_x);
+                    flight_y.push(v_y);
+
+            }
+
+            if (flag_set)
+            {
+                flight_x.push('Other');
+                flight_y.push(other_total);
+
+            }
+
+                break;
+
+            case 4:
+             var other_total = 0;
+            var flag_set = 0 ;
+            var len = 0 ;
+            if ( data['Sales'][k].length > 9 )
+            {
+                len = 9;
+                flag_set = 1 ;
+
+                for (i=len ; i < data['Sales'][k].length ; i++)
+            {
+                    number = data['Sales'][k][i].hotel_total;
+                    if(Number.isInteger(number))
+                    {
+                        other_total = other_total + parseInt(number);
+                    }
+
+            }
+
+            }else{
+
+            len = data['Sales'][k].length ;
+
+            }
+
+
+            console.log(data['Sales'][k]);
+            for (i=0;i<len;i++)
+            {
+                    v_x = data['Sales'][k][i].city;
+                    v_y = parseInt(data['Sales'][k][i].hotel_total);
+                    hotel_x.push(v_x);
+                    hotel_y.push(v_y);
+            }
+
+             if (flag_set)
+            {
+                hotel_x.push('Other');
+                hotel_y.push(other_total);
+
+            }
+
+
+                break;
+
+
+                case 5:
+            var other_total = 0;
+            var flag_set = 0 ;
+            var len = 0 ;
+            if ( data['Sales'][k].length > 10 )
+            {
+                len = 10;
+                flag_set = 1 ;
+
+            for (i=len ; i < data['Sales'][k].length ; i++)
+            {
+                    number = data['Sales'][k][i].visa_total;
+                    if(Number.isInteger(number))
+                    {
+                        other_total = other_total + parseInt(number);
+                    }
+
+            }
+
+            }else{
+
+            len = data['Sales'][k].length ;
+
+            }
+
+
+            console.log(data['Sales'][k]);
+            for (i=0;i<len;i++)
+            {
+                    v_x = data['Sales'][k][i].city;
+                    v_y = parseInt(data['Sales'][k][i].visa_total);
+                    visa_x.push(v_x);
+                    visa_y.push(v_y);
+            }
+
+             if (flag_set)
+            {
+                visa_x.push('Other');
+                visa_y.push(other_total);
+
+            }
+
+
+                break;
+
+            case 6:
+             var other_total = 0;
+            var flag_set = 0 ;
+            var len = 0 ;
+            if ( data['Sales'][k].length > 10 )
+            {
+                len = 10;
+                flag_set = 1 ;
+
+                for (i=len ; i < data['Sales'][k].length ; i++)
+            {
+                    number = data['Sales'][k][i].frro_total;
+                    if(Number.isInteger(number))
+                    {
+                        other_total = other_total + parseInt(number);
+                    }
+
+            }
+
+            }else{
+
+            len = data['Sales'][k].length ;
+
+            }
+
+
+            console.log(data['Sales'][k]);
+            for (i=0;i<len;i++)
+            {
+                    v_x = data['Sales'][k][i].city;
+                    v_y = parseInt(data['Sales'][k][i].frro_total);
+                    frro_x.push(v_x);
+                    frro_y.push(v_y);
+            }
+
+             if (flag_set)
+            {
+                frro_x.push('Other');
+                frro_y.push(other_total);
+
+            }
+
+
+                break;
+
+
+                        }
+
+         }
+
+
+
+       ChartByCity2(taxi_x,taxi_y,bus_x,bus_y,train_x,train_y,flight_x,flight_y,hotel_x,hotel_y,visa_x,visa_y,frro_x,frro_y);
+
+
+       });
+
+}
+
+
+function callChartByClientPendingPayment(){
+
+ var serveType = $("#serveType :selected").val();
+
+ var_url = '/api/'+'agent_payment_pending_from_client'
+    $.ajaxSetup({
+            headers:{
+                'Authorization': "Token {{request.session.agent_access_token}}",
+                'usertype': 10
+            }
+
+        });
+
+$.post(var_url,{'login_type':101},
+      function(data)
+      {
+
+        taxi_x = [];
+        taxi_y = [];
+
+        bus_x = [];
+        bus_y = [];
+
+        train_x = [];
+        train_y = [];
+
+        flight_x = [];
+        flight_y = [];
+
+        hotel_x = [];
+        hotel_y = [];
+
+        visa_x = [];
+        visa_y = [];
+
+        frro_x = [];
+        frro_y = [];
+
+
+        var v_x = 0;
+        var v_y = 0;
+
+        //alert(JSON.stringify(data));
+       for (k=0;k<data['Sales'].length;k++)
+        {
+            switch(k){
+
+            case 0:
+
+            console.log("taxi counttttt");
+            console.log(data['Sales'][k].length);
+
+            var other_total = 0;
+            var flag_set = 0 ;
+            var len = 0 ;
+            if ( data['Sales'][k].length > 9 )
+            {
+                len = 9;
+                flag_set = 1 ;
+
+                for (i=len ; i < data['Sales'][k].length ; i++)
+            {
+                    number = data['Sales'][k][i].bill_total;
+                    if(Number.isInteger(number))
+                    {
+                        other_total = other_total + parseInt(number);
+                    }
+
+            }
+
+            }else{
+
+            len = data['Sales'][k].length ;
+
+            }
+
+            for (i=0;i<len;i++)
+            {
+            v_x = data['Sales'][k][i].corporate_name;
+            v_y = parseInt(data['Sales'][k][i].bill_total);
+
+            taxi_x.push(v_x);
+            taxi_y.push(v_y);
+            }
+
+             if (flag_set)
+            {
+                taxi_x.push('Other');
+                taxi_y.push(other_total);
+
+            }
+
+                break;
+
+            case 1:
+            var other_total = 0;
+            var flag_set = 0 ;
+            var len = 0 ;
+            if ( data['Sales'][k].length > 9 )
+            {
+                len = 9;
+                flag_set = 1 ;
+
+                for (i=len ; i < data['Sales'][k].length ; i++)
+            {
+                    number = data['Sales'][k][i].bill_total;
+                    if(Number.isInteger(number))
+                    {
+                        other_total = other_total + parseInt(number);
+                    }
+
+            }
+
+            }else{
+
+            len = data['Sales'][k].length ;
+
+            }
+
+            for (i=0;i<len;i++)
+            {
+                v_x = data['Sales'][k][i].corporate_name;
+                v_y = parseInt(data['Sales'][k][i].bill_total);
+                bus_x.push(v_x);
+                bus_y.push(v_y);
+            }
+
+             if (flag_set)
+            {
+                bus_x.push('Other');
+                bus_y.push(other_total);
+
+            }
+
+                break;
+
+            case 2:
+            var other_total = 0;
+            var flag_set = 0 ;
+            var len = 0 ;
+            if ( data['Sales'][k].length > 9 )
+            {
+                len = 9;
+                flag_set = 1 ;
+
+                for (i=len ; i < data['Sales'][k].length ; i++)
+            {
+                    number = data['Sales'][k][i].bill_total;
+                    if(Number.isInteger(number))
+                    {
+                        other_total = other_total + parseInt(number);
+                    }
+
+            }
+
+            }else{
+
+            len = data['Sales'][k].length ;
+
+            }
+
+            for (i=0;i<len;i++)
+            {
+                    v_x = data['Sales'][k][i].corporate_name;
+                    v_y = parseInt(data['Sales'][k][i].bill_total);
+                    train_x.push(v_x);
+                    train_y.push(v_y);
+            }
+
+             if (flag_set)
+            {
+                train_x.push('Other');
+                train_y.push(other_total);
+
+            }
+
+                break;
+
+            case 3:
+            var other_total = 0;
+            var flag_set = 0 ;
+            var len = 0 ;
+            if ( data['Sales'][k].length > 9 )
+            {
+                len = 9;
+                flag_set = 1 ;
+
+                for (i=len ; i < data['Sales'][k].length ; i++)
+            {
+                    number = data['Sales'][k][i].bill_total;
+                    if(Number.isInteger(number))
+                    {
+                        other_total = other_total + parseInt(number);
+                    }
+
+            }
+
+            }else{
+
+            len = data['Sales'][k].length ;
+
+            }
+
+            for (i=0 ; i < len ; i++)
+            {
+                    v_x = data['Sales'][k][i].corporate_name;
+                    v_y = parseInt(data['Sales'][k][i].bill_total);
+
+                    flight_x.push(v_x);
+                    flight_y.push(v_y);
+
+            }
+
+            if (flag_set)
+            {
+                flight_x.push('Other');
+                flight_y.push(other_total);
+
+            }
+
+                break;
+
+            case 4:
+             var other_total = 0;
+            var flag_set = 0 ;
+            var len = 0 ;
+            if ( data['Sales'][k].length > 9 )
+            {
+                len = 9;
+                flag_set = 1 ;
+
+                for (i=len ; i < data['Sales'][k].length ; i++)
+            {
+                    number = data['Sales'][k][i].bill_total;
+                    if(Number.isInteger(number))
+                    {
+                        other_total = other_total + parseInt(number);
+                    }
+
+            }
+
+            }else{
+
+            len = data['Sales'][k].length ;
+
+            }
+
+
+            console.log(data['Sales'][k]);
+            for (i=0;i<len;i++)
+            {
+                    v_x = data['Sales'][k][i].corporate_name;
+                    v_y = parseInt(data['Sales'][k][i].bill_total);
+                    hotel_x.push(v_x);
+                    hotel_y.push(v_y);
+            }
+
+             if (flag_set)
+            {
+                hotel_x.push('Other');
+                hotel_y.push(other_total);
+
+            }
+
+
+                break;
+
+
+                case 5:
+             var other_total = 0;
+            var flag_set = 0 ;
+            var len = 0 ;
+            if ( data['Sales'][k].length > 9 )
+            {
+                len = 9;
+                flag_set = 1 ;
+
+                for (i=len ; i < data['Sales'][k].length ; i++)
+            {
+                    number = data['Sales'][k][i].bill_total;
+                    if(Number.isInteger(number))
+                    {
+                        other_total = other_total + parseInt(number);
+                    }
+
+            }
+
+            }else{
+
+            len = data['Sales'][k].length ;
+
+            }
+
+
+            console.log(data['Sales'][k]);
+            for (i=0;i<len;i++)
+            {
+                    v_x = data['Sales'][k][i].corporate_name;
+                    v_y = parseInt(data['Sales'][k][i].bill_total);
+                    visa_x.push(v_x);
+                    visa_y.push(v_y);
+            }
+
+             if (flag_set)
+            {
+                visa_x.push('Other');
+                visa_y.push(other_total);
+
+            }
+
+
+                break;
+
+
+                case 6:
+             var other_total = 0;
+            var flag_set = 0 ;
+            var len = 0 ;
+            if ( data['Sales'][k].length > 9 )
+            {
+                len = 9;
+                flag_set = 1 ;
+
+                for (i=len ; i < data['Sales'][k].length ; i++)
+            {
+                    number = data['Sales'][k][i].bill_total;
+                    if(Number.isInteger(number))
+                    {
+                        other_total = other_total + parseInt(number);
+                    }
+
+            }
+
+            }else{
+
+            len = data['Sales'][k].length ;
+
+            }
+
+
+            console.log(data['Sales'][k]);
+            for (i=0;i<len;i++)
+            {
+                    v_x = data['Sales'][k][i].corporate_name;
+                    v_y = parseInt(data['Sales'][k][i].bill_total);
+                    frro_x.push(v_x);
+                    frro_y.push(v_y);
+            }
+
+             if (flag_set)
+            {
+                frro_x.push('Other');
+                frro_y.push(other_total);
+
+            }
+
+
+                break;
+
+
+                        }
+
+         }
+
+
+
+       callChartByClientPendingPayment_graph(taxi_x,taxi_y,bus_x,bus_y,train_x,train_y,flight_x,flight_y,hotel_x,hotel_y,visa_x,visa_y,frro_x,frro_y);
+
+
+       });
+
+}
+
+</script>
+
+<script>
+
+function callChartByClientPendingPayment_graph(taxi_x,taxi_y,bus_x,bus_y,train_x,train_y,flight_x,flight_y,hotel_x,hotel_y,visa_x,visa_y,frro_x,frro_y){
+
+<!--Top 10 pending payment clients - Taxi  -->
+
+var ctx301 = document.getElementById("myChart301").getContext("2d");
+
+var chart301 = {
+   options: {
+       barValueSpacing: 10,
+      scales: {
+         yAxes: [{
+
+            barPercentage: 0.5,
+
+         }],
+          xAxes: [{
+
+             ticks: {
+                beginAtZero: true,
+              },
+              scaleLabel: {
+                        display: true,
+                        labelString: 'Payments In Lacs',
+              },
+
+         }],
+      },
+      tooltips: {
+         mode: 'nearest', //<- set this
+         callbacks: {
+            label: function(tooltipItem, data) {
+               console.log(tooltipItem);
+               return data.datasets[tooltipItem.datasetIndex].label + ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].toLocaleString();
+            }
+         }
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+                display: false,
+
+            },
+      animation: {
+                    onComplete: function(animation) {
+
+                const chartInstance = this.chart,
+                ctx = chartInstance.ctx;
+
+                const fontSize = 10;
+                const fontStyle = '600';
+                const fontFamily = 'Open Sans';
+                ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
+
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'bottom';
+                ctx.fillStyle = '#676A6C';
+
+                this.data.datasets.forEach(function (dataset, i) {
+                const meta = chartInstance.controller.getDatasetMeta(i);
+                meta.data.forEach(function (bar, index) {
+                if(dataset.data[index] != 0){
+                  const data = dataset.data[index];
+                  ctx.fillText(data, bar._model.x+10, bar._model.y+5);
+            }
+          });
+        });
+
+         }
+      }
+   },
+   type: 'horizontalBar',
+   data: {
+      labels: taxi_x,
+      datasets: [{
+         label: 'Taxi',
+         borderColor: 'red',
+         borderWidth: 1,
+         backgroundColor: Color('red').alpha(0.5).rgbString(),
+         data: taxi_y,
+         fill: false
+      }]
+
+
+
+
+
+   },
+
+};
+
+
+
+
+
+
+var myChart301 = new Chart(ctx301, chart301);
+
+<!--  Top 10 pending payment clients - Bus  -->
+
+
+var ctx302 = document.getElementById("myChart302").getContext("2d");
+
+var chart302 = {
+   options: {
+       barValueSpacing: 10,
+      scales: {
+         yAxes: [{
+
+            barPercentage: 0.5
+         }],
+          xAxes: [{
+
+             ticks: {
+                beginAtZero: true,
+              },
+              scaleLabel: {
+                        display: true,
+                        labelString: 'Payments In Lacs',
+              },
+
+         }],
+      },
+      tooltips: {
+         mode: 'nearest', //<- set this
+         callbacks: {
+            label: function(tooltipItem, data) {
+               console.log(tooltipItem);
+               return data.datasets[tooltipItem.datasetIndex].label + ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].toLocaleString();
+            }
+         }
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+                display: false,
+
+            },
+      animation: {
+                         onComplete: function(animation) {
+
+                const chartInstance = this.chart,
+                ctx = chartInstance.ctx;
+
+                const fontSize = 10;
+                const fontStyle = '600';
+                const fontFamily = 'Open Sans';
+                ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
+
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'bottom';
+                ctx.fillStyle = '#676A6C';
+
+                this.data.datasets.forEach(function (dataset, i) {
+                const meta = chartInstance.controller.getDatasetMeta(i);
+                meta.data.forEach(function (bar, index) {
+                if(dataset.data[index] != 0){
+                  const data = dataset.data[index];
+                  ctx.fillText(data, bar._model.x+10, bar._model.y+5);
+            }
+          });
+        });
+
+         }
+      }
+   },
+   type: 'horizontalBar',
+   data: {
+      labels: bus_x,
+      datasets: [{
+         label: 'Bus',
+         borderColor: 'purple',
+         borderWidth: 1,
+         backgroundColor: Color('purple').alpha(0.5).rgbString(),
+         data: bus_y,
+         fill: false
+      }]
+
+
+
+
+
+   },
+
+};
+
+
+var myChart302 = new Chart(ctx302, chart302);
+
+<!-- Top 10 pending payment clients - Train  -->
+
+var ctx303 = document.getElementById("myChart303").getContext("2d");
+
+var chart303 = {
+   options: {
+       barValueSpacing: 10,
+      scales: {
+         yAxes: [{
+
+            barPercentage: 0.5
+         }],
+          xAxes: [{
+
+             ticks: {
+                beginAtZero: true,
+              },
+              scaleLabel: {
+                        display: true,
+                        labelString: 'Payments In Lacs',
+              },
+
+         }],
+      },
+      tooltips: {
+         mode: 'nearest', //<- set this
+         callbacks: {
+            label: function(tooltipItem, data) {
+               console.log(tooltipItem);
+               return data.datasets[tooltipItem.datasetIndex].label + ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].toLocaleString();
+            }
+         }
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+                display: false,
+
+            },
+      animation: {
+                     onComplete: function(animation) {
+
+                const chartInstance = this.chart,
+                ctx = chartInstance.ctx;
+
+                const fontSize = 10;
+                const fontStyle = '600';
+                const fontFamily = 'Open Sans';
+                ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
+
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'bottom';
+                ctx.fillStyle = '#676A6C';
+
+                this.data.datasets.forEach(function (dataset, i) {
+                const meta = chartInstance.controller.getDatasetMeta(i);
+                meta.data.forEach(function (bar, index) {
+                if(dataset.data[index] != 0){
+                  const data = dataset.data[index];
+                  ctx.fillText(data, bar._model.x+10, bar._model.y+5);
+            }
+          });
+        });
+
+         }
+      }
+   },
+   type: 'horizontalBar',
+   data: {
+      labels: train_x,
+      datasets: [{
+         label: 'Train',
+         borderColor: 'grey',
+         borderWidth: 1,
+         backgroundColor: Color('grey').alpha(0.5).rgbString(),
+         data: train_y,
+         fill: false
+      }]
+
+
+
+
+
+   },
+
+};
+
+
+var myChart303 = new Chart(ctx303, chart303);
+
+
+<!--  Top 10 pending payment clients - Hotel     -->
+
+
+var ctx304 = document.getElementById("myChart304").getContext("2d");
+
+var chart304 = {
+   options: {
+       barValueSpacing: 10,
+      scales: {
+         yAxes: [{
+
+            barPercentage: 0.5
+         }],
+          xAxes: [{
+
+             ticks: {
+                beginAtZero: true,
+              },
+              scaleLabel: {
+                        display: true,
+                        labelString: 'Payments In Lacs',
+              },
+
+         }],
+      },
+      tooltips: {
+         mode: 'nearest', //<- set this
+         callbacks: {
+            label: function(tooltipItem, data) {
+               console.log(tooltipItem);
+               return data.datasets[tooltipItem.datasetIndex].label + ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].toLocaleString();
+            }
+         }
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+                display: false,
+
+            },
+      animation: {
+                     onComplete: function(animation) {
+
+                const chartInstance = this.chart,
+                ctx = chartInstance.ctx;
+
+                const fontSize = 10;
+                const fontStyle = '600';
+                const fontFamily = 'Open Sans';
+                ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
+
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'bottom';
+                ctx.fillStyle = '#676A6C';
+
+                this.data.datasets.forEach(function (dataset, i) {
+                const meta = chartInstance.controller.getDatasetMeta(i);
+                meta.data.forEach(function (bar, index) {
+                if(dataset.data[index] != 0){
+                  const data = dataset.data[index];
+                  ctx.fillText(data, bar._model.x+10, bar._model.y+5);
+            }
+          });
+        });
+
+         }
+      }
+   },
+   type: 'horizontalBar',
+   data: {
+      labels: hotel_x,
+      datasets: [{
+         label: 'Hotel',
+         borderColor: 'green',
+         borderWidth: 1,
+         backgroundColor: Color('green').alpha(0.5).rgbString(),
+         data: hotel_y,
+         fill: false
+      }]
+
+
+
+
+
+   },
+
+};
+
+
+var myChart304 = new Chart(ctx304, chart304);
+
+<!-- Top 10 pending payment client - Flight -->
+
+var ctx305 = document.getElementById("myChart305").getContext("2d");
+
+var chart305 = {
+   options: {
+       barValueSpacing: 10,
+      scales: {
+         yAxes: [{
+
+            barPercentage: 0.5
+         }],
+          xAxes: [{
+
+             ticks: {
+                beginAtZero: true,
+              },
+              scaleLabel: {
+                        display: true,
+                        labelString: 'Payments In Lacs',
+              },
+
+         }],
+      },
+
+      tooltips: {
+         mode: 'nearest', //<- set this
+         callbacks: {
+            label: function(tooltipItem, data) {
+               console.log(tooltipItem);
+               return data.datasets[tooltipItem.datasetIndex].label + ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].toLocaleString();
+            }
+         }
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+                display: false,
+
+            },
+      animation: {
+      onComplete: function(animation) {
+
+                const chartInstance = this.chart,
+                ctx = chartInstance.ctx;
+
+                const fontSize = 10;
+                const fontStyle = '600';
+                const fontFamily = 'Open Sans';
+                ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
+
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'bottom';
+                ctx.fillStyle = '#676A6C';
+
+                this.data.datasets.forEach(function (dataset, i) {
+                const meta = chartInstance.controller.getDatasetMeta(i);
+                meta.data.forEach(function (bar, index) {
+                if(dataset.data[index] != 0){
+                  const data = dataset.data[index];
+                  ctx.fillText(data, bar._model.x+10, bar._model.y+5);
+            }
+          });
+        });
+
+         }
+      }
+   },
+   type: 'horizontalBar',
+   data: {
+      labels: flight_x,
+      datasets: [{
+         label: 'Flight routes',
+         borderColor: 'blue',
+         borderWidth: 1,
+         backgroundColor: Color('blue').alpha(0.5).rgbString(),
+         data: flight_y,
+         fill: false
+      }]
+
+   },
+
+
+};
+var myChart305 = new Chart(ctx305, chart305);
+
+
+
+var ctx306 = document.getElementById("myChart306").getContext("2d");
+
+var chart306 = {
+   options: {
+       barValueSpacing: 10,
+      scales: {
+         yAxes: [{
+
+            barPercentage: 0.5
+         }],
+          xAxes: [{
+
+             ticks: {
+                beginAtZero: true,
+              },
+              scaleLabel: {
+                        display: true,
+                        labelString: 'Payments In Lacs',
+              },
+
+         }],
+      },
+
+      tooltips: {
+         mode: 'nearest', //<- set this
+         callbacks: {
+            label: function(tooltipItem, data) {
+               console.log(tooltipItem);
+               return data.datasets[tooltipItem.datasetIndex].label + ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].toLocaleString();
+            }
+         }
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+                display: false,
+
+            },
+      animation: {
+      onComplete: function(animation) {
+
+                const chartInstance = this.chart,
+                ctx = chartInstance.ctx;
+
+                const fontSize = 10;
+                const fontStyle = '600';
+                const fontFamily = 'Open Sans';
+                ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
+
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'bottom';
+                ctx.fillStyle = '#676A6C';
+
+                this.data.datasets.forEach(function (dataset, i) {
+                const meta = chartInstance.controller.getDatasetMeta(i);
+                meta.data.forEach(function (bar, index) {
+                if(dataset.data[index] != 0){
+                  const data = dataset.data[index];
+                  ctx.fillText(data, bar._model.x+10, bar._model.y+5);
+            }
+          });
+        });
+
+         }
+      }
+   },
+   type: 'horizontalBar',
+   data: {
+      labels: visa_x,
+      datasets: [{
+         label: 'Visa routes',
+         borderColor: 'blue',
+         borderWidth: 1,
+         backgroundColor: Color('blue').alpha(0.5).rgbString(),
+         data: visa_y,
+         fill: false
+      }]
+
+   },
+
+
+};
+var myChart306 = new Chart(ctx306, chart306);
+
+
+var ctx307 = document.getElementById("myChart307").getContext("2d");
+
+var chart307 = {
+   options: {
+       barValueSpacing: 10,
+      scales: {
+         yAxes: [{
+
+            barPercentage: 0.5
+         }],
+          xAxes: [{
+
+             ticks: {
+                beginAtZero: true,
+              },
+              scaleLabel: {
+                        display: true,
+                        labelString: 'Payments In Lacs',
+              },
+
+         }],
+      },
+
+      tooltips: {
+         mode: 'nearest', //<- set this
+         callbacks: {
+            label: function(tooltipItem, data) {
+               console.log(tooltipItem);
+               return data.datasets[tooltipItem.datasetIndex].label + ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].toLocaleString();
+            }
+         }
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+                display: false,
+
+            },
+      animation: {
+      onComplete: function(animation) {
+
+                const chartInstance = this.chart,
+                ctx = chartInstance.ctx;
+
+                const fontSize = 10;
+                const fontStyle = '600';
+                const fontFamily = 'Open Sans';
+                ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
+
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'bottom';
+                ctx.fillStyle = '#676A6C';
+
+                this.data.datasets.forEach(function (dataset, i) {
+                const meta = chartInstance.controller.getDatasetMeta(i);
+                meta.data.forEach(function (bar, index) {
+                if(dataset.data[index] != 0){
+                  const data = dataset.data[index];
+                  ctx.fillText(data, bar._model.x+10, bar._model.y+5);
+            }
+          });
+        });
+
+         }
+      }
+   },
+   type: 'horizontalBar',
+   data: {
+      labels: frro_x,
+      datasets: [{
+         label: 'FRRO routes',
+         borderColor: 'blue',
+         borderWidth: 1,
+         backgroundColor: Color('blue').alpha(0.5).rgbString(),
+         data: frro_y,
+         fill: false
+      }]
+
+   },
+
+
+};
+var myChart307 = new Chart(ctx307, chart307);
+
+
+
+
+
+
+}
+
+</script>
+
+{% endfor %}
+
+{% endblock %}

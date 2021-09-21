@@ -1,0 +1,34 @@
+{% extends 'Agent/layout/header.html' %}
+
+{% block content %}
+
+{% if user %}
+
+<div class="row p-b-20">
+    <div class="col-md-12" style="text-align: center;">
+<h1>Delete Lead</h1>
+
+<p>Are you sure you want to delete the lead id  : {{ object.id }}?</p>
+<form action="" method="POST">
+  {% csrf_token %}
+  <input type="submit" value="Yes, delete.">
+</form>
+
+</div>
+</div>
+
+<div class="row p-b-20">
+  <div class="col-md-12">
+      <div class="btn-group" style="margin-left: 48%;">
+           <a class="btn btn-primary" href="/Agents/lead" > << Back </a>
+      </div>
+  </div>
+</div>
+
+{% else %}
+    <p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+{% endblock %}
+
+

@@ -1,0 +1,94 @@
+{% extends 'Company/Approver_2/layout/header.html' %}
+
+{% block content %}
+
+
+
+{% if user %}
+<!-- start page content -->
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-topline-aqua">
+                    <div class="card-head">
+                        <header>ALL CORPORATE BILLING ENTITIES LIST</header>
+                        <div class="btn-group">
+                                           <a href="/Corporate/Approver_2/download-billing-entities" class="btn btn-success pull-right">Download</a>
+
+                                  </div>
+                        <div class="tools">
+                            <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                            <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                            <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                        </div>
+                    </div>
+                    <div class="card-body ">
+
+                         <div class="text-center">
+                 <div style="font-size:14px; font-weight:bold;">
+                     Comapny Biling Entity List
+                     </div>
+            </div>
+                        <div class="table-scrollable table-bordered">
+                            <table id="example1" class="display full-width table-striped">
+                                <thead>
+                                <tr>
+<!--                                    <th>ID</th>-->
+                                    <th>Operator Name</th>
+                                    <th>Entity name</th>
+                                    <th>Billing City</th>
+                                    <th>Contact Name</th>
+                                    <th>Contact Email</th>
+                                    <th>Contact No</th>
+                                    <th>Address Line 1</th>
+                                    <th>Address Line 2</th>
+                                    <th>Address Line 3</th>
+                                    <th>GSTIN NO</th>
+                                    <th>PAN NO</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for be in billing_entities %}
+                                <tr>
+<!--                                    <td>{{ be.id }}</td>-->
+                                    <td>{{ be.corporate_name }}</td>
+                                    <td>{{ be.entity_name }}</td>
+                                    <td>{{ be.billing_city }}</td>
+                                    <td>{{ be.contact_person_name }}</td>
+                                    <td>{{ be.contact_person_email }}</td>
+                                    <td>{{ be.contact_person_no }}</td>
+                                    <td>{{ be.address_line_1 }} hrs</td>
+                                    <td>{{ be.address_line_2 }}</td>
+                                    <td>{{ be.address_line_3 }}</td>
+                                    <td>{{ be.gst_id }}</td>
+                                    <td>{{ be.pan_no }}</td>
+
+
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- end page content -->
+
+
+{% else %}
+<p>Welcome, new user. Please log in.<a href="/login">Login</a></p>
+{% endif %}
+
+{% endblock %}
+
+
+
+
+

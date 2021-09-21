@@ -1,0 +1,259 @@
+{% extends 'Company/Employee/layout/header.html' %}
+
+{% block content %}
+
+{% if user %}
+			<!-- start page content -->
+{% include 'cotrav_alert_message.html' %}
+
+            <div class="page-content-wrapper">
+                <div class="page-content">
+
+                                      <div class="text-center">
+                     <div style="font-size:14px; font-weight:bold;">
+                        Add House Booking
+                         </div>
+                </div>
+
+
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4">
+                            <div class="card card-topline-aqua">
+                                <div class="card-head">
+                                    <header>Guest House Details</header>
+                                    <div class="tools">
+                                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                                        <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                                        <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                                    </div>
+                                </div>
+                                <div class="card-body " id="bar-parent">
+
+                                    {% for house in guesthouses %}
+                                    <table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+                                      <tr>
+                                        <th>GuestHouse ID</th>
+                                        <td>{{ house.guest_house_id }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>GuestHouse Code</th>
+                                            <td>{{ house.guest_house_code }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Name</th>
+                                            <td>{{ house.guest_house_name }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>City Name</th>
+                                            <td>{{ house.city_id_name }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Location</th>
+                                            <td>{{ house.area_location }}</td>
+                                        </tr>
+
+
+                                    </table>
+                                {% endfor %}
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-8">
+                            <div class="card card-topline-aqua">
+                                <div class="card-head">
+                                    <header>Guest House Amenities Details</header>
+                                    <div class="tools">
+                                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                                        <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                                        <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                                    </div>
+                                </div>
+                                <div class="card-body " id="bar-parent">
+
+                                    {% for house in guesthouses %}
+                                    <table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+                                      <tr>
+                                        <th>Bed Type</th>
+                                        <td>{{ house.bed_type|yesno:'Yes,No' }}</td>
+                                        <th>Is TV</th>
+                                        <td>{{ house.tv|yesno:'Yes,No' }}</td>
+                                          <th>WiFi</th>
+                                            <td>{{ house.wifi|yesno:'Yes,No' }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Queen Size Bed</th>
+                                            <td>{{ house.queen_size_bed|yesno:'Yes,No' }}</td>
+                                            <th>AC</th>
+                                            <td>{{ house.ac|yesno:'Yes,No' }}</td>
+                                            <th>Functional Living Area</th>
+                                            <td>{{ house.functional_living_area|yesno:'Yes,No' }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Power Backup</th>
+                                            <td>{{ house.power_backup|yesno:'Yes,No' }}</td>
+                                            <th>Geyser</th>
+                                            <td>{{ house.geyser|yesno:'Yes,No' }}</td>
+                                            <th>Elevator</th>
+                                            <td>{{ house.elevator|yesno:'Yes,No' }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>CCTV Cameras</th>
+                                            <td>{{ house.cctv_cameras|yesno:'Yes,No' }}</td>
+                                            <th>Security</th>
+                                            <td>{{ house.security|yesno:'Yes,No' }}</td>
+                                            <th>Fire Extinguisher</th>
+                                            <td>{{ house.fire_extinguisher|yesno:'Yes,No' }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Room Facilities</th>
+                                            <td>{{ house.room_facilities|yesno:'Yes,No' }}</td>
+                                            <th>Intercom</th>
+                                            <td>{{ house.intercom|yesno:'Yes,No' }}</td>
+                                            <th>FAN</th>
+                                            <td>{{ house.fan|yesno:'Yes,No' }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Telephone</th>
+                                            <td>{{ house.telephone|yesno:'Yes,No' }}</td>
+
+                                        </tr>
+
+
+
+                                    </table>
+                                {% endfor %}
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+<div class="col-md-4 col-sm-4">
+                            <div class="card card-topline-aqua">
+                                <div class="card-head">
+                                    <header>Booking Details</header>
+                                    <div class="tools">
+                                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                                        <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                                        <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                                    </div>
+                                </div>
+                                <div class="card-body " id="bar-parent">
+<form method="post" action="/Corporate/Employee/add-guesthouse-booking/{{user.id}}" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="hidden" class="col-sm-8 form-control" name="cotrav_agent_id"  value="{{user.id }}">
+      <input type="hidden" name="user_id" value="{{user.id}}">
+      <input type="hidden" name="corporate_id" value="{{user.corporate_id}}">
+      <input type="hidden" name="spoc_id" value="{{user.spoc_id}}">
+      <input type="hidden" name="entity_id" value="{{user.billing_entity_id}}">
+      <input type="hidden" name="employee_id" value="{{user.id}}">
+      <input type="hidden" name="no_of_nights" id="no_of_nights" value="{{no_of_nights}}">
+      <input type="hidden" name="room_id" id="room_id" value="{{rid}}">
+      <input type="hidden" name="guesthouse_id" id="guesthouse_id" value="{{gid}}">
+      <input type="hidden" name="city_id" id="city_id" value="{{from_city}}">
+      <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+
+    <div class="form-group row">
+            <label class="col-sm-4">Check In DateTime</label>
+            <input readonly type="text" class="col-sm-8 form-control datetimepicker1"  autocomplete="off" name="checkin_datetime" id="check_in_date" value="{{check_in}}">
+    </div>
+
+    <div class="form-group row">
+            <label class="col-sm-4">Check Out DateTime</label>
+            <input readonly type="text" class="col-sm-8 form-control datetimepicker2" autocomplete="off" name="checkout_datetime" id="check_out_date" value="{{check_out}}">
+    </div>
+
+
+                                    {% for corp_acces in corp_access %}
+                                {% if corp_acces.has_assessment_codes == 1 %}
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4">Assessment Code</label>
+                                            <select class="col-sm-8 form-control  myselect" style="width:66%"  name="assessment_code" id="assessment_code">
+                                                <option value="">Select Assessment Code</option>
+                                                {% for assessment in assessments %}
+                                                <option value="{{assessment.id}}">{{assessment.assessment_code}}</option>
+                                                {% endfor %}
+                                                </select>
+
+                                        </div>
+
+
+
+                                        <div class="form-group row">
+                                                <label class="col-sm-4">Assessment City</label>
+                                                <select class="col-sm-8 form-control  myselect" style="width:66%"  name="assessment_city" id="assessment_cities">
+                                                    <option value="">Select Assessment City</option>
+                                                    {% for city in cities_ass %}
+                                                        <option value="{{city.id}}">{{city.city_name}}</option>
+                                                        {% endfor %}
+                                                </select>
+
+                                        </div>
+
+                                     {% endif %}
+                              {% endfor %}
+
+                                    <div class="form-group row">
+                                            <label class="col-sm-4">Reason for Booking</label>
+                                            <input type="text" class="col-sm-8 form-control" name="reason_for_booking" placeholder="Reason for Booking">
+                                        </div>
+
+
+                                     <div class="form-group">
+                                               <div class="offset-md-3 col-md-9">
+                                                   <input type="submit" value="Submit" class="btn btn-info">
+                        <a href="{{request.META.HTTP_REFERER}}" class="btn btn-default">  Cancel  </a>
+                                               </div>
+                                           </div>
+</form>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+                        </div>
+
+    </div>
+    </div>
+
+
+
+<!-- end page content -->
+
+
+
+
+{% else %}
+    <p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+<script>
+
+$(document).ready(function() {
+$(".js-example-basic-single").select2();
+});
+
+
+
+
+
+</script>
+
+{% endblock %}

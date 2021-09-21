@@ -1,0 +1,249 @@
+{% extends 'Agent/layout/header.html' %}
+
+{% block content %}
+
+
+{% if user %}
+<!-- start page content -->
+
+<!-- The Modal -->
+<div class="modal fade model_custom_style" role="dialog" id="add_group_model">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4  class="modal-title-status">Operation Relationship Manager Details </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+            <form action="/agents/company-relationship-manager" method="post" enctype="multipart/form-data" id="model_serialize_update">
+                <input type="hidden" name="rms_id" id="oms_id_edit">
+                <input type="hidden" name="user_id" value="{{user.id}}">
+ <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+                <div class="form-group row" id="corporate_id1">
+                        <label class="col-sm-5 control-label">Company Name</label>
+                        <div class="col-sm-7">
+
+                            <select class="form-control myselect" name="corporate_id" id="corporate_id" style="width:100%;" required>
+                                <option value="">Select Company</option>
+                               {% for company in companies %}
+                                <option value="{{company.id}}">{{company.corporate_name}}</option>
+                                {% endfor %}
+                            </select>
+
+                        </div>
+                    </div>
+
+
+
+                 <div class="form-group row">
+                        <label class="col-sm-5 control-label">Agent Name Level 1</label>
+                        <div class="col-sm-7">
+
+                            <select class="form-control myselect" name="rm_level_1_id" id="agent_level_1" style="width:100%;" required>
+                                <option value="">Select Agent Name</option>
+                               {% for agent in agents %}
+                                <option value="{{agent.id}}">{{agent.user_name}}</option>
+                                {% endfor %}
+                            </select>
+
+                        </div>
+                    </div>
+
+                <div class="form-group row">
+                        <label class="col-sm-5 control-label">Agent Name Level 2</label>
+                        <div class="col-sm-7">
+
+                            <select class="form-control myselect" name="rm_level_2_id" id="agent_level_2" style="width:100%;" required>
+                                <option value="">Select Agent Name</option>
+                               {% for agent in agents %}
+                                <option value="{{agent.id}}">{{agent.user_name}}</option>
+                                {% endfor %}
+                            </select>
+
+                        </div>
+                    </div>
+
+                  <div class="form-group row">
+                        <label class="col-sm-5 control-label">Is Active</label>
+                        <div class="col-sm-7">
+
+                            <select class="form-control myselect" name="is_active" id="is_active" style="width:100%;" required>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+
+                        </div>
+                    </div>
+
+
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+  {% include 'cotrav_alert_message.html' %}
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-topline-aqua">
+                    <div class="card-head">
+                        <header>ALL CORPORATE RELATIONSHIP MANAGERS LIST</header>
+                          <div class="row p-b-20">
+                            <div class="col-md-6 col-sm-6 col-6">
+                                <div class="btn-group">
+                                    <a class="btn btn-info" href="#" data-toggle="modal"
+                                       data-target="#add_group_model"> Add New <i class="fa fa-plus"></i> </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tools">
+                            <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                            <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                            <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                        </div>
+                    </div>
+                    <div class="card-body ">
+
+   <div class="text-center">
+     <div style="font-size:14px; font-weight:bold;">
+         All Corporate Relationship Manager Details
+         </div>
+   </div>
+                        <div class="table-scrollable table-bordered ">
+                            <table id="example1" class="display full-width table-striped">
+                                <thead>
+                                <tr>
+<!--                                    <th>ID</th>-->
+                                    <th>Company Name</th>
+                                    <th>Agent Level 1</th>
+                                    <th>Agent Level 2</th>
+                                    <th>Is Active</th>
+                                    <th>Action</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for acces in access %}
+                                <tr>
+<!--                                    <td>{{ acces.id }}</td>-->
+                                    <td>{{ acces.corporate_name }}</td>
+                                    <td>{{ acces.agent_level_1 }}</td>
+                                    <td>{{ acces.agent_level_2 }}</td>
+                                    <td>{{ acces.is_active|yesno:'Active,De-Active' }}</td>
+
+                                    <td>
+                                        <a class="btn btn-tbl-edit btn-xs" data-target="#add_group_model"
+                                           data-id="{{acces.id}}" data-corporate_id="{{acces.corporate_id}}" data-agent_level_1="{{acces.rm_level_1_id}}"
+                                           data-is_active="{{acces.is_active}}" data-agent_level_2="{{acces.rm_level_2_id}}" data-toggle="modal" href="#">
+                                            <i class="fa fa-pencil "></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- end page content -->
+<script type="text/javascript">
+   $(".myselect").select2();
+
+   var mymod = $('#corporate_id');
+   mymod.select2();
+
+  var agentlevel1Select = $('#agent_level_1');
+  var agentlevel2Select =  $('#agent_level_2');
+  var isactiveSelect =  $('#is_active');
+
+  agentlevel1Select.select2();
+  agentlevel2Select.select2();
+  isactiveSelect.select2();
+
+
+
+</script>
+
+{% else %}
+<p>Welcome, new user. Please log in.<a href="/login">Login</a></p>
+{% endif %}
+
+<script type="text/javascript">
+$(function() {
+
+  $('#add_group_model').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var id = button.data('id'); // Extract info from data-* attributes
+    var corporate_id = button.data('corporate_id');
+    var agent_level_1 = button.data('agent_level_1');
+    var agent_level_2 = button.data('agent_level_2');
+    var is_active = button.data('is_active');
+
+    var modal = $(this);
+    modal.find('#oms_id_edit').val(id);
+
+    mymod.val(corporate_id);
+    mymod.trigger('change.select2');
+
+    agentlevel1Select.val(agent_level_1);
+    agentlevel1Select.trigger('change.select2');
+
+    agentlevel2Select.val(agent_level_2);
+    agentlevel2Select.trigger('change.select2');
+
+    isactiveSelect.val(is_active);
+    isactiveSelect.trigger('change.select2');
+
+
+    });
+
+});
+
+</script>
+<script>
+$( document ).ready(function() {
+
+$('#model_serialize_update')
+.each(function(){
+$(this).data('serialized', $(this).serialize())
+})
+    .on('change input', function(){
+        $(this)
+            .find('input:submit, button:submit')
+                .attr('disabled', $(this).serialize() == $(this).data('serialized'))
+        ;
+     })
+.find('input:submit, button:submit')
+.attr('disabled', true);
+
+});
+
+$(document.body).on("change",".myselect",function(){
+  $('form')
+      .find('input:submit, button:submit')
+          .attr('disabled', $('#model_serialize_update').serialize() == $('#model_serialize_update').data('serialized'))
+  ;
+});
+
+</script>
+
+{% endblock %}

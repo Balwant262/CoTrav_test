@@ -1,0 +1,1397 @@
+{% extends 'Company/Admin/layout/header.html' %}
+{% load static %}
+{% load datetime_format %}
+{% block content %}
+
+{% if user %}
+<!-- start page content -->
+
+
+<link href="{% static 'assets/css/travelport_hotel_style.css' %}" rel="stylesheet" type="text/css" />
+
+
+<style>
+
+    * {box-sizing:border-box}
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Caption text */
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  //background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+/* rate css */
+
+.checked {
+  color: orange;
+}
+
+
+</style>
+
+
+
+{% include 'cotrav_alert_message.html' %}
+
+
+<!-- start page content -->
+            <div class="page-content-wrapper">
+                <div class="page-content">
+                    <div class="page-bar">
+                        <div class="page-title-breadcrumb">
+                            <div class=" pull-left">
+                                <div class="page-title">Taj Hotel Mumbai</div>
+                                <div>
+
+
+                                </div>
+                            </div>
+                            <ol class="breadcrumb page-breadcrumb pull-right">
+                                <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="index.html">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
+                                </li>
+                                <li class="active">Hotel </li>
+                            </ol>
+                        </div>
+                    </div>
+
+                      <div class="row">
+
+                            <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                                <div class="row1 clearfix top-report">
+                                    <div class="col-12-1">
+
+                                     <div class="card">
+
+                                         <!-- Slideshow container -->
+<div class="slideshow-container">
+
+
+
+
+
+
+
+
+
+  <!-- Full-width images with number and caption text -->
+
+
+
+  <div class="mySlides">
+    <div class="numbertext">1 / 3</div>
+    <img src="{% static 'assets/img/hotel/bg1.jpg' %}" style="width:100%">
+    <div class="text">aaaaa</div>
+  </div>
+
+  <div class="mySlides">
+    <div class="numbertext">2 / 3</div>
+    <img src="{% static 'assets/img/hotel/bg2.jpg' %}" style="width:100%">
+    <div class="text">aaaaa</div>
+  </div>
+
+  <div class="mySlides">
+    <div class="numbertext">3 / 3</div>
+    <img src="{% static 'assets/img/hotel/bg3.jpg' %}" style="width:100%">
+    <div class="text">aaaaa</div>
+  </div>
+
+
+
+  <!-- Next and previous buttons -->
+  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+</div>
+<br>
+
+<!-- The dots/circles -->
+<div style="text-align:center;display:none">
+    {% for item in media.hotelMedia %}
+
+  <span class="dot" onclick="currentSlide({{forloop.counter}})"></span>
+
+{% endfor %}
+
+</div>
+
+
+
+                                     </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                              <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                                <div class="row">
+                              <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="card">
+                                    <div class="panel-body">
+                                        <h3> Taj Hotel <br>
+                                      <div>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star"></span>
+                                            <span class="fa fa-star"></span>
+                                      </div> </h3>
+                                        <p>Pune1</p>
+                                        <p>23232323232</p>
+                                        <p>454545454545</p>
+
+                                        <span class="text-small margin-top-10 full-width fnt_fam">3/5 RATINGS</span> </div>
+                                </div>
+                            </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="card">
+                                    <div class="panel-body">
+                                        <h3>Facilities  </h3>
+                                       <div class="fac_disp">
+                                        <p> <img src="{% static 'assets/img/hotel/wifi.png' %}" class="width_1"> Wifi Facility</p>
+                                        &nbsp  <p> <img src="{% static 'assets/img/hotel/Parking.png' %}" class="width_1"> Parking</p>
+                                         &nbsp  <p> <img src="{% static 'assets/img/hotel/swimming_pool.png' %}" class="width_1"> Swimming Pool</p>
+
+
+                                          </div>
+
+                                       </div>
+                                </div>
+                            </div>
+
+
+                             </div>
+
+                               <div class="row">
+                              <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="card">
+                                    <div class="panel-body">
+                                        <h3>Rooms</h3>
+
+
+
+                               <!--  {% for room in response.hotelDetailsData %} -->
+
+                                    <div class="popover__wrapper" style="float:left;" >
+
+                                       <a href="#">
+                                         <span class="popover__title"><input type="radio" id="{{room.HotelRateDetail.RatePlanType}}" name="rate_plan" onclick="handleClick(this);" value="{{ room.HotelRateDetail.RatePlanType }}">  {{room.RoomRateDescription.Room}}</span>
+                                       </a>
+
+                                      <div class="popover__content">
+                                    <p class="popover__message  lst_txt">RatePlan </p>
+                                     <ul class="list-group list-group-unbordered">
+
+
+                                         <li class="list_item list_txt1">
+                                                <b class="list_txt">Check In Date</b> <a class="pull-right">18/02/2020</a>
+                                            </li>
+
+                                              <li class="list_item list_txt1">
+                                                <b class="list_txt">Check Out Date</b> <a class="pull-right">19/02/2020</a>
+                                            </li>
+
+
+                                            <li class="list_item">
+                                            </li>
+                                            <li class="list_item list_txt_item">
+                                                <b class="list_txt">Base Rate</b> <a class="pull-right"> <i class="fa fa-rupee"></i>22222/-</a>
+                                            </li>
+
+
+                                              <li>
+
+                                              </li>
+
+                                            <li class="list_item">
+
+                                            </li>
+                                            <li class="list_item ">
+                                                <b>Total</b> <a class="pull-right"> <i class="fa fa-rupee"></i>22222</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    </div>
+
+
+                                 <!--  {% endfor %} -->
+
+
+
+                                </div>
+
+
+
+                            </div>
+
+                             </div>
+
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+
+                                <div class="card">
+
+                                    <div class="panel-body lin_height">
+                                        <b class="list_txt read"> <i class="fa fa-calendar"></i> CHECK-IN</b> <a class="pull-right   read">10:11 </a><br>
+                                          <b class="list_txt read"> <i class="fa fa-calendar"></i> CHECK-OUT</b> <a class="pull-right   read">12:11 </a>
+
+                                </div>
+
+
+
+                               </div>
+
+                            </div>
+
+
+                        </div>
+
+
+                </div>
+            </div>
+            <!-- end page content -->
+        <!----------------------- #################### -->
+
+       <form method="post" action="/Corporate/Admin/flight_booking_result">
+
+            <div class="col-md-8">
+             <div class="card card-topline-aqua">
+                    <div class="card-head">
+                        <header>Other Details</header>
+                        <div class="tools">
+                            <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                            <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                            <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                        </div>
+                    </div>
+
+
+    <input type="hidden" name="user_id" value="{{user.id}}">
+    <input type="hidden" name="amount" value="{{fare.GRAND_TOTAL}}">
+    <input type="hidden" name="flightdata" value="{{flights}}">
+    <input type="hidden" name="UID2" value="{{UID2}}">
+    <input type="hidden" name="user_id" value="{{user.id}}">
+    <input type="hidden" name="corporate_id" value="{{user.corporate_id}}">
+    <input type="hidden" name="spoc_id" value="{{user.id}}">
+    <input type="hidden" name="group_id" value="{{user.group_id}}">
+    <input type="hidden" name="subgroup_id" value="{{user.subgroup_id}}">
+
+    <input type="hidden" name="AirPricingSolution" value="{{AirPricingSolution}}">
+
+    <input type="hidden" name="from_city" value="{{booking_datas.from_city}}">
+    <input type="hidden" name="to_city" value="{{booking_datas.to_city}}">
+    <input type="hidden" name="departure_date" value="{{booking_datas.departure_datetime}}">
+    <input type="hidden" name="return_date" value="{{booking_datas.return_datetime}}">
+    <input type="hidden" name="no_of_seats" id="no_of_pass" value="{{booking_datas.no_of_seats}}">
+    <input type="hidden" id="flight_class_is_international" name="flight_class_is_international" value="{{flight_class_is_international}}">
+
+
+    <input type="hidden" name="usage_type" value="Flight">
+    <!-- <input type="hidden" name="trip_type" value="Round Trip"> -->
+
+    <input type="hidden" name="trip_type" value="One Way">
+
+    <input type="hidden" name="seat_type" value="Economy">
+
+
+
+
+
+
+                    <div class="card-body ">
+
+          {% for corp_acces in corp_access %}
+                {% if corp_acces.has_assessment_codes == 1 %}
+              <div class="form-group row">
+                    <label class="col-sm-4" >Assessment Code*</label>
+                     <select id="assessment_code" name="assessment_code" class="form-control col-sm-7 myselect">
+                         <option value="">Select Assessment Code</option>
+                         {% for assessment in assessments %}
+                        <option value="{{assessment.id}}">{{assessment.assessment_code}}</option>
+                        {% endfor %}
+
+                    </select>
+                </div>
+
+                 <div class="form-group row">
+                        <label class="col-sm-4">Assessment City</label>
+                        <select class="col-sm-7 form-control myselect" name="assessment_city" id="assessment_cities">
+                            <option value="">Select Assessment City</option>
+                            {% for city in cities_ass %}
+                                <option value="{{city.id}}">{{city.city_name}}</option>
+                                {% endfor %}
+                        </select>
+
+                </div>
+
+                 {% endif %}
+                      {% endfor %}
+
+
+                 <div class="form-group row">
+                    <label class="col-sm-4" >Select Billing Entity*</label>
+                     <select id="entity_id" name="billing_entity_id" class="form-control col-sm-7 myselect">
+                          <option value="">Select Billing Entity </option>
+
+                         {% for entity in entities %}
+                                <option value="{{entity.id}}">{{entity.entity_name}}</option>
+                            {% endfor %}
+
+                      </select>
+                </div>
+
+
+        </div>
+
+
+                </div>
+                </div>
+
+                <div class="col-md-12">
+             <div class="card card-topline-aqua">
+                    <div class="card-head">
+                        <header>Passenger Details  </header>
+                        <div class="tools">
+                            <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                            <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                            <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                        </div>
+                    </div>
+                 <h5> <p style="color:orange;">IMPORTANT : Enter your name as it is mentioned on your passport or any goverment approved Id </p> </h5>
+
+                    <div class="card-body ">
+
+                               <div class="form-group row"   >
+                                    <table class="form-group col-sm-12" border="0" style="table-layout: fixed; border-collapse: collapse; width: 100%;">
+
+                                       <tr align="center">
+                                           <th>Employee</th>
+                                           <th>Title</th>
+                                           <th>Emp ID</th>
+                                           <th>Contact</th>
+                                           <th>Email</th>
+                                           <th>First Name</th>
+                                           <th>Last Name</th>
+                                           <th>Date Of Birth</th>
+                                           {% if flight_class_is_international == 'I' %}
+                                           <th>Passport No</th>
+                                           <th>Expiry Date</th>
+                                           <th>Nationality</th>
+                                           {% endif %}
+
+                                       </tr>
+
+                                   </table>
+
+
+                                </div>
+
+                        <div class="form-group row" id="emp_row_1"  >
+                            <table class="form-group col-sm-12" style="table-layout: fixed; border-collapse: collapse; width: 100%;">
+                                       <tr>
+                                           <td>
+                                               <select id="employee_id_1" name="employee_id_1" class="form-control myselect" style="width:100%;">
+                                         <option value="">Select Employee</option>
+                                        {% for employee in employees %}
+                                        <option value="{{employee.id}}" emp_id="{{employee.employee_cid|default:''}}" emp_cnt="{{employee.employee_contact}}"
+                                         emp_gender="{{employee.gender}}" emp_date_of_birth="{{employee.date_of_birth|default:''}}"  emp_name="{{employee.employee_name}}" emp_email="{{employee.employee_email}}" emp_dob="{{employee.date_of_birth|default:''}}" emp_passport="{{employee.PassportDetails}}">{{employee.employee_name}}/{{employee.employee_cid}}</option>
+                                        {% endfor %}
+                                    </select></td>
+                                           <td > <select name="employee_title_1" id="employee_title_1" class="form-control myselect" style="width:100%;">
+                                        <option value="">--</option>
+                                        <option value="Mr">Mr</option>
+                                        <option value="Ms">Ms</option>
+                                        </select></td>
+                                           <td ><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="emp_id_1" id="emp_id_1" class="form-control " placeholder="Employee Id"></td>
+                                        <td ><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_contact_1" id="employee_contact_1" class="form-control " placeholder="Contact No"></td>
+                                    <td ><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_email_1" id="employee_email_1" class="form-control " placeholder="Email"></td>
+                                     <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_fname_1" id="employee_fname_1" placeholder="First Name" class="form-control "></td>
+                                  <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_lname_1" id="employee_lname_1" placeholder="Last Name" class="form-control "></td>
+                                  <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_edob_1" id="employee_edob_1"  placeholder="Date Of Birth" class="form-control datepicker1" autocomplete="off"></td>
+
+                                   {% if flight_class_is_international == 'I' %}
+
+                                    <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_passport_1" id="employee_passport_1" class="form-control" placeholder="Passport No"></td>
+                                    <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_pass_exp_1" id="employee_pass_exp_1" class="form-control datepicker1" autocomplete="off" placeholder="Expiry Date"></td>
+                                    <td><select name="employee_nationality_1" id="employee_nationality_1"  class="form-control myselect">
+                                        <option value="">Select Nationality</option>
+                                        {% for nationality in nationalities %}
+                                        <option value="{{nationality.code}}">{{nationality.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                        </td>
+
+                                   {% endif %}
+
+                                         </tr>
+                                   </table>
+                                </div>
+
+
+
+                         <div class="form-group row" id="emp_row_2"  >
+                            <table class="form-group col-sm-12" style="table-layout: fixed; border-collapse: collapse; width: 100%;">
+                                       <tr>
+                                           <td>
+                                     <select id="employee_id_2" name="employee_id_2" class="form-control form-group myselect" style="width:100%;" required>
+                                         <option value="">Select Employee</option>
+                                        {% for employee in employees %}
+                                        <option value="{{employee.id}}" emp_id="{{employee.employee_cid|default:''}}" emp_cnt="{{employee.employee_contact}}"
+                                         emp_gender="{{employee.gender}}" emp_date_of_birth="{{employee.date_of_birth|default:''}}"  emp_name="{{employee.employee_name}}" emp_email="{{employee.employee_email}}" emp_dob="{{employee.date_of_birth|default:''}}" emp_passport="{{employee.PassportDetails}}">{{employee.employee_name}}/{{employee.employee_cid}}</option>
+                                        {% endfor %}
+                                    </select>
+                                           </td>
+                                            <td> <select name="employee_title_2" id="employee_title_2" class="form-control myselect" style="width:100%;">
+                                        <option value="">--</option>
+                                        <option value="Mr">Mr</option>
+                                        <option value="Ms">Ms</option>
+                                        </select></td>
+                                           <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="emp_id_2" id="emp_id_2" class="form-control " placeholder="Employee Id"></td>
+                                           <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_contact_2" id="employee_contact_2" class="form-control " placeholder="Contact No"></td>
+                                    <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_email_2" id="employee_email_2" class="form-control " placeholder="Email"></td>
+                                      <td> <input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_fname_2" id="employee_fname_2" placeholder="First Name" class="form-control "></td>
+                                  <td> <input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_lname_2" id="employee_lname_2" placeholder="Last Name" class="form-control "></td>
+                                  <td> <input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_edob_2" id="employee_edob_2" placeholder="Date Of Birth" class="form-control datepicker1" autocomplete="off"></td>
+
+                                   {% if flight_class_is_international == 'I' %}
+                                    <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_passport_2" id="employee_passport_2" class="form-control" placeholder="Passport No" ></td>
+                                    <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_pass_exp_2" id="employee_pass_exp_2" class="form-control datepicker1" autocomplete="off" placeholder="Expiry Date" ></td>
+                                    <td><select name="employee_nationality_2" id="employee_nationality_2" placeholder="Date Of Birth" class="form-control myselect">
+                                        <option value="">Select Nationality</option>
+                                        {% for nationality in nationalities %}
+                                        <option value="{{nationality.code}}">{{nationality.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                        </td>
+
+                                   {% endif %}
+                                       </tr>
+                                   </table>
+                                </div>
+
+
+                         <div class="form-group row" id="emp_row_3"  >
+                            <table class="form-group col-sm-12 " style="table-layout: fixed; border-collapse: collapse; width: 100%;">
+                                       <tr>
+                                           <td>
+                                     <select id="employee_id_3" name="employee_id_3" class="form-control form-group myselect" style="width:100%;" required>
+                                         <option value="">Select Employee</option>
+                                        {% for employee in employees %}
+                                        <option value="{{employee.id}}" emp_id="{{employee.employee_cid|default:''}}" emp_cnt="{{employee.employee_contact}}"
+                                         emp_gender="{{employee.gender}}" emp_date_of_birth="{{employee.date_of_birth|default:''}}"  emp_name="{{employee.employee_name}}" emp_email="{{employee.employee_email}}" emp_dob="{{employee.date_of_birth|default:''}}" emp_passport="{{employee.PassportDetails}}">{{employee.employee_name}}/{{employee.employee_cid}}</option>
+                                        {% endfor %}
+                                    </select>
+                                           </td>
+                                            <td> <select name="employee_title_3" id="employee_title_3" class="form-control myselect" style="width:100%;">
+                                        <option value="">--</option>
+                                        <option value="Mr">Mr</option>
+                                        <option value="Ms">Ms</option>
+                                        </select></td>
+                                           <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="emp_id_3" id="emp_id_3" class="form-control " placeholder="Employee Id"></td>
+                                           <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_contact_3" id="employee_contact_3" class="form-control " placeholder="Contact No"></td>
+                                    <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_email_3" id="employee_email_3" class="form-control " placeholder="Email"></td>
+                                      <td> <input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_fname_3" id="employee_fname_3" placeholder="First Name" class="form-control "></td>
+                                  <td> <input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_lname_3" id="employee_lname_3" placeholder="Last Name" class="form-control "></td>
+                                  <td> <input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_edob_3" id="employee_edob_3" placeholder="Date Of Birth" class="form-control datepicker1" autocomplete="off"></td>
+
+                                   {% if flight_class_is_international == 'I' %}
+                                    <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_passport_3" id="employee_passport_3" class="form-control" placeholder="Passport No" ></td>
+                                    <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_pass_exp_3" id="employee_pass_exp_3" class="form-control datepicker1" autocomplete="off" placeholder="Expiry Date" ></td>
+                                    <td><select name="employee_nationality_3" id="employee_nationality_3" class="form-control myselect">
+                                        <option value="">Select Nationality</option>
+                                        {% for nationality in nationalities %}
+                                        <option value="{{nationality.code}}">{{nationality.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                        </td>
+
+                                   {% endif %}
+                                       </tr>
+                                   </table>
+                                </div>
+
+
+                         <div class="form-group row" id="emp_row_4"  >
+                            <table class="form-group col-sm-12" style="table-layout: fixed; border-collapse: collapse; width: 100%;">
+                                       <tr>
+                                           <td>
+                                     <select id="employee_id_4" name="employee_id_4" class="form-control form-group myselect" style="width:100%;" required>
+                                         <option value="">Select Employee</option>
+                                        {% for employee in employees %}
+                                        <option value="{{employee.id}}" emp_id="{{employee.employee_cid|default:''}}" emp_cnt="{{employee.employee_contact}}"
+                                         emp_gender="{{employee.gender}}" emp_date_of_birth="{{employee.date_of_birth|default:''}}"  emp_name="{{employee.employee_name}}" emp_email="{{employee.employee_email}}" emp_dob="{{employee.date_of_birth|default:''}}" emp_passport="{{employee.PassportDetails}}">{{employee.employee_name}}/{{employee.employee_cid}}</option>
+                                        {% endfor %}
+                                    </select>
+                                           </td>
+                                            <td> <select name="employee_title_4" id="employee_title_4" class="form-control myselect" style="width:100%;">
+                                        <option value="">--</option>
+                                        <option value="Mr">Mr</option>
+                                        <option value="Ms">Ms</option>
+                                        </select></td>
+                                           <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="emp_id_4" id="emp_id_4" class="form-control " placeholder="Employee Id"></td>
+                                           <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_contact_4" id="employee_contact_4" class="form-control " placeholder="Contact No"></td>
+                                    <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_email_4" id="employee_email_4" class="form-control " placeholder="Email"></td>
+                                      <td> <input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_fname_4" id="employee_fname_4" placeholder="First Name" placeholder="First Name" class="form-control "></td>
+                                  <td> <input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_lname_4" id="employee_lname_4" placeholder="Last Name" placeholder="Last Name" class="form-control "></td>
+                                  <td> <input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_edob_4" id="employee_edob_4" placeholder="Date Of Birth" class="form-control datepicker1" autocomplete="off"></td>
+
+                                   {% if flight_class_is_international == 'I' %}
+                                    <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_passport_4" id="employee_passport_4" class="form-control" placeholder="Passport No" ></td>
+                                    <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_pass_exp_4" id="employee_pass_exp_4" class="form-control datepicker1" autocomplete="off" placeholder="Expiry Date" ></td>
+                                    <td><select name="employee_nationality_4" id="employee_nationality_4" class="form-control myselect">
+                                        <option value="">Select Nationality</option>
+                                        {% for nationality in nationalities %}
+                                        <option value="{{nationality.code}}">{{nationality.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                        </td>
+
+                                   {% endif %}
+                                       </tr>
+                                   </table>
+                                </div>
+
+
+                         <div class="form-group row" id="emp_row_5"  >
+                            <table class="form-group col-sm-12" style="table-layout: fixed; border-collapse: collapse; width: 100%;">
+                                       <tr>
+                                           <td>
+                                     <select id="employee_id_5" name="employee_id_5" class="form-control form-group myselect" style="width:100%;" required>
+                                         <option value="">Select Employee</option>
+                                        {% for employee in employees %}
+                                        <option value="{{employee.id}}" emp_id="{{employee.employee_cid|default:''}}" emp_cnt="{{employee.employee_contact}}"
+                                         emp_gender="{{employee.gender}}" emp_date_of_birth="{{employee.date_of_birth|default:''}}"  emp_name="{{employee.employee_name}}" emp_email="{{employee.employee_email}}" emp_dob="{{employee.date_of_birth|default:''}}" emp_passport="{{employee.PassportDetails}}">{{employee.employee_name}}/{{employee.employee_cid}}</option>
+                                        {% endfor %}
+                                    </select>
+                                           </td>
+                                            <td> <select name="employee_title_5" id="employee_title_5" class="form-control myselect" style="width:100%;">
+                                        <option value="">--</option>
+                                        <option value="Mr">Mr</option>
+                                        <option value="Ms">Ms</option>
+                                        </select></td>
+                                           <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="emp_id_5" id="emp_id_5" class="form-control " placeholder="Employee Id"></td>
+                                           <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_contact_5" id="employee_contact_5" class="form-control " placeholder="Contact No"></td>
+                                    <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_email_5" id="employee_email_5" class="form-control " placeholder="Email"></td>
+                                      <td> <input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_fname_5" id="employee_fname_5"  placeholder="First Name" class="form-control "></td>
+                                  <td> <input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_lname_5" id="employee_lname_5"  placeholder="Last Name" class="form-control "></td>
+                                  <td> <input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_edob_5" id="employee_edob_5"  placeholder="Date Of Birth" class="form-control datepicker1" autocomplete="off"></td>
+
+                                   {% if flight_class_is_international == 'I' %}
+                                    <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_passport_5" id="employee_passport_5" class="form-control" placeholder="Passport No" ></td>
+                                    <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_pass_exp_5" id="employee_pass_exp_5" class="form-control datepicker1" autocomplete="off" placeholder="Expiry Date" ></td>
+                                    <td><select name="employee_nationality_5" id="employee_nationality_5" class="form-control myselect">
+                                        <option value="">Select Nationality</option>
+                                        {% for nationality in nationalities %}
+                                        <option value="{{nationality.code}}">{{nationality.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                        </td>
+
+                                   {% endif %}
+                                       </tr>
+                                   </table>
+                                </div>
+
+
+                         <div class="form-group row" id="emp_row_6"  >
+                            <table class="form-group col-sm-12" style="table-layout: fixed; border-collapse: collapse; width: 100%;">
+                                       <tr>
+                                           <td>
+                                     <select id="employee_id_6" name="employee_id_6" class="form-control form-group myselect" style="width:100%;" required>
+                                         <option value="">Select Employee</option>
+                                        {% for employee in employees %}
+                                        <option value="{{employee.id}}" emp_id="{{employee.employee_cid|default:''}}" emp_cnt="{{employee.employee_contact}}"
+                                         emp_gender="{{employee.gender}}" emp_date_of_birth="{{employee.date_of_birth|default:''}}"  emp_name="{{employee.employee_name}}" emp_email="{{employee.employee_email}}" emp_dob="{{employee.date_of_birth|default:''}}" emp_passport="{{employee.PassportDetails}}">{{employee.employee_name}}/{{employee.employee_cid}}</option>
+                                        {% endfor %}
+                                    </select>
+                                           </td>
+                                            <td> <select name="employee_title_6" id="employee_title_6" class="form-control myselect" style="width:100%;">
+                                        <option value="">--</option>
+                                        <option value="Mr">Mr</option>
+                                        <option value="Ms">Ms</option>
+                                        </select></td>
+                                           <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="emp_id_6" id="emp_id_6" class="form-control " placeholder="Employee Id"></td>
+                                           <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_contact_6" id="employee_contact_6" class="form-control " placeholder="Contact No"></td>
+                                    <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_email_6" id="employee_email_6" class="form-control " placeholder="Email"></td>
+                                      <td> <input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_fname_6" id="employee_fname_6" placeholder="First Name" class="form-control "></td>
+                                  <td> <input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_lname_6" id="employee_lname_6" placeholder="Last Name" class="form-control "></td>
+                                  <td> <input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_edob_6" id="employee_edob_6" placeholder="Date Of Birth" class="form-control datepicker1" autocomplete="off"></td>
+
+                                   {% if flight_class_is_international == 'I' %}
+                                    <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_passport_6" id="employee_passport_6" class="form-control" placeholder="Passport No" ></td>
+                                    <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_pass_exp_6" id="employee_pass_exp_6" class="form-control datepicker1" autocomplete="off" placeholder="Expiry Date" ></td>
+                                    <td><select name="employee_nationality_6" id="employee_nationality_6" class="form-control myselect">
+                                        <option value="">Select Nationality</option>
+                                        {% for nationality in nationalities %}
+                                        <option value="{{nationality.code}}">{{nationality.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                        </td>
+
+                                   {% endif %}
+                                       </tr>
+                                   </table>
+                                </div>
+
+
+                         <div class="form-group row" id="emp_row_7"  >
+                            <table class="form-group col-sm-12" style="table-layout: fixed; border-collapse: collapse; width: 100%;">
+                                       <tr>
+                                           <td>
+                                     <select id="employee_id_7" name="employee_id_7" class="form-control form-group myselect" style="width:100%;" required>
+                                         <option value="">Select Employee</option>
+                                        {% for employee in employees %}
+                                        <option value="{{employee.id}}" emp_id="{{employee.employee_cid|default:''}}" emp_cnt="{{employee.employee_contact}}"
+                                         emp_gender="{{employee.gender}}" emp_date_of_birth="{{employee.date_of_birth|default:''}}"  emp_name="{{employee.employee_name}}" emp_email="{{employee.employee_email}}" emp_dob="{{employee.date_of_birth|default:''}}" emp_passport="{{employee.PassportDetails}}">{{employee.employee_name}}/{{employee.employee_cid}}</option>
+                                        {% endfor %}
+                                    </select>
+                                           </td>
+                                            <td> <select name="employee_title_7" id="employee_title_7" class="form-control myselect" style="width:100%;">
+                                        <option value="">--</option>
+                                        <option value="Mr">Mr</option>
+                                        <option value="Ms">Ms</option>
+                                        </select></td>
+                                           <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="emp_id_7" id="emp_id_7" class="form-control " placeholder="Employee Id"></td>
+                                           <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_contact_7" id="employee_contact_7" class="form-control " placeholder="Contact No"></td>
+                                    <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_email_7" id="employee_email_7" class="form-control " placeholder="Email"></td>
+                                      <td> <input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_fname_7" id="employee_fname_7" placeholder="First Name" class="form-control "></td>
+                                  <td> <input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_lname_7" id="employee_lname_7" placeholder="Last Name" class="form-control "></td>
+                                  <td> <input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_edob_7" id="employee_edob_7" placeholder="Date of Birth" class="form-control datepicker1" autocomplete="off"></td>
+
+                                   {% if flight_class_is_international == 'I' %}
+                                    <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_passport_7" id="employee_passport_7" class="form-control" placeholder="Passport No" ></td>
+                                    <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_pass_exp_7" id="employee_pass_exp_7" class="form-control datepicker1" autocomplete="off" placeholder="Expiry Date" ></td>
+                                    <td><select name="employee_nationality_7" id="employee_nationality_7" class="form-control myselect">
+                                        <option value="">Select Nationality</option>
+                                        {% for nationality in nationalities %}
+                                        <option value="{{nationality.code}}">{{nationality.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                        </td>
+
+                                   {% endif %}
+                                       </tr>
+                                   </table>
+                                </div>
+
+                         <div class="form-group row" id="emp_row_8"  >
+                            <table class="form-group col-sm-12" style="table-layout: fixed; border-collapse: collapse; width: 100%;">
+                                       <tr>
+                                           <td>
+                                     <select id="employee_id_8" name="employee_id_8" class="form-control form-group myselect" style="width:100%;" required>
+                                         <option value="">Select Employee</option>
+                                        {% for employee in employees %}
+                                        <option value="{{employee.id}}" emp_id="{{employee.employee_cid|default:''}}" emp_cnt="{{employee.employee_contact}}"
+                                         emp_gender="{{employee.gender}}" emp_date_of_birth="{{employee.date_of_birth|default:''}}"  emp_name="{{employee.employee_name}}" emp_email="{{employee.employee_email}}" emp_dob="{{employee.date_of_birth|default:''}}" emp_passport="{{employee.PassportDetails}}">{{employee.employee_name}}/{{employee.employee_cid}}</option>
+                                        {% endfor %}
+                                    </select>
+                                           </td>
+                                            <td> <select name="employee_title_8" id="employee_title_8" class="form-control myselect" style="width:100%;">
+                                        <option value="">--</option>
+                                        <option value="Mr">Mr</option>
+                                        <option value="Ms">Ms</option>
+                                        </select></td>
+                                           <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="emp_id_8" id="emp_id_8" class="form-control " placeholder="Employee Id"></td>
+                                           <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_contact_8" id="employee_contact_8" class="form-control " placeholder="Contact No"></td>
+                                    <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_email_8" id="employee_email_8" class="form-control " placeholder="Email"></td>
+                                      <td> <input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_fname_8" id="employee_fname_8" placeholder="First Name" class="form-control "></td>
+                                  <td> <input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_lname_8" id="employee_lname_8" placeholder="Last Name" class="form-control "></td>
+                                  <td> <input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_edob_8" id="employee_edob_8" placeholder="Date Of Birth"  class="form-control datepicker1" autocomplete="off"></td>
+
+                                   {% if flight_class_is_international == 'I' %}
+                                    <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_passport_8" id="employee_passport_8" class="form-control" placeholder="Passport No" ></td>
+                                    <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_pass_exp_8" id="employee_pass_exp_8" class="form-control datepicker1" autocomplete="off" placeholder="Expiry Date" ></td>
+                                    <td><select name="employee_nationality_8" id="employee_nationality_8" class="form-control myselect">
+                                        <option value="">Select Nationality</option>
+                                        {% for nationality in nationalities %}
+                                        <option value="{{nationality.code}}">{{nationality.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                        </td>
+
+                                   {% endif %}
+                                       </tr>
+                                   </table>
+                                </div>
+
+
+                         <div class="form-group row" id="emp_row_9"  >
+                            <table class="form-group col-sm-12" style="table-layout: fixed; border-collapse: collapse; width: 100%;">
+                                       <tr>
+                                           <td>
+                                     <select id="employee_id_9" name="employee_id_9" class="form-control form-group myselect" style="width:100%;" required>
+                                         <option value="">Select Employee</option>
+                                        {% for employee in employees %}
+                                        <option value="{{employee.id}}" emp_id="{{employee.employee_cid|default:''}}" emp_cnt="{{employee.employee_contact}}"
+                                         emp_gender="{{employee.gender}}" emp_date_of_birth="{{employee.date_of_birth|default:''}}"  emp_name="{{employee.employee_name}}" emp_email="{{employee.employee_email}}" emp_dob="{{employee.date_of_birth|default:''}}" emp_passport="{{employee.PassportDetails}}">{{employee.employee_name}}/{{employee.employee_cid}}</option>
+                                        {% endfor %}
+                                    </select>
+                                           </td>
+                                            <td> <select name="employee_title_9" id="employee_title_9" class="form-control myselect" style="width:100%;">
+                                        <option value="">--</option>
+                                        <option value="Mr">Mr</option>
+                                        <option value="Ms">Ms</option>
+                                        </select></td>
+                                           <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="emp_id_9" id="emp_id_9" class="form-control " placeholder="Employee Id"></td>
+                                           <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_contact_9" id="employee_contact_9" class="form-control " placeholder="Contact No"></td>
+                                    <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_email_9" id="employee_email_9" class="form-control " placeholder="Email"></td>
+                                      <td> <input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_fname_9" id="employee_fname_9" placeholder="First Name" class="form-control "></td>
+                                  <td> <input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_lname_9" id="employee_lname_9" placeholder="Last Name" class="form-control "></td>
+                                  <td> <input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_edob_9" id="employee_edob_9" placeholder="Date Of Birth" class="form-control datepicker1" autocomplete="off"></td>
+
+                                   {% if flight_class_is_international == 'I' %}
+                                    <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_passport_9" id="employee_passport_9" class="form-control" placeholder="Passport No" ></td>
+                                    <td><input style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" name="employee_pass_exp_9" id="employee_pass_exp_9" class="form-control datepicker1" autocomplete="off" placeholder="Expiry Date" ></td>
+                                    <td><select name="employee_nationality_9" id="employee_nationality_9" class="form-control myselect">
+                                        <option value="">Select Nationality</option>
+                                        {% for nationality in nationalities %}
+                                        <option value="{{nationality.code}}">{{nationality.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                        </td>
+
+                                   {% endif %}
+                                       </tr>
+                                   </table>
+                                </div>
+
+                          </div>
+
+
+
+                </div>
+                </div>
+
+
+
+ <div class="form-group">
+                    <div class="offset-md-3 col-md-9">
+                        <button type="submit" class="btn btn-info">Submit</button>
+                       <a href="{{request.META.HTTP_REFERER}}" class="btn btn-default">  Cancel  </a>
+                    </div>
+                </div>
+
+
+</form>
+
+
+ <!-- ###############################  -->
+
+
+
+
+
+
+
+        </div>
+        <!-- end page container -->
+
+    </div>
+
+
+<script>
+
+var slideIndex = 0;
+showSlides();
+
+function showSlides() {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  if ( slides.length > 0 )
+  {
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  slideIndex++;
+  if (slideIndex > slides.length) {slideIndex = 1}
+  slides[slideIndex-1].style.display = "block";
+  setTimeout(showSlides, 2000); // Change image every 2 seconds
+  }// ending if condition
+}
+
+
+
+
+
+//javascript code for selecting employee option
+
+$(document).ready(function() {
+
+        //var no_of_seats = document.getElementById("no_of_pass").value;
+
+    	//var no_of_seats = parseInt(no_of_seats) ;
+
+    	var no_of_seats = 1 ;
+
+    	//alert(no_of_seats);
+
+
+    	if(no_of_seats > 0){
+           for(i=1;i<=no_of_seats;i++)
+            {
+                $('#emp_row_'+i).show();
+                $("#employee_id_"+i).attr('required',true);
+
+                $("#employee_title_"+i).attr('required',true);
+
+            }
+            var j = parseInt(no_of_seats) + 1;
+			for(j=j; j<=10; j++)
+			{
+				$('#emp_row_'+j).hide();
+				$("#employee_id_"+j).attr('required',false);
+
+				$("#employee_title_"+i).attr('required',false);
+
+			}
+    	}
+
+
+    	$('input[type=radio][name="rate_plan"]').change(function() {
+            //alert($(this).val()); // or this.value
+
+            document.getElementById("rate_plan_code").value = $(this).val() ;
+
+        });
+
+
+});
+
+
+
+
+
+
+
+ $(".myselect").select2();
+   var emp_1_n = $("#employee_nationality_1");
+   emp_1_n.select2();
+   var emp_1_t = $("#employee_title_1");
+   emp_1_t.select2();
+
+   var emp_2_n = $("#employee_nationality_2");
+   emp_2_n.select2();
+   var emp_2_t = $("#employee_title_2");
+   emp_2_t.select2();
+
+   var emp_3_n = $("#employee_nationality_3");
+   emp_3_n.select2();
+   var emp_3_t = $("#employee_title_3");
+   emp_3_t.select2();
+
+   var emp_4_n = $("#employee_nationality_4");
+   emp_4_n.select2();
+   var emp_4_t = $("#employee_title_4");
+   emp_4_t.select2();
+
+   var emp_5_n = $("#employee_nationality_5");
+   emp_5_n.select2();
+   var emp_5_t = $("#employee_title_5");
+   emp_5_t.select2();
+
+   var emp_6_n = $("#employee_nationality_6");
+   emp_6_n.select2();
+   var emp_6_t = $("#employee_title_6");
+   emp_6_t.select2();
+
+   var emp_7_n = $("#employee_nationality_7");
+   emp_7_n.select2();
+   var emp_7_t = $("#employee_title_7");
+   emp_7_t.select2();
+
+   var emp_8_n = $("#employee_nationality_8");
+   emp_8_n.select2();
+   var emp_8_t = $("#employee_title_8");
+   emp_8_t.select2();
+
+   var emp_9_n = $("#employee_nationality_9");
+   emp_9_n.select2();
+   var emp_9_t = $("#employee_title_9");
+   emp_9_t.select2();
+
+
+
+
+
+$("#employee_id_1").change(function()
+    {
+
+    //alert();
+
+    	$("#emp_id_1").val($(this).find("option:selected").attr("emp_id"));
+    	$("#employee_name_1").val($(this).find("option:selected").attr("emp_name"));
+    	$("#employee_contact_1").val($(this).find("option:selected").attr("emp_cnt"));
+    	$("#employee_email_1").val($(this).find("option:selected").attr("emp_email"));
+        $("#employee_edob_1").val($(this).find("option:selected").attr("emp_date_of_birth"));
+        var gen = $(this).find("option:selected").attr("emp_gender");
+        if(gen == 'Male')
+            $("#employee_ttl_1").val("Mr");
+        else
+            $("#employee_ttl_1").val("Ms");
+        var emplyee_name = $(this).find("option:selected").attr("emp_name");
+        var emp_name = emplyee_name.split(' ');
+    	$("#employee_fname_1").val(emp_name[0]);
+    	$("#employee_lname_1").val(emp_name[1]);
+        var PassDetails = $(this).find("option:selected").attr("emp_passport");
+        var myObject = eval('(' + PassDetails + ')');
+        if(myObject != ''){
+        for (i in myObject)
+        {
+
+           //alert(myObject[i]["fname"]);
+           $("#employee_passport_1").val(myObject[i]["passport_no"]);
+           $("#employee_pass_exp_1").val(myObject[i]["expiry_date"]);
+           emp_1_t.val(myObject[i]["title"]);
+           emp_1_t.trigger('change.select2');
+           emp_1_n.val(myObject[i]["nationality"]);
+           emp_1_n.trigger('change.select2');
+        }
+        }else{
+           $("#employee_passport_1").val('');
+           $("#employee_pass_exp_1").val('');
+           emp_1_t.val('');
+           emp_1_t.trigger('change.select2');
+           emp_1_n.val('');
+           emp_1_n.trigger('change.select2');
+        }
+
+    });
+
+
+$("#employee_id_2").change(function()
+    {
+    	$("#emp_id_2").val($(this).find("option:selected").attr("emp_id"));
+    	$("#employee_name_2").val($(this).find("option:selected").attr("emp_name"));
+    	$("#employee_contact_2").val($(this).find("option:selected").attr("emp_cnt"));
+    	$("#employee_email_2").val($(this).find("option:selected").attr("emp_email"));
+        $("#employee_edob_2").val($(this).find("option:selected").attr("emp_date_of_birth"));
+        var gen = $(this).find("option:selected").attr("emp_gender");
+        if(gen == 'Male')
+            $("#employee_ttl_2").val("Mr");
+        else
+            $("#employee_ttl_2").val("Ms");
+        var emplyee_name = $(this).find("option:selected").attr("emp_name");
+        var emp_name = emplyee_name.split(' ');
+    	$("#employee_fname_2").val(emp_name[0]);
+    	$("#employee_lname_2").val(emp_name[1]);
+        var PassDetails = $(this).find("option:selected").attr("emp_passport");
+        var myObject = eval('(' + PassDetails + ')');
+        if(myObject != ''){
+        for (i in myObject)
+        {
+
+           //alert(myObject[i]["fname"]);
+           $("#employee_passport_2").val(myObject[i]["passport_no"]);
+           $("#employee_pass_exp_2").val(myObject[i]["expiry_date"]);
+           emp_2_t.val(myObject[i]["title"]);
+           emp_2_t.trigger('change.select2');
+           emp_2_n.val(myObject[i]["nationality"]);
+           emp_2_n.trigger('change.select2');
+        }
+        }else{
+           $("#employee_passport_2").val('');
+           $("#employee_pass_exp_2").val('');
+           emp_2_t.val('');
+           emp_2_t.trigger('change.select2');
+           emp_2_n.val('');
+           emp_2_n.trigger('change.select2');
+        }
+
+    });
+
+$("#employee_id_3").change(function()
+    {
+    	$("#emp_id_3").val($(this).find("option:selected").attr("emp_id"));
+    	$("#employee_name_3").val($(this).find("option:selected").attr("emp_name"));
+    	$("#employee_contact_3").val($(this).find("option:selected").attr("emp_cnt"));
+    	$("#employee_email_3").val($(this).find("option:selected").attr("emp_email"));
+        $("#employee_edob_3").val($(this).find("option:selected").attr("emp_date_of_birth"));
+        var gen = $(this).find("option:selected").attr("emp_gender");
+        if(gen == 'Male')
+            $("#employee_ttl_3").val("Mr");
+        else
+            $("#employee_ttl_3").val("Ms");
+        var emplyee_name = $(this).find("option:selected").attr("emp_name");
+        var emp_name = emplyee_name.split(' ');
+    	$("#employee_fname_3").val(emp_name[0]);
+    	$("#employee_lname_3").val(emp_name[1]);
+        var PassDetails = $(this).find("option:selected").attr("emp_passport");
+        var myObject = eval('(' + PassDetails + ')');
+        if(myObject != ''){
+        for (i in myObject)
+        {
+
+           //alert(myObject[i]["fname"]);
+           $("#employee_passport_3").val(myObject[i]["passport_no"]);
+           $("#employee_pass_exp_3").val(myObject[i]["expiry_date"]);
+           emp_3_t.val(myObject[i]["title"]);
+           emp_3_t.trigger('change.select2');
+           emp_3_n.val(myObject[i]["nationality"]);
+           emp_3_n.trigger('change.select2');
+        }
+        }else{
+           $("#employee_passport_3").val('');
+           $("#employee_pass_exp_3").val('');
+           emp_3_t.val('');
+           emp_3_t.trigger('change.select2');
+           emp_3_n.val('');
+           emp_3_n.trigger('change.select2');
+        }
+
+    });
+
+$("#employee_id_4").change(function()
+    {
+    	$("#emp_id_4").val($(this).find("option:selected").attr("emp_id"));
+    	$("#employee_name_4").val($(this).find("option:selected").attr("emp_name"));
+    	$("#employee_contact_4").val($(this).find("option:selected").attr("emp_cnt"));
+    	$("#employee_email_4").val($(this).find("option:selected").attr("emp_email"));
+        $("#employee_edob_4").val($(this).find("option:selected").attr("emp_date_of_birth"));
+        var gen = $(this).find("option:selected").attr("emp_gender");
+        if(gen == 'Male')
+            $("#employee_ttl_4").val("Mr");
+        else
+            $("#employee_ttl_4").val("Ms");
+        var emplyee_name = $(this).find("option:selected").attr("emp_name");
+        var emp_name = emplyee_name.split(' ');
+    	$("#employee_fname_4").val(emp_name[0]);
+    	$("#employee_lname_4").val(emp_name[1]);
+        var PassDetails = $(this).find("option:selected").attr("emp_passport");
+        var myObject = eval('(' + PassDetails + ')');
+        if(myObject != ''){
+        for (i in myObject)
+        {
+
+           //alert(myObject[i]["fname"]);
+           $("#employee_passport_4").val(myObject[i]["passport_no"]);
+           $("#employee_pass_exp_4").val(myObject[i]["expiry_date"]);
+           emp_4_t.val(myObject[i]["title"]);
+           emp_4_t.trigger('change.select2');
+           emp_4_n.val(myObject[i]["nationality"]);
+           emp_4_n.trigger('change.select2');
+        }
+        }else{
+           $("#employee_passport_4").val('');
+           $("#employee_pass_exp_4").val('');
+           emp_4_t.val('');
+           emp_4_t.trigger('change.select2');
+           emp_4_n.val('');
+           emp_4_n.trigger('change.select2');
+        }
+
+    });
+
+
+    $("#employee_id_5").change(function()
+    {
+    	$("#emp_id_5").val($(this).find("option:selected").attr("emp_id"));
+    	$("#employee_name_5").val($(this).find("option:selected").attr("emp_name"));
+    	$("#employee_contact_5").val($(this).find("option:selected").attr("emp_cnt"));
+    	$("#employee_email_5").val($(this).find("option:selected").attr("emp_email"));
+        $("#employee_edob_5").val($(this).find("option:selected").attr("emp_date_of_birth"));
+        var gen = $(this).find("option:selected").attr("emp_gender");
+        if(gen == 'Male')
+            $("#employee_ttl_5").val("Mr");
+        else
+            $("#employee_ttl_5").val("Ms");
+        var emplyee_name = $(this).find("option:selected").attr("emp_name");
+        var emp_name = emplyee_name.split(' ');
+    	$("#employee_fname_5").val(emp_name[0]);
+    	$("#employee_lname_5").val(emp_name[1]);
+        var PassDetails = $(this).find("option:selected").attr("emp_passport");
+        var myObject = eval('(' + PassDetails + ')');
+        if(myObject != ''){
+        for (i in myObject)
+        {
+
+           //alert(myObject[i]["fname"]);
+           $("#employee_passport_5").val(myObject[i]["passport_no"]);
+           $("#employee_pass_exp_5").val(myObject[i]["expiry_date"]);
+           emp_5_t.val(myObject[i]["title"]);
+           emp_5_t.trigger('change.select2');
+           emp_5_n.val(myObject[i]["nationality"]);
+           emp_5_n.trigger('change.select2');
+        }
+        }else{
+           $("#employee_passport_5").val('');
+           $("#employee_pass_exp_5").val('');
+           emp_5_t.val('');
+           emp_5_t.trigger('change.select2');
+           emp_5_n.val('');
+           emp_5_n.trigger('change.select2');
+        }
+
+    });
+
+
+    $("#employee_id_6").change(function()
+    {
+    	$("#emp_id_6").val($(this).find("option:selected").attr("emp_id"));
+    	$("#employee_name_6").val($(this).find("option:selected").attr("emp_name"));
+    	$("#employee_contact_6").val($(this).find("option:selected").attr("emp_cnt"));
+    	$("#employee_email_6").val($(this).find("option:selected").attr("emp_email"));
+        $("#employee_edob_6").val($(this).find("option:selected").attr("emp_date_of_birth"));
+        var gen = $(this).find("option:selected").attr("emp_gender");
+        if(gen == 'Male')
+            $("#employee_ttl_6").val("Mr");
+        else
+            $("#employee_ttl_6").val("Ms");
+        var emplyee_name = $(this).find("option:selected").attr("emp_name");
+        var emp_name = emplyee_name.split(' ');
+    	$("#employee_fname_6").val(emp_name[0]);
+    	$("#employee_lname_6").val(emp_name[1]);
+        var PassDetails = $(this).find("option:selected").attr("emp_passport");
+        var myObject = eval('(' + PassDetails + ')');
+        if(myObject != ''){
+        for (i in myObject)
+        {
+
+           //alert(myObject[i]["fname"]);
+           $("#employee_passport_6").val(myObject[i]["passport_no"]);
+           $("#employee_pass_exp_6").val(myObject[i]["expiry_date"]);
+           emp_6_t.val(myObject[i]["title"]);
+           emp_6_t.trigger('change.select2');
+           emp_6_n.val(myObject[i]["nationality"]);
+           emp_6_n.trigger('change.select2');
+        }
+        }else{
+           $("#employee_passport_6").val('');
+           $("#employee_pass_exp_6").val('');
+           emp_6_t.val('');
+           emp_6_t.trigger('change.select2');
+           emp_6_n.val('');
+           emp_6_n.trigger('change.select2');
+        }
+
+    });
+
+
+    $("#employee_id_7").change(function()
+    {
+    	$("#emp_id_7").val($(this).find("option:selected").attr("emp_id"));
+    	$("#employee_name_7").val($(this).find("option:selected").attr("emp_name"));
+    	$("#employee_contact_7").val($(this).find("option:selected").attr("emp_cnt"));
+    	$("#employee_email_7").val($(this).find("option:selected").attr("emp_email"));
+        $("#employee_edob_7").val($(this).find("option:selected").attr("emp_date_of_birth"));
+        var gen = $(this).find("option:selected").attr("emp_gender");
+        if(gen == 'Male')
+            $("#employee_ttl_7").val("Mr");
+        else
+            $("#employee_ttl_7").val("Ms");
+        var emplyee_name = $(this).find("option:selected").attr("emp_name");
+        var emp_name = emplyee_name.split(' ');
+    	$("#employee_fname_7").val(emp_name[0]);
+    	$("#employee_lname_7").val(emp_name[1]);
+        var PassDetails = $(this).find("option:selected").attr("emp_passport");
+        var myObject = eval('(' + PassDetails + ')');
+        if(myObject != ''){
+        for (i in myObject)
+        {
+
+           //alert(myObject[i]["fname"]);
+           $("#employee_passport_7").val(myObject[i]["passport_no"]);
+           $("#employee_pass_exp_7").val(myObject[i]["expiry_date"]);
+           emp_7_t.val(myObject[i]["title"]);
+           emp_7_t.trigger('change.select2');
+           emp_7_n.val(myObject[i]["nationality"]);
+           emp_7_n.trigger('change.select2');
+        }
+        }else{
+           $("#employee_passport_7").val('');
+           $("#employee_pass_exp_7").val('');
+           emp_7_t.val('');
+           emp_7_t.trigger('change.select2');
+           emp_7_n.val('');
+           emp_7_n.trigger('change.select2');
+        }
+
+    });
+
+
+    $("#employee_id_8").change(function()
+    {
+    	$("#emp_id_8").val($(this).find("option:selected").attr("emp_id"));
+    	$("#employee_name_8").val($(this).find("option:selected").attr("emp_name"));
+    	$("#employee_contact_8").val($(this).find("option:selected").attr("emp_cnt"));
+    	$("#employee_email_8").val($(this).find("option:selected").attr("emp_email"));
+        $("#employee_edob_8").val($(this).find("option:selected").attr("emp_date_of_birth"));
+        var gen = $(this).find("option:selected").attr("emp_gender");
+        if(gen == 'Male')
+            $("#employee_ttl_8").val("Mr");
+        else
+            $("#employee_ttl_8").val("Ms");
+        var emplyee_name = $(this).find("option:selected").attr("emp_name");
+        var emp_name = emplyee_name.split(' ');
+    	$("#employee_fname_8").val(emp_name[0]);
+    	$("#employee_lname_8").val(emp_name[1]);
+        var PassDetails = $(this).find("option:selected").attr("emp_passport");
+        var myObject = eval('(' + PassDetails + ')');
+        if(myObject != ''){
+        for (i in myObject)
+        {
+
+           //alert(myObject[i]["fname"]);
+           $("#employee_passport_8").val(myObject[i]["passport_no"]);
+           $("#employee_pass_exp_8").val(myObject[i]["expiry_date"]);
+           emp_8_t.val(myObject[i]["title"]);
+           emp_8_t.trigger('change.select2');
+           emp_8_n.val(myObject[i]["nationality"]);
+           emp_8_n.trigger('change.select2');
+        }
+        }else{
+           $("#employee_passport_8").val('');
+           $("#employee_pass_exp_8").val('');
+           emp_8_t.val('');
+           emp_8_t.trigger('change.select2');
+           emp_8_n.val('');
+           emp_8_n.trigger('change.select2');
+        }
+
+    });
+
+    $("#employee_id_9").change(function()
+    {
+    	$("#emp_id_9").val($(this).find("option:selected").attr("emp_id"));
+    	$("#employee_name_9").val($(this).find("option:selected").attr("emp_name"));
+    	$("#employee_contact_9").val($(this).find("option:selected").attr("emp_cnt"));
+    	$("#employee_email_9").val($(this).find("option:selected").attr("emp_email"));
+        $("#employee_edob_9").val($(this).find("option:selected").attr("emp_date_of_birth"));
+        var gen = $(this).find("option:selected").attr("emp_gender");
+        if(gen == 'Male')
+            $("#employee_ttl_9").val("Mr");
+        else
+            $("#employee_ttl_9").val("Ms");
+        var emplyee_name = $(this).find("option:selected").attr("emp_name");
+        var emp_name = emplyee_name.split(' ');
+    	$("#employee_fname_9").val(emp_name[0]);
+    	$("#employee_lname_9").val(emp_name[1]);
+        var PassDetails = $(this).find("option:selected").attr("emp_passport");
+        var myObject = eval('(' + PassDetails + ')');
+        if(myObject != ''){
+        for (i in myObject)
+        {
+
+           //alert(myObject[i]["fname"]);
+           $("#employee_passport_9").val(myObject[i]["passport_no"]);
+           $("#employee_pass_exp_9").val(myObject[i]["expiry_date"]);
+           emp_9_t.val(myObject[i]["title"]);
+           emp_9_t.trigger('change.select2');
+           emp_9_n.val(myObject[i]["nationality"]);
+           emp_9_n.trigger('change.select2');
+        }
+        }else{
+           $("#employee_passport_9").val('');
+           $("#employee_pass_exp_9").val('');
+           emp_9_t.val('');
+           emp_9_t.trigger('change.select2');
+           emp_9_n.val('');
+           emp_9_n.trigger('change.select2');
+        }
+
+    });
+
+
+//end code
+
+</script>
+
+
+{% else %}
+    <p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+
+
+
+
+{% endblock %}

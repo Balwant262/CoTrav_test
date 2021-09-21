@@ -1,0 +1,79 @@
+{% extends 'Company/Employee/layout/header.html' %}
+
+{% block content %}
+
+
+{% if user %}
+<!-- start page content -->
+
+
+            <div class="page-content-wrapper">
+                <div class="page-content">
+                          <div class="text-center">
+                     <div style="font-size:14px; font-weight:bold;">
+                        Company Spoc's
+                         </div>
+                </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card card-topline-aqua">
+                                <div class="card-head">
+                                    <header>ALL CORPORATE SPOCS LIST</header>
+                                    <div class="tools">
+                                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+	                                    <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+	                                    <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                                    </div>
+                                </div>
+                                <div class="card-body ">
+
+                                  <div class="table-scrollable table-bordered">
+                                    <table id="example1" class="display full-width table-striped">
+                                        <thead>
+                                            <tr>
+<!--                                                <th>ID</th>-->
+                                                <th>Company/Owner Name</th>
+                                                <th>Group Name</th>
+                                                <th>SubGroup Name</th>
+                                                <th>SPOC Name</th>
+                                                <th>SPOC Email</th>
+                                                <th>SPOC Phone</th>
+
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                        {% for spoc in spocs %}
+                                            <tr>
+<!--                                               <td>{{ spoc.id }}</td>-->
+                                                <td>{{ spoc.corporate_name }}</td>
+                                                <td>{{ spoc.group_name }}</td>
+                                                <td>{{ spoc.subgroup_name }}</td>
+                                                <td>{{ spoc.user_name }}</td>
+                                                <td>{{ spoc.email }}</td>
+                                                <td>{{ spoc.user_contact }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                            </tbody>
+                                        </table>
+	                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- end page content -->
+
+
+
+
+
+{% else %}
+    <p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+{% endblock %}
+
+
+

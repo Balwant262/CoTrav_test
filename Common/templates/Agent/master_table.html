@@ -1,0 +1,743 @@
+{% extends 'Agent/layout/header.html' %}
+
+{% block content %}
+
+
+{% if user %}
+			<!-- start page content -->
+
+
+
+{% include 'Agent/masters_modal.html' %}
+
+{% include 'cotrav_alert_message.html' %}
+            <div class="page-content-wrapper">
+                <div class="page-content">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card card-topline-aqua">
+
+                     <div class="card-body ">
+
+
+                    </div>
+
+
+
+
+                      <div class="card-head">
+                                    <header>Master Table Records - {{table_title}}</header>
+                                    <div class="tools">
+                                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+	                                    <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+	                                    <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                                    </div>
+                                </div>
+
+            {% if table_flag == 1 %}
+                    <div class="card-body ">
+
+                         <div class="row p-b-20">
+                            <div class="col-md-6 col-sm-6 col-6">
+                                <div class="btn-group">
+                                    <a class="btn btn-info" href="#" data-toggle="modal"
+                                       data-target="#add_flight_airports"> Add New <i class="fa fa-plus"></i> </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="table-scrollable table-bordered">
+
+
+
+                            <table id="example1" class="display full-width table-striped">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>city name</th>
+                                    <th>country_name</th>
+                                    <th>code</th>
+                                    <th>created</th>
+                                    <th>modified</th>
+                                    <th>Action</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                {% for master in masters %}
+                                <tr>
+
+                                    <td>{{ master.id }}</td>
+                                    <td>{{ master.city_name }}</td>
+                                    <td>{{ master.country_name }}</td>
+                                    <td>{{ master.code}}</td>
+                                    <td>{{ master.created | date:"M d, Y"}} </td>
+                                    <td>{{ master.modified }} </td>
+
+
+
+
+
+                                     <td>
+
+                                        <a class="btn btn-tbl-edit btn-xs" data-target="#add_flight_airports"
+                                           data-id="{{master.id}}" data-name="{{master.city_name}}" data-country="{{master.country_name}}" data-update="1" data-code="{{master.code}}" data-toggle="modal" href="#">
+                                            <i class="fa fa-pencil "></i>
+                                        </a>
+
+
+                                    </td>
+
+
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+            {% endif %}
+
+             {% if table_flag == 2 %}
+                    <div class="card-body ">
+
+                         <div class="row p-b-20">
+                            <div class="col-md-6 col-sm-6 col-6">
+                                <div class="btn-group">
+                                    <a class="btn btn-info" href="#" data-toggle="modal"
+                                       data-target="#add_invoice_status"> Add New <i class="fa fa-plus"></i> </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="table-scrollable table-bordered">
+
+
+
+                            <table id="invoice_status22" class="display master_table full-width table-striped">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>status_name</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                {% for master in masters %}
+                                <tr>
+
+                                    <td>{{ master.id }}</td>
+                                    <td>{{ master.status_name }}</td>
+
+
+                                     <td>
+
+                                        <a class="btn btn-tbl-edit btn-xs" data-target="#add_invoice_status"
+                                           data-id="{{master.id}}" data-status_name="{{master.status_name}}"  data-update="1"  data-toggle="modal" href="#">
+                                            <i class="fa fa-pencil "></i>
+                                        </a>
+
+
+                                    </td>
+
+
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+            {% endif %}
+
+            {% if table_flag == 3 %}
+                    <div class="card-body ">
+
+                         <div class="row p-b-20">
+                            <div class="col-md-6 col-sm-6 col-6">
+                                <div class="btn-group">
+                                    <a class="btn btn-info" href="#" data-toggle="modal"
+                                       data-target="#add_irctc_accounts"> Add New <i class="fa fa-plus"></i> </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="table-scrollable table-bordered">
+
+
+
+                            <table id="irctc_accounts" class="display master_table full-width table-striped">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>username</th>
+                                    <th>password</th>
+                                    <th>usage_limit</th>
+                                    <th>is_used</th>
+                                    <th>used_by</th>
+                                    <th>usage_started_at</th>
+                                    <th>monthly_usage_count</th>
+                                    <th>booking_ids</th>
+                                    <th>created_at</th>
+                                    <th>modified_at</th>
+                                    <th>Action</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                {% for master in masters %}
+                                <tr>
+
+                                    <td>{{ master.id }}</td>
+                                    <td>{{ master.username }}</td>
+                                    <td>{{ master.password }}</td>
+                                    <td>{{ master.usage_limit}}</td>
+                                    <td>{{ master.is_used }}</td>
+                                    <td>{{ master.used_by }}</td>
+
+                                    <td>{{ master.usage_started_at}}</td>
+                                    <td>{{ master.monthly_usage_count }}</td>
+                                    <td>{{ master.booking_ids }}</td>
+                                    <td>{{ master.created_at }}</td>
+                                    <td>{{ master.modified_at }}</td>
+
+                                     <td>
+
+                                        <a class="btn btn-tbl-edit btn-xs" data-target="#add_irctc_accounts"
+                                           data-id="{{master.id}}" data-username="{{master.username}}" data-password="{{master.password}}" data-usage_limit="{{master.usage_limit}}" data-is_used="{{master.is_used}}" data-used_by="{{master.used_by}}" data-usage_started_at="{{master.usage_started_at}}" data-monthly_usage_count="{{master.monthly_usage_count}}" data-booking_ids="{{master.booking_ids}}"   data-update="1"  data-toggle="modal" href="#">
+                                            <i class="fa fa-pencil "></i>
+                                        </a>
+
+
+                                    </td>
+
+
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+            {% endif %}
+
+             {% if table_flag == 4 %}
+                    <div class="card-body ">
+
+                         <div class="row p-b-20">
+                            <div class="col-md-6 col-sm-6 col-6">
+                                <div class="btn-group">
+                                    <a class="btn btn-info" href="#" data-toggle="modal"
+                                       data-target="#add_nationality"> Add New <i class="fa fa-plus"></i> </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="table-scrollable table-bordered">
+
+
+
+                            <table id="nationality" class="display master_table full-width table-striped">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>name</th>
+                                    <th>code</th>
+
+                                    <th>Action</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                {% for master in masters %}
+                                <tr>
+
+                                    <td>{{ master.id }}</td>
+                                    <td>{{ master.name }}</td>
+                                    <td>{{ master.code }}</td>
+
+                                     <td>
+
+                                        <a class="btn btn-tbl-edit btn-xs" data-target="#add_nationality"
+                                           data-id="{{master.id}}" data-name="{{master.name}}" data-code="{{master.code}}" data-update="1"  data-toggle="modal" href="#">
+                                            <i class="fa fa-pencil "></i>
+                                        </a>
+
+
+                                    </td>
+
+
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+             {% endif %}
+
+             {% if table_flag == 5 %}
+                    <div class="card-body ">
+
+                         <div class="row p-b-20">
+                            <div class="col-md-6 col-sm-6 col-6">
+                                <div class="btn-group">
+                                    <a class="btn btn-info" href="#" data-toggle="modal"
+                                       data-target="#add_status_client"> Add New <i class="fa fa-plus"></i> </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="table-scrollable table-bordered">
+
+
+
+                            <table id="status_client" class="display master_table full-width table-striped">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>status</th>
+                                    <th>description</th>
+                                    <th>created</th>
+                                    <th>modified</th>
+
+                                    <th>Action</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                {% for master in masters %}
+                                <tr>
+
+                                    <td>{{ master.id }}</td>
+                                    <td>{{ master.status }}</td>
+                                    <td>{{ master.description }}</td>
+                                    <td>{{ master.created }}</td>
+                                    <td>{{ master.modified }}</td>
+
+                                     <td>
+
+                                        <a class="btn btn-tbl-edit btn-xs" data-target="#add_status_client"
+                                           data-id="{{master.id}}" data-status="{{master.status}}" data-description="{{master.description}}"  data-update="1"  data-toggle="modal" href="#">
+                                            <i class="fa fa-pencil "></i>
+                                        </a>
+
+
+                                    </td>
+
+
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+             {% endif %}
+
+             {% if table_flag == 6 %}
+                    <div class="card-body ">
+
+                         <div class="row p-b-20">
+                            <div class="col-md-6 col-sm-6 col-6">
+                                <div class="btn-group">
+                                    <a class="btn btn-info" href="#" data-toggle="modal"
+                                       data-target="#add_status_cotrav"> Add New <i class="fa fa-plus"></i> </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="table-scrollable table-bordered">
+
+
+
+                           <table id="status_cotrav" class="display master_table full-width table-striped">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>status</th>
+                                    <th>description</th>
+                                    <th>created</th>
+                                    <th>modified</th>
+
+                                    <th>Action</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                {% for master in masters %}
+                                <tr>
+
+                                    <td>{{ master.id }}</td>
+                                    <td>{{ master.status }}</td>
+                                    <td>{{ master.description }}</td>
+                                    <td>{{ master.created }}</td>
+                                    <td>{{ master.modified }}</td>
+
+                                     <td>
+
+                                        <a class="btn btn-tbl-edit btn-xs" data-target="#add_status_cotrav"
+                                           data-id="{{master.id}}" data-status="{{master.status}}" data-description="{{master.description}}"  data-update="1"  data-toggle="modal" href="#">
+                                            <i class="fa fa-pencil "></i>
+                                        </a>
+
+
+                                    </td>
+
+
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+             {% endif %}
+
+             {% if table_flag == 7 %}
+                    <div class="card-body ">
+
+                         <div class="row p-b-20">
+                            <div class="col-md-6 col-sm-6 col-6">
+                                <div class="btn-group">
+                                    <a class="btn btn-info" href="#" data-toggle="modal"
+                                       data-target="#add_train_types"> Add New <i class="fa fa-plus"></i> </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="table-scrollable table-bordered">
+
+
+
+                            <table id="train_types" class="display master_table full-width table-striped">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>name</th>
+                                    <th>Action</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                {% for master in masters %}
+                                <tr>
+
+                                    <td>{{ master.id }}</td>
+                                    <td>{{ master.name }}</td>
+
+                                     <td>
+
+                                        <a class="btn btn-tbl-edit btn-xs" data-target="#add_train_types"
+                                           data-id="{{master.id}}" data-name="{{master.name}}"  data-update="1"  data-toggle="modal" href="#">
+                                            <i class="fa fa-pencil "></i>
+                                        </a>
+
+
+                                    </td>
+
+
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+             {% endif %}
+
+             {% if table_flag == 8 %}
+                    <div class="card-body ">
+
+                         <div class="row p-b-20">
+                            <div class="col-md-6 col-sm-6 col-6">
+                                <div class="btn-group">
+                                    <a class="btn btn-info" href="#" data-toggle="modal"
+                                       data-target="#add_user_type"> Add New <i class="fa fa-plus"></i> </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="table-scrollable table-bordered">
+
+
+
+                            <table id="user_type" class="display master_table full-width table-striped">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>name</th>
+                                    <th>created</th>
+                                    <th>modified</th>
+
+                                    <th>Action</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                {% for master in masters %}
+                                <tr>
+
+                                    <td>{{ master.id }}</td>
+                                    <td>{{ master.name }}</td>
+                                    <td>{{ master.created }}</td>
+                                    <td>{{ master.modified }}</td>
+                                     <td>
+
+                                        <a class="btn btn-tbl-edit btn-xs" data-target="#add_user_type"
+                                           data-id="{{master.id}}" data-name="{{master.name}}"  data-update="1"  data-toggle="modal" href="#">
+                                            <i class="fa fa-pencil "></i>
+                                        </a>
+
+
+                                    </td>
+
+
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+             {% endif %}
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+  </div>
+</div>
+
+<!-- end page content -->
+
+<script type="text/javascript">
+   $(".myselect").select2();
+</script>
+
+
+{% else %}
+    <p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+<script>
+  $(document).ready(function() {
+    var table = $('.master_table').DataTable( {
+        responsive: true,
+        'ordering': false
+    } );
+
+} );
+</script>
+
+<script type="text/javascript">
+$(function() {
+
+  $('#add_flight_airports').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var id = button.data('id'); // Extract info from data-* attributes
+    var city_name = button.data('name'); // Extract info from data-* attributes
+    var country = button.data('country'); // Extract info from data-* attributes
+    var code = button.data('code'); // Extract info from data-* attributes
+    var update_flag = button.data('update');
+    var modal = $(this);
+    modal.find('#idd').val(id);
+    modal.find('#city_name').val(city_name);
+    modal.find('#country_name').val(country);
+    modal.find('#code').val(code);
+
+    modal.fin
+    if(update_flag == 1)
+    {
+
+     $("#docsForm").attr("action", "/agents/master/update/" + id);
+
+     }
+
+    });
+
+
+    $('#add_invoice_status').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var id = button.data('id'); // Extract info from data-* attributes
+    var status_name = button.data('status_name'); // Extract info from data-* attributes
+    var update_flag = button.data('update');
+    var modal = $(this);
+     modal.find('#idd2').val(id);
+    modal.find('#status_name').val(status_name);
+
+    modal.fin
+    if(update_flag == 1)
+    {
+
+     $("#docsForm2").attr("action", "/agents/master/update/" + id);
+
+     }
+
+    });
+
+
+     $('#add_irctc_accounts').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var id = button.data('id'); // Extract info from data-* attributes
+    var status_name = button.data('status_name'); // Extract info from data-* attributes
+    var update_flag = button.data('update');
+
+    var username = button.data('id');
+    var password = button.data('password');
+    var usage_limit = button.data('usage_limit');
+    var is_used = button.data('is_used');
+    var used_by = button.data('used_by');
+    var usage_started_at = button.data('usage_started_at');
+    var monthly_usage_count = button.data('monthly_usage_count');
+    var booking_ids = button.data('booking_ids');
+
+    var modal = $(this);
+     modal.find('#idd3').val(id);
+     modal.find('#username').val(username);
+     modal.find('#password').val(password);
+     modal.find('#usage_limit').val(usage_limit);
+     modal.find('#is_used').val(is_used);
+     modal.find('#used_by').val(used_by);
+     modal.find('#usage_started_at').val(usage_started_at);
+     modal.find('#monthly_usage_count').val(monthly_usage_count);
+     modal.find('#booking_ids').val(booking_ids);
+
+    if(update_flag == 1)
+    {
+
+     $("#docsForm3").attr("action", "/agents/master/update/" + id);
+
+     }
+
+    });
+
+
+     $('#add_nationality').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var id = button.data('id'); // Extract info from data-* attributes
+    var name = button.data('name'); // Extract info from data-* attributes
+    var code = button.data('code'); // Extract info from data-* attributes
+    var update_flag = button.data('update');
+    var modal = $(this);
+     modal.find('#idd4').val(id);
+    modal.find('#name').val(name);
+    modal.find('#code4').val(code);
+
+    modal.fin
+    if(update_flag == 1)
+    {
+
+     $("#docsForm4").attr("action", "/agents/master/update/" + id);
+
+     }
+
+    });
+
+
+      $('#add_status_client').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var id = button.data('id'); // Extract info from data-* attributes
+    var status = button.data('status'); // Extract info from data-* attributes
+    var description = button.data('description'); // Extract info from data-* attributes
+    var update_flag = button.data('update');
+    var modal = $(this);
+     modal.find('#idd5').val(id);
+    modal.find('#status').val(status);
+    modal.find('#description').val(description);
+
+    modal.fin
+    if(update_flag == 1)
+    {
+
+     $("#docsForm5").attr("action", "/agents/master/update/" + id);
+
+     }
+
+    });
+
+
+       $('#add_status_cotrav').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var id = button.data('id'); // Extract info from data-* attributes
+    var status = button.data('status'); // Extract info from data-* attributes
+    var description = button.data('description'); // Extract info from data-* attributes
+    var update_flag = button.data('update');
+    var modal = $(this);
+     modal.find('#idd6').val(id);
+    modal.find('#status2').val(status);
+    modal.find('#description2').val(description);
+
+    modal.fin
+    if(update_flag == 1)
+    {
+
+     $("#docsForm6").attr("action", "/agents/master/update/" + id);
+
+     }
+
+    });
+
+
+       $('#add_train_types').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var id = button.data('id'); // Extract info from data-* attributes
+    var name = button.data('name'); // Extract info from data-* attributes
+    var update_flag = button.data('update');
+    var modal = $(this);
+     modal.find('#idd7').val(id);
+    modal.find('#name2').val(name);
+
+
+    modal.fin
+    if(update_flag == 1)
+    {
+
+     $("#docsForm7").attr("action", "/agents/master/update/" + id);
+
+     }
+
+    });
+
+
+       $('#add_user_type').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var id = button.data('id'); // Extract info from data-* attributes
+    var name = button.data('name'); // Extract info from data-* attributes
+    var update_flag = button.data('update');
+    var modal = $(this);
+     modal.find('#idd8').val(id);
+    modal.find('#name3').val(name);
+
+
+    modal.fin
+    if(update_flag == 1)
+    {
+
+     $("#docsForm8").attr("action", "/agents/master/update/" + id);
+
+     }
+
+    });
+
+
+
+
+});
+
+
+
+</script>
+
+
+
+
+
+{% endblock %}
+
+
+

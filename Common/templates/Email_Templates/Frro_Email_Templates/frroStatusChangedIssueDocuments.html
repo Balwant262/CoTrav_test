@@ -1,0 +1,9 @@
+{% include 'Email_Templates/Frro_Email_Templates/header.html' %}
+ {% for booking in bookings %}
+Dear Sir<br><br>
+Greetings from CoTrav..!<br><br>
+PFA, the drafted letters for {{booking.frro_request_type_name|default:'NA'}} of {{ booking.reference_no|default:'NA' }}
+<br><br>
+<b>Office Status Reply</b> : {{issue_comments}}
+{% endfor %}
+{% include 'Email_Templates/Frro_Email_Templates/footer.html' %}

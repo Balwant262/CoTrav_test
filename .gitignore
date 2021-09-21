@@ -1,0 +1,17 @@
+# Pycache files
+**/__pycache__
+
+#Virtual Environment Directory
+venv/
+
+#Ignore all log file
+*.log
+
+#Ignore Settings.py
+CoTrav/settings.py
+
+#Ignore Asset Directory
+asset/
+
+#Ignore Media Directory
+media/

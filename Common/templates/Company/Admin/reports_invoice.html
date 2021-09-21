@@ -1,0 +1,223 @@
+{% extends 'Company/Admin/layout/header.html' %}
+
+{% block content %}
+
+
+{% if user %}
+<!-- start page content -->
+
+{% include 'cotrav_alert_message.html' %}
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-topline-aqua">
+                    <div class="card-head">
+                         <header>ADMIN BILL REPORTS</header>
+
+
+                        <div class="tools">
+                            <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                            <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                            <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                        </div>
+
+                    </div>
+
+
+
+
+                     <div class="card-body ">
+                            <div class = "mdl-tabs mdl-js-tabs">
+                                <div class = "mdl-tabs__tab-bar tab-left-side">
+
+                                    <a href = "/Corporate/Admin/reports/invoice" class = "mdl-tabs__tab is-active ">Invoice Report</a>
+                                    <a href = "/Corporate/Admin/reports/client-billing" class = "mdl-tabs__tab   ">Client Billing Report</a>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+<form action="/Corporate/Admin/reports/invoice" method="post" >
+<div class="card-body ">
+ <fieldset style="border: solid 1px #dedede; padding: 9px;">
+     <legend style="display: block;
+    width: auto;
+    font-size: 12px;
+    font-weight: 500;line-height:0;">Select Filter</legend>
+                           <div class="row">
+
+
+                               <input type="hidden" name="corporate_id"  value="{{user.corporate_id}}">
+
+
+                               <div class="col-sm-2">
+                                   <select required name="service_type" class="form-control myselect">
+                                         <option value="0">Select Service Type</option>
+
+                                         <option value="1" {% if data.service_type == '1' %} selected {%endif%} >Taxi</option>
+                                         <option value="2" {% if data.service_type == '2' %} selected {%endif%} >Bus</option>
+                                         <option value="3" {% if data.service_type == '3' %} selected {%endif%} >Train</option>
+                                         <option value="4" {% if data.service_type == '4' %} selected {%endif%} >Flight</option>
+                                         <option value="5" {% if data.service_type == '5' %} selected {%endif%}>Hotel</option>
+
+                                    </select>
+                                </div>
+
+                               <div class="col-sm-2">
+                                    <select name="date_type" class="form-control myselect">
+                                         <option value="0">Select Date Type</option>
+                                         <option value="0" {% if data.date_type == '0' %} selected {%endif%} >All</option>
+                                         <option value="1" {% if data.date_type == '1' %} selected {%endif%} >Booking Date</option>
+                                         <option value="2" {% if data.date_type == '2' %} selected {%endif%} >Service Date</option>
+                                    </select>
+                                </div>
+
+                               <div class="col-sm-2">
+                                    <input required style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" class="form-control datepicker_download" autocomplete="off" name="from_date" value="{{data.from_date}}" placeholder="From Date">
+                                </div>
+
+                               <div class="col-sm-2">
+                                    <input required style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" class="form-control datepicker_download" autocomplete="off" value="{{data.to_date}}" name="to_date" placeholder="To Date">
+                                </div>
+
+                               <div class="col-sm-2">
+                                    <input style="line-height: 12px; border-radius: 4px; border-color: darkgray;" type="submit" class="btn btn-info"  value="Bill Search">
+                                </div>
+
+
+
+
+                        </div>
+ </fieldset>
+</div>
+</form>
+           <div class="row">
+
+               <div class="col-sm-10">
+
+
+                </div>
+
+               <div class="col-sm-2">
+                    <form action="/Corporate/Admin/reports/download-invoice-report"  method="post" >
+
+                        <input type="hidden" name="corporate_id"  value="{{user.corporate_id}}">
+
+                        <input type="hidden" name="service_type"  value="{{ data.service_type }}">
+
+                        <input type="hidden" name="date_type"  value="{{ data.date_type }}">
+
+                        <input type="hidden" name="from_date"  value="{{ data.from_date }}">
+
+                        <input type="hidden" name="to_date"  value="{{ data.to_date }}">
+
+                        <input style="line-height: 12px; align: right; border-radius: 4px; border-color: darkgray;" type="submit" class="btn btn-info"  value="Export To Excel">
+
+                    </form>
+
+                </div>
+
+           </div>
+
+
+
+                    <div class="card-body ">
+
+                        <div class="table-scrollable table-bordered">
+                           <table id="example1" class="display full-width table-striped">
+                                <thead>
+                                <tr>
+                                <th>Booking ID</th>
+                               <th>Assessment Code</th>
+                               <th>Assessment City</th>
+                               <th>From City</th>
+                               <th>To City</th>
+                                <th>SPOC Name</th>
+                               <th>Passenger Name</th>
+                               <th>Passenger Contact</th>
+                               <th>Booking Date time</th>
+                              <th>Boarding Date time</th>
+                               <th>Boarding Point</th>
+                               <th>Portal Used</th>
+                               <th>Operator Name</th>
+                               <th>Operator Contact</th>
+                               <th>Ticket No.</th>
+                               <th>PNR No.</th>
+                               <th>Bus Type</th>
+                               <th>Ticket Price</th>
+                               <th>Cancellation Charge</th>
+                               <th>Tax On Management Fee</th>
+                               <th>Tax On Management Fee Percentage</th>
+                               <th>Sub Total</th>
+                               <th>Vendor Amount</th>
+                               <th>Vendor Commisiion</th>
+
+                               <th>Commission Earned</th>
+                               <th>Invoice Status</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                {% for be in Reports %}
+                                <tr>
+
+                               <td>{{be.reference_no}}</td>
+                               <td>{{be.assessment_code}}</td>
+                               <td>{{be.assessment_city_id}}</td>
+                               <td>{{be.pickup_location}}</td>
+                               <td>{{be.drop_location}}</td>
+                               <td>{{be.spoc_id}}</td>
+                               <td>{{be.user_name}}</td>
+                               <td>{{be.user_contact}}</td>
+                               <td>{{be.booking_datetime}}</td>
+                               <td>{{be.boarding_datetime}}</td>
+                               <td>{{be.boarding_point}}</td>
+                               <td>{{be.portal_used}}</td>
+                               <td>{{be.operator_name}}</td>
+                               <td>{{be.operator_contact}}</td>
+                               <td>{{be.ticket_no}}.</td>
+                               <td>{{be.pnr_no}}</td>
+                               <td>{{be.assign_bus_type_id}}</td>
+                               <td>{{be.ticket_price}}</td>
+                               <td>{{be.management_fee}}</td>
+                               <td>{{be.tax_on_management_fee}}</td>
+                               <td>{{be.tax_on_management_fee_percentage}}</td>
+                               <td>{{be.sub_total}}</td>
+                               <td>{{be.vi_ticket_price}}</td>
+                               <td>{{be.vender_commission}}</td>
+
+                               <td>{{be.vender_commission}}</td>
+                               <td>{{be.invoice_status}}</td>
+
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- end page content -->
+
+
+{% else %}
+<p>Welcome, new user. Please log in.<a href="/login">Login</a></p>
+{% endif %}
+
+
+
+{% endblock %}
+
+

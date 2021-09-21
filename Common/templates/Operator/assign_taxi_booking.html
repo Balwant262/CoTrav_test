@@ -1,0 +1,593 @@
+{% extends 'Operator/layout/header.html' %}
+
+{% block content %}
+
+{% if user %}
+<style>
+
+.
+.autocomplete-active:hover{
+background:white;
+}
+#myInputautocomplete-list{
+z-index:100;
+display:block;
+cursor: pointer;
+list-style:
+}
+    .autocomplete-items{
+     border: solid 3px lightgray;
+    overflow: auto;
+    padding:8px;
+    line-height:30px;
+     border-collapse: collapse;
+  border-spacing: 0;
+ z-index:99
+ display:block;
+ border-radius:6px;
+ background-color:#dee2e6;
+ font-size:13px;
+  color: #041261;
+ }
+ .autocomplete-items div:hover,
+.autocomplete-active {
+  color: #041261;
+  background-color:#9ba9f7;
+
+
+}
+
+
+
+</style>
+
+<!-- start page content -->
+{% include 'cotrav_alert_message.html' %}
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+        <div class="text-center">
+     <div style="font-size:14px; font-weight:bold;">
+         Assign Taxi Booking
+         </div>
+   </div>
+
+{% for booking in bookings %}
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-head card-topline-aqua">
+                        <header>Basic Details : <strong style="font-size:14px;">{{ booking.reference_no }}</strong></header>
+                    </div>
+                    <div class="card-body no-padding height-9">
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 control-label">Booking ID</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" name="group_name" placeholder="Group Name"
+                                     readonly  type="text" value="{{ booking.reference_no }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 control-label">Tour Type</label>
+                            <div class="col-sm-7">
+                                    {% if booking.tour_type == 1 %}
+                                     <input readonly class="form-control"name="tour_type" type="text" value="Radio">
+                                    {% elif booking.tour_type == 2 %}
+                                     <input readonly class="form-control" name="tour_type" type="text" value="Local">
+                                    {% else %}
+                                    <input readonly class="form-control" name="tour_type" type="text" value="Outstation">
+                                    {% endif %}
+                            </div>
+
+                        </div>
+
+                         <div class="form-group row">
+                            <label class="col-sm-5 control-label">City Name</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" name="group_name" placeholder="City Name"
+                                     readonly  type="text" value="{{ booking.city_name }}">
+                            </div>
+                        </div>
+
+                         <div class="form-group row">
+                            <label class="col-sm-5 control-label">Pickup Location</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" name="pickup_location" placeholder="Pickup Location"
+                                     readonly  type="text" value="{{ booking.pickup_location }}">
+                            </div>
+                        </div>
+
+                         <div class="form-group row">
+                            <label class="col-sm-5 control-label">Drop Location</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" name="drop_location" placeholder="Drop Location"
+                                     readonly  type="text" value="{{ booking.drop_location }}">
+                            </div>
+                        </div>
+
+                         <div class="form-group row">
+                            <label class="col-sm-5 control-label">Pickup Date | Time</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" name="pickup_datetime" placeholder="https://cotrav.co"
+                                     readonly  type="text" value="{{ booking.pickup_datetime }}">
+                            </div>
+                        </div>
+
+
+                         <div class="form-group row">
+                            <label class="col-sm-5 control-label">Booking Date | Time</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" name="booking_date" placeholder="Booking Date | Time"
+                                     readonly  type="text" value="{{ booking.booking_date }}">
+                            </div>
+                        </div>
+
+                         <div class="form-group row">
+                            <label class="col-sm-5 control-label">No Of Seats</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" name="no_of_seats" placeholder="No Of Seats"
+                                     readonly  type="text" value="{{ booking.no_of_seats }}">
+                            </div>
+                        </div>
+
+                         <div class="form-group row">
+                            <label class="col-sm-5 control-label">Booking Reason</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" name="reason_booking" placeholder="Booking Reason"
+                                     readonly  type="text" value="{{ booking.reason_booking }}">
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="col-md-4">
+
+                <div class="card">
+                    <div class="card-head card-topline-aqua">
+                        <header>Assign Details</header>
+                    </div>
+                    <div class="card-body no-padding height-9">
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 control-label">Booking ID/Account Used</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" name="vendor_booking_id" >
+                            </div>
+                        </div>
+                     <form method="post" action="/operator/assign-taxi-booking/{{booking.id}}">
+                          <input type="hidden" class="col-sm-8 form-control" name="user_id"  value="{{user.id }}">
+                          <input type="hidden" class="col-sm-8 form-control" name="booking_id"  value="{{booking.id}}">
+                          <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+                         <input type="hidden" name="tour_typ_save" value="{{booking.tour_type}}">
+
+                         <div class="form-group row">
+                            <label class="col-sm-5 control-label">Operator Name</label>
+                            <div class="col-sm-7">
+                                 <input id="operators"  class="form-control" type="text" name="operator_id" readonly value="{{booking.operator_name}}" autocomplete="off" placeholder="Operator Name">
+<!--
+ <select name="operator_id" class="form-control myselect" required>-->
+<!--                                    <option value="">Select</option>-->
+<!--                                    {% for operator in operators %}-->
+<!--                                    {% if operator.service_type_id == booking.tour_type %}-->
+<!--                                        <option value="{{operator.id}}">{{operator.operator_name}} ({{operator.operator_contact}})</option>-->
+<!--                                    {% endif %}-->
+<!--                                    {% endfor %}-->
+<!--                                </select>-->
+                            </div>
+                        </div>
+
+                           <div class="form-group row">
+                            <label class="col-sm-5 control-label">Driver Name</label>
+                            <div class="col-sm-7">
+                                 <input id="driver_id"  class="form-control" type="text" name="driver_id" something="9999999999" value="" autocomplete="off" placeholder="Driver Name">
+<!--                               <select name="driver_id" class="form-control myselect" required>-->
+<!--                                   <option value="">Select</option>-->
+<!--                                    {% for operator_driver in operator_drivers %}-->
+<!--                                        <option value="{{operator_driver.id}}">{{operator_driver.driver_name}} ({{operator_driver.driver_contact}})</option>-->
+<!--                                    {% endfor %}-->
+<!--                                </select>-->
+                            </div>
+                        </div>
+
+                          <div class="form-group row">
+                            <label class="col-sm-5 control-label">Driver Contact</label>
+                            <div class="col-sm-7">
+                               <input class="form-control" name="driver_contact" id="driver_contact" placeholder="Driver Contact">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 control-label">Taxi Reg No</label>
+                            <div class="col-sm-7">
+                                <input id="taxi_id"  class="form-control" type="text" name="taxi_id" value="" autocomplete="off" placeholder="Taxi Reg No">
+<!--                                <select name="taxi_id" class="form-control myselect" required>-->
+<!--                                   <option value="">Select</option>-->
+<!--                                    {% for taxi in taxis %}-->
+<!--                                        <option value="{{taxi.id}}">{{taxi.taxi_reg_no}} ( {{taxi.brand_name}}({{taxi.model_name}}) )</option>-->
+<!--                                    {% endfor %}-->
+<!--                                </select>-->
+                            </div>
+                        </div>
+
+                          <div class="form-group row">
+                            <label class="col-sm-5 control-label">Taxi Model</label>
+                            <div class="col-sm-7">
+                                <input id="taxi_model"  class="form-control" type="text" name="taxi_model" value="" autocomplete="off" placeholder="Taxi Model">
+<!--                                <select name="taxi_id" class="form-control myselect" required>-->
+<!--                                   <option value="">Select</option>-->
+<!--                                    {% for taxi in taxis %}-->
+<!--                                        <option value="{{taxi.id}}">{{taxi.taxi_reg_no}} ( {{taxi.brand_name}}({{taxi.model_name}}) )</option>-->
+<!--                                    {% endfor %}-->
+<!--                                </select>-->
+                            </div>
+                        </div>
+
+                           <div class="form-group row">
+                            <label class="col-sm-5 control-label">Taxi Type</label>
+                            <div class="col-sm-7">
+                                <input id="taxi_types"  class="form-control" type="text" name="taxi_types" value="" autocomplete="off" placeholder="Taxi Type">
+<!--                                <select name="taxi_id" class="form-control myselect" required>-->
+<!--                                   <option value="">Select</option>-->
+<!--                                    {% for taxi in taxis %}-->
+<!--                                        <option value="{{taxi.id}}">{{taxi.taxi_reg_no}} ( {{taxi.brand_name}}({{taxi.model_name}}) )</option>-->
+<!--                                    {% endfor %}-->
+<!--                                </select>-->
+                            </div>
+                        </div>
+
+
+
+
+
+
+                         <div class="form-group row">
+                            <label class="col-sm-5 control-label">Send Client SMS</label>
+                            <div class="col-sm-7">
+                                <select class="form-control" name="is_client_sms">
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                        </div>
+
+                         <div class="form-group row">
+                            <label class="col-sm-5 control-label">Send Client Email</label>
+                            <div class="col-sm-7">
+                                 <select class="form-control" name="is_client_email">
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                        </div>
+
+                         <div class="form-group row">
+                            <label class="col-sm-5 control-label">Send Driver SMS</label>
+                            <div class="col-sm-7">
+                                <select class="form-control" name="is_driver_sms">
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                        </div>
+
+                         <div class="form-group">
+                            <div class="offset-md-3 col-md-9">
+                                <button type="submit" class="btn btn-info">Assign</button>
+                            </div>
+                        </div>
+
+
+                        </form>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+             <div class="col-md-4">
+
+                 <div class="card">
+                    <div class="card-head card-topline-aqua">
+                        <header>Passenger Details</header>
+                    </div>
+                    <div class="card-body no-padding height-9">
+
+                         {% for passanger in booking.Passangers %}
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 control-label">Passenger Name {{ forloop.counter }}</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" name="group_name" placeholder="Name" readonly
+                                       type="text" value="{{ passanger.employee_name|default:'' }}">
+                            </div>
+                        </div>
+
+                          <div class="form-group row">
+                            <label class="col-sm-5 control-label">Passenger Contact Email {{ forloop.counter }}</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" name="group_name" placeholder="Contact Email" readonly
+                                       type="text" value="{{ passanger.employee_email|default:''}}">
+                            </div>
+                        </div>
+
+                          <div class="form-group row">
+                            <label class="col-sm-5 control-label">Passenger Contact Number {{ forloop.counter }}</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" name="group_name" placeholder="Group Name" readonly
+                                       type="text" value="{{ passanger.employee_contact|default:''}}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 control-label">Passenger Age {{ forloop.counter }}</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" name="group_name" placeholder="Age" readonly
+                                       type="text" value="{{ passanger.age|default:''}}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 control-label">Passenger Gender {{ forloop.counter }}</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" name="group_name" placeholder="Gender" readonly
+                                       type="text" value="{{ passanger.gender|default:''}}">
+                            </div>
+                        </div>
+
+
+                        {% endfor %}
+
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+
+
+            <div class="col-md-4">
+
+                  <div class="card">
+                    <div class="card-head card-topline-aqua">
+                        <header>SPOC Details</header>
+                    </div>
+                    <div class="card-body no-padding height-9">
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 control-label">SPOC Name</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" name="group_name" readonly  type="text" value="{{ booking.user_name }}">
+                            </div>
+                        </div>
+
+                         <div class="form-group row">
+                            <label class="col-sm-5 control-label">SPOC Email</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" name="user_email" readonly  type="text" value="{{ booking.user_email }}">
+                            </div>
+                        </div>
+
+                         <div class="form-group row">
+                            <label class="col-sm-5 control-label">SPOC Contact</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" name="user_contact" readonly  type="text" value="{{ booking.user_contact }}">
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+
+
+
+
+
+ {% endfor %}
+
+    </div>
+</div>
+<!-- end page content -->
+
+
+{% else %}
+<p>Welcome, new user. Please log in.<a href="/login">Login</a></p>
+{% endif %}
+
+<script type="text/javascript">
+
+$('#taxi_details').change(function(){
+     var taxi_detail = $('#taxi_details option:selected').data('details');
+    temp = taxi_detail.split(',');
+
+    if(temp[0] != '' ){
+        $("#taxi_reg_no").val(temp[0]);
+        $("#garage_location").val(temp[1]);
+        $("#garage_distance").val(temp[2]);
+     }
+     else{
+        $("#taxi_reg_no").val('');
+        $("#garage_location").val('');
+        $("#garage_distance").val('');
+     }
+});
+ </script>
+
+
+<script>
+function autocomplete(inp, arr) {
+  /*the autocomplete function takes two arguments,
+  the text field element and an array of possible autocompleted values:*/
+  var currentFocus;
+  /*execute a function when someone writes in the text field:*/
+  inp.addEventListener("input", function(e) {
+      var a, b, i, val = this.value ;
+      /*close any already open lists of autocompleted values*/
+      closeAllLists();
+      if (!val) { return false;}
+      currentFocus = -1;
+      /*create a DIV element that will contain the items (values):*/
+      a = document.createElement("DIV");
+      a.setAttribute("id", this.id + "autocomplete-list");
+      a.setAttribute("class", "autocomplete-items");
+      /*append the DIV element as a child of the autocomplete container:*/
+      this.parentNode.appendChild(a);
+      /*for each item in the array...*/
+
+      for (i = 0; i < arr.length; i++) {
+        /*check if the item starts with the same letters as the text field value:*/
+
+        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+
+             var arr2 = arr[i].split("|");
+
+          /*create a DIV element for each matching element:*/
+          b = document.createElement("DIV");
+          /*make the matching letters bold:*/
+          b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+          b.innerHTML += arr2[0].substr(val.length);
+          /*insert a input field that will hold the current array item's value:*/
+          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+          /*execute a function when someone clicks on the item value (DIV element):*/
+          b.addEventListener("click", function(e) {
+              /*insert the value for the autocomplete text field:*/
+                val2 = this.getElementsByTagName("input")[0].value;
+
+                 var arr = val2.split("|");
+
+              inp.value = arr[0];
+
+              if (inp.id == "driver_id")
+                {
+                    $('#driver_contact').val(arr[1]);
+                    $('#taxi_id').val(arr[2]);
+                    $('#taxi_model').val(arr[3]);
+                    $('#taxi_types').val(arr[4]);
+                }
+
+              /*close the list of autocompleted values,
+              (or any other open lists of autocompleted values:*/
+              closeAllLists();
+          });
+          a.appendChild(b);
+        }
+      }
+  });
+  /*execute a function presses a key on the keyboard:*/
+  inp.addEventListener("keydown", function(e) {
+      var x = document.getElementById(this.id + "autocomplete-list");
+      if (x) x = x.getElementsByTagName("div");
+      if (e.keyCode == 40) {
+        /*If the arrow DOWN key is pressed,
+        increase the currentFocus variable:*/
+        currentFocus++;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 38) { //up
+        /*If the arrow UP key is pressed,
+        decrease the currentFocus variable:*/
+        currentFocus--;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 13) {
+        /*If the ENTER key is pressed, prevent the form from being submitted,*/
+        e.preventDefault();
+        if (currentFocus > -1) {
+          /*and simulate a click on the "active" item:*/
+          if (x) x[currentFocus].click();
+        }
+      }
+  });
+  function addActive(x) {
+    /*a function to classify an item as "active":*/
+    if (!x) return false;
+    /*start by removing the "active" class on all items:*/
+    removeActive(x);
+    if (currentFocus >= x.length) currentFocus = 0;
+    if (currentFocus < 0) currentFocus = (x.length - 1);
+    /*add class "autocomplete-active":*/
+    x[currentFocus].classList.add("autocomplete-active");
+  }
+  function removeActive(x) {
+    /*a function to remove the "active" class from all autocomplete items:*/
+    for (var i = 0; i < x.length; i++) {
+      x[i].classList.remove("autocomplete-active");
+    }
+  }
+  function closeAllLists(elmnt) {
+    /*close all autocomplete lists in the document,
+    except the one passed as an argument:*/
+    var x = document.getElementsByClassName("autocomplete-items");
+    for (var i = 0; i < x.length; i++) {
+      if (elmnt != x[i] && elmnt != inp) {
+        x[i].parentNode.removeChild(x[i]);
+      }
+    }
+  }
+  /*execute a function when someone clicks in the document:*/
+  document.addEventListener("click", function (e) {
+      closeAllLists(e.target);
+  });
+}
+
+/*An array containing all the country names in the world:*/
+var operators = [
+{% for operator in operators %}
+"{{operator.operator_name}}",
+{% endfor %}
+]
+
+var drivers = [
+{% for drivers in operator_drivers %}
+"{{drivers.driver_name}}|{{drivers.driver_contact}}|{{drivers.taxi_reg_no}}|{{drivers.brand_name}} {{drivers.model_name}}|{{drivers.name}}",
+{% endfor %}
+]
+
+var models = [
+{% for model in models %}
+"{{model.model_name}}",
+{% endfor %}
+]
+
+var taxi_types = [
+{% for taxi_type in taxi_types %}
+"{{taxi_type.name}}",
+{% endfor %}
+]
+
+var taxis = [
+{% for taxi in taxis %}
+"{{taxi.taxi_reg_no}}",
+{% endfor %}
+]
+
+autocomplete(document.getElementById("operators"), operators);
+autocomplete(document.getElementById("driver_id"), drivers);
+autocomplete(document.getElementById("taxi_id"), taxis);
+autocomplete(document.getElementById("taxi_model"), models);
+autocomplete(document.getElementById("taxi_types"), taxi_types);
+</script>
+
+
+ {% endblock %}

@@ -1,0 +1,620 @@
+{% extends 'Agent/layout/header.html' %}
+
+{% block content %}
+
+
+{% if user %}
+<!-- start page content -->
+{% include 'cotrav_alert_message.html' %}
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+      <div class="text-center">
+                 <div style="font-size:14px; font-weight:bold;">
+                     {% if spoc %}
+                      Edit SPOC Details
+                      {% else %}
+                     Add New SPOC Details
+                     {% endif %}
+                     </div>
+            </div>
+
+        <form method="post" action="/agents/add-spoc/0" id="model_serialize_update">
+            {% csrf_token %}
+            <input type="hidden" class="col-sm-8 form-control" name="user_id" value="{{user.id }}">
+ <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+            {% if spoc %}
+            {% for spoc in spoc %}
+            <input type="hidden" class="col-sm-8 form-control" name="spoc_id" value="{{spoc.id }}">
+            {% endfor %}
+            {% endif %}
+            <div class="row">
+                <div class="col-md-4 col-sm-4">
+                    <div class="card card-box">
+                        <div class="card-head">
+                            <header>General Information</header>
+                            <button id="panel-button"
+                                    class="mdl-button mdl-js-button mdl-button--icon pull-right"
+                                    data-upgraded=",MaterialButton">
+                                <i class="material-icons">more_vert</i>
+                            </button>
+
+                        </div>
+                        <div class="card-body " id="bar-parent">
+                              <div class="form-group row" id="corporate_id1">
+                                    <label class="col-sm-4 ">Company Name</label>
+                                        <select class="form-control col-sm-8  myselect" style="width:66%"  name="corporate_id"  id="corporate_id" required>
+                                            <option value="">Select Company</option>
+                                            {% if spoc %}
+                                            {% for spoc in spoc %}
+
+                                            {% for company in companies %}
+
+                                            <option value="{{company.id}}" {% if company.id == spoc.corporate_id %}  selected {%endif%}>{{company.corporate_name}}</option>
+                                            {% endfor %}
+                                            {% endfor %}
+                                            {% else %}
+
+                                           {% for company in companies %}
+                                            <option value="{{company.id}}">{{company.corporate_name}}</option>
+                                            {% endfor %}
+
+                                            {% endif %}
+                                        </select>
+                                </div>
+
+                            <div class="form-group row " id="row_group">
+                                <label class="col-sm-4" >Select Group Name</label>
+                                <select class="form-control col-sm-8  myselect" style="width:66%"  name="group_id" id="group_id">
+                                    <option value="">Select Group</option>
+                                    {% if spoc %}
+                                    {% for spoc in spoc %}
+                                    {% for group in groups %}
+                                        <option value="{{group.id}}" {% if group.id == spoc.group_id %} selected {%endif%}>{{group.group_name}}</option>
+                                    {% endfor %}
+                                    {% endfor %}
+                                    {% else %}
+
+                                    {% for group in groups %}
+                                        <option value="{{group.id}}">{{group.group_name}}</option>
+                                    {% endfor %}
+
+                                    {% endif %}
+                            </select>
+                            </div>
+
+                            <div class="form-group row" id="row_subgroup">
+                                <label class="col-sm-4" >SubGroup Group</label>
+                                <select class="form-control col-sm-8  myselect" style="width:66%"  name="subgroup_id" id="subgroup_id">
+                                    <option value="">Select SubGroup</option>
+                                    {% if spoc %}
+                                    {% for spoc in spoc %}
+                                    {% for group in subgroups %}
+                                    <option value="{{group.id}}" {% if group.id == spoc.subgroup_id %} selected {%endif%}>{{group.subgroup_name}}</option>
+                                    {% endfor %}
+                                    {% endfor %}
+                                    {% else %}
+                                    {% for group in subgroups %}
+                                    <option value="{{group.id}}">{{group.subgroup_name}}</option>
+                                    {% endfor %}
+                                    {% endif %}
+                                </select>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >User CID</label>
+                                {% if spoc %}
+                                {% for spoc in spoc %}
+                                <input type="text" class="col-sm-8 form-control" name="user_cid" value="{{spoc.user_cid|default:''}}"
+                                       placeholder="User CID">
+                                {% endfor %}
+                                {% else %}
+                                    <input type="text" class="col-sm-8 form-control" name="user_cid"
+                                       placeholder="User CID">
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >User Name</label>
+                                {% if spoc %}
+                                {% for spoc in spoc %}
+                                <input type="text" class="col-sm-8 form-control" name="user_name" value="{{spoc.user_name|default:''}}" required
+                                       placeholder="User Name">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="user_name" required
+                                       placeholder="User Name">
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >User Contact</label>
+                                {% if spoc %}
+                                {% for spoc in spoc %}
+                                <input type="text" class="col-sm-8 form-control" name="user_contact" value="{{spoc.user_contact|default:''}}" required
+                                       placeholder="User Contact">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="user_contact" required
+                                       placeholder="User Contact">
+                                {% endif %}
+                            </div>
+
+                             <div class="form-group row">
+                                <label class="col-sm-4" >User Email</label>
+                                 {% if spoc %}
+                                {% for spoc in spoc %}
+                                <input type="email" class="col-sm-8 form-control" name="email" value="{{spoc.email|default:''}}" required
+                                       placeholder="User Email">
+                                 {% endfor %}
+                                {% else %}
+                                 <input type="email" class="col-sm-8 form-control" name="email" required
+                                       placeholder="User Email">
+                                  {% endif %}
+                            </div>
+
+
+
+                                <input type="hidden" class="col-sm-8 form-control" value="0" name="budget"
+                                       placeholder="Budget">
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-4 col-sm-4">
+                    <div class="card card-box">
+                        <div class="card-head">
+                            <header>Access Details</header>
+                            <button id="panel-button2"
+                                    class="mdl-button mdl-js-button mdl-button--icon pull-right"
+                                    data-upgraded=",MaterialButton">
+                                <i class="material-icons">more_vert</i>
+                            </button>
+                            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                                data-mdl-for="panel-button2">
+                                <li class="mdl-menu__item"><i class="material-icons">assistant_photo</i>Action</li>
+                                <li class="mdl-menu__item"><i class="material-icons">print</i>Another action</li>
+                                <li class="mdl-menu__item"><i class="material-icons">favorite</i>Something else here
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body " id="bar-parent1">
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Radio Bookings</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control " name="is_radio">
+                                        <option value="1">Yes</option>
+                                        {% if spoc %}
+                                        {% for spoc in spoc %}
+                                            <option value="0" {% if spoc.is_radio == 0 %} selected {%endif%}>No</option>
+                                        {% endfor %}
+                                        {% else %}
+                                            <option value="0">No</option>
+                                        {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Local Bookings</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="is_local">
+                                        <option value="1">Yes</option>
+                                        {% if spoc %}
+                                        {% for spoc in spoc %}
+                                        <option value="0" {% if spoc.is_local == 0 %} selected {%endif%}>No</option>
+                                        {% endfor %}
+                                        {% else %}
+                                         <option value="0">No</option>
+                                        {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Outstation Bookings</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="is_outstation">
+                                        <option value="1">Yes</option>
+                                        {% if spoc %}
+                                        {% for spoc in spoc %}
+                                         <option value="0" {% if spoc.is_outstation == 0 %} selected {%endif%}>No</option>
+                                         {% endfor %}
+                                        {% else %}
+                                         <option value="0">No</option>
+                                        {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Bus Bookings</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="is_bus">
+                                        <option value="1">Yes</option>
+                                         {% if spoc %}
+                                        {% for spoc in spoc %}
+                                         <option value="0" {% if spoc.is_bus == 0 %} selected {%endif%}>No</option>
+                                         {% endfor %}
+                                        {% else %}
+                                         <option value="0">No</option>
+                                        {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Train Bookings</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="is_train">
+                                        <option value="1">Yes</option>
+                                         {% if spoc %}
+                                        {% for spoc in spoc %}
+                                         <option value="0" {% if spoc.is_train == 0 %} selected {%endif%}>No</option>
+                                         {% endfor %}
+                                        {% else %}
+                                         <option value="0">No</option>
+                                        {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Hotel Bookings</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="is_hotel">
+                                        <option value="1">Yes</option>
+                                         {% if spoc %}
+                                        {% for spoc in spoc %}
+                                         <option value="0" {% if spoc.is_hotel == 0 %} selected {%endif%}>No</option>
+                                         {% endfor %}
+                                        {% else %}
+                                         <option value="0">No</option>
+                                        {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Flight Bookings</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="is_flight">
+                                        <option value="1">Yes</option>
+                                         {% if spoc %}
+                                        {% for spoc in spoc %}
+                                         <option value="0" {% if spoc.is_flight == 0 %} selected {%endif%}>No</option>
+                                         {% endfor %}
+                                        {% else %}
+                                         <option value="0">No</option>
+                                        {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Meal Bookings</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="is_meal">
+                                        <option value="1">Yes</option>
+                                         {% if spoc %}
+                                        {% for spoc in spoc %}
+                                         <option value="0" {% if spoc.is_meal == 0 %} selected {%endif%}>No</option>
+                                         {% endfor %}
+                                        {% else %}
+                                         <option value="0">No</option>
+                                        {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Water Bottles Bookings</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="is_water_bottles">
+                                        <option value="1">Yes</option>
+                                         {% if spoc %}
+                                        {% for spoc in spoc %}
+                                         <option value="0" {% if spoc.is_water_bottles == 0 %} selected {%endif%}>No</option>
+                                         {% endfor %}
+                                        {% else %}
+                                         <option value="0">No</option>
+                                        {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Reverse Logistics</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="is_reverse_logistics">
+                                        <option value="1">Yes</option>
+                                         {% if spoc %}
+                                        {% for spoc in spoc %}
+                                         <option value="0" {% if spoc.is_reverse_logistics == 0 %} selected {%endif%}>No</option>
+                                         {% endfor %}
+                                        {% else %}
+                                         <option value="0">No</option>
+                                        {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Single Employee</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="has_single_employee">
+                                         <option value="0">No</option>
+                                        {% if spoc %}
+                                        {% for spoc in spoc %}
+                                         <option value="1" {% if spoc.has_single_employee == 1 %} selected {%endif%}>Yes</option>
+                                         {% endfor %}
+                                        {% else %}
+                                         <option value="1">Yes</option>
+                                        {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Is Send Email?</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="is_send_email">
+                                         <option value="0">No</option>
+                                        {% if spoc %}
+                                        {% for spoc in spoc %}
+                                         <option value="1" {% if spoc.is_send_email == 1 %} selected {%endif%}>Yes</option>
+                                         {% endfor %}
+                                        {% else %}
+                                         <option value="1">Yes</option>
+                                        {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+
+                             <div class="form-group row">
+                                <label class="col-sm-4 control-label">Is Send SMS?</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="is_send_sms">
+                                         <option value="0">No</option>
+                                        {% if spoc %}
+                                        {% for spoc in spoc %}
+                                         <option value="1" {% if spoc.is_send_sms == 1 %} selected {%endif%}>Yes</option>
+                                         {% endfor %}
+                                        {% else %}
+                                         <option value="1">Yes</option>
+                                        {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label" >Is Visa</label>
+                                 <div class="col-sm-8">
+                                {% if spoc %}
+                                {% for spoc in spoc %}
+                                    <select class="form-control" name="is_visa"  required>
+                                        <option value="0" {% if spoc.is_visa == 0 %} selected {%endif%}>No</option>
+                                        <option value="1" {% if spoc.is_visa == 1 %} selected {%endif%}>Yes</option>
+                                    </select>
+                                {% endfor %}
+                                {% else %}
+                                     <select class="form-control" style="width:66%"  name="is_visa" id="is_visa" required>
+                                        <option value="0">No</option>
+                                        <option value="1">Yes</option>
+                                    </select>
+                                {% endif %}
+                                 </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Is Frro</label>
+                                 <div class="col-sm-8">
+                                {% if spoc %}
+                                {% for spoc in spoc %}
+                                    <select class="form-control" name="is_frro"  required>
+                                        <option value="0" {% if spoc.is_frro == 0 %} selected {%endif%}>No</option>
+                                        <option value="1" {% if spoc.is_frro == 1 %} selected {%endif%}>Yes</option>
+                                    </select>
+                                {% endfor %}
+                                {% else %}
+                                     <select class="form-control" style="width:66%"  name="is_frro" id="is_frro" required>
+                                        <option value="0">No</option>
+                                        <option value="1">Yes</option>
+                                    </select>
+                                {% endif %}
+                                 </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Is Guesthouse</label>
+                                 <div class="col-sm-8">
+                                {% if spoc %}
+                                {% for spoc in spoc %}
+                                    <select class="form-control" name="is_guesthouse"  required>
+                                        <option value="0" {% if spoc.is_guesthouse == 0 %} selected {%endif%}>No</option>
+                                        <option value="1" {% if spoc.is_guesthouse == 1 %} selected {%endif%}>Yes</option>
+                                    </select>
+                                {% endfor %}
+                                {% else %}
+                                     <select class="form-control" style="width:66%"  name="is_guesthouse" id="is_guesthouse" required>
+                                        <option value="0">No</option>
+                                        <option value="1">Yes</option>
+                                    </select>
+                                {% endif %}
+                                 </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                    <div class="text-center">
+                        <input type="submit" disabled="" value="Submit" class="btn btn-info">
+                        <a href="{{request.META.HTTP_REFERER}}" class="btn btn-default">  Cancel  </a>
+                    </div>
+                </div>
+                <div class="col-sm-4"></div>
+
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- end page content -->
+
+
+{% else %}
+<p>Welcome, new user. Please log in.<a href="/login">Login</a></p>
+{% endif %}
+<script>
+$( document ).ready(function() {
+
+$('#model_serialize_update')
+.each(function(){
+$(this).data('serialized', $(this).serialize())
+})
+    .on('change input', function(){
+        $(this)
+            .find('input:submit, button:submit')
+                .attr('disabled', $(this).serialize() == $(this).data('serialized'))
+        ;
+     })
+.find('input:submit, button:submit')
+.attr('disabled', true);
+
+});
+
+$(document.body).on("change",".myselect",function(){
+  $('form')
+      .find('input:submit, button:submit')
+          .attr('disabled', $('#model_serialize_update').serialize() == $('#model_serialize_update').data('serialized'))
+  ;
+});
+
+</script>
+<script type="text/javascript">
+$("#corporate_id").change(function(){
+
+  $('#spoc_id').empty();
+  $('#group_id').empty();
+  $('#subgroup_id').empty();
+
+   var corporate_id =  $(this).val();
+
+ $.ajaxSetup({
+            headers:{
+                'Authorization': "Token {{request.session.agent_access_token}}",
+                'usertype': 10
+            }
+
+        });
+
+   var get_corporate_details = '/api/'+'view_company'
+
+
+//   For Company
+
+     $.post(get_corporate_details,{ corporate_id: corporate_id },
+      function(data)
+      {
+       //alert(data['Corporates']);
+       if(data['Corporates'].length != 0){
+        company = data['Corporates']
+           //alert(company[0].has_auth_level);
+        if(company[0].has_auth_level == 1){
+
+if(company[0].no_of_auth_level == 1){
+//       For SubGroup
+
+
+    var_subgroups = '/api/'+'subgroups'
+     $.post(var_subgroups,{ corporate_id: corporate_id },
+      function(data)
+      {
+       //alert(data['Subgroups']);
+       if(data['Subgroups'].length != 0){
+        spocs = data['Subgroups']
+         for (var i=0;i<spocs.length;i++) {
+            $('#subgroup_id').append($("<option value='"+spocs[i].id+" '>"+spocs[i].subgroup_name+"</option>"));
+
+         }
+         $('#row_subgroup').show();
+       }else{
+        alert('No SubGroup Available')
+       }
+       });
+}else{
+
+//   For Entity
+
+   var_url = '/api/'+'groups'
+     $.post(var_url,{ corporate_id: corporate_id },
+      function(data)
+      {
+       //alert(data['Groups']);
+       if(data['Groups'].length != 0){
+        entities = data['Groups']
+         for (var i=0;i<entities.length;i++) {
+            $('#group_id').append($("<option value='"+entities[i].id+"'>"+entities[i].group_name+"</option>"));
+         }
+         $('#row_group').show();
+       }else{
+        alert('No Group Available')
+       }
+       });
+
+//       For SubGroup
+
+
+    var_subgroups = '/api/'+'subgroups'
+     $.post(var_subgroups,{ corporate_id: corporate_id },
+      function(data)
+      {
+       //alert(data['Subgroups']);
+       if(data['Subgroups'].length != 0){
+        spocs = data['Subgroups']
+         for (var i=0;i<spocs.length;i++) {
+            $('#subgroup_id').append($("<option value='"+spocs[i].id+" '>"+spocs[i].subgroup_name+"</option>"));
+         }
+         $('#row_subgroup').show();
+       }else{
+        alert('No SubGroup Available')
+       }
+       });
+
+
+
+}
+
+
+
+
+        }else{
+
+            $('#row_group').hide();
+            $('#row_subgroup').hide();
+        }
+
+       }
+       });
+
+
+
+});
+</script>
+
+{% endblock %}

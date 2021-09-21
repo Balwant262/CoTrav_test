@@ -1,0 +1,469 @@
+{% extends 'Company/Approver_1/layout/header.html' %}
+
+{% block content %}
+
+{% if user %}
+{% load datetime_format %}
+<!-- start page content -->
+
+
+<!--{{bookings}}-->
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+                 <div class="text-center">
+                 <div style="font-size:14px; font-weight:bold;">
+                     Guesthouse Booking Details
+                     </div>
+            </div>
+
+
+{% for booking in bookings %}
+
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-head card-topline-aqua">
+                        <header>Basic Details : <strong style="font-size:14px;">{{ booking.reference_no }}</strong></header>
+                    </div>
+                    <div class="card-body no-padding height-9">
+
+                        <div class="form-group row">
+							 <table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+								  <tr>
+                                    <td>Booking ID</td>
+                                    <td>{{ booking.reference_no }}</td>
+                                </tr>
+
+								 <tr>
+                                    <td>From City Name</td>
+                                    <td>{{ booking.from_city_name }}</td>
+                                </tr>
+
+                                 <tr>
+                                    <td>Preferred Area</td>
+                                    <td>{{ booking.preferred_area_name }}</td>
+                                </tr>
+								<tr>
+                                    <td>Check IN DateTime</td>
+                                    <td>{{ booking.checkin_datetime |datetime_format}}
+                                    </td>
+                                </tr>
+
+                                 <tr>
+                                    <td>Check Out DateTime</td>
+                                    <td>{{ booking.checkout_datetime |datetime_format}}
+                                    </td>
+                                </tr>
+
+                                 <tr>
+                                    <td>Booking Date | Time</td>
+                                    <td>{{ booking.booking_datetime |datetime_format}}</td>
+                                </tr>
+								 <tr>
+                                    <td>No Of Nights</td>
+                                    <td>{{ booking.no_of_nights }}</td>
+                                </tr>
+								<tr>
+                                    <td>Created By:</td>
+                                    <td>
+                                        {% with booking.ActionLogs|first as first_object %}
+                                            {{ first_object.employee_name }} ({{ first_object.name }})
+                                        {% endwith %}
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <td>Created Date | Time</td>
+                                    <td>
+                                        {% with booking.ActionLogs|first as first_object %}
+                                            {{ first_object.action_date |datetime_format}}
+                                        {% endwith %}
+                                    </td>
+                                </tr>
+								<tr>
+                                    <td>Booking Reason</td>
+                                    <td>{{ booking.reason_booking }}</td>
+                                </tr>
+								 <tr>
+                                    <td>Client Status</td>
+                                    <td>{{ booking.client_status }}</td>
+                                </tr>
+								 <tr>
+                                    <td>CoTrav Status</td>
+                                    <td>{{ booking.cotrav_status }}</td>
+                                </tr>
+
+                                 <tr>
+                                    <td>Client Billing Entity</td>
+                                    <td>
+										 <select class="form-control myselect" name="taxitype_id" style="width:100%;" required>
+                                            <option value="">Select Client Billing Entity</option>
+                                           {% for entity in booking.ClientEntity %}
+                                            <option value="{{entity.id}}" {% if entity.id == booking.billing_entity_id %}  selected {%endif%}>{{entity.entity_name}}</option>
+                                            {% endfor %}
+                                        </select>
+									</td>
+                                </tr>
+
+
+
+							 </table>
+                        </div>
+                    </div>
+                </div>
+
+
+
+			</div>
+
+
+             <div class="col-md-3">
+
+
+
+
+
+
+                 <div class="card">
+                    <div class="card-head card-topline-aqua">
+                        <header>SPOC Details</header>
+                    </div>
+                    <div class="card-body no-padding height-9">
+
+                        <div class="form-group row">
+							<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+								 <tr>
+                                    <td>Employee ID</td>
+                                    <td>{{ booking.user_cid }}</td>
+                                </tr>
+
+								  <tr>
+                                    <td>SPOC Name</td>
+                                    <td>{{ booking.user_name }}</td>
+                                </tr>
+
+								 <tr>
+                                    <td>Contact</td>
+                                    <td>{{ booking.user_contact }}</td>
+                                </tr>
+								 <tr>
+                                    <td>Email Id</td>
+                                    <td>{{ booking.user_email }}</td>
+                                </tr>
+							 </table>
+                    </div>
+                </div>
+            </div>
+
+
+                 <div class="card">
+                    <div class="card-head card-topline-aqua">
+                        <header>Comment Details</header>
+                    </div>
+                    <div class="card-body no-padding height-9">
+
+                        <div class="form-group row">
+							<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+								  <tr>
+                                    <td>Comments</td>
+                                      <td>
+                                    {% with booking.ActionLogs|first as first_object %}
+                                             <b> {{ first_object.employee_name }} </b> [ {{first_object.action_date |datetime_format}} ]: {{booking.reason_booking}}
+                                        {% endwith %}
+
+                                      </td>
+
+                                </tr>
+
+							 </table>
+                        </div>
+
+                    </div>
+                    </div>
+
+
+            </div>
+
+
+
+            <div class="col-md-5">
+
+                 <div class="card">
+                    <div class="card-head card-topline-aqua">
+                        <header>Passenger Details</header>
+                    </div>
+                    <div class="card-body no-padding height-9">
+
+						<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+
+							<tr>
+									<th>  Name  </th>
+									<th>  Email Id </th>
+									<th>  Contact  </th>
+									<th>  Age   </th>
+									<th>  Gender </th>
+
+							</tr>
+
+							{% for passanger in booking.Passangers %}
+								<tr>
+                                <td>{{ passanger.employee_name|default:'' }}</td>
+								<td>{{ passanger.employee_email|default:''}}</td>
+							    <td>{{ passanger.employee_contact|default:''}}</td>
+								<td>{{ passanger.age|default:''}}</td>
+							    <td>{{ passanger.gender|default:''}}</td>
+
+								</tr>
+							{% endfor %}
+
+
+						 </table>
+
+                    </div>
+                </div>
+
+
+                  <div class="card">
+                    <div class="card-head card-topline-aqua">
+                        <header>Assigned Guesthouse Details</header>
+                    </div>
+                    <div class="card-body no-padding height-9">
+
+                        <div class="form-group row">
+
+							<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+
+                                <tr>
+                                    <td>Guesthouse ID:</td>
+                                    <td>{{ booking.guest_house_id|default:'NA' }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Guesthouse Code:</td>
+                                    <td>{{ booking.guest_house_code|default:'NA' }}</td>
+                                </tr>
+
+								 <tr>
+                                    <td>Guesthouse Name: </td>
+                                    <td>{{ booking.guest_house_name|default:'NA' }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Guesthouse City:</td>
+                                    <td>{{ booking.from_city_name|default:'NA' }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Guesthouse Address</td>
+                                    <td>{{ booking.area_location|default:'NA'}}</td>
+                                </tr>
+
+
+							 </table>
+                        </div>
+                    </div>
+                    </div>
+
+
+                 <div class="card">
+                    <div class="card-head card-topline-aqua">
+                        <header>Room Details</header>
+                    </div>
+                    <div class="card-body no-padding height-9">
+
+                        <div class="form-group row">
+
+							<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+
+                                <tr>
+                                    <td>Room Number:</td>
+                                    <td>{{ booking.room_number|default:'NA' }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Room Name:</td>
+                                    <td>{{ booking.room_name|default:'NA' }}</td>
+                                </tr>
+
+								 <tr>
+                                    <td>Room Code: </td>
+                                    <td>{{ booking.room_code|default:'NA' }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Room Size Title:</td>
+                                    <td>{{ booking.title|default:'NA' }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Room Size Description:</td>
+                                    <td>{{ booking.description|safe }}</td>
+                                </tr>
+
+
+							 </table>
+                        </div>
+                    </div>
+                    </div>
+
+
+
+
+
+        </div>
+
+
+<div class="col-md-6">
+            <div class="card">
+                    <div class="card-head card-topline-aqua">
+                        <header>Feedback Details</header>
+                    </div>
+                    <div class="card-body no-padding height-9">
+
+                        <form action="/Corporate/Approver_1/add-booking-feedback" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="booking_id" value="{{ booking.id }}">
+                        <input type="hidden" name="user_id" value="{{user.id}}">
+                        <input type="hidden" name="booking_type" value="8">
+                        <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+                        <div class="form-group row">
+							<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+								  <tr>
+                                    <td>Feedbacks</td>
+                                      <td>
+                                    {% for tracking in booking.BookingFeedbacks %}
+                                      <b>{{ tracking.user_name|default:'' }}</b> [ {{tracking.status_date |datetime_format}} ]: <b>Rate:</b> ( {{tracking.booking_rates}} )  {{tracking.comments_text}} <br/>
+                                    {% endfor %}
+
+                                      </td>
+
+                                </tr>
+                                <tr>
+                                            <td>Select Rating</td>
+                                            <td><select class="form-control myselect" name="user_rating" id="user_rating" style="width:100%" required>
+                                                <option value="">Select Rate</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                            </select></td>
+                                        </tr>
+                                <tr>
+                                    <td>Select Feedback Options</td>
+                                    <td>
+                                        <div id="good">
+                                        <select class="form-control myselect" id="good_1" name="user_rating_text_good" style="width:100%">
+                                                <option value="">Select Feedback Options</option>
+                                                <option value="Friendly/Cooperative Staff Members">Friendly/Cooperative Staff Members</option>
+                                                <option value="Quick Check-In Process">Quick Check-In Process</option>
+                                                <option value="Clean Room">Clean Room</option>
+                                                <option value="Food Quality is Good">Food Quality is Good</option>
+                                                <option value="Quality of Service is Good">Quality of Service is Good</option>
+                                                <option value="other">Other</option>
+                                            </select>
+                                           </div>
+
+                                        <div id="bad">
+                                        <select class="form-control myselect" name="user_rating_text_bad" id="bad_1" style="width:100%" >
+                                                <option value="">Select Feedback Options</option>
+                                                <option value="Unfriendly Guesthouse Staff">Unfriendly Guesthouse Staff</option>
+                                                <option value="Delayed Check-In Process">Delayed Check-In Process</option>
+                                                <option value="Messy Room">Messy Room</option>
+                                                <option value="Food Quality is not so Good">Food Quality is not so Good</option>
+                                                <option value="Average Quality of Service">Average Quality of Service</option>
+                                                <option value="other">Other</option>
+                                            </select>
+                                            </div>
+
+                                    </td>
+                                </tr>
+
+                                <tr id="row_good_txt">
+                                    <td></td>
+                                    <td><input type="text" class="form-control" name="user_rating_text_good_txt" placeholder="Please Enter Comment.." id="good_txt"></td>
+                                </tr>
+
+                                <tr id="row_bad_txt">
+                                    <td></td>
+                                    <td><input type="text" class="form-control" name="user_rating_text_bad_txt" placeholder="Please Enter Comment.." id="bad_txt"></td>
+                                </tr>
+
+                                        <tr>
+                                            <td></td>
+                                            <td><button id="delete_btn" type="submit" class="btn btn-primary btn-sm">Give Feedback</button></td>
+                                        </tr>
+
+							 </table>
+                        </div>
+                        </form>
+
+                    </div>
+                    </div>
+        </div>
+
+
+
+ {% endfor %}
+    </div>
+</div>
+<!-- end page content -->
+
+
+{% else %}
+<p>Welcome, new user. Please log in.<a href="/login">Login</a></p>
+{% endif %}
+<script type="text/javascript">
+$( document ).ready(function() {
+$('#bad').hide();
+$('#row_good_txt').hide();
+$('#row_bad_txt').hide();
+});
+
+$("#user_rating").change(function()
+{
+    var user_rating = $(this).val();
+    if(user_rating >= 4){
+        $('#good').show();
+        $("#good_1").attr('required',true);
+        $('#bad').hide();
+        $("#bad_1").attr('required',false);
+    }else{
+       $('#bad').show();
+       $("#bad_1").attr('required',true);
+       $('#good').hide();
+       $("#good_1").attr('required',false);
+    }
+
+});
+
+$("#good_1").change(function()
+{
+var good_opt = $(this).val();
+if(good_opt == 'other'){
+$('#row_good_txt').show();
+$("#row_good_txt").attr('required',true);
+}else{
+$('#row_good_txt').hide();
+$("#row_good_txt").attr('required',false);
+}
+});
+
+$("#bad_1").change(function()
+{
+var bad_opt = $(this).val();
+if(bad_opt == 'other'){
+$('#row_bad_txt').show();
+$("#row_bad_txt").attr('required',true);
+}else{
+$('#row_bad_txt').hide();
+$("#row_bad_txt").attr('required',false);
+}
+});
+
+</script>
+{% endblock %}
+
+
+

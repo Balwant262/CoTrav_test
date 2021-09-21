@@ -1,0 +1,633 @@
+{% extends 'Agent/layout/header.html' %}
+
+{% block content %}
+
+{% if user %}
+<style>
+
+.
+.autocomplete-active:hover{
+background:white;
+}
+#myInputautocomplete-list{
+z-index:100;
+display:block;
+cursor: pointer;
+list-style:
+}
+    .autocomplete-items{
+     border: solid 3px lightgray;
+    overflow: auto;
+    padding:5px;
+    line-height:20px;
+     border-collapse: collapse;
+  border-spacing: 0;
+ z-index:99
+ display:block;
+ border-radius:6px;
+ background-color:#dee2e6;
+ font-size:10px;
+  color: #041261;
+ }
+ .autocomplete-items div:hover,
+.autocomplete-active {
+  color: #041261;
+  background-color:#9ba9f7;
+
+
+}
+
+
+
+</style>
+
+<!-- start page content -->
+{% include 'cotrav_alert_message.html' %}
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+{% for booking in bookings %}
+
+		<form method="post" action="/agents/assign-taxi-booking/{{booking.id}}">
+                          <input type="hidden" class="col-sm-8 form-control" name="user_id"  value="{{user.id }}">
+                          <input type="hidden" class="col-sm-8 form-control" name="booking_id"  value="{{booking.id}}">
+                          <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+                         <input type="hidden" name="tour_typ_save" value="{{booking.tour_type}}" id="tour_typ_save">
+                         <input type="hidden" name="pickup_city_save" value="{{booking.city_id}}" id="pickup_city_save">
+
+			<div class="text-center">
+     <div style="font-size:14px; font-weight:bold;">
+<input type="submit" class="btn btn-info" value="Assign Taxi Booking">
+
+         </div>
+   </div>
+			<br/>
+
+
+
+		<div class="row">
+
+	<div class="col-md-3">
+
+		<div class="row">
+
+			<div class="col-md-12">
+
+				<div class="card card-box" >
+								<div class="card-head card-topline-aqua">
+									<header>Basic Details: </header>
+
+								</div>
+								<div class="card-body row">
+
+									<div class="card-body no-padding height-9">
+
+									<div class="form-group row">
+							 			<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+
+											<tr>
+												<td><label class = "control-label">Booking Booking ID</label></td>
+												<td><input class = "form-control" type = "text" value="{{ booking.reference_no|default:'' }}" readonly></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Tour Type</label></td>
+												<td>
+													 {% if booking.tour_type == 1 %}
+                                     <input readonly class="form-control"name="tour_type" type="text" value="Radio">
+                                    {% elif booking.tour_type == 2 %}
+                                     <input readonly class="form-control" name="tour_type" type="text" value="Local">
+                                    {% else %}
+                                    <input readonly class="form-control" name="tour_type" type="text" value="Outstation">
+                                    {% endif %}
+
+												</td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">City Name</label></td>
+												<td><input class = "form-control" type = "text" name="city_name" value="{{ booking.city_name|default:'' }}" readonly></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Pickup Location</label></td>
+												<td><input class = "form-control" type = "text"  name="pickup_location" value="{{ booking.pickup_location|default:'' }}" readonly></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Drop Location</label></td>
+												<td><input class = "form-control" type = "text" value="{{ booking.drop_location|default:'' }}" name="drop_location"  readonly></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Pickup Date | Time</label></td>
+												<td><input class = "form-control" type = "text" value="{{ booking.pickup_datetime|default:'' }}" name="pickup_datetime"  readonly></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Booking Date | Time</label></td>
+												<td><input class = "form-control" type = "text" value="{{ booking.booking_date|default:'' }}" name="booking_date"  readonly></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">No Of Seats</label></td>
+												<td><input class = "form-control" type = "text" value="{{ booking.no_of_seats|default:'' }}" name="no_of_seats"  readonly></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Booking Reason</label></td>
+												<td><input class = "form-control" type = "text" value="{{ booking.reason_booking|default:'' }}" name="reason_booking"  readonly></td>
+											</tr>
+
+
+										</table>
+
+									</div>
+
+
+								</div>
+
+					</div>
+
+				</div>
+
+
+			</div>
+
+		</div>
+
+	</div>
+
+	<div class="col-md-3">
+
+		<div class="row">
+
+			<div class="col-md-12">
+
+				<div class="card card-box" >
+								<div class="card-head card-topline-aqua">
+									<header>Assign Details: </header>
+                                     <div class="tools">
+
+										<a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+
+                                    </div>
+								</div>
+								<div class="card-body row">
+
+									<div class="card-body no-padding height-9">
+
+									<div class="form-group row">
+							 			<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+
+											<tr>
+												<td><label class = "control-label">Booking ID/Account Used</label></td>
+												<td><input class = "form-control" type = "text" name="vendor_booking_id" value="{{booking.vendor_booking_id|default:''}}"></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Operator Name</label></td>
+												<td><input class = "form-control" id="operators" type="text" name="operator_id" value="{{booking.operator_name|default:''}}" autocomplete="off" placeholder="Operator Name"></td>
+											</tr>
+
+											{% if booking.tour_type == 2 or booking.tour_type == 3 %}
+
+											<tr>
+												<td><label class = "control-label">Operator Package</label></td>
+												<td>
+													<select class="form-control myselect" name="operator_package_id" id="operator_package_id" required>
+
+												 </select>
+												</td>
+											</tr>
+
+											{% endif %}
+
+											<tr>
+												<td><label class = "control-label">Driver Name</label></td>
+												<td><input class = "form-control" id="driver_id" type="text" name="driver_id" value="{{booking.driver_name|default:''}} / {{booking.driver_contact|default:''}}" autocomplete="off" placeholder="Driver Name" ></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Driver Contact</label></td>
+												<td><input class = "form-control" name="driver_contact" id="driver_contact" value="{{booking.driver_contact|default:''}}" placeholder="Driver Contact" autocomplete="off"></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Taxi Reg No</label></td>
+												<td><input class = "form-control" type="text" name="taxi_id" id="taxi_id" value="{{booking.taxi_reg_no|default:''}}"  placeholder="Taxi Reg No" autocomplete="off"></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Taxi Model</label></td>
+												<td><input class = "form-control" type="text" name="taxi_model" id="taxi_model" value="{{booking.brand_name|default:''}} {{booking.model_name|default:''}}"  placeholder="Taxi Model" autocomplete="off"></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Taxi Type</label></td>
+												<td><input class = "form-control" type="text" name="taxi_types" id="taxi_types" value="{{booking.taxi_type_name|default:''}}" placeholder="Taxi Type" autocomplete="off"></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Send Client SMS </label></td>
+												<td><select class="form-control myselect"  name="is_client_sms">
+                                           <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                    </select></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Send Client Email </label></td>
+												<td><select class="form-control myselect"  name="is_client_email">
+                                           <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                    </select></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Send Driver SMS </label></td>
+												<td><select class="form-control myselect" name="is_driver_sms">
+                                           <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                    </select></td>
+											</tr>
+
+
+										</table>
+
+									</div>
+
+
+								</div>
+
+					</div>
+
+				</div>
+
+
+
+			</div>
+
+
+		</div>
+
+
+	</div>
+
+	<div class="col-md-6">
+
+		<div class="row">
+
+			<div class="col-md-12">
+
+				<div class="card card-box" >
+								<div class="card-head card-topline-aqua">
+									<header>Passenger Details: </header>
+                                     <div class="tools">
+
+										<a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+
+                                    </div>
+								</div>
+								<div class="card-body row">
+
+									<div class="card-body no-padding height-9">
+
+									<div class="form-group row">
+							 			<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+
+											<tr>
+												<th>  Name  </th>
+												<th>  Email Id </th>
+												<th>  Contact  </th>
+												<th>  Age   </th>
+												<th>  Gender </th>
+											</tr>
+
+										{% for passanger in booking.Passangers %}
+								<tr>
+								<td><input class="form-control" name="employee_name" type = "text"  id = "employee_name" value="{{ passanger.employee_name }}" readonly></td>
+								<td><input class="form-control" name="employee_email" type = "text" id = "employee_email" name="employee_email" value="{{ passanger.employee_email }}" readonly></td>
+							    <td><input class="form-control" name="employee_contact" type = "text" id = "employee_contact" name="employee_contact" value="{{ passanger.employee_contact }}" readonly></td>
+								<td><input class="form-control" name="age" type = "text" id = "age" name="age" value="{{ passanger.age }}" readonly></td>
+							    <td><input class="form-control" name="gender" type = "text" id = "gender" name="gender" value="{{ passanger.gender }}" readonly></td>
+								</tr>
+							{% endfor %}
+
+
+
+										</table>
+
+									</div>
+
+
+								</div>
+
+					</div>
+
+				</div>
+
+
+
+
+			</div>
+
+
+		</div>
+
+
+		<div class="row">
+
+			<div class="col-md-6">
+
+				<div class="card card-box" >
+								<div class="card-head card-topline-aqua">
+									<header>SPOC Details: </header>
+                                     <div class="tools">
+
+										<a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+
+                                    </div>
+								</div>
+								<div class="card-body row">
+
+									<div class="card-body no-padding height-9">
+
+									<div class="form-group row">
+							 			<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+
+											<tr>
+												<td><label class = "control-label">SPOC Name</label></td>
+												<td><input class = "form-control" name="spoc_name" readonly  type="text" value="{{ booking.user_name|default:'' }}"></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">SPOC Email</label></td>
+												<td><input class = "form-control" name="user_email" readonly  type="text" value="{{ booking.user_email|default:'' }}"></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">SPOC Contact</label></td>
+												<td><input class = "form-control" name="user_contact" readonly  type="text" value="{{ booking.user_contact|default:'' }}"></td>
+											</tr>
+
+
+
+
+										</table>
+
+									</div>
+
+
+								</div>
+
+					</div>
+
+				</div>
+
+
+
+
+			</div>
+
+
+
+
+		</div>
+
+
+	</div>
+
+</div>
+
+			
+</form>
+       </div>
+
+    </div>
+
+
+ {% endfor %}
+
+
+<!-- end page content -->
+
+
+{% else %}
+<p>Welcome, new user. Please log in.<a href="/login">Login</a></p>
+{% endif %}
+
+<script type="text/javascript">
+
+$('#taxi_details').change(function(){
+     var taxi_detail = $('#taxi_details option:selected').data('details');
+    temp = taxi_detail.split(',');
+
+    if(temp[0] != '' ){
+        $("#taxi_reg_no").val(temp[0]);
+        $("#garage_location").val(temp[1]);
+        $("#garage_distance").val(temp[2]);
+     }
+     else{
+        $("#taxi_reg_no").val('');
+        $("#garage_location").val('');
+        $("#garage_distance").val('');
+     }
+});
+ </script>
+
+
+<script>
+function autocomplete(inp, arr) {
+  /*the autocomplete function takes two arguments,
+  the text field element and an array of possible autocompleted values:*/
+  var currentFocus;
+  /*execute a function when someone writes in the text field:*/
+  inp.addEventListener("input", function(e) {
+      var a, b, i, val = this.value ;
+      /*close any already open lists of autocompleted values*/
+      closeAllLists();
+      if (!val) { return false;}
+      currentFocus = -1;
+      /*create a DIV element that will contain the items (values):*/
+      a = document.createElement("DIV");
+      a.setAttribute("id", this.id + "autocomplete-list");
+      a.setAttribute("class", "autocomplete-items");
+      /*append the DIV element as a child of the autocomplete container:*/
+      this.parentNode.appendChild(a);
+      /*for each item in the array...*/
+
+      for (i = 0; i < arr.length; i++) {
+        /*check if the item starts with the same letters as the text field value:*/
+
+        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+
+             var arr2 = arr[i].split("|");
+
+          /*create a DIV element for each matching element:*/
+          b = document.createElement("DIV");
+          /*make the matching letters bold:*/
+          b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+          b.innerHTML += arr2[0].substr(val.length);
+          /*insert a input field that will hold the current array item's value:*/
+          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+          /*execute a function when someone clicks on the item value (DIV element):*/
+          b.addEventListener("click", function(e) {
+              /*insert the value for the autocomplete text field:*/
+                val2 = this.getElementsByTagName("input")[0].value;
+
+                 var arr = val2.split("|");
+
+              inp.value = arr[0];
+
+              if (inp.id == "driver_id")
+                {
+                    $('#driver_contact').val(arr[1]);
+                    $('#taxi_id').val(arr[2]);
+                    $('#taxi_model').val(arr[3]);
+                    $('#taxi_types').val(arr[4]);
+                }
+
+                if(inp.id == "operators")
+                {
+					var operator_id = arr[1];
+					//alert(operator_id);
+
+
+					var corporate_id =  $(this).val();
+					var tour_typ_save =  $("#tour_typ_save").val();
+					var pickup_city_save =  $("#pickup_city_save").val();
+					   var_url = '/api/'+'get_operator_package'
+
+						$.ajaxSetup({
+								headers:{
+									'Authorization': "Token {{request.session.agent_access_token}}",
+									'usertype': 10
+								}
+
+							});
+					<!--   For Entity  -->
+						 $.post(var_url,{ operator_id: operator_id },
+						  function(data)
+						  {
+						   //alert(data['Rate']);
+						   if(data['Rate'].length != 0){
+							entities = data['Rate']
+							$('#operator_package_id').append($("<option value=''>Select Package</option>"));
+							 for (var i=0;i<entities.length;i++) {
+							 	if((tour_typ_save == entities[i].tour_type) && (pickup_city_save = entities[i].city_id))
+								$('#operator_package_id').append($("<option value='"+entities[i].id+"'>"+entities[i].package_name+"</option>"));
+							 }
+						   }else{
+							alert('No Package Available')
+						   }
+						   });
+
+									}
+
+              /*close the list of autocompleted values,
+              (or any other open lists of autocompleted values:*/
+              closeAllLists();
+          });
+          a.appendChild(b);
+        }
+      }
+  });
+  /*execute a function presses a key on the keyboard:*/
+  inp.addEventListener("keydown", function(e) {
+      var x = document.getElementById(this.id + "autocomplete-list");
+      if (x) x = x.getElementsByTagName("div");
+      if (e.keyCode == 40) {
+        /*If the arrow DOWN key is pressed,
+        increase the currentFocus variable:*/
+        currentFocus++;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 38) { //up
+        /*If the arrow UP key is pressed,
+        decrease the currentFocus variable:*/
+        currentFocus--;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 13) {
+        /*If the ENTER key is pressed, prevent the form from being submitted,*/
+        e.preventDefault();
+        if (currentFocus > -1) {
+          /*and simulate a click on the "active" item:*/
+          if (x) x[currentFocus].click();
+        }
+      }
+  });
+  function addActive(x) {
+    /*a function to classify an item as "active":*/
+    if (!x) return false;
+    /*start by removing the "active" class on all items:*/
+    removeActive(x);
+    if (currentFocus >= x.length) currentFocus = 0;
+    if (currentFocus < 0) currentFocus = (x.length - 1);
+    /*add class "autocomplete-active":*/
+    x[currentFocus].classList.add("autocomplete-active");
+  }
+  function removeActive(x) {
+    /*a function to remove the "active" class from all autocomplete items:*/
+    for (var i = 0; i < x.length; i++) {
+      x[i].classList.remove("autocomplete-active");
+    }
+  }
+  function closeAllLists(elmnt) {
+    /*close all autocomplete lists in the document,
+    except the one passed as an argument:*/
+    var x = document.getElementsByClassName("autocomplete-items");
+    for (var i = 0; i < x.length; i++) {
+      if (elmnt != x[i] && elmnt != inp) {
+        x[i].parentNode.removeChild(x[i]);
+      }
+    }
+  }
+  /*execute a function when someone clicks in the document:*/
+  document.addEventListener("click", function (e) {
+      closeAllLists(e.target);
+  });
+}
+
+/*An array containing all the country names in the world:*/
+var operators = [
+{% for operator in operators %}
+
+"{{operator.operator_name|default:''}}|{{operator.id|default:''}}",
+{% endfor %}
+]
+
+var drivers = [
+{% for drivers in operator_drivers %}
+"{{drivers.driver_name|default:''}} / {{drivers.driver_contact|default:''}} |{{drivers.driver_contact|default:''}}|{{drivers.taxi_reg_no|default:''}}|{{drivers.brand_name|default:''}} {{drivers.model_name|default:''}}|{{drivers.name|default:''}}",
+{% endfor %}
+]
+
+var models = [
+{% for model in models %}
+"{{model.model_name|default:''}}",
+{% endfor %}
+]
+
+var taxi_types = [
+{% for taxi_type in taxi_types %}
+"{{taxi_type.name|default:''}}",
+{% endfor %}
+]
+
+var taxis = [
+{% for taxi in taxis %}
+"{{taxi.taxi_reg_no|default:''}}",
+{% endfor %}
+]
+
+autocomplete(document.getElementById("operators"), operators);
+autocomplete(document.getElementById("driver_id"), drivers);
+autocomplete(document.getElementById("taxi_id"), taxis);
+autocomplete(document.getElementById("taxi_model"), models);
+autocomplete(document.getElementById("taxi_types"), taxi_types);
+</script>
+
+
+ {% endblock %}

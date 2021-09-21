@@ -1,0 +1,308 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<!-- BEGIN HEAD -->
+<head>
+    {% load static %}
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta name="description" content="Responsive Admin Template" />
+    <meta name="author" content="SmartUniversity" />
+    <title>CoTrav - Approver 2</title>
+    <!-- google font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet" type="text/css" />
+    <script src="{% static 'assets/plugins/jquery/jquery.min.js' %}" ></script>
+	<!-- icons -->
+    <link href="{% static 'fonts/material-design-icons/material-icon.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'fonts/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css"/>
+	<!--bootstrap -->
+	<link href="{% static 'assets/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+	<link href="{% static 'assets/plugins/summernote/summernote.css' %}" rel="stylesheet">
+    <!-- data tables -->
+    <link href="{% static 'assets/plugins/datatables/plugins/bootstrap/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css"/>
+	<!-- morris chart -->
+    <link href="{% static 'assets/plugins/morris/morris.css' %}" rel="stylesheet" type="text/css" />
+    <!-- Material Design Lite CSS -->
+	<link rel="stylesheet" href="{% static 'assets/plugins/material/material.min.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/css/material_style.css' %}">
+	<!-- animation -->
+	<link href="{% static 'assets/css/pages/animate_page.css' %}" rel="stylesheet">
+	<!-- Theme Styles -->
+    <link href="{% static 'assets/css/plugins.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'assets/css/responsive.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'assets/css/theme-color.css' %}" rel="stylesheet" type="text/css" />
+	<!-- favicon -->
+    <link rel="shortcut icon" href="{% static 'assets/img/favicon.png' %}" />
+
+    <!-- dropzone -->
+    <link href="{% static 'assets/plugins/dropzone/dropzone.css' %}" rel="stylesheet" media="screen">
+    <!--tagsinput-->
+    <link href="{% static 'assets/plugins/jquery-tags-input/jquery-tags-input.css' %}" rel="stylesheet">
+
+        <!-- Date Time item CSS -->
+    <link rel="stylesheet" href="{% static 'assets/plugins/material-datetimepicker/bootstrap-material-datetimepicker.css' %}" />
+
+    <!--select2-->
+    <link href="{% static 'assets/plugins/select2/css/select2.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'assets/plugins/select2/css/select2-bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+
+    <link href="{% static 'assets/css/main.css' %}" rel="stylesheet" type="text/css" />
+
+<style>
+  .datetimepicker{
+        background: #ffffff;
+        transform: translate(0, 9.4em);
+
+  }
+  .datetimepicker.dropdown-menu{
+    padding: 10px;
+
+  }
+  .datetimepicker table th {
+    font-weight: 600 !important;
+    font-family: 'Poppins,sans-serif';
+    font-size: 12px;
+}
+  .datetimepicker thead tr:first-child th:hover, .datetimepicker tfoot th:hover {
+    background: #427BD1;
+}
+
+.info-box {
+    min-height: 100px;
+    width: 100%;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, .1);
+    -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, .1);
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 25px;
+}
+.info-box small {
+    font-size: 14px;
+}
+.info-box .progress {
+    background: rgba(0, 0, 0, .2);
+    margin: 5px -10px 5px 0;
+    height: 2px;
+}
+.info-box .progress, .info-box .progress .progress-bar {
+    border-radius: 0;
+}
+.info-box .progress .progress-bar {
+    background: #fff;
+}
+.info-box-icon {
+    float: left;
+    height: 70px;
+    width: 70px;
+    text-align: center;
+    font-size: 30px;
+    line-height: 74px;
+    background: rgba(0, 0, 0, .2);
+    border-radius: 100%}
+.info-box-icon.push-bottom {
+    margin-top: 20px;
+}
+.info-box-icon>img {
+    max-width: 100%}
+.info-box-content {
+    padding: 10px 10px 10px 0;
+    margin-left: 90px;
+}
+.info-box-number {
+    font-weight: 300;
+    font-size: 21px;
+}
+.info-box-text, .progress-description {
+    display: block;
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    font-weight: 400;
+}
+
+</style>
+</head>
+<!-- END HEAD -->
+
+<body class="page-header-fixed sidemenu-closed-hidelogo page-content-white page-md page-full-width header-white white-sidebar-color logo-white"></body>
+
+{% include "Company/Approver_2/layout/menu_bar_layout.html" %}
+
+{% block content %}
+
+
+
+
+{% endblock %}
+<script type="text/javascript">
+   $(".myselect").select2({width: 100%});
+</script>
+<script type="text/javascript">
+
+    $(".js-select2").select2({
+        theme: "material",
+        width: 100%
+    });
+
+    $(".select2-selection__arrow")
+        .addClass("material-icons")
+        .html("arrow_drop_down");
+
+</script>
+<!-- start footer -->
+<div class="page-footer">
+    <div class="page-footer-inner">
+            Copyright &copy; 2020 <a href="/" target="_blank">COTRAV</a> All Rights Reserved
+    </div>
+    <div class="scroll-to-top">
+        <i class="material-icons">eject</i>
+    </div>
+</div>
+<!-- end footer -->
+{% load static %}
+<!-- start js include path -->
+<script src="{% static 'assets/plugins/jquery/jquery.min.js' %}" ></script>
+<script src="{% static 'assets/plugins/popper/popper.min.js' %}" ></script>
+<script src="{% static 'assets/plugins/jquery-blockui/jquery.blockui.min.js' %}" ></script>
+<script src="{% static 'assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
+<!-- bootstrap -->
+<script src="{% static 'assets/plugins/bootstrap/js/bootstrap.min.js' %}" ></script>
+<script src="{% static 'assets/plugins/sparkline/jquery.sparkline.min.js' %}" ></script>
+<script src="{% static 'assets/js/pages/sparkline/sparkline-data.js' %}" ></script>
+<!-- Common js-->
+<script src="{% static 'assets/js/app.js' %}" ></script>
+<script src="{% static 'assets/js/layout.js' %}" ></script>
+<script src="{% static 'assets/js/theme-color.js' %}" ></script>
+<!-- material -->
+<script src="{% static 'assets/plugins/material/material.min.js' %}"></script>
+<!-- animation -->
+<script src="{% static 'assets/js/pages/ui/animations.js' %}" ></script>
+<!-- morris chart -->
+<script src="{% static 'assets/plugins/morris/morris.min.js' %}" ></script>
+<script src="{% static 'assets/plugins/morris/raphael-min.js' %}" ></script>
+<script src="{% static 'assets/js/pages/chart/morris/morris_home_data.js' %}" ></script>
+<!-- google map
+<script src="{% static 'assets/plugins/modernizr/modernizr.min.js' %}" ></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtPIcsjNx-GEuJDPmiXOVyB3G9k1eulX0&callback=initMap" async defer></script>
+<script src="{% static 'assets/js/pages/map/gmap-home.js' %}" ></script>
+ end js include path -->
+<!-- data tables -->
+<script src="{% static 'assets/plugins/datatables/jquery.dataTables.min.js' %}" ></script>
+ <script src="{% static 'assets/plugins/datatables/plugins/bootstrap/dataTables.bootstrap4.min.js' %}" ></script>
+
+
+<!-- animation -->
+	<script src="{% static 'assets/js/pages/ui/animations.js' %}" ></script>
+	<script src="{% static 'assets/plugins/material-datetimepicker/moment-with-locales.min.js' %}"></script>
+	<script src="{% static 'assets/plugins/material-datetimepicker/bootstrap-material-datetimepicker.js' %}"></script>
+	<script src="{% static 'assets/plugins/material-datetimepicker/datetimepicker.js' %}"></script>
+    <script src="{% static 'assets/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js' %}"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js" ></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js" ></script>
+
+<script>
+  $(document).ready(function() {
+    var table = $('#example1').DataTable( {
+        responsive: true,
+         'ordering': false
+    } );
+    new $.fn.dataTable.FixedHeader( table );
+} );
+</script>
+<script>
+
+        $(function () {
+         $('.datetimepicker1').datetimepicker(
+         {
+           minDate: 0,
+           inline: true,
+           sideBySide: true,
+           autoclose: true,
+           format: 'dd-mm-yyyy hh:ii', /*remove this line if you want to use time as well */
+           startDate: new Date(),  /* disable past date*/
+           orientation: 'bottom left',
+
+       });
+
+       $('.datepicker1').datetimepicker(
+         {
+           inline: true,
+           sideBySide: true,
+           showMeridian: true,
+           minView: 2,
+           autoclose: true,
+           format: 'dd-mm-yyyy', /*remove this line if you want to use time as well */
+           orientation: 'bottom left',
+       });
+
+
+
+
+   });
+    </script>
+ <script>
+
+         function setNavigation() {
+                var path = window.location.pathname;
+                path = path.replace(/\/$/, "");
+                path = decodeURIComponent(path);
+
+                var a = path.substring(34,26);
+                alert(a);
+                switch(a) {
+
+                    case 'taxi-boo' :
+                    case 'add-taxi' :
+                    $('#taxi_li_menu').addClass('active');
+                      return;
+                      break;
+                    case 'bus-book':
+                    case 'add-bus-' :
+                      // code block
+                      $('#bus_li_menu').addClass('active');
+                      return;
+                      break;
+                    case 'train-bo':
+                    case 'add-trai' :
+                      // code block
+                      $('#train_li_menu').addClass('active');
+                      return;
+                      break;
+                    case 'hotel-bo':
+                    case 'add-hote' :
+                      // code block
+                      $('#hotel_li_menu').addClass('active');
+                      return;
+                      break;
+                    case 'flight-b':
+                    case 'add-flig' :
+                      // code block
+                      $('#flight_li_menu').addClass('active');
+                      return;
+                      break;
+                    default:
+                      // code block
+                  }
+
+
+                $(".mynav a").each(function () {
+                    var href = $(this).attr('href');
+                   // alert(a);
+
+                    if (path.substring(0, href.length) === href) {
+                        $(this).closest('li').addClass('active');
+                    }
+                });
+            }
+
+
+
+    </script>
+
+
+</body>
+</html>

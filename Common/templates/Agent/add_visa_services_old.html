@@ -1,0 +1,1210 @@
+{% extends "Agent/layout/header.html" %}
+
+{% block content %}
+
+{% if user %}
+<!-- start page content -->
+{% include 'cotrav_alert_message.html' %}
+<div class="page-content-wrapper">
+    <div class="page-content">
+  <div class="text-center">
+        <input type="submit" id="submit-data" class="btn btn-info" value="Add New Visa Service">
+    </div>
+    <br/>
+
+        <form method="post" action="/visass/add-new-visa-request" id="model_serialize_update">
+             <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+            {% csrf_token %}
+            <input type="hidden" class="col-sm-8 form-control" name="user_id" value="{{user.id }}">
+
+            {% if visas %}
+            {% for visa in visas %}
+            <input type="hidden" class="col-sm-8 form-control" name="visa_id" value="{{visa.id }}">
+            {% endfor %}
+            {% endif %}
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card card-topline-aqua">
+                        <div class="card-head">
+                            <header>Basic Details</header>
+                        </div>
+                        <div class="card-body " id="bar-parent">
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Applicant</label>
+                                {% if visas %}
+                                {% for visa in visas %}
+                                        <select id="applicant_type" name="applicant_type" class="form-control myselect" style="width:66%">
+                                            <option value="Self" {% if visa.applicant_type == 'Self' %} selected {%endif%}>Self</option>
+                                            <option value="Dependent" {% if visa.applicant_type == 'Dependent' %} selected {%endif%}>Dependent</option>
+                                        </select>
+                                {% endfor %}
+                                {% else %}
+                                <select id="applicant_type" name="applicant_type" class="form-control myselect" style="width:66%">
+                                            <option value="Self">Self</option>
+                                            <option value="Dependent">Dependent</option>
+                                        </select>
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row" id="asignee_visa_number_row">
+                                <label class="col-sm-4" >Asignee Visa Number</label>
+                                {% if visas %}
+                                {% for visas in visas %}
+                                <input type="text" class="col-sm-8 form-control" name="asignee_visa_number" value="{{visa.asignee_visa_number|default:''}}" required
+                                       placeholder="Asignee Visa Number">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="asignee_visa_number" required
+                                       placeholder="Asignee Visa Number">
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row ">
+                                <label class="col-sm-4" >Title</label>
+                                {% if visas %}
+                                {% for visas in visas %}
+                                <input type="text" class="col-sm-8 form-control" name="title" value="{{visa.title|default:''}}" required  placeholder="Title">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="title" required  placeholder="Title">
+                                {% endif %}
+                            </div>
+
+                             <div class="form-group row ">
+                                <label class="col-sm-4" >Full Name</label>
+                                {% if visas %}
+                                {% for visas in visas %}
+                                <input type="text" class="col-sm-8 form-control" name="full_name" value="{{visa.full_name|default:''}}" required  placeholder="Full Name">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="full_name" required  placeholder="Full Name">
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row ">
+                                <label class="col-sm-4" >Given Name</label>
+                                {% if visas %}
+                                {% for visas in visas %}
+                                <input type="text" class="col-sm-8 form-control" name="given_name" value="{{visa.given_name|default:''}}" required  placeholder="Given Name">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="given_name" required  placeholder="Given Name">
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Gender</label>
+                                {% if visas %}
+                                {% for visa in visas %}
+                                        <select name="gender" class="form-control myselect" style="width:66%">
+                                            <option value="Male" {% if visa.gender == 'Male' %} selected {%endif%}>Male</option>
+                                            <option value="Female" {% if visa.gender == 'Female' %} selected {%endif%}>Female</option>
+                                            <option value="Transgender" {% if visa.gender == 'Transgender' %} selected {%endif%}>Transgender</option>
+                                        </select>
+                                {% endfor %}
+                                {% else %}
+                                <select name="gender" class="form-control myselect" style="width:66%">
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                            <option value="Transgender">Transgender</option>
+                                        </select>
+                                {% endif %}
+                            </div>
+
+
+                             <div class="form-group row">
+                                <label class="col-sm-4" >Father's Name</label>
+                                {% if visas %}
+                                {% for visas in visas %}
+                                <input type="text" class="col-sm-8 form-control" name="father_name" value="{{visa.father_name|default:''}}" required  placeholder="Father's Name">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="father_name" required  placeholder="Father's Name">
+                                {% endif %}
+                            </div>
+
+                             <div class="form-group row">
+                                <label class="col-sm-4" >Mother's Name</label>
+                                {% if visas %}
+                                {% for visas in visas %}
+                                <input type="text" class="col-sm-8 form-control" name="mother_name" value="{{visa.mother_name|default:''}}" required  placeholder="Mother's Name">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="mother_name" required  placeholder="Mother's Name">
+                                {% endif %}
+                            </div>
+
+
+                             <div class="form-group row">
+                                <label class="col-sm-4" >Spouse's Name</label>
+                                {% if visas %}
+                                {% for visas in visas %}
+                                <input type="text" class="col-sm-8 form-control" name="spouse_name" value="{{visa.spouse_name|default:''}}" required  placeholder="Spouse's Name">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="spouse_name" required  placeholder="Spouse's Name">
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Date of Birth</label>
+                                {% if visas %}
+                                {% for visas in visas %}
+                                <input type="text" class="col-sm-8 form-control datepicker1" autocomplete="off" name="date_of_birth" value="{{visa.date_of_birth|default:''}}" required  placeholder="Date of Birth">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control datepicker1" autocomplete="off" name="date_of_birth" required  placeholder="Date of Birth">
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Place of Birth</label>
+                                {% if visas %}
+                                {% for visas in visas %}
+                                <input type="text" class="col-sm-8 form-control" name="place_of_birth" value="{{visa.place_of_birth|default:''}}" required  placeholder="Place of Birth">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="place_of_birth" required  placeholder="Place of Birth">
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Country of Birth</label>
+                                {% if visas %}
+                                {% for visas in visas %}
+                                    <select name="country_of_birth" class="form-control myselect" style="width:66%">
+                                        <option>Select Country</option>
+                                        {% for country in countrys %}
+                                            <option value="{{country.id}}" {% if visa.country_of_birth == country.id %} selected {%endif%}>{{country.name}}</option>
+                                        {% endfor %}
+                                        </select>
+                                {% endfor %}
+                                {% else %}
+                                    <select name="country_of_birth" class="form-control myselect" style="width:66%">
+                                        <option>Select Country</option>
+                                        {% for country in countrys %}
+                                            <option value="{{country.id}}">{{country.name}}</option>
+                                        {% endfor %}
+                                        </select>
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Marital Status</label>
+                                {% if visas %}
+                                {% for visas in visas %}
+                                    <select name="marital_status" class="form-control myselect" style="width:66%">
+                                        <option>Select Marital Status</option>
+                                        <option value="Single" {% if visa.marital_status == 'Single' %} selected {%endif%}>Single</option>
+                                        <option value="Married" {% if visa.marital_status == 'Married' %} selected {%endif%}>Married</option>
+                                        <option value="Engaged" {% if visa.marital_status == 'Engaged' %} selected {%endif%}>Engaged</option>
+                                        <option value="Seperated" {% if visa.marital_status == 'Seperated' %} selected {%endif%}>Seperated</option>
+                                        <option value="Widow/Widower" {% if visa.marital_status == 'Widow/Widower' %} selected {%endif%}>Widow/Widower</option>
+                                        </select>
+                                {% endfor %}
+                                {% else %}
+                                    <select name="marital_status" class="form-control myselect" style="width:66%">
+                                        <option>Select Marital Status</option>
+                                        <option value="Single">Single</option>
+                                        <option value="Married">Married</option>
+                                        <option value="Engaged">Engaged</option>
+                                        <option value="Seperated">Seperated</option>
+                                        <option value="Widow/Widower">Widow/Widower</option>
+                                        </select>
+                                {% endif %}
+                            </div>
+
+                             <div class="form-group row">
+                                <label class="col-sm-4" >Child</label>
+                                {% if visas %}
+                                {% for visas in visas %}
+                                    <select name="child" class="form-control myselect" style="width:66%">
+                                        <option value="0" {% if visa.child == 0 %} selected {%endif%}>No</option>
+                                        <option value="1" {% if visa.child == 1 %} selected {%endif%}>Yes</option>
+                                        </select>
+                                {% endfor %}
+                                {% else %}
+                                    <select name="child" class="form-control myselect" style="width:66%">
+                                         <option value="0">No</option>
+                                        <option value="1">Yes</option>
+                                        </select>
+                                {% endif %}
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Nationality</label>
+                                {% if visas %}
+                                {% for visas in visas %}
+                                    <select name="nationality" class="form-control myselect" style="width:66%">
+                                        <option>Select Nationality</option>
+                                        {% for nationality in nationalities %}
+                                            <option value="{{nationality.id}}" {% if visa.nationality == nationality.id %} selected {%endif%}>{{nationality.name}}</option>
+                                        {% endfor %}
+                                        </select>
+                                {% endfor %}
+                                {% else %}
+                                    <select name="nationality" class="form-control myselect" style="width:66%">
+                                        <option>Select Nationality</option>
+                                        {% for nationality in nationalities %}
+                                            <option value="{{nationality.id}}">{{nationality.name}}</option>
+                                        {% endfor %}
+                                        </select>
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Other Nationality</label>
+                                {% if visas %}
+                                {% for visas in visas %}
+                                    <select name="other_nationalities" class="form-control myselect" style="width:66%">
+                                        <option>Select Nationality</option>
+                                        {% for nationality in nationalities %}
+                                            <option value="{{nationality.id}}" {% if visa.other_nationalities == nationality.id %} selected {%endif%}>{{nationality.name}}</option>
+                                        {% endfor %}
+                                        </select>
+                                {% endfor %}
+                                {% else %}
+                                    <select name="other_nationalities" class="form-control myselect" style="width:66%">
+                                        <option>Select Nationality</option>
+                                        {% for nationality in nationalities %}
+                                            <option value="{{nationality.id}}">{{nationality.name}}</option>
+                                        {% endfor %}
+                                        </select>
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Address</label>
+                                {% if visas %}
+                                {% for visa in visas %}
+                                <input type="text" class="col-sm-8 form-control" name="address" value="{{visa.address|default:''}}" required  placeholder="Address">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="address" required  placeholder="Address">
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >City</label>
+                                {% if visas %}
+                                {% for visas in visas %}
+                                    <select name="city_id" class="form-control myselect" style="width:66%">
+                                        <option>Select City</option>
+                                        {% for city in cities %}
+                                            <option value="{{city.id}}" {% if visa.city_id == city.id %} selected {%endif%}>{{city.city_name}}</option>
+                                        {% endfor %}
+                                        </select>
+                                {% endfor %}
+                                {% else %}
+                                    <select name="city_id" class="form-control myselect" style="width:66%">
+                                        <option>Select City</option>
+                                        {% for nationality in cities %}
+                                            <option value="{{nationality.id}}">{{nationality.city_name}}</option>
+                                        {% endfor %}
+                                        </select>
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >State</label>
+                                {% if visas %}
+                                {% for visas in visas %}
+                                    <select name="state_id" class="form-control myselect" style="width:66%">
+                                        <option>Select State</option>
+                                        {% for city in states %}
+                                            <option value="{{city.id}}" {% if visa.city_id == city.id %} selected {%endif%}>{{city.name}}</option>
+                                        {% endfor %}
+                                        </select>
+                                {% endfor %}
+                                {% else %}
+                                    <select name="state_id" class="form-control myselect" style="width:66%">
+                                        <option>Select State</option>
+                                        {% for nationality in states %}
+                                            <option value="{{nationality.id}}">{{nationality.name}}</option>
+                                        {% endfor %}
+                                        </select>
+                                {% endif %}
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Country</label>
+                                {% if visas %}
+                                {% for visas in visas %}
+                                    <select name="country_code" class="form-control myselect" style="width:66%">
+                                        <option>Select Country</option>
+                                        {% for city in countrys %}
+                                            <option value="{{city.id}}" {% if visa.country_code == city.id %} selected {%endif%}>{{city.name}}</option>
+                                        {% endfor %}
+                                        </select>
+                                {% endfor %}
+                                {% else %}
+                                    <select name="country_code" class="form-control myselect" style="width:66%">
+                                        <option>Select Country</option>
+                                        {% for nationality in countrys %}
+                                            <option value="{{nationality.id}}">{{nationality.name}}</option>
+                                        {% endfor %}
+                                        </select>
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Zip code</label>
+                                {% if visas %}
+                                {% for visa in visas %}
+                                <input type="text" class="col-sm-8 form-control" name="zip_code" value="{{visa.zip_code|default:''}}" required  placeholder="Zip code">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="zip_code" required  placeholder="Zip code">
+                                {% endif %}
+                            </div>
+
+                             <div class="form-group row">
+                                <label class="col-sm-4" >Primary Number</label>
+                                {% if visas %}
+                                {% for visa in visas %}
+                                <input type="text" class="col-sm-8 form-control" name="primary_phone_number" value="{{visa.primary_phone_number|default:''}}" required  placeholder="Primary Phone Number">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="primary_phone_number" required  placeholder="Primary Phone Number">
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Secondary Phone Number</label>
+                                {% if visas %}
+                                {% for visa in visas %}
+                                <input type="text" class="col-sm-8 form-control" name="secondary_phone_number" value="{{visa.secondary_phone_number|default:''}}" required  placeholder="Secondary Phone Number">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="secondary_phone_number" required  placeholder="Secondary Phone Number">
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Email Address</label>
+                                {% if visas %}
+                                {% for visa in visas %}
+                                <input type="text" class="col-sm-8 form-control" name="email_address" value="{{visa.email_address|default:''}}" required  placeholder="Email Address">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="email_address" required  placeholder="Email Address">
+                                {% endif %}
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+
+
+
+
+
+
+                     <div class="card card-topline-aqua">
+                        <div class="card-head">
+                            <header>Emergency contact person details</header>
+
+                        </div>
+                        <div class="card-body ">
+                             <div class="form-group row">
+                                <label class="col-sm-4" >Name</label>
+                                {% if visas %}
+                                {% for visa in visas %}
+                                <input type="text" class="col-sm-8 form-control" name="e_emergency_name" value="{{visa.e_emergency_name|default:''}}" required  placeholder="Name">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="e_emergency_name" required  placeholder="Name">
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Relationship</label>
+                                {% if visas %}
+                                {% for visa in visas %}
+                                <input type="text" class="col-sm-8 form-control" name="e_relation" value="{{visa.e_relation|default:''}}" required  placeholder="Relationship">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="e_relation" required  placeholder="Relationship">
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Address</label>
+                                {% if visas %}
+                                {% for visa in visas %}
+                                <input type="text" class="col-sm-8 form-control" name="e_address" value="{{visa.e_address|default:''}}" required  placeholder="Address">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="e_address" required  placeholder="Address">
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >City</label>
+                                {% if visas %}
+                                {% for visas in visas %}
+                                    <select name="e_city" class="form-control myselect" style="width:66%">
+                                        <option>Select City</option>
+                                        {% for city in cities %}
+                                            <option value="{{city.id}}" {% if visa.e_city == city.id %} selected {%endif%}>{{city.city_name}}</option>
+                                        {% endfor %}
+                                        </select>
+                                {% endfor %}
+                                {% else %}
+                                    <select name="e_city" class="form-control myselect" style="width:66%">
+                                        <option>Select City</option>
+                                        {% for nationality in cities %}
+                                            <option value="{{nationality.id}}">{{nationality.city_name}}</option>
+                                        {% endfor %}
+                                        </select>
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >State</label>
+                                {% if visas %}
+                                {% for visas in visas %}
+                                    <select name="e_state" class="form-control myselect" style="width:66%">
+                                        <option>Select State</option>
+                                        {% for city in states %}
+                                            <option value="{{city.id}}" {% if visa.e_state == city.id %} selected {%endif%}>{{city.name}}</option>
+                                        {% endfor %}
+                                        </select>
+                                {% endfor %}
+                                {% else %}
+                                    <select name="e_state" class="form-control myselect" style="width:66%">
+                                        <option>Select State</option>
+                                        {% for nationality in states %}
+                                            <option value="{{nationality.id}}">{{nationality.name}}</option>
+                                        {% endfor %}
+                                        </select>
+                                {% endif %}
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Country</label>
+                                {% if visas %}
+                                {% for visas in visas %}
+                                    <select name="e_country" class="form-control myselect" style="width:66%">
+                                        <option>Select Country</option>
+                                        {% for city in countrys %}
+                                            <option value="{{city.id}}" {% if visa.e_country == city.id %} selected {%endif%}>{{city.name}}</option>
+                                        {% endfor %}
+                                        </select>
+                                {% endfor %}
+                                {% else %}
+                                    <select name="e_country" class="form-control myselect" style="width:66%">
+                                        <option>Select Country</option>
+                                        {% for nationality in countrys %}
+                                            <option value="{{nationality.id}}">{{nationality.name}}</option>
+                                        {% endfor %}
+                                        </select>
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Phone Number</label>
+                                {% if visas %}
+                                {% for visa in visas %}
+                                <input type="text" class="col-sm-8 form-control" name="e_phone_number" value="{{visa.e_phone_number|default:''}}" required  placeholder="Passport Number">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="e_phone_number" required  placeholder="Passport Number">
+                                {% endif %}
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+
+                <div class="col-md-4">
+                    <div class="card card-topline-aqua">
+                        <div class="card-head">
+                            <header>Employment Details</header>
+
+                        </div>
+                        <div class="card-body " id="bar-parent1">
+
+
+                             <div class="form-group row">
+                                <label class="col-sm-4" >Occupation</label>
+                                {% if visas %}
+                                {% for visa in visas %}
+                                <input type="text" class="col-sm-8 form-control" name="emp_occupation" value="{{visa.emp_occupation|default:''}}" required  placeholder="Occupation">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="emp_occupation" required  placeholder="Occupation">
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Company name</label>
+                                {% if visas %}
+                                {% for visa in visas %}
+                                <input type="text" class="col-sm-8 form-control" name="emp_company_name" value="{{visa.emp_company_name|default:''}}" required  placeholder="Company name">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="emp_company_name" required  placeholder="Company name">
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Company Contact Number</label>
+                                {% if visas %}
+                                {% for visa in visas %}
+                                <input type="text" class="col-sm-8 form-control" name="emp_company_contact_number" value="{{visa.emp_occupation|default:''}}" required  placeholder="Company Contact Number">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="emp_company_contact_number" required  placeholder="Company Contact Number">
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Address of the company</label>
+                                {% if visas %}
+                                {% for visa in visas %}
+                                <input type="text" class="col-sm-8 form-control" name="emp_address_of_the_company" value="{{visa.emp_address_of_the_company|default:''}}" required  placeholder="Company Contact Number">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="emp_address_of_the_company" required  placeholder="Company Contact Number">
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >City</label>
+                                {% if visas %}
+                                {% for visas in visas %}
+                                    <select name="emp_city" class="form-control myselect" style="width:66%">
+                                        <option>Select City</option>
+                                        {% for city in cities %}
+                                            <option value="{{city.id}}" {% if visa.emp_city == city.id %} selected {%endif%}>{{city.city_name}}</option>
+                                        {% endfor %}
+                                        </select>
+                                {% endfor %}
+                                {% else %}
+                                    <select name="emp_city" class="form-control myselect" style="width:66%">
+                                        <option>Select City</option>
+                                        {% for nationality in cities %}
+                                            <option value="{{nationality.id}}">{{nationality.city_name}}</option>
+                                        {% endfor %}
+                                        </select>
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >State</label>
+                                {% if visas %}
+                                {% for visas in visas %}
+                                    <select name="emp_state" class="form-control myselect" style="width:66%">
+                                        <option>Select State</option>
+                                        {% for city in states %}
+                                            <option value="{{city.id}}" {% if visa.emp_state == city.id %} selected {%endif%}>{{city.name}}</option>
+                                        {% endfor %}
+                                        </select>
+                                {% endfor %}
+                                {% else %}
+                                    <select name="emp_state" class="form-control myselect" style="width:66%">
+                                        <option>Select State</option>
+                                        {% for nationality in states %}
+                                            <option value="{{nationality.id}}">{{nationality.name}}</option>
+                                        {% endfor %}
+                                        </select>
+                                {% endif %}
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Country</label>
+                                {% if visas %}
+                                {% for visas in visas %}
+                                    <select name="emp_country" class="form-control myselect" style="width:66%">
+                                        <option>Select Country</option>
+                                        {% for city in countrys %}
+                                            <option value="{{city.id}}" {% if visa.emp_country == city.id %} selected {%endif%}>{{city.name}}</option>
+                                        {% endfor %}
+                                        </select>
+                                {% endfor %}
+                                {% else %}
+                                    <select name="emp_country" class="form-control myselect" style="width:66%">
+                                        <option>Select Country</option>
+                                        {% for nationality in countrys %}
+                                            <option value="{{nationality.id}}">{{nationality.name}}</option>
+                                        {% endfor %}
+                                        </select>
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Zip code</label>
+                                {% if visas %}
+                                {% for visa in visas %}
+                                <input type="text" class="col-sm-8 form-control" name="emp_zip_code" value="{{visa.emp_zip_code|default:''}}" required  placeholder="Zip code">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="emp_zip_code" required  placeholder="Zip code">
+                                {% endif %}
+                            </div>
+
+                             <div class="form-group row">
+                                <label class="col-sm-4" >Previous Company Name</label>
+                                {% if visas %}
+                                {% for visa in visas %}
+                                <input type="text" class="col-sm-8 form-control" name="emp_previous_company_came" value="{{visa.emp_previous_company_came|default:''}}" required  placeholder="Previous Company Name">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="emp_previous_company_came" required  placeholder="Previous Company Name">
+                                {% endif %}
+                            </div>
+
+                             <div class="form-group row">
+                                <label class="col-sm-4" >Previous Company Address</label>
+                                {% if visas %}
+                                {% for visa in visas %}
+                                <input type="text" class="col-sm-8 form-control" name="emp_previous_company_address" value="{{visa.emp_previous_company_address|default:''}}" required  placeholder="Previous Company Address">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="emp_previous_company_address" required  placeholder="Previous Company Address">
+                                {% endif %}
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+
+
+                                         <div class="card card-topline-aqua">
+                        <div class="card-head">
+                            <header>Family Members/Dependents Accompanying</header>
+
+                        </div>
+                        <div class="card-body ">
+
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >If Accompanying? </label>
+                                {% if visas %}
+                                {% for visas in visas %}
+                                    <select name="f_dependent_yes" id="f_dependent_yes" class="form-control myselect" style="width:66%">
+                                        <option value="0" {% if visa.child == 0 %} selected {%endif%}>No</option>
+                                        <option value="1" {% if visa.child == 1 %} selected {%endif%}>Yes</option>
+                                        </select>
+                                {% endfor %}
+                                {% else %}
+                                    <select name="f_dependent_yes" id="f_dependent_yes" class="form-control myselect" style="width:66%">
+                                        <option value="0">No</option>
+                                        <option value="1">Yes</option>
+
+                                        </select>
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row" id="f_no_of_family_member_row">
+                                <label class="col-sm-4" >No of Family Member? </label>
+                                {% if visas %}
+                                {% for visas in visas %}
+                                    <select name="f_no_of_family_member" id="f_no_of_family_member" class="form-control myselect" style="width:66%">
+                                        <option value="1" {% if visa.child == 1 %} selected {%endif%}>1</option>
+                                        <option value="2" {% if visa.child == 2 %} selected {%endif%}>2</option>
+                                        <option value="3" {% if visa.child == 3 %} selected {%endif%}>3</option>
+                                        <option value="4" {% if visa.child == 4 %} selected {%endif%}>4</option>
+                                        <option value="5" {% if visa.child == 5 %} selected {%endif%}>5</option>
+                                        <option value="6" {% if visa.child == 6 %} selected {%endif%}>6</option>
+                                        </select>
+                                {% endfor %}
+                                {% else %}
+                                    <select name="f_dependent_yes" id="f_no_of_family_member" class="form-control myselect" style="width:66%">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        </select>
+                                {% endif %}
+                            </div>
+
+
+                            <table class="table table-striped" style="width:100%">
+
+							<tr>
+                                <th>  Name  </th>
+                                <th>  Nationality </th>
+                                <th>  Passport Number  </th>
+                                <th>  Relation   </th>
+							</tr>
+
+                             <tr>
+                                <td>
+                                    {% if visas %}
+                                    {% for visa in visas %}
+                                    <input type="text" class="form-control" name="f_name" value="{{visa.f_name|default:''}}" required  placeholder="Name">
+                                    {% endfor %}
+                                    {% else %}
+                                    <input type="text" class="form-control" name="f_name" required  placeholder="Name">
+                                    {% endif %}
+                                </td>
+
+                                <td>  {% if visas %}
+                                {% for visas in visas %}
+                                    <select name="f_nationality" class="form-control myselect">
+                                        <option>Select Nationality</option>
+                                        {% for nationality in nationalities %}
+                                            <option value="{{nationality.id}}" {% if visa.nationality == nationality.id %} selected {%endif%}>{{nationality.name}}</option>
+                                        {% endfor %}
+                                        </select>
+                                {% endfor %}
+                                {% else %}
+                                    <select name="f_nationality" class="form-control myselect">
+                                        <option>Select Nationality</option>
+                                        {% for nationality in nationalities %}
+                                            <option value="{{nationality.id}}">{{nationality.name}}</option>
+                                        {% endfor %}
+                                        </select>
+                                {% endif %}
+                                </td>
+
+                                 <td>
+                                     {% if visas %}
+                                {% for visa in visas %}
+                                <input type="text" class="form-control" name="f_passport_number" value="{{visa.f_passport_number|default:''}}" required  placeholder="Passport Number">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="form-control" name="f_passport_number" required  placeholder="Passport Number">
+                                {% endif %}
+                                 </td>
+
+                                 <td>
+                                     {% if visas %}
+                                {% for visa in visas %}
+                                <input type="text" class="form-control" name="f_relation" value="{{visa.f_relation|default:''}}" required  placeholder="Relation">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="form-control" name="f_relation" required  placeholder="Relation">
+                                {% endif %}
+                                 </td>
+							</tr>
+
+
+                            </table>
+
+
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </div>
+
+
+
+                <div class="col-md-4">
+                    <div class="card card-topline-aqua">
+                        <div class="card-head">
+                            <header>Passport Details</header>
+
+                        </div>
+                        <div class="card-body " id="bar-parent3">
+
+
+
+
+
+                             <div class="form-group row">
+                                <label class="col-sm-4" >Passport type</label>
+                                {% if visas %}
+                                {% for visa in visas %}
+                                <input type="text" class="col-sm-8 form-control" name="passport_type" value="{{visa.passport_type|default:''}}" required  placeholder="Passport type">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="passport_type" required  placeholder="Passport type">
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Passport Number</label>
+                                {% if visas %}
+                                {% for visa in visas %}
+                                <input type="text" class="col-sm-8 form-control" name="passport_number" value="{{visa.passport_number|default:''}}" required  placeholder="Passport Number">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="passport_number" required  placeholder="Passport Number">
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Country of issue</label>
+                                {% if visas %}
+                                {% for visas in visas %}
+                                    <select name="country_of_issue_id" class="form-control myselect" style="width:66%">
+                                        <option>Select Country</option>
+                                        {% for city in countrys %}
+                                            <option value="{{city.id}}" {% if visa.emp_country == city.id %} selected {%endif%}>{{city.name}}</option>
+                                        {% endfor %}
+                                        </select>
+                                {% endfor %}
+                                {% else %}
+                                    <select name="country_of_issue_id" class="form-control myselect" style="width:66%">
+                                        <option>Select Country</option>
+                                        {% for nationality in countrys %}
+                                            <option value="{{nationality.id}}">{{nationality.name}}</option>
+                                        {% endfor %}
+                                        </select>
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Place of issue</label>
+                                {% if visas %}
+                                {% for visa in visas %}
+                                <input type="text" class="col-sm-8 form-control" name="place_of_issue" value="{{visa.place_of_issue|default:''}}" required  placeholder="Place of issue">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="place_of_issue" required  placeholder="Place of issue">
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Date of issue</label>
+                                {% if visas %}
+                                {% for visa in visas %}
+                                <input type="text" class="col-sm-8 form-control datepicker1" name="date_of_issue" autocomplete="off" value="{{visa.place_of_issue|default:''}}" required  placeholder="Date of issue">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control datepicker1" autocomplete="off" name="date_of_issue" required  placeholder="Date of issue">
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Expiry Date</label>
+                                {% if visas %}
+                                {% for visa in visas %}
+                                <input type="text" class="col-sm-8 form-control datepicker1" name="expiry_date" autocomplete="off" value="{{visa.place_of_issue|default:''}}" required  placeholder="Expiry Date">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control datepicker1" autocomplete="off" name="expiry_date" required  placeholder="Expiry Date">
+                                {% endif %}
+                            </div>
+
+                             <div class="form-group row">
+                                <label class="col-sm-4" >Have u ever lost or stolen?</label>
+                                {% if visas %}
+                                {% for visas in visas %}
+                                    <select name="have_u_ever_lost_or_stolen" class="form-control myselect" style="width:66%">
+                                        <option value="0" {% if visa.have_u_ever_lost_or_stolen == 0 %} selected {%endif%}>No</option>
+                                        <option value="1" {% if visa.have_u_ever_lost_or_stolen == 1 %} selected {%endif%}>Yes</option>
+                                        </select>
+                                {% endfor %}
+                                {% else %}
+                                    <select name="have_u_ever_lost_or_stolen" class="form-control myselect" style="width:66%">
+                                         <option value="0">No</option>
+                                        <option value="1">Yes</option>
+                                        </select>
+                                {% endif %}
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="card card-topline-aqua">
+                        <div class="card-head">
+                            <header>Travel Information</header>
+
+                        </div>
+                        <div class="card-body " id="bar-parent3">
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Pupose of Trip</label>
+                                {% if visas %}
+                                {% for visas in visas %}
+                                    <select name="t_pupose_of_trip" class="form-control myselect" style="width:66%">
+                                        <option>Select Pupose of Trip</option>
+                                        <option value="Business">Business</option>
+                                        <option value="Conference/Convention">Conference/Convention</option>
+                                        <option value="Education">Education</option>
+                                        <option value="Employment">Employment</option>
+                                        <option value="Exhibition">Exhibition</option>
+                                        <option value="Visiting">Visiting</option>
+                                        <option value="Friends/Family">Friends/Family</option>
+                                        <option value="Holiday">Holiday</option>
+                                        <option value="Other">Other</option>
+
+                                        </select>
+                                {% endfor %}
+                                {% else %}
+                                    <select name="t_pupose_of_trip" class="form-control myselect" style="width:66%">
+                                        <option>Select Pupose of Trip</option>
+                                        <option value="Business">Business</option>
+                                        <option value="Conference/Convention">Conference/Convention</option>
+                                        <option value="Education">Education</option>
+                                        <option value="Employment">Employment</option>
+                                        <option value="Exhibition">Exhibition</option>
+                                        <option value="Visiting">Visiting</option>
+                                        <option value="Friends/Family">Friends/Family</option>
+                                        <option value="Holiday">Holiday</option>
+                                        <option value="Other">Other</option>
+                                        </select>
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Specify reason</label>
+                                {% if visas %}
+                                {% for visa in visas %}
+                                <input type="text" class="col-sm-8 form-control" name="t_specify_reason" value="{{visa.t_specify_reason|default:''}}" required  placeholder="Specify reason">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="t_specify_reason" required  placeholder="Specify reason">
+                                {% endif %}
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Port of emberkation/boarding from</label>
+                                {% if visas %}
+                                {% for visa in visas %}
+                                <input type="text" class="col-sm-8 form-control" name="t_port_of_emberkation_from" value="{{visa.t_port_of_emberkation_from|default:''}}" required  placeholder="Port of emberkation/boarding from">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="t_port_of_emberkation_from" required  placeholder="Port of emberkation/boarding from">
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Country of emberkation/boarding from</label>
+                                {% if visas %}
+                                {% for visa in visas %}
+                                <input type="text" class="col-sm-8 form-control" name="t_country_of_emberkation" value="{{visa.t_country_of_emberkation|default:''}}" required  placeholder="Country of emberkation/boarding from">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="t_country_of_emberkation" required  placeholder="Country of emberkation/boarding from">
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Port of emberkation/boarding to</label>
+                                {% if visas %}
+                                {% for visa in visas %}
+                                <input type="text" class="col-sm-8 form-control" name="t_port_of_emberkation_to" value="{{visa.t_port_of_emberkation_to|default:''}}" required  placeholder="Port of emberkation/boarding to">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="t_port_of_emberkation_to" required  placeholder="Port of emberkation/boarding to">
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Application reciept/ Petition number</label>
+                                {% if visas %}
+                                {% for visa in visas %}
+                                <input type="text" class="col-sm-8 form-control" name="t_application_reciept" value="{{visa.t_application_reciept|default:''}}" required  placeholder="Application reciept/ Petition number">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="t_application_reciept" required  placeholder="Application reciept/ Petition number">
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Intended date of Arrival</label>
+                                {% if visas %}
+                                {% for visa in visas %}
+                                <input type="text" class="col-sm-8 form-control datepicker1" name="t_intended_date_of_arrival" value="{{visa.t_intended_date_of_arrival|default:''}}" required  placeholder="Intended date of Arrival">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control datepicker1" name="t_intended_date_of_arrival" required  placeholder="Intended date of Arrival">
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Intended length of stay</label>
+                                {% if visas %}
+                                {% for visa in visas %}
+                                <input type="text" class="col-sm-8 form-control" name="t_intended_length_of_stay" value="{{visa.t_intended_length_of_stay|default:''}}" required  placeholder="Intended length of stay">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="t_intended_length_of_stay" required  placeholder="Intended length of stay">
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Address where you will stay</label>
+                                {% if visas %}
+                                {% for visa in visas %}
+                                <input type="text" class="col-sm-8 form-control" name="t_address_where_you_will_stay" value="{{visa.t_address_where_you_will_stay|default:''}}" required  placeholder="Address where you will stay">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="t_address_where_you_will_stay" required  placeholder="Address where you will stay">
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Person/Entity paying for your trip</label>
+                                {% if visas %}
+                                {% for visa in visas %}
+                                <input type="text" class="col-sm-8 form-control" name="t_person_paying_for_your_trip" value="{{visa.t_person_paying_for_your_trip|default:''}}" required  placeholder="Person/Entity paying for your trip">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="t_person_paying_for_your_trip" required  placeholder="Person/Entity paying for your trip">
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Company/Organization paying for trip</label>
+                                {% if visas %}
+                                {% for visa in visas %}
+                                <input type="text" class="col-sm-8 form-control" name="t_company_paying_for_trip" value="{{visa.t_company_paying_for_trip|default:''}}" required  placeholder="Company/Organization paying for trip">
+                                {% endfor %}
+                                {% else %}
+                                <input type="text" class="col-sm-8 form-control" name="t_company_paying_for_trip" required  placeholder="Company/Organization paying for trip">
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Have you visited before? </label>
+                                {% if visas %}
+                                {% for visas in visas %}
+                                    <select name="t_have_you_visited_before" class="form-control myselect" style="width:66%">
+                                        <option value="0" {% if visa.t_have_you_visited_before == 0 %} selected {%endif%}>No</option>
+                                        <option value="1" {% if visa.t_have_you_visited_before == 1 %} selected {%endif%}>Yes</option>
+                                        </select>
+                                {% endfor %}
+                                {% else %}
+                                    <select name="t_have_you_visited_before" class="form-control myselect" style="width:66%">
+                                         <option value="0">No</option>
+                                        <option value="1">Yes</option>
+                                        </select>
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Have you applied for this country visa before? </label>
+                                {% if visas %}
+                                {% for visas in visas %}
+                                    <select name="t_have_you_applied_before" class="form-control myselect" style="width:66%">
+                                        <option value="0" {% if visa.t_have_you_applied_before == 0 %} selected {%endif%}>No</option>
+                                        <option value="1" {% if visa.t_have_you_applied_before == 1 %} selected {%endif%}>Yes</option>
+                                        </select>
+                                {% endfor %}
+                                {% else %}
+                                    <select name="t_have_you_applied_before" class="form-control myselect" style="width:66%">
+                                         <option value="0">No</option>
+                                        <option value="1">Yes</option>
+                                        </select>
+                                {% endif %}
+                            </div>
+
+                             <div class="form-group row">
+                                <label class="col-sm-4" >Any criminal record? </label>
+                                {% if visas %}
+                                {% for visas in visas %}
+                                    <select name="t_any_criminal_record" class="form-control myselect" style="width:66%">
+                                        <option value="0" {% if visa.t_any_criminal_record == 0 %} selected {%endif%}>No</option>
+                                        <option value="1" {% if visa.t_any_criminal_record == 1 %} selected {%endif%}>Yes</option>
+                                        </select>
+                                {% endfor %}
+                                {% else %}
+                                    <select name="t_any_criminal_record" class="form-control myselect" style="width:66%">
+                                         <option value="0">No</option>
+                                        <option value="1">Yes</option>
+                                        </select>
+                                {% endif %}
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- end page content -->
+
+
+{% else %}
+<p>Welcome, new user. Please log in.<a href="/login">Login</a></p>
+{% endif %}
+<script>
+
+$('#applicant_type').change(function(){
+    var applicant_type =  $(this).val();
+
+    if(applicant_type == 'Dependent'){
+        $('#asignee_visa_number_row').show();
+    }else{
+        $('#asignee_visa_number_row').hide();
+    }
+});
+
+$('#f_dependent_yes').change(function(){
+    var f_dependent_yes =  $(this).val();
+
+    if(f_dependent_yes == 1){
+        $('#f_no_of_family_member_row').show();
+    }else{
+        $('#f_no_of_family_member_row').hide();
+    }
+});
+
+
+$( document ).ready(function() {
+$('#asignee_visa_number_row').hide();
+$('#f_no_of_family_member_row').hide();
+
+
+$('#model_serialize_update')
+.each(function(){
+$(this).data('serialized', $(this).serialize())
+})
+    .on('change input', function(){
+        $(this)
+            .find('input:submit, button:submit')
+                .attr('disabled', $(this).serialize() == $(this).data('serialized'))
+        ;
+     })
+.find('input:submit, button:submit')
+.attr('disabled', true);
+
+});
+
+$(document.body).on("change",".myselect",function(){
+  $('form')
+      .find('input:submit, button:submit')
+          .attr('disabled', $('#model_serialize_update').serialize() == $('#model_serialize_update').data('serialized'))
+  ;
+});
+
+</script>
+
+
+{% endblock %}

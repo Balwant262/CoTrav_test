@@ -1,0 +1,392 @@
+{% extends 'Company/Admin/layout/header.html' %}
+
+{% block content %}
+
+{% if user %}
+			<!-- start page content -->
+{% include 'cotrav_alert_message.html' %}
+
+            <div class="page-content-wrapper">
+                <div class="page-content">
+
+
+
+
+
+<div class="row">
+            <div class="col-md-12">
+                <div class="card card-topline-aqua">
+                    <div class="card-head">
+                        <header>Search Guest House Form</header>
+                        <div class="btn-group">
+                            <a href = "/Corporate/Admin/guesthouse-bookings/1" class = "btn btn-primary btn-xs">My Guest House Bookings</a>
+                            </div>
+
+                        <div class="tools">
+
+                            <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                            <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                            <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                        </div>
+
+                    </div>
+
+<form action="/Corporate/Admin/get-guesthouse-to-booking/0" method="post" id="submit_form">
+    <input type="hidden" name="guesthouse_id" id="guesthouse_id">
+    <input type="hidden" name="room_id" id="room_id">
+    <input type="hidden" name="no_of_nights" id="no_of_nights">
+<div class="card-body ">
+ <fieldset style="border: solid 1px #dedede; padding: 9px; margin: 2px;">
+     <legend style="display: block;
+    width: auto;
+    font-size: 12px;
+    font-weight: 500;line-height:1;">Select Filter</legend>
+                           <div class="row">
+
+                                <div class="col-sm-2">
+                                    <select class="form-control myselect" name="from_city" id="from_city"  required>
+                                                        <option value="">Select City</option>
+                                                        {% for city in cities %}
+                                                            <option value="{{city.id}}">{{city.city_name}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                </div>
+
+
+
+                               <div class="col-sm-4">
+                                   <input style="line-height: 1.9;" type="text" list="guesthouse" class="form-control" name="preferred_hotel_area" id="preferred_hotel_area" placeholder="Preferred Area">
+                                       <datalist id="guesthouse">
+                                       {% for guesthouse in guesthouses %}
+                                            <option value="{{guesthouse.area_location}}">
+                                       {% endfor %}
+                                       </datalist>
+                               </div>
+
+
+
+                               <div class="col-sm-2">
+                                    <input style="line-height: 1.9;" type="text" class="form-control datetimepicker1" placeholder="Checkin Date"  autocomplete="off" name="check_in_datetime" id="check_in_date">
+                               </div>
+
+                               <div class="col-sm-2">
+                                     <input style="line-height: 1.9;" type="text" class="form-control datetimepicker2" placeholder="Checkout Date" autocomplete="off" name="check_out_datetime" id="check_out_date">
+                                </div>
+
+                               <div class="col-sm-2">
+                                   <a id="guesthouse_search" class="btn btn-info btn-sm">  Search  </a>
+                                </div>
+
+
+
+
+                        </div>
+ </fieldset>
+</div>
+</form>
+
+                </div>
+            </div>
+            </div>
+
+
+
+
+                    <div class="row">
+
+
+
+                        <div class="col-md-12">
+
+                            <div class="card card-topline-aqua">
+                                <div class="card-head">
+                                    <header>Guest House Details</header>
+                                    <div class="tools">
+                                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                                        <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                                        <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                                    </div>
+                                </div>
+                                <div class="card-body " id="bar-parent">
+
+                                    <div class="table-wrap">
+                                     <div class="panel-group accordion" id="accordion3">
+                                        <div class="table-responsive">
+                                            <table class="table display product-overview mb-30">
+                                             <thead>
+
+                                                    <tr class="bg_color" style="width:100%;">
+                                                        <th colspan="2">GuestHouse ID</th>
+                                                        <th colspan="2">Code</th>
+                                                        <th colspan="2">Name</th>
+                                                        <th colspan="2">City</th>
+
+                                                        <th colspan="2">Address</th>
+                                                        <th>Book</th>
+                                                        <th>Details</th>
+
+                                                    </tr>
+
+                                                </thead>
+                                                <tbody id="guesthouse_row">
+                                            {% for guesthouse in guesthouses %}
+                                                <tr >
+                                                        <td colspan="2"><p class="font_txt">{{guesthouse.guest_house_id}} </p></td>
+
+                                                        <td colspan="2"><p class="font_txt">{{guesthouse.guest_house_code}} </p></td>
+
+                                                         <td colspan="2"><p style="font-weight:bold; font-size:14px;" class="font_txt">{{guesthouse.guest_house_name}} </p></td>
+
+                                                        <td colspan="2"><p class="font_txt">{{guesthouse.city_id_name}} </p></td>
+
+                                                    <td colspan="2"><p class="font_txt">{{guesthouse.area_location}} </p></td>
+                                                    <td colspan="1">
+<!--                                                        <a class="btn btn-primary btn-sm" href="/Corporate/Admin/add-guesthouse-booking/{{guesthouse.id}}">Book</a>-->
+                                                    </td>
+                                                    <td colspan="1">
+                                                        <a class="btn btn-info btn-sm" href="/Corporate/Admin/view-guesthouse-details/{{guesthouse.id}}"><i class="fa fa-search"></i></a>
+                                                    </td>
+
+                                                       </tr>
+                                                {% endfor %}
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                     </div>
+                                    </div>
+
+
+
+
+
+                                </div>
+
+                                    </div>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    </div>
+
+
+
+<!-- end page content -->
+
+
+
+
+{% else %}
+    <p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+<!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCstbhex4F6X2-AXz3B1sR1oRvxssE3sc&libraries=places"></script>-->
+
+<!--<script>-->
+
+<!--$("#preferred_hotel_area").focus(function(){-->
+<!--   var from_city_id =  $("#from_city").val();-->
+<!--   var from_city =  $("#from_city option:selected").text();-->
+
+<!--    if(from_city_id == ''){-->
+<!--        alert('please select city');-->
+<!--    }else{-->
+
+<!--  var str = $("#preferred_hotel_area").val();-->
+<!--  var prefix = from_city+', ';-->
+
+<!--    if(str.indexOf(prefix) == 0) {-->
+<!--        console.log(input.value);-->
+<!--    } else {-->
+<!--        if (prefix.indexOf(str) >= 0) {-->
+<!--        $("#preferred_hotel_area").val(prefix);-->
+<!--    } else {-->
+<!--       $("#preferred_hotel_area").val(prefix+str) ;-->
+<!--   }-->
+<!--    }-->
+
+
+<!--    }-->
+<!--  });-->
+
+<!--function initialize() {-->
+<!--  var options = {-->
+<!--    componentRestrictions: {-->
+<!--      country: "in"-->
+<!--    }-->
+<!--  };-->
+
+<!--  var input = document.getElementById('preferred_hotel_area');-->
+<!--  var autocomplete = new google.maps.places.Autocomplete(input, options);-->
+<!--}-->
+
+<!--google.maps.event.addDomListener(window, 'load', initialize);-->
+<!--</script>-->
+
+
+
+<script>
+
+$('#guesthouse_search').on("click",function(){
+    var from_city =  $("#from_city").val();
+    var check_in =  $("#check_in_date").val();
+    var check_out =  $("#check_out_date").val();
+    var preferred_hotel_area =  $("#preferred_hotel_area").val();
+
+    if(from_city == '' || check_in == '' || check_out == '' ){
+        alert('please select city and Checkin/Checkout');
+    }else{
+
+
+    var_url = '/api/'+'get_guesthouse_from_city_area'
+    $.ajaxSetup({
+            headers:{
+                'Authorization': "Token {{request.session.admin_access_token}}",
+                'usertype': 1
+            }
+
+        });
+
+     $.post(var_url,{from_city:from_city,preferred_hotel_area:preferred_hotel_area,check_in_date:check_in,check_out_date:check_out},
+      function(data)
+      {
+       alert(JSON.stringify(data['Guesthouse']));
+       if(data['Guesthouse'].length != 0){
+        guesthouse = data['Guesthouse'];
+
+        $('#guesthouse_row').empty();
+        for (var i=0;i<guesthouse.length;i++) {
+            $('#guesthouse_row').append($('<tr>\
+                <td colspan="2"><p class="font_txt">'+guesthouse[i].guest_house_id+' </p></td>\
+                <td colspan="2"><p class="font_txt">'+guesthouse[i].guest_house_code+'</p></td>\
+                <td colspan="2"><p style="font-weight:bold; font-size:14px;" class="font_txt">'+guesthouse[i].guest_house_name+'</p></td>\
+                <td colspan="2"><p class="font_txt">'+guesthouse[i].city_id_name+'</p></td>\
+                <td colspan="2"><p class="font_txt">'+guesthouse[i].area_location+'</p></td>\
+                <td colspan="1"><input type="submit" value="Book" class="btn btn-primary btn-sm" onClick="submitDetailsForm('+guesthouse[i].id+','+guesthouse[i].room_id+')"></td>\
+                <td colspan="1"><a class="btn btn-info btn-sm" href="/Corporate/Admin/view-guesthouse-details/'+guesthouse[i].id+'">Details</a></td>\
+               </tr>\
+            '));
+
+
+           }
+       }else{
+        alert('No Guesthouse Available');
+
+       }
+       });
+
+    }
+
+})
+
+function submitDetailsForm(gid, rid) {
+$("#guesthouse_id").val(gid);
+$("#room_id").val(rid);
+if(gid && rid)
+$("#submit_form").submit();
+}
+
+$(document).ready(function() {
+$("#check_in_date,#check_out_date").change(function()
+		{
+			var ddStr =  $("#check_in_date").val();
+			var adStr =  $("#check_out_date").val();
+
+			var dd = ddStr.replace(" ", "T");
+			var ddTime = moment(adStr, "DD-MM-YYYY HH:mm");
+			var ddDate = new Date(ddTime);
+
+			var ad = adStr.replace(" ", "T");
+			var adTime = moment(ddStr, "DD-MM-YYYY HH:mm");
+			var adDate = new Date(adTime);
+
+			var d = new Date();
+
+			if(ddTime < adTime)
+			{
+				//alert("Please select a future Departure date");
+				//return false;
+				ddTime = adTime + (3600000*24); //Add One day time
+				ddDate  = new Date(ddTime);
+				var day = ddDate.getDate();
+				if(day < 10)
+				day = "0"+day;
+				var mon = ddDate.getMonth() + 1;
+				if(mon < 10)
+				mon = "0"+mon;
+				var year = ddDate.getFullYear();
+				ddString = year + "-" + mon + "-" + day + " 12:00";
+				$("#check_in_date").val(ddString);
+				$("#no_of_nights").val(1);
+			}
+			else
+			{
+				var diff = ddTime - adTime;
+				var day_diff = diff/(3600000*24);
+				days = Math.round(day_diff);
+				var adHour = adDate.getHours();
+				var adMin = adDate.getMinutes();
+				if(adMin > 0)
+				{
+					if(adHour != '11')
+					{
+						adHour += 1;
+					}
+				}
+				var ddHour = ddDate.getHours();
+				var ddMin = ddDate.getMinutes();
+				if(ddMin > 0)
+				ddHour += 1;
+				if(adHour < 12 && ddHour <= 12)
+				days += 1;
+				if(adHour < 12 && ddHour > 12)
+				{
+					days += 2;
+				}
+				if(adHour >= 12 && ddHour > 12)
+				days += 1;
+				if(days > 1)
+				$("#no_of_nights").val(days-1);
+				else
+				$("#no_of_nights").val(1);
+			}
+		});
+});
+$(window).on("load", function () {
+var_url = '/api/'+'cities'
+    $.ajaxSetup({
+            headers:{
+                'Authorization': "Token {{request.session.admin_access_token}}",
+                'usertype': 1
+            }
+
+        });
+
+     $.post(var_url,{},
+      function(data)
+      {
+       //alert(data['Cities']);
+       if(data['Cities'].length != 0){
+        entities = data['Cities'];
+
+         for (var i=0;i<entities.length;i++) {
+            $('#from_city').append($("<option value='"+entities[i].id+"'>"+entities[i].city_name+"</option>"));
+
+         }
+       }else{
+        alert('No Entity Available')
+
+       }
+       });
+
+});
+
+
+</script>
+
+
+
+{% endblock %}

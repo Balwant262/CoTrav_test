@@ -1,0 +1,468 @@
+<html>
+<title>Single CoTrav Billing Voucher</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+ <head>
+     <style>
+
+
+@page {
+size: a4 portrait;
+
+
+
+@frame header_frame { /* Static Frame */
+-pdf-frame-content: header_content;
+ position: fixed;
+  top: 0;
+  left: 0;
+  height:50%;
+
+}
+
+@frame header_frame { /* Static Frame */
+-pdf-frame-content: logo_content;
+ position: fixed;
+  top: 40px;
+  left: 20px;
+}
+
+
+@frame content_frame { /* Content Frame */
+left: 39pt; width: 512pt; top: 90pt; height: 632pt;
+
+}
+
+
+@frame footer_frame { /* Another static Frame */
+-pdf-frame-content: footer_content;
+position: fixed;
+  bottom: 0pt;
+  left: 0;
+  top: 760pt;
+
+}
+
+@frame footer_frame { /* Another static Frame */
+-pdf-frame-content: ftr_content;
+position: fixed;
+  bottom: 0pt;
+  left: 250;
+  top: 800pt;
+
+}
+
+@frame footer_frame { /* Another static Frame */
+-pdf-frame-content: bus_logo;
+position: fixed;
+  bottom: 0pt;
+  left: 0;
+  top: 800pt;
+
+}
+
+}
+
+
+h1{
+  font-size: 20px;
+  font-family: 'Montserrat';
+  text-align: center;
+
+}
+
+p{
+  font-size: 14px;
+  font-family: 'Montserrat';
+  font-weight: 500;
+
+}
+#header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+
+}
+#footer {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+ }
+
+.custom-page-start {
+    margin-top: 100px;
+}
+
+  .p-1{
+     font-size: 13px;
+  }
+
+.sec{
+  text-align: center;
+}
+.section{
+  text-decoration-line: underline;
+  line-height: 0px;
+}
+.border-left{
+  border-left: solid 1px gray;
+}
+.section2{
+  line-height: 20px;
+}
+table{
+  overflow-wrap: break-word;
+word-break: break-all;
+font-family: Montserrat;
+}
+td{
+  font-size: 11px;
+  font-family: 'Montserrat';
+font-weight: 400;
+overflow-wrap: break-word;
+word-break: break-all;
+}
+.footer{
+  height: 140px;
+}
+.img1{
+  margin-top: -94px;
+    margin-bottom: 20px;
+  }
+
+
+.flight_section{
+      padding-left: 46px;
+    margin-bottom: -8px;
+    font-size: 15px;
+    font-family: montserrat,san-serif;
+    font-weight: 600;
+
+}
+.f1{
+  font-size: 16px;
+    font-family: montserrat,san-serif;
+    font-weight: 600;
+}
+.section-f1{
+  font-size: 16px;
+    font-family: montserrat,san-serif;
+    font-weight: 600;
+}
+.section-f2{
+  font-size: 13px;
+  font-family: montserrat,Regular;
+  font-weight: 500;
+}
+.arow{
+
+  margin-right: 25px;
+  margin-top: 12px
+}
+
+table {
+    border: 1px solid #ebedeb;
+ vertical-align: middle;
+
+}
+table td, table th {
+    border:none;
+     padding: 1px;
+
+
+}
+th{
+  font-size: 15px;
+
+}
+
+span{
+font-size: 13px;
+font-weight: 600;
+text-align: center;
+}
+.plane{
+      width: 10px;
+}
+.plane_detail{
+  font-size: 12px;
+  text-align: center;
+
+}
+
+.plane_detail_1{
+  font-size: 12px;
+  text-align: center;
+   font-weight: 600;
+}
+.f-span{
+  margin-left: 81px;
+  font-size: 12px;
+  font-weight: 500;
+}
+.total_sec{
+font-family: 'Montserrat';
+    font-size: 17px;
+    font-weight: 500;
+    position: relative;
+    right: 18%;
+    padding: 15px;
+}
+.border_bott{
+  border-bottom: 1px solid gray;
+}
+
+</style>
+</head>
+
+<body>
+  <div id="header_content">
+ <img src="http://cotrav.co/static/img/test/bg1.png">
+</div>
+
+
+  <div id="footer_content">
+     <img src="http://cotrav.co/static/img/test/bg2.png">
+</div>
+
+  <div class='header'></div>
+    <div class='footer'></div>
+
+<table  width="100%" >
+
+   <tr>
+
+   <td  align="center" style=" border: solid 1px silver;"> <h1 style="line-height: 0px;font-family: 'Montserrat';padding: 10px;background-color:#e8e8e8; ">VOUCHER</h1>  </td>
+
+   </tr>
+
+    <tr>
+
+   <td align="center">  <p style="padding: 5px; font-family: 'Montserrat';font-weight: normal;">USAGE TYPE:
+
+       {% if bill_datas.serviceType == 1 %}
+        Taxi
+       {% elif bill_datas.serviceType == 1 %}
+       Bus
+       {% elif bill_datas.serviceType == 1 %}
+       Train
+       {% elif bill_datas.serviceType == 1 %}
+       Hotel
+       {% elif bill_datas.serviceType == 1 %}
+       Flight
+       {% else %}
+       Travel
+       {% endif %}
+
+       <br>BOOKING ID: {{bill_datas.booking_reference_no}} </p>  </td>
+
+   </tr>
+ </table>
+
+<table width="100%" >
+
+      <tr>
+
+
+       <td align="left"  colspan="8" ><strong>BILLED BY : </strong></td>
+
+      <td align="left"  colspan="8">{{bill_datas.cotrav_bill_entity}}</td>
+
+
+           <td  class="border-left"></td>
+
+
+      <td align="left"  colspan="8"><strong>BILLED TO : </strong></td>
+
+      <td align="left"  colspan="8">{{bill_datas.client_bill_entity}}</td>
+
+     </tr>
+
+
+
+      <tr>
+
+       <td align="left" colspan="8" style="padding-top: 3px;"> <strong> BILL DATE : </strong></td>
+
+      <td align="left" colspan="8" style="padding-top: 3px;">{{bill_datas.bill_created_date}} </td>
+
+  <td valign="left"  class="border-left"></td>
+
+      <td align="left" colspan="8" style="padding-top: 3px;"><strong>GSTIN : </strong></td>
+
+      <td align="left" colspan="8" style="padding-top: 3px;">{{bill_datas.client_bill_gstno}}</td>
+
+     </tr>
+
+
+       <tr>
+
+      <td align="left" colspan="8" style="padding-top: 3px;"><strong>  BILL NUMBER :   </strong></td>
+
+      <td align="left" colspan="8" style="padding-top: 3px;">{{bill_datas.bill_number}}</td>
+
+  <td class="border-left"></td>
+
+       <td align="left" colspan="8" style="padding-top: 3px;"><strong>Billing City : </strong></td>
+
+      <td align="left" colspan="8" style="padding-top: 3px;">{{bill_datas.client_bill_city}}</td>
+
+     </tr>
+
+
+  <tr>
+
+       <td align="left" colspan="8" style="padding-top: 3px;"> <strong> GSTIN :  </strong></td>
+
+      <td align="left" colspan="8" style="padding-top: 3px;"> {{bill_datas.cotrav_bill_gstno}} </td>
+
+          <td  class="border-left"></td>
+
+       <td align="left" colspan="8" style="padding-top: 3px;"><strong>Booked By : </strong></td>
+
+      <td align="left" colspan="8" style="padding-top: 3px;"> Rajeev Kumar</td>
+
+     </tr>
+
+
+  <tr>
+
+       <td align="left" colspan="8" style="padding-top: 3px;"><strong>  Pan Number :    </strong></td>
+
+      <td align="left" colspan="8" style="padding-top: 3px;">{{bill_datas.cotrav_bill_panno}} </td>
+
+          <td class="border-left"></td>
+
+        <td align="left" colspan="8" style="padding-top: 3px;">-</td>
+
+      <td align="left" colspan="8" style="padding-top: 3px;">-</td>
+
+     </tr>
+
+      <tr>
+
+       <td align="left" colspan="8" style="padding-top: 3px;"><strong>CIN Number :   </strong></td>
+
+      <td align="left" colspan="8" style="padding-top: 3px;">U72200DL2015PTC283027 </td>
+
+        <td  class="border-left"></td>
+
+      <td align="left" colspan="8" style="padding-top: 3px;">- </td>
+
+      <td align="left" colspan="8" style="padding-top: 3px;">-</td>
+
+     </tr>
+
+</table>
+
+  <table width="100%"  >
+        <h1 style=" line-height: 0px;font-family: 'Montserrat';padding: 10px;background-color:#e8e8e8;">Services Details</h1>
+
+   <tr>
+     <th    align="left" style="border-right: solid 1px gray;">Particulars</th>
+      <th   align="left"style="border-right: solid 1px gray;">Month</th>
+        <th   align="left"style="border-right: solid 1px gray;">&nbsp;</th>
+       <th   align="left">Amount</th>
+   </tr>
+
+
+   <tr>
+     <td   align="left" style="border-right: solid 1px gray;">Travel Service</td>
+      <td   align="left" style="border-right: solid 1px gray;" >Oct, Nov, Dec</td>
+       <td   align="left" style="border-right: solid 1px gray;" >&nbsp;</td>
+       <td   align="left">6296,285</td>
+   </tr>
+   <tr>
+       <td   align="left" style="border-right: solid 1px gray;" >&nbsp;</td>
+       <td   align="left" style="border-right: solid 1px gray;" >&nbsp;</td>
+       <td   align="left" style="border-right: solid 1px gray;" >&nbsp;</td>
+     <td   align="left">&nbsp;</td>
+   <tr>
+     <td   align="left" style="border-right: solid 1px gray;" >&nbsp;</td>
+      <td   align="left" style="border-right: solid 1px gray;" >&nbsp;</td>
+       <td   align="left" style="border-right: solid 1px gray;" >&nbsp;</td>
+       <td   align="left" >&nbsp;</td>
+   </tr>
+   <tr>
+     <td   align="left" style="border-right: solid 1px gray;font-size: 11px; font-weight: 500;">Taxable Amount</td>
+      <td   align="left" style="border-right: solid 1px gray;" >&nbsp;</td>
+       <td   align="left" style="border-right: solid 1px gray;" >&nbsp;</td>
+       <td   align="left" style="font-size: 11px; font-weight: 500;">6296,285</td>
+   </tr>
+    <tr>
+     <td   align="left" style="border-right: solid 1px gray;font-size: 11px; font-weight: 500;" >IGST @ {{bill_datas.igst|default:'0'}}%</td>
+    <td   align="left" style="border-right: solid 1px gray;" >&nbsp;</td>
+       <td   align="left" style="border-right: solid 1px gray;" >&nbsp;</td>
+       <td   align="left" style="font-size: 11px; font-weight: 500;">{{bill_datas.igst|default:'0'}}</td>
+   </tr>
+
+      <tr>
+     <td   align="left" style="border-right: solid 1px gray;font-size: 11px; font-weight: 500;" >IGST @ {{bill_datas.cgst|default:'0'}}%</td>
+    <td   align="left" style="border-right: solid 1px gray;" >&nbsp;</td>
+       <td   align="left" style="border-right: solid 1px gray;" >&nbsp;</td>
+       <td   align="left" style="font-size: 11px; font-weight: 500;">{{bill_datas.cgst|default:'0'}}</td>
+   </tr>
+
+      <tr>
+     <td   align="left" style="border-right: solid 1px gray;font-size: 11px; font-weight: 500;" >IGST @ {{bill_datas.sgst|default:'0'}}%</td>
+    <td   align="left" style="border-right: solid 1px gray;" >&nbsp;</td>
+       <td   align="left" style="border-right: solid 1px gray;" >&nbsp;</td>
+       <td   align="left" style="font-size: 11px; font-weight: 500;">{{bill_datas.sgst|default:'0'}}</td>
+   </tr>
+
+
+
+ </table>
+
+ <table width="100%"  >
+
+
+   <tr>
+
+         <td align="center" colspan="6"class="total_sec">Net Invoice Amount </td>
+           <td align="center" colspan="8" class="total_sec"> INR {{bill_datas.total_amount}}  </td>
+
+    </tr>
+ </table>
+
+
+<table width="100%">
+        <h1 style="line-height: 0px;font-family: 'Montserrat';padding: 10px;background-color:#e8e8e8;">Bank Details</h1>
+      <tr>
+       
+        <td colspan="8" align="left" style="padding-top: 2px;"><strong>Bank Name :</strong></td>
+    
+      <td colspan="8" align="left" style="padding-top: 2px;"> HDFC  </td>
+
+  <td  class="border-left"></td>
+    
+       <td colspan="8" align="left" style="padding-top: 2px;"><strong>Beneficiary Name  : </strong></td>
+   
+      <td colspan="8" align="left" style="padding-top: 2px;">BAI Infosolutions Private
+Limited,India</td>
+  </tr>
+     
+    <tr>
+        
+        <td colspan="8" align="left" style="padding-top: 2px;"><strong>Account No. :</strong></td>
+    
+      <td colspan="8" align="left" style="padding-top: 2px;">12345678901</td>
+
+  <td  class="border-left"></td>
+    
+       <td colspan="8" align="left" style="padding-top: 2px;"><strong>IFSC No. : </strong></td>
+   
+      <td colspan="8" align="left" style="padding-top: 2px;">12345</td>
+ </tr>
+
+
+</table>
+</body>
+</html>

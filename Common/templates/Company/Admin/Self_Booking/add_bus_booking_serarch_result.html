@@ -1,0 +1,350 @@
+{% extends 'Company/Admin/layout/header.html' %}
+{% load static %}
+{% block content %}
+
+{% if user %}
+<!-- start page content -->
+
+{% include 'cotrav_alert_message.html' %}
+
+<style>
+.card_hover{
+    background: #fff;
+    border-radius: 2px;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100%;
+    font-size: 14px;
+    color: #4a4a4a;
+    font-weight: 700;
+    display: table;
+    table-layout: fixed;
+    margin-bottom: 7px;
+    font-family: Noto Sans,sans-serif!important;
+}
+
+.duration {
+    margin-left: 15px;
+    font-size: 10px;
+    background: #d7d7d7;
+    position: relative;
+    padding: 4px 8px;
+    z-index: 1;
+}
+
+.link {
+    font-size: 10px;
+    color: #4787ed;
+    font-weight: 400;
+    display: block;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.amenities_list{
+font-size: 12px;
+color: #4787ed;
+font-weight: 600;
+letter-spacing: 3px;
+}
+
+.card_hover:hover {
+  box-shadow: 0 0 6px rgba(33,33,33,.5);
+}
+
+.ratingss{
+font-weight: 800;
+color: #fff;
+}
+
+.details_card {
+    background: #f0f0f0;
+    position: relative;
+    padding: 10px;
+    font-size: 12px;
+    color: #4a4a4a;
+    margin-bottom: 20px;
+}
+
+
+</style>
+
+<!-- start page content -->
+<div class="page-content-wrapper">
+<div class="page-content">
+    <div class="row">
+       <div class="col-sm-12">
+          <div class="card card-topline-aqua">
+             <div class="card-head">
+                    <header>Modify Search</header>
+            </div>
+
+              <form method="post" action="/Corporate/Spoc/add-bus-booking-self/{{user.id}}">
+                <input type="hidden" name="user_id" value="{{user.id}}">
+                <input type="hidden" name="corporate_id" value="{{user.corporate_id}}">
+                <input type="hidden" name="spoc_id" value="{{user.id}}">
+                <input type="hidden" name="group_id" value="{{user.group_id}}">
+                <input type="hidden" name="subgroup_id" value="{{user.subgroup_id}}">
+                <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+
+              <div class="col-sm-12">
+                <div class="border_style">
+                 <div class="row">
+                  <div class="col-sm-3">
+                        <p class="md_fli_fnt"> <i class="fa fa-map-marker" aria-hidden="true"></i> FROM</p>
+
+                          <select class="form-control mdl-textfield js-select2" name="from_city" >
+                                    <option value="">Select From City</option>-->
+                                    {% for airport in airports %}
+                                    <option value="{{airport.code}}" {% if booking_datas.from_city == airport.code %} selected {%endif%}>{{airport.city_name}}, {{airport.country_name}} ({{airport.code}})</option>
+                                    {% endfor %}
+                           </select>
+
+                     </div>
+
+                   <div class="col-sm-3 ">
+                         <p  class="md_fli_fnt"> <i class="fa fa-map-marker" aria-hidden="true"></i> TO</p>
+                          <select class="form-control mdl-textfield js-select2" name="to_city" >
+                                    <option value="">Select To City</option>-->
+                                    {% for airport in airports %}
+                                    <option value="{{airport.code}}" {% if booking_datas.to_city == airport.code %} selected {%endif%}>{{airport.city_name}}, {{airport.country_name}} ({{airport.code}})</option>
+                                    {% endfor %}
+                           </select>
+
+                   </div>
+
+
+                      <div class="col-sm-2">
+                        <p class="md_fli_fnt"><i class="fa fa-calendar"></i> DEPARTURE DATE</p>
+                          <input class = "floating-label mdl-textfield__input datepicker2" autocomplete="off"  type="text" name="departure_date" id="departure_date" style="border:none;background: none; background-color: none;">
+                                 <input type="hidden" value="{{ booking_datas.departure_datetime }}" id="d_date">
+                    </div>
+
+
+                        <div class="col-sm-2 ">
+                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height select-width md-28_fli">
+                              <p  class="md_fli_fnt fnt_mar"> <i class="fa fa-user" aria-hidden="true"></i> Passengers</p>
+
+                                <select class="form-control mdl-textfield js-select2" name="no_of_seats" >
+                                    <option value="1" {% if booking_datas.no_of_seats == '1' %} selected {%endif%}>1</option>
+                                    <option value="2" {% if booking_datas.no_of_seats == '2' %} selected {%endif%}>2</option>
+                                    <option value="3" {% if booking_datas.no_of_seats == '3' %} selected {%endif%}>3</option>
+                                    <option value="4" {% if booking_datas.no_of_seats == '4' %} selected {%endif%}>4</option>
+                                    <option value="5" {% if booking_datas.no_of_seats == '5' %} selected {%endif%}>5</option>
+                                    <option value="6" {% if booking_datas.no_of_seats == '6' %} selected {%endif%}>6</option>
+                                    <option value="7" {% if booking_datas.no_of_seats == '7' %} selected {%endif%}>7</option>
+                                    <option value="8" {% if booking_datas.no_of_seats == '8' %} selected {%endif%}>8</option>
+                                    <option value="9" {% if booking_datas.no_of_seats == '9' %} selected {%endif%}>9</option>
+                           </select>
+                            </div>
+                       </div>
+
+
+                     <div class="col-sm-2 ">
+                            <p class="md_fli_fnt"><i class="fa fa-search"></i> Search</p>
+                         <button type="submit" class="btn btn-sm btn-primary" >Search</button>
+                     </div>
+
+
+
+
+
+                </div>
+               </div>
+
+              </div>
+
+
+              </form>
+          </div>
+       </div>
+       </div>
+
+<div class="card card_hover">
+    <div class="row" id="myGroup">
+      <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-4"> Neeta Tours And Travels (Speedlink)
+                <label class="link "><a class="dropdown" data-target="#collapse_1_1" data-toggle="collapse" >Cancellation</a> <i class="fa fa-angle-down"></i></label>
+                </div>
+
+                <div class="col-sm-4"> Mercedes Multi-Axle Semi Sleeper (2+2)
+                <label class="link "><a class="dropdown" data-target="#collapse_1_2" data-toggle="collapse" >Amenities</a><span> <i class="fa fa-angle-down"></i>  </span></label>
+                </div>
+
+                <div class="col-sm-2"> 10 : 20 PM</div>
+
+                <div class="col-sm-2"> 06 : 30 AM </div>
+          </div>
+      </div>
+      <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-3"> <span class="duration"> 04:50hrs</span>
+                <label class="link "><a class="dropdown" data-target="#collapse_1_3" data-toggle="collapse" >Boarding / Dropping points</a> <i class="fa fa-angle-down"></i></label>
+                </div>
+
+                <div class="col-sm-1 ratingss"><span style="background-color: orange; padding: 3px 5px; border-radius: 4px; -webkit-border-radius: 4px;-ms-border-radius: 4px;-moz-border-radius: 4px;"> 3.5</span> </div>
+                <div class="col-sm-2"> 52 Seats</div>
+
+                <div class="col-sm-2" style="color:#4787ed;"> Rs. 950
+                <label class="link "><a class="dropdown" data-target="#collapse_1_4" data-toggle="collapse" >Details</a> <i class="fa fa-angle-down"></i> </label>
+                </div>
+
+                <div class="col-sm-2 amenities_list"> <i class="fa fa-file-movie-o"></i>  <i class="fa fa-map-marker"></i>
+                <i class="fa fa-lightbulb-o"></i> <i class="fa fa-wifi"></i>
+                </div>
+
+                <div class="col-sm-2"> <button class="btn btn-sm btn-primary">Book seat</button> </div>
+          </div>
+      </div>
+
+<!--        Cancellation Details-->
+<div class="col-sm-12 collapse indent" id="collapse_1_1">
+    <div class="details_card">
+
+        <div class="row">
+        <div class="col-sm-12">
+            Cancellation Policy
+            <div class="col-sm-6">
+            <div class="row">
+                <div style="font-weight: 50;" class="col-sm-6">Cancellation Time</div>
+                <div style="font-weight: 50;" class="col-sm-6">Chargers</div>
+
+                <div style="font-weight: 50;" class="col-sm-6">Between 2/26/21 11:31 AM and 2/26/21 3:31 PM</div>
+                <div style="font-weight: 50;" class="col-sm-6">100%</div>
+
+                <div style="font-weight: 50;" class="col-sm-6">Before 2/26/21 11:31 AM</div>
+                <div style="font-weight: 50;" class="col-sm-6">18%</div>
+
+                <div class="col-sm-6">Partial cancellation is NOT allowed</div>
+                <div class="col-sm-6"></div>
+            </div>
+        </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+<!--        Amenities Details-->
+<div class="col-sm-12 collapse indent" id="collapse_1_2">
+    <div class="details_card">
+
+        <div class="row">
+        <div class="col-sm-12">
+            Boarding Points (7 found)
+            <div class="row">
+                <div style="font-weight: 50;" class="col-sm-2"><i class="fa fa-file-movie-o"></i> Movie</div>
+                <div style="font-weight: 50;" class="col-sm-2"><i class="fa fa-map-marker"></i> Charging Point</div>
+                <div style="font-weight: 50;" class="col-sm-2"><i class="fa fa-lightbulb-o"></i> Reading Light</div>
+                <div style="font-weight: 50;" class="col-sm-2"><i class="fa fa-wifi"></i> WIFI</div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+<!--        Boarding Details-->
+<div class="col-sm-12 collapse indent" id="collapse_1_3">
+    <div class="details_card">
+        <div class="row">
+        <div class="col-sm-6">
+            Boarding Points (7 found)
+            <div class="row">
+                <div style="font-weight: 50;" class="col-sm-12">Swargate-Purple Tr Mitramandal Chowk Shraddha Lodge (Pickup Van) 02024426232 - 03:31 PM</div>
+                <div style="font-weight: 50;" class="col-sm-12">Paud Road- Opp MIT School Near Punyai Sabhagruha Purple Metrolink 9112447474 - 04:01 PM</div>
+                <div style="font-weight: 50;" class="col-sm-12">Om Travels, Opp Kinara Hotel Paud Road 9112447474 - 04:11 PM</div>
+                <div style="font-weight: 50;" class="col-sm-12">Seven- Eleven Hotel Bhusari Colony 9112447474 - 04:16 PM</div>
+                <div style="font-weight: 50;" class="col-sm-12">Balewadi - Purple Travels , Radha Hotel Radha Chowk 8550998688 - 04:26 PM</div>
+            </div>
+        </div>
+        <div class="col-sm-6">Fare breakup details
+            <div class="row">
+                <div style="font-weight: 50;" class="col-sm-12">Opp Vashi Plaza-Purple Travels - 07:31 PM</div>
+                <div style="font-weight: 50;" class="col-sm-12">Chembur (E)-Maitray Park - 07:46 PM</div>
+                <div style="font-weight: 50;" class="col-sm-12"> Sion Station (E) - 08:06 PM</div>
+                <div style="font-weight: 50;" class="col-sm-12">Bandra (E) Kalanagar Bridge - 08:11 PM</div>
+                <div style="font-weight: 50;" class="col-sm-12">Before Vile Parle (E) Bridge - 08:21 PM</div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+<!--        Bus Details-->
+<div class="col-sm-12 collapse" id="collapse_1_4">
+    <div class="details_card">
+        <div class="row">
+        <div class="col-sm-6">
+            Commission breakup details
+            <div class="row">
+                <div style="font-weight: 50;" class="col-sm-6">Base Commission (using CP credit)</div>
+                <div style="font-weight: 50;" class="col-sm-6">6%</div>
+
+                <div style="font-weight: 50;" class="col-sm-6">Base Commission (using other payment options)</div>
+                <div style="font-weight: 50;" class="col-sm-6">7%</div>
+
+                <div style="font-weight: 50;" class="col-sm-6">Base Commission (using other payment options)</div>
+                <div style="font-weight: 50;" class="col-sm-6">7%</div>
+
+                <div style="font-weight: 50;" class="col-sm-6">Extra Commission</div>
+                <div style="font-weight: 50;" class="col-sm-6">2.8%</div>
+
+                <div class="col-sm-6">Total</div>
+                <div class="col-sm-6">10.80%(Rs 59.29 )</div>
+            </div>
+        </div>
+        <div class="col-sm-6">Fare breakup details
+            <div class="row">
+                <div style="font-weight: 50;" class="col-sm-6">Ticket Cost</div>
+                <div style="font-weight: 50;" class="col-sm-6">Rs 549</div>
+
+                <div style="font-weight: 50;" class="col-sm-6">AC Bus GST</div>
+                <div style="font-weight: 50;" class="col-sm-6">Rs 27.45</div>
+
+                <div class="col-sm-6">Total Cost</div>
+                <div class="col-sm-6">Rs 576</div>
+            </div>
+        </div>
+        </div>
+
+    </div>
+</div>
+
+    </div>
+
+
+</div>
+
+
+
+
+
+</div>
+</div>
+
+ <div class="body_bdy" id="flight_loader">
+
+     <svg class="svg-calLoader" xmlns="http://www.w3.org/2000/svg" width="50" height="50"><path class="cal-loader__path" d="M86.429 40c63.616-20.04 101.511 25.08 107.265 61.93 6.487 41.54-18.593 76.99-50.6 87.643-59.46 19.791-101.262-23.577-107.142-62.616C29.398 83.441 59.945 48.343 86.43 40z" fill="none" stroke="#0099cc" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="10 10 10 10 10 10 10 432" stroke-dashoffset="77"/><path class="cal-loader__plane" d="M141.493 37.93c-1.087-.927-2.942-2.002-4.32-2.501-2.259-.824-3.252-.955-9.293-1.172-4.017-.146-5.197-.23-5.47-.37-.766-.407-1.526-1.448-7.114-9.773-4.8-7.145-5.344-7.914-6.327-8.976-1.214-1.306-1.396-1.378-3.79-1.473-1.036-.04-2-.043-2.153-.002-.353.1-.87.586-1 .952-.139.399-.076.71.431 2.22.241.72 1.029 3.386 1.742 5.918 1.644 5.844 2.378 8.343 2.863 9.705.206.601.33 1.1.275 1.125-.24.097-10.56 1.066-11.014 1.032a3.532 3.532 0 0 1-1.002-.276l-.487-.246-2.044-2.613c-2.234-2.87-2.228-2.864-3.35-3.309-.717-.287-2.82-.386-3.276-.163-.457.237-.727.644-.737 1.152-.018.39.167.805 1.916 4.373 1.06 2.166 1.964 4.083 1.998 4.27.04.179.004.521-.076.75-.093.228-1.109 2.064-2.269 4.088-1.921 3.34-2.11 3.711-2.123 4.107-.008.25.061.557.168.725.328.512.72.644 1.966.676 1.32.029 2.352-.236 3.05-.762.222-.171 1.275-1.313 2.412-2.611 1.918-2.185 2.048-2.32 2.45-2.505.241-.111.601-.232.82-.271.267-.058 2.213.201 5.912.8 3.036.48 5.525.894 5.518.914 0 .026-.121.306-.27.638-.54 1.198-1.515 3.842-3.35 9.021-1.029 2.913-2.107 5.897-2.4 6.62-.703 1.748-.725 1.833-.594 2.286.137.46.45.833.872 1.012.41.177 3.823.24 4.37.085.852-.25 1.44-.688 2.312-1.724 1.166-1.39 3.169-3.948 6.771-8.661 5.8-7.583 6.561-8.49 7.387-8.702.233-.065 2.828-.056 5.784.011 5.827.138 6.64.09 8.62-.5 2.24-.67 4.035-1.65 5.517-3.016 1.136-1.054 1.135-1.014.207-1.962-.357-.38-.767-.777-.902-.893z" class="cal-loader__plane" fill="#000033"/></svg>
+      </div>
+
+{% else %}
+    <p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCstbhex4F6X2-AXz3B1sR1oRvxssE3sc&libraries=places"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+});
+var $myGroup = $('#myGroup');
+$myGroup.on('show','.collapse', function() {
+    $myGroup.find('.collapse.indent').collapse('hide');
+});
+</script>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends 'Company/Approver_1/layout/header.html' %}
+
+{% block content %}
+
+
+{% if user %}
+
+<!-- start page content -->
+            <div class="page-content-wrapper">
+                <div class="page-content">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card card-topline-aqua">
+                                <div class="card-head">
+                                    <header>ALL CORPORATE EMPLOYEE LIST</header>
+                                     <div class="btn-group">
+                                                       <a href="/Corporate/Approver_1/download-employees" class="btn btn-success pull-right">Download</a>
+
+                                              </div>
+                                    <div class="tools">
+                                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+	                                    <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+	                                    <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                                    </div>
+                                </div>
+                                <div class="card-body ">
+
+                 <div class="text-center">
+                 <div style="font-size:14px; font-weight:bold;">
+                     Company Employee List
+                     </div>
+            </div>
+
+                                  <div class="table-scrollable  table-bordered">
+                                    <table id="example1" class="display full-width table-striped">
+                                        <thead>
+                                            <tr>
+<!--                                                <th>ID</th>-->
+                                                <th>SPOC Name</th>
+                                                <th>Employee ID</th>
+                                                <th>Employee Name</th>
+                                                <th>Email</th>
+                                                <th>Contact</th>
+                                                <th>Age </th>
+                                                <th>Gender</th>
+
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                        {% for employee in employees %}
+                                            <tr>
+<!--                                                <td>{{ employee.id }}</td>-->
+                                                <td>{{ employee.user_name }}</td>
+                                                <td>{{ employee.employee_cid }}</td>
+                                                <td>{{ employee.employee_name }}</td>
+                                                <td>{{ employee.employee_email }}</td>
+                                                <td>{{ employee.employee_contact }}</td>
+                                                <td>{{ employee.age }}</td>
+                                                <td>{{ employee.gender }}</td>
+
+                                            </tr>
+                                        {% endfor %}
+                                            </tbody>
+                                        </table>
+	                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- end page content -->
+
+
+
+
+
+{% else %}
+    <p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+{% endblock %}
+
+
+

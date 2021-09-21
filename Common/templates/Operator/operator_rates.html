@@ -1,0 +1,113 @@
+{% extends 'Operator/layout/header.html' %}
+
+{% block content %}
+
+{% if user %}
+
+
+  {% include 'cotrav_alert_message.html' %}
+<!-- start page content -->
+            <div class="page-content-wrapper">
+                <div class="page-content">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card card-topline-aqua">
+                                <div class="card-head">
+                                    <header>ALL OPERATORS RATES</header>
+
+                                    <div class="tools">
+                                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+	                                    <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+	                                    <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                                    </div>
+                                </div>
+                                <div class="card-body ">
+
+
+            <div class="text-center">
+                 <div style="font-size:14px; font-weight:bold;">
+                     Operator Rates Details
+                     </div>
+            </div>
+                                  <div class="table-scrollable table-bordered">
+                                    <table id="example1" class="display full-width table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Operator Name</th>
+                                                <th>City</th>
+                                                <th>Taxi</th>
+                                                <th>Package Name</th>
+                                                <th>Tour Type</th>
+                                                <th>KMS</th>
+                                                <th>KMS Rate</th>
+                                                <th>Hour Rate</th>
+                                                <th>Base Rate</th>
+                                                <th>Night Rate</th>
+                                                <th>Fuel Rate</th>
+
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                        {% for rate in op_rates %}
+                                            <tr>
+                                                <td>{{ rate.operator_name }}</td>
+                                                <td>{{ rate.city_name }}</td>
+                                                <td>{{ rate.taxi_name }}</td>
+                                                <td>{{ rate.package_name }}</td>
+
+                                                {% if rate.tour_type == 2 %}
+                                                <td>Local</td>
+                                                {% else %}
+                                                <td>Outstation</td>
+                                                {% endif %}
+
+                                                <td>{{ rate.kms }}</td>
+                                                <td>{{ rate.km_rate }}</td>
+                                                <td>{{ rate.hour_rate }}</td>
+                                                <td>{{ rate.base_rate }}</td>
+                                                <td>{{ rate.night_rate }}</td>
+                                                <td>{{ rate.fuel_rate }}</td>
+
+                                            </tr>
+                                        {% endfor %}
+                                            </tbody>
+                                        </table>
+	                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- end page content -->
+
+
+
+
+
+{% else %}
+    <p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+
+<script type="text/javascript">
+$(function() {
+
+  $('#model_add_new_group').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var id = button.data('id'); // Extract info from data-* attributes
+    var modal = $(this);
+    modal.find('#rate_id').val(id);
+
+    });
+
+});
+
+
+
+</script>
+
+{% endblock %}

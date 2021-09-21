@@ -1,0 +1,87 @@
+Hello All,
+
+Please find the steps below for django project setup on CentOS in DigitalOcean,
+
+sudo yum install epel-release
+sudo yum install python3-pip python3-dev libpq-dev nginx build-essential wget
+sudo rpm -Uvh http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm
+sudo yum install mysql-server
+git clone https://github.com/novusvinod/cotrav_test.git  (Download project)
+mysql
+Show databases;
+Create database cotrav;
+Use cotrav;
+source /home/CoTrav/cotrav.sql;
+Exit
+cd CoTrav
+sudo pip3 install virtualenv
+virtualenv myprojectenv
+source myprojectenv/bin/activate
+pip install django gunicorn
+python manage.py collectstatic
+pip3 install django-middleware-global-request
+pip3 install djangorestframework
+sudo yum install python3-devel
+pip install mysqlclient
+pip3 install xhtml2pdf
+python3 manage.py collectstatic
+pip3 install requests
+pip3 install openpyxl
+edit settings.py to allow host name, ip
+python3 manage.py runserver 159.89.174.70:8000 - test site using django server
+gunicorn --bind 159.89.174.70:8000 CoTrav.wsgi:application - test site using gunicorn server
+deactivate
+sudo nano /etc/systemd/system/gunicorn.service - add the below module in config file
+-------------------------------------
+[Unit]
+Description=gunicorn daemon
+After=network.target
+
+[Service]
+User=root
+Group=nginx
+WorkingDirectory=/home/CoTrav
+ExecStart=/home/CoTrav/myprojectenv/bin/gunicorn --workers 3 --bind unix:/home/CoTrav/CoTrav.sock CoTrav.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+-------------------------------------------
+sudo systemctl start gunicorn
+sudo systemctl enable gunicorn
+sudo nano /etc/nginx/nginx.conf - add the below server module in the config file
+-------------------------------
+server {
+    listen 80;
+    server_name 159.89.174.70;
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        root /home/CoTrav;
+    }
+
+    location / {
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_pass http://unix:/home/CoTrav/CoTrav.sock;
+    }
+}
+------------------------------------
+
+sudo nginx -t
+sudo usermod -a -G root nginx
+chmod 710 /home
+chown -R root:nginx /home
+namei -nom /home/CoTrav/CoTrav.sock
+sudo systemctl start nginx
+sudo systemctl enable nginx
+sudo tail -F /var/log/nginx/error.log
+semanage permissive -a httpd_t
+
+
+sudo grep 'temporary password' /var/log/mysqld.log
+
+wordnet
+
+csv to dynamodb

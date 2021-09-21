@@ -1,0 +1,261 @@
+<table border="0" cellspacing="0" width="100%" bgcolor="#feba00"
+       style="font-family:Trebuchet MS, Helvetica, sans-serif;font-size:14px;">
+    <tr>
+        <td width="auto" align="center">
+            <img style="font-family:Trebuchet MS, Helvetica, sans-serif;width: 100%;max-width:70%;height: auto;"
+                 src="https://corporate.taxivaxi.com/image/approval-pending.jpg"/>
+        </td>
+    </tr>
+    <tr>
+        <td align="center"
+            style="font-family:Trebuchet MS, Helvetica, sans-serif;color:#fff;font-size:25px;font-weight:bold;">FRRO
+            Request Need Approval
+        </td>
+    </tr>
+    <tr>
+        <td align="center"
+            style="font-family:Trebuchet MS, Helvetica, sans-serif;color:#fff;font-weight:bold;padding-top:10px;padding-bottom:50px;">
+            Booking ID: {{ booking.reference_no|default:'NA' }}
+        </td>
+    </tr>
+</table>
+
+
+<table border="0" cellspacing="0" width="100%" bgcolor="#fff"
+       style="font-family:Trebuchet MS, Helvetica, sans-serif;font-size:14px;">
+    <tr>
+        <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td style="font-family:Trebuchet MS, Helvetica, sans-serif;text-align:center;font-size:20px;">Dear <span
+                style="font-family:Trebuchet MS, Helvetica, sans-serif;color:#feba00;font-weight:bold;">Sir/Ma\'am</span>
+        </td>
+    </tr>
+
+    <tr>
+        <td>&nbsp;</td>
+    </tr>
+</table>
+
+
+<table border="0" cellspacing="0" width="100%" style="font-family:Trebuchet MS, Helvetica, sans-serif;font-size:14px;">
+    <tr>
+        <td width="100%" align="center" style="font-family:Trebuchet MS, Helvetica, sans-serif;">This is to inform you
+            that we have received the request for your team from your company. <br/>We request you to please check the
+            same and take the necessary action (either approve or reject the request).</span></td>
+    </tr>
+
+</table>
+
+<table border="0" cellspacing="0" width="100%">
+    <tr>
+        <td>&nbsp;</td>
+    </tr>
+</table>
+
+<table border="0" cellspacing="0" width="100%" style="font-family:Trebuchet MS, Helvetica, sans-serif;font-size:14px;">
+    <tr>
+        <td width="35%">
+            <hr>
+        </td>
+        <td width="auto"
+            style="font-family:Trebuchet MS, Helvetica, sans-serif;text-align:center;color:#feba00;font-weight:bold;font-size:20px;text-transform:uppercase;">
+            Booking Details
+        </td>
+        <td width="35%">
+            <hr>
+        </td>
+    </tr>
+</table>
+
+<table border="0" cellspacing="0" width="100%">
+    <tr>
+        <td>&nbsp;</td>
+    </tr>
+</table>
+
+<table border="0" cellspacing="0" width="100%"
+       style="font-family:Trebuchet MS, Helvetica, sans-serif;padding-bottom:5px;font-size:14px;">
+    <tr>
+        <td width="10%">&nbsp;</td>
+        <td width="34%" valign="top" style="font-family:Trebuchet MS, Helvetica, sans-serif;">Booking ID:</td>
+        <td width="10%">&nbsp;</td>
+        <td valign="bottom" style="font-family:Trebuchet MS, Helvetica, sans-serif;">
+            {{ booking.reference_no|default:'NA' }}
+        </td>
+    </tr>
+</table>
+
+<table border="0" cellspacing="0" width="100%"
+       style="font-family:Trebuchet MS, Helvetica, sans-serif;padding-bottom:5px;font-size:14px;">
+    <tr>
+        <td width="10%">&nbsp;</td>
+        <td width="34%" valign="top" style="font-family:Trebuchet MS, Helvetica, sans-serif;">City:</td>
+        <td width="10%">&nbsp;</td>
+        <td valign="bottom" style="font-family:Trebuchet MS, Helvetica, sans-serif;">{{booking.hotel_city_name|default:'NA'}}</td>
+    </tr>
+</table>
+
+
+<table border="0" cellspacing="0" width="100%"
+       style="font-family:Trebuchet MS, Helvetica, sans-serif;padding-bottom:5px;font-size:14px;">
+    <tr>
+        <td width="10%">&nbsp;</td>
+        <td width="34%" valign="top" style="font-family:Trebuchet MS, Helvetica, sans-serif;">Request Type:</td>
+        <td width="10%">&nbsp;</td>
+        <td valign="bottom" style="font-family:Trebuchet MS, Helvetica, sans-serif;">
+            {{booking.frro_request_type_name|default:'NA'}}
+        </td>
+    </tr>
+</table>
+
+<table border="0" cellspacing="0" width="100%"
+       style="font-family:Trebuchet MS, Helvetica, sans-serif;padding-bottom:5px;font-size:14px;">
+    <tr>
+        <td width="10%">&nbsp;</td>
+        <td width="34%" valign="top" style="font-family:Trebuchet MS, Helvetica, sans-serif;">Comment:</td>
+        <td width="10%">&nbsp;</td>
+        <td valign="bottom" style="font-family:Trebuchet MS, Helvetica, sans-serif;">
+            {{booking.reason_of_booking|default:'NA'}}
+        </td>
+    </tr>
+</table>
+
+<table border="0" cellspacing="0" width="100%">
+    <tr>
+        <td>&nbsp;</td>
+    </tr>
+</table>
+
+<table border="0" cellspacing="0" width="100%" style="font-family:Trebuchet MS, Helvetica, sans-serif;font-size:14px;">
+    <tr>
+        <td width="35%">
+            <hr>
+        </td>
+        <td width="auto"
+            style="font-family:Trebuchet MS, Helvetica, sans-serif;text-align:center;color:#feba00;font-weight:bold;font-size:20px;text-transform:uppercase;">
+            User Details
+        </td>
+        <td width="35%">
+            <hr>
+        </td>
+    </tr>
+</table>
+
+<table border="0" cellspacing="0" width="100%"
+       style="font-family:Trebuchet MS, Helvetica, sans-serif;padding-bottom:5px;font-size:14px;">
+    <tr>
+        <td>&nbsp;</td>
+    </tr>
+</table>
+
+<table border="0" cellspacing="0" width="100%"
+       style="font-family:Trebuchet MS, Helvetica, sans-serif;padding-bottom:5px;font-size:14px;">
+    <tr>
+        <td width="10%">&nbsp;</td>
+        <td width="34%" valign="top" style="font-family:Trebuchet MS, Helvetica, sans-serif;">User Employee Id:</td>
+        <td width="10%">&nbsp;</td>
+        <td valign="bottom" style="font-family:Trebuchet MS, Helvetica, sans-serif;">{{booking.user_cid|default:'NA'}}
+        </td>
+    </tr>
+</table>
+
+<table border="0" cellspacing="0" width="100%"
+       style="font-family:Trebuchet MS, Helvetica, sans-serif;padding-bottom:5px;font-size:14px;">
+    <tr>
+        <td width="10%">&nbsp;</td>
+        <td width="34%" valign="top" style="font-family:Trebuchet MS, Helvetica, sans-serif;">Name:</td>
+        <td width="10%">&nbsp;</td>
+        <td valign="bottom" style="font-family:Trebuchet MS, Helvetica, sans-serif;">{{booking.user_name|default:'NA'}}
+        </td>
+    </tr>
+</table>
+<table border="0" cellspacing="0" width="100%"
+       style="font-family:Trebuchet MS, Helvetica, sans-serif;padding-bottom:5px;font-size:14px;">
+    <tr>
+        <td width="10%">&nbsp;</td>
+        <td width="34%" valign="top" style="font-family:Trebuchet MS, Helvetica, sans-serif;">Contact No:</td>
+        <td width="10%">&nbsp;</td>
+        <td valign="bottom" style="font-family:Trebuchet MS, Helvetica, sans-serif;">
+            {{booking.user_contact|default:'NA'}}
+        </td>
+    </tr>
+</table>
+<table border="0" cellspacing="0" width="100%"
+       style="font-family:Trebuchet MS, Helvetica, sans-serif;padding-bottom:5px;font-size:14px;">
+    <tr>
+        <td width="10%">&nbsp;</td>
+        <td width="34%" valign="top" style="font-family:Trebuchet MS, Helvetica, sans-serif;">Email:</td>
+        <td width="10%">&nbsp;</td>
+        <td valign="bottom" style="font-family:Trebuchet MS, Helvetica, sans-serif;"><a
+                href="'.$booking_details['email'].'"
+                style="font-family:Trebuchet MS, Helvetica, sans-serif;text-decoration:none; color:#000;">{{booking.user_email|default:'NA'}}</a>
+        </td>
+    </tr>
+</table>
+
+<table border="0" cellspacing="0" width="100%">
+    <tr>
+        <td>&nbsp;</td>
+    </tr>
+</table>
+
+<table border="0" cellspacing="0" width="100%">
+    <tr>
+        <td>&nbsp;</td>
+    </tr>
+</table>
+<table border="0" cellspacing="0" width="100%" style="font-family:Trebuchet MS, Helvetica, sans-serif;font-size:14px;">
+    <tr>
+        <td width="100%" align="center" style="font-family:Trebuchet MS, Helvetica, sans-serif;">Please note that once
+            the request is approved, CoTrav will further accept the request and process the same.
+        </td>
+    </tr>
+</table>
+<table border="0" cellspacing="0" width="100%">
+    <tr>
+        <td>&nbsp;</td>
+    </tr>
+</table>
+<table border="0" cellspacing="0" width="100%" style="font-family:Trebuchet MS, Helvetica, sans-serif;font-size:14px;">
+    <tr>
+        <td width="100%" align="center" style="font-family:Trebuchet MS, Helvetica, sans-serif;">For any query you can
+            reach us at:
+        </td>
+    </tr>
+</table>
+<table border="0" cellspacing="0" width="100%">
+    <tr>
+        <td>&nbsp;</td>
+    </tr>
+</table>
+<table border="0" cellspacing="0" width="100%" style="font-family:Trebuchet MS, Helvetica, sans-serif;font-size:14px;">
+    <tr>
+        <td width="20%">&nbsp;</td>
+        <td width="5%" valign="top" style="font-family:Trebuchet MS, Helvetica, sans-serif;">Phone:</td>
+        <td width="3%">&nbsp;</td>
+        <td valign="bottom" style="font-family:Trebuchet MS, Helvetica, sans-serif;">
+            -Pramod Yadav: 7290030233<br>
+	-Neeraj Tayal: 8860375872</td>
+    </tr>
+</table>
+<table border="0" cellspacing="0" width="100%" style="font-family:Trebuchet MS, Helvetica, sans-serif;font-size:14px;">
+    <tr>
+        <td width="20%">&nbsp;</td>
+        <td width="5%" valign="top" style="font-family:Trebuchet MS, Helvetica, sans-serif;">Email:</td>
+        <td width="4%">&nbsp;</td>
+        <td valign="bottom" style="font-family:Trebuchet MS, Helvetica, sans-serif;"><a href="'.TAXIVAXI_FRRO_EMAILS.'"
+                                                                                        style="font-family:Trebuchet MS, Helvetica, sans-serif;text-decoration:none; color:#000;">
+        </a>
+        -Pramod Yadav (Pramod.yadav@taxivaxi.in)<br>
+	-Neeraj Tayal (Neeraj.tayal@taxivaxi.com)
+        </td>
+    </tr>
+</table>
+
+<table border="0" cellspacing="0" width="100%">
+    <tr>
+        <td>&nbsp;</td>
+    </tr>
+</table>

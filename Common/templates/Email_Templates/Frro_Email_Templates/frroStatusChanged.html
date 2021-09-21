@@ -1,0 +1,32 @@
+{% include 'Email_Templates/Frro_Email_Templates/header.html' %}
+ {% for booking in bookings %}
+Dear {{user_name}}<br><br>
+Greetings from CoTrav..!
+<br><br>
+This is with reference to your application at FRRO with the following details::<br>
+	<br>
+	<b>Request ID: </b>{{ booking.reference_no|default:'NA' }}<br>
+	<b>Request Type: </b>{{booking.frro_request_type_name|default:'NA'}}<br>
+	<b>FRRO Application ID: </b>{{booking.frro_application_id|default:'NA'}}<br>
+	<b>Location: </b>{{booking.hotel_city_name|default:'NA'}}<br>
+	<b>Registered Email: </b>{{booking.registered_email|default:'NA'}}<br>
+	<b>Name: </b>{{booking.user_name|default:'NA'}}
+
+<br><br>
+Please note that the current status of your application is as follows:<br>
+<br>
+
+<br>
+{% if status_on_comment %}
+<b>Status:</b> {{status_on_comment}}
+{% else %}
+We will keep you updated for any further change in the status of the application.
+{% endif %}
+
+<br><br>
+{% if endline %}
+<b>{{endline}}</b>
+{% endif %}
+
+{% endfor %}
+{% include 'Email_Templates/Frro_Email_Templates/footer.html' %}

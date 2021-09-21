@@ -1,0 +1,135 @@
+{% extends 'main_base.html' %}
+
+{% block description %}Our Services include Hotel Bookings, Taxi Bookings, Flight Bookings, Train Bookings, Bus Bookings, VISA Services, Travel Reimbursement Solution, Conferences, Events, etc{% endblock %}
+{% block keywords %}Hotel Bookings, Taxi Bookings, Flight Bookings, Train Bookings, Bus Bookings, VISA Services, Travel Reimbursement Solution, MICE {% endblock %}
+{% block title %}Cotrav | Corporate Travel Services{% endblock %}
+
+{% block content %}
+
+{% load static %}
+
+
+       
+<section class="page-title-section2 bg-img cover-background" data-background="{% static 'img/bg/bg_services.jpg' %}" style="height: 200px; overflow: hidden;">
+	<div class="square-title margin-10px-bottom">
+		<h1 class="alt-font text-uppercase text-black font-weight-600 no-margin font-size50 md-font-size42 sm-font-size32 width-100 font-txt" style="color: #000000;position: relative;bottom: 90px;font-size: 34px;">Wide Range of Corporate Services</h1>
+	</div>
+	<p class="width-55 sm-width-75 xs-width-95 center-col" style="color: #000000;font-size: 18px; font-weight: 700;  position: relative; bottom: 85px;">
+        Cotrav's experienced teams strive to deliver unmatched travel experiences by leveraging the latest technology and a well-connected operational network on the ground.
+	</p>
+</section>
+
+ <section class="bg-light-gray">
+            <div class="container" style="position: relative;bottom: 50px;">
+                <div class="section-heading" >
+                    <h3 class="title-style2">Our Services</h3>
+                    <p class="width-55 sm-width-75 xs-width-95 center-col">Our truly proactive and dedicated team of professionals with years of experience and operational capability offer unparalleled travel management service to our clients.</p>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 margin-30px-bottom xs-margin-20px-bottom">
+                        <div class="services-block-three">
+                            <a href="hotel">
+                                <div class="padding-15px-bottom">
+                                      <img src="{% static 'img/logos/hotel.png' %}">
+
+                                </div>
+                                <h4>    Hotel Bookings</h4>
+                            </a>
+                            <p>&nbsp;</p>
+                            <p>Your home away from home with a wide array of options to suit every budget – Economy, Mid-Segment, and Premium.
+                                <br><a href="/hotel" style="color: #477ED1">Read More...</a></p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 margin-30px-bottom xs-margin-20px-bottom">
+                        <div class="services-block-three">
+                            <a href="ticketing">
+                                <div class="padding-15px-bottom">
+                                   <img src="{% static 'img/logos/flight.png' %}">
+
+                                </div>
+
+                                <h4>Flight/Bus/Train Bookings</h4>
+                            </a>
+                            <p>&nbsp;</p>
+                            <p>
+                                Access the best price for flight, train, or bus tickets with CoTrav's bulk negotiated prices across sectors.
+                                <br><a href="ticketing" style="color: #477ED1">Read More...</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="services-block-three col-lg-4 col-md-6 margin-30px-bottom xs-margin-20px-bottom">
+                        <div class="services-block-three">
+                            <a href="cab">
+                                <div class="padding-15px-bottom">
+                                    <img src="{% static 'img/logos/taxi.png' %}">
+                                </div>
+                                <h4>Cab Travel Management </h4>
+                            </a>
+                            <p>&nbsp;</p>
+                            <p>
+                                With a fleet ranging from sedan to luxury cars, CoTrav takes care of your local and outstation mobility at ease.
+                                <br><a href="cab" style="color: #477ED1">Read More...</a>
+                            </p>
+                        </div>
+                    </div>
+              
+
+                    
+
+                    <div class="services-block-three col-lg-4 col-md-6 xs-margin-20px-bottom">
+                        <div class="services-block-three">
+                            <a href="visa">
+                                <div class="padding-15px-bottom">
+                                   <img src="{% static 'img/logos/visa.png' %}">
+                                </div>
+                                <h4>Visa Services</h4>
+                            </a>
+                            <p>&nbsp;</p>
+                            <p>
+                                Our services extend beyond just booking your flights or accommodation. Travel carefree with Cotrav's Visa Services.
+                                <br><a href="visa" style="color: #477ED1">Read More...</a>
+                            </p>
+                        </div><br>
+                    </div>
+                    <div class="services-block-three col-lg-4 col-md-6">
+                        <div class="services-block-three">
+                            <a href="travel">
+                                <div class="padding-15px-bottom">
+                                       <img src="{% static 'img/logos/travel_remb.png' %}">
+                                </div>
+                                <h4>Travel reimbursement</h4>
+                            </a>
+                            <p>&nbsp;</p>
+                            <p>
+                                No more tedious paperwork or manual efforts with Cotrav’s automated travel reimbursement solutions.
+                                <br><a href="travel" style="color: #477ED1">Read More...</a>
+                            </p>
+                        </div><br>
+                    </div>
+                       <div class="services-block-three col-lg-4 col-md-6">
+                        <div class="services-block-three">
+                            <a href="mice" style="height: 152px;">
+                                <div class="padding-15px-bottom">
+                                 <img src="{% static 'img/logos/meeting.png' %}">
+                                </div>
+                                <h4> Meetings, Incentives, Conferences, and Events(MICE).</h4>
+                            </a>
+                            <p>&nbsp;</p>
+                            <p>
+                                As your comprehensive event partners, we make organizing large-scale events fun.
+                                <br><a href="mice" style="color: #477ED1">Read More...</a>
+                            </p>
+                        </div><br>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+
+
+
+
+{% endblock %}

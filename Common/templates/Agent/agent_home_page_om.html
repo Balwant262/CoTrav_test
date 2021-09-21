@@ -1,0 +1,956 @@
+{% extends 'Agent/layout/header.html' %}
+
+{% block content %}
+{% load static %}
+{% for db in dataDashboard %}
+
+
+{% if user %}
+<!-- start page content -->
+ {% include 'cotrav_alert_message.html' %}
+
+            <div class="page-content-wrapper">
+                <div class="page-content">
+                  <div class="row">
+
+                            <div class="col-lg-2">
+                               <div class="info-box bg-b-purple">
+                                    <span class="info-box-icon"><i class="material-icons">list</i></span>
+                                    <div class="info-box-content">
+                                      <span class="info-box-text" >Total Bookings</span>
+                                      <span class="info-box-number">{{db.total_booking_count}}</span>
+                                    </div>
+                                  </div>
+                              </div>
+
+                                 <div class="col-lg-2">
+                                <div class="info-box bg-b-blue">
+                                    <span class="info-box-icon"><i class="material-icons">playlist_add_check</i></span>
+                                    <div class="info-box-content">
+                                      <span class="info-box-text">Active-Assigned</span>
+                                      <span class="info-box-number">{{db.aa_total_count}}</span>
+                                    </div>
+                                  </div>
+                              </div>
+
+                                 <div class="col-lg-2">
+                                <div class="info-box bg-b-green">
+                                    <span class="info-box-icon"><i class="material-icons">list</i></span>
+                                    <div class="info-box-content">
+                                      <span class="info-box-text">Active-Unassigned </span>
+                                      <span class="info-box-number">{{db.aua_total_count}}</span>
+                                    </div>
+                                  </div>
+                              </div>
+
+                                  <div class="col-lg-2">
+                                    <div class="info-box bg-b-yellow">
+                                        <span class="info-box-icon"><i class="material-icons">card_travel</i></span>
+                                        <div class="info-box-content">
+                                          <span class="info-box-text" >Upcoming Trips</span>
+                                          <span class="info-box-number">{{db.uc_total_count}}</span>
+                                        </div>
+                                      </div>
+                                  </div>
+
+                                <div class="col-lg-2">
+                                    <div class="info-box bg-b-black">
+                                        <span class="info-box-icon"><i class="material-icons">warning</i></span>
+                                        <div class="info-box-content">
+                                          <span class="info-box-text" >Bookings with Issues</span>
+                                          <span class="info-box-number">{{db.issue_total_count}}</span>
+                                        </div>
+                                      </div>
+                                  </div>
+
+                                 <div class="col-lg-2">
+                                    <div class="info-box bg-b-orange">
+                                        <span class="info-box-icon"><i class="material-icons">cancel</i></span>
+                                        <div class="info-box-content">
+                                          <span class="info-box-text" >Cancelled Bookings</span>
+                                          <span class="info-box-number">{{db.c_total_count}}</span>
+                                        </div>
+                                      </div>
+                                  </div>
+
+
+
+                  </div>    
+
+
+
+                    <div class="row">
+
+					    <div class="col-lg-4">
+
+
+                             <div class="card card-topline-lightblue">
+                                     <div class="card-head">
+                                      <header>Total Pending Bookings:</header>
+                                    </div>
+                                   <div class="card-body " id="chartjs_pie_parent3">
+                                      <div class="row">
+                                         <canvas id="canvasTotalPendingBookings" height="200"></canvas>
+                                     </div>
+                                   </div>
+                                  </div>
+                             </div>
+
+                              <div class="col-lg-4">
+
+                               <div class="card card-topline-lightblue">
+                                <div class="card-head">
+                                    <header>Pending Bookings for next 2 days:</header>
+
+                                </div>
+                                <div class="card-body " id="chartjs_pie_parent2">
+                                    <div class="row">
+                                         <canvas id="canvasPendingBookings" height="200"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                              </div>
+
+                               <div class="col-lg-4">
+
+                               <div class="card card-topline-lightblue">
+                                <div class="card-head">
+                                    <header>Pending Invoices</header>
+
+                                </div>
+                                <div class="card-body " id="chartjs_pie_parent1">
+                                    <div class="row">
+                                         <canvas id="canvasPendingInvoices" height="200"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                              </div>
+
+                        </div>
+
+
+
+
+
+
+
+
+                     <div class="row">
+
+                        <div class="col-md-6">
+
+                             <div class="card card-topline-lightblue">
+                                <div class="card-head">
+                                    <header>Six Months Booking Summary</header>
+
+                                </div>
+                                <div class="card-body " >
+                                    <div class="row">
+                                        <div class="tools" id="result-graph-container-3">
+
+                                     <!--   <select name="month" id="month3">
+                                            <option value="1">Jan</option>
+                                            <option value="2">Feb</option>
+                                            <option value="3">Mar</option>
+                                            <option value="4">Apr</option>
+                                            <option value="5">May</option>
+                                            <option value="6">Jun</option>
+                                            <option value="7">Jul</option>
+                                            <option value="8">Aug</option>
+                                            <option value="9">Sep</option>
+                                            <option value="10">Oct</option>
+                                            <option value="11">Nov</option>
+                                            <option value="12">Dec</option>
+                                        </select>
+
+                                        <select name="year" id="year3">
+                                            <option value="2010">2010</option>
+                                            <option value="2011">2011</option>
+                                            <option value="2012">2012</option>
+                                            <option value="2013">2013</option>
+                                            <option value="2014">2014</option>
+                                            <option value="2015">2015</option>
+                                            <option value="2016">2016</option>
+                                            <option value="2017">2017</option>
+                                            <option value="2018">2018</option>
+                                            <option value="2019">2019</option>
+                                            <option value="2020" selected >2020</option>
+                                        </select> -->
+
+
+
+                                        <!--<button onclick="callMonthWiseSummery(2020,1)">Months View</button>-->
+
+                                        </div>
+
+                                        <canvas id="booking-chart-by-months" ></canvas>
+                                        <!--<canvas id="chartjs_bar2"></canvas>-->
+                                        <div class="tools">
+                                        <span onclick="prev3()"><i class="fa fa-arrow-circle-left fa-3x" ></i></span>
+                                        <span onclick="next3()"><i class="fa fa-arrow-circle-right fa-3x" ></i></span>
+
+                                        <input type="hidden" name="yr" id="yr-3" value="2019">
+                                        <input type="hidden" name="mnt" id="mnt-3" value="7">
+
+                                         <input type="hidden" name="yr" id="yr" value="2019">
+                                        <input type="hidden" name="mnt" id="mnt" value="7">
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+                         <div class="col-md-6">
+                             <div class="card card-topline-lightblue">
+                                <div class="card-head">
+                                    <header>Average Response Time Summary: </header>
+
+                                </div>
+                                <div class="card-body" id="chartjs_bar_parent1" >
+                                    <div class="row">
+
+										<canvas id="myChart101"  height="160"></canvas>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                     </div>
+
+
+
+
+
+            </div>
+            </div>
+            <!-- end page content -->
+
+
+    <!--Chart JS-->
+
+    <script src="{% static 'assets/plugins/chart-js/Chart.bundle.js' %}" ></script>
+    <script src="{% static 'assets/plugins/chart-js/utils.js' %}" ></script>
+
+
+
+{% else %}
+    <p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCstbhex4F6X2-AXz3B1sR1oRvxssE3sc&libraries=places"></script>
+
+<script>
+
+  var pickup_location = document.getElementById('pickup_location1');
+  var autocomplete = new google.maps.places.Autocomplete(pickup_location);
+
+   var city2 = document.getElementById('city2');
+   var autocomplete = new google.maps.places.Autocomplete(city2);
+
+   var city3 = document.getElementById('city3');
+   var autocomplete = new google.maps.places.Autocomplete(city3);
+
+   var city4 = document.getElementById('city4');
+   var autocomplete = new google.maps.places.Autocomplete(city4);
+
+   var city5 = document.getElementById('city5');
+   var autocomplete = new google.maps.places.Autocomplete(city5);
+
+</script>
+
+
+
+<script>
+
+
+<!--Total Pending Bookings Summary   -->
+
+
+	  var ctx201 = document.getElementById("canvasTotalPendingBookings");
+	  var data = {
+        labels: ["Taxi ({{db.un_taxi_booking_count}})","Bus ({{db.un_bus_booking_count}})","Train-General ({{db.un_train_booking_count}})","Train-Tatkal ({{db.un_train_t_booking_count}})","Train-NotBookedInTatkal ({{db.un_train_nbt_booking_count}})","Hotel ({{db.un_hotel_booking_count}})","Flight ({{db.un_flight_booking_count}})"],
+		datasets: [{
+data: [{{db.un_taxi_booking_count}},{{db.un_bus_booking_count}},{{db.un_train_booking_count}},{{db.un_train_t_booking_count}},{{db.un_train_nbt_booking_count}},{{db.un_hotel_booking_count}},{{db.un_flight_booking_count}}],		  backgroundColor: ["#FC94AF","#EE82EE","#BDC3C7","#dfe8e8","#8b8f8f","#26B99A","#3498DB"],
+		  hoverBackgroundColor: ["#FC94AF","#EE82EE","#BDC3C7","#dfe8e8","#8b8f8f","#26B99A","#3498DB"]
+
+		}]
+	  };
+	  var canvasTotalPendingBookings = new Chart(ctx201, {
+		type: 'doughnut',
+		tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+		data: data,
+		options: {
+
+            legend: {
+                position: 'bottom',
+
+
+
+            },
+
+            animation: {
+
+  }
+            }
+	  });
+
+
+<!--Pending Bookings Summary for next 2 days  -->
+
+
+	  var ctx203 = document.getElementById("canvasPendingBookings");
+	  var data = {
+labels: ["Taxi ({{db.un_taxi_booking_count2}})","Bus ({{db.un_bus_booking_count2}})","Train-General ({{db.un_train_booking_count2}})","Train-Tatkal ({{db.un_train_t_bcount2}})","Train-NotBookedInTatkal ({{db.un_train_nbt_bcount2}})","Hotel ({{db.un_hotel_booking_count2}})","Flight ({{db.un_flight_booking_count2}})"],		datasets: [{
+data: [{{db.un_taxi_booking_count2}},{{db.un_bus_booking_count2}},{{db.un_train_booking_count2}},{{db.un_train_t_bcount2}},{{db.un_train_nbt_bcount2}},{{db.un_hotel_booking_count2}},{{db.un_flight_booking_count2}}],		  backgroundColor: ["#FC94AF","#EE82EE","#BDC3C7","#dfe8e8","#8b8f8f","#26B99A","#3498DB"],
+		  hoverBackgroundColor: ["#FC94AF","#EE82EE","#BDC3C7","#dfe8e8","#8b8f8f","#26B99A","#3498DB"]
+
+		}]
+	  };
+	  var canvasPendingBookings = new Chart(ctx203, {
+		type: 'doughnut',
+		tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+		data: data,
+		options: {
+
+            legend: {
+                position: 'bottom',
+
+
+
+            },
+
+            animation: {
+
+  }
+            }
+	  });
+
+
+/*Pending Invoice*/
+	  var ctx202 = document.getElementById("canvasPendingInvoices");
+	  var data = {
+labels: ["Taxi ({{db.taxi_invoice_pending}})","Bus ({{db.bus_invoice_pending}})","Train ({{db.train_invoice_pending}})","Hotel ({{db.hotel_invoice_pending}})","Flight ({{db.flight_invoice_pending}})"],		datasets: [{
+data: [{{db.taxi_invoice_pending}},{{db.bus_invoice_pending}},{{db.train_invoice_pending}},{{db.hotel_invoice_pending}},{{db.flight_invoice_pending}}],		  backgroundColor: ["#FC94AF","#EE82EE","#BDC3C7","#26B99A","#3498DB"],
+		  hoverBackgroundColor: ["#FC94AF","#EE82EE","#BDC3C7","#26B99A","#3498DB"]
+
+		}]
+	  };
+	  var canvasPendingInvoices = new Chart(ctx202, {
+		type: 'doughnut',
+		tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+		data: data,
+		options: {
+            legend: {
+                position: 'bottom',
+
+            },
+            animation: {
+
+  }
+            }
+	  });
+
+
+
+
+<!-- Average response time summary -->
+
+var ctx101 = document.getElementById("myChart101").getContext("2d");
+
+var data = {
+  labels: ["Avg Accept Time", "Avg Reject Time", "Avg Assign Time"],
+  datasets: [{
+    label: "Taxi",
+    backgroundColor: "pink",
+    data: [30, 70, 46]
+  }, {
+    label: "Bus",
+    backgroundColor: "blue",
+    data: [40, 30, 50]
+  }, {
+    label: "Train",
+    backgroundColor: "grey",
+    data: [71, 21, 61]
+  }, {
+    label: "Hotel",
+    backgroundColor: "green",
+    data: [42, 32, 52]
+  }, {
+    label: "Flight",
+    backgroundColor: "orange",
+    data: [43, 33, 53]
+  },]
+};
+
+var myBarChart = new Chart(ctx101, {
+  type: 'bar',
+  data: data,
+  options: {
+    barValueSpacing: 10,
+
+    scales: {
+       xAxes: [{
+
+            barPercentage: 0.5,
+            ticks: {
+               autoSkip: false,
+               maxRotation: 0,
+               minRotation: 0
+            }
+         }],
+      yAxes: [{
+        ticks: {
+
+          min: 0,
+        },
+              scaleLabel: {
+                        display: true,
+                        labelString: 'Time in Minutes',
+              },
+      }]
+    },
+          animation: {
+      onComplete: function(animation) {
+
+                const chartInstance = this.chart,
+                ctx = chartInstance.ctx;
+
+                const fontSize = 10;
+                const fontStyle = '600';
+                const fontFamily = 'Open Sans';
+                ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
+
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'bottom';
+                ctx.fillStyle = '#676A6C';
+
+                this.data.datasets.forEach(function (dataset, i) {
+                const meta = chartInstance.controller.getDatasetMeta(i);
+                meta.data.forEach(function (bar, index) {
+                if(dataset.data[index] != 0){
+                  const data = dataset.data[index];
+                  ctx.fillText(data, bar._model.x+2, bar._model.y-1);
+            }
+          });
+        });
+
+         }
+      }
+  }
+});
+
+</script>
+
+
+<script>
+
+     $(document).ready(function() {
+
+
+    var d = new Date();
+
+    var date = d.getDate();
+    var month = d.getMonth() + 1; // Since getMonth() returns month from 0-11 not 1-12
+    var year = d.getFullYear();
+
+    v_yr = parseInt(year);
+    v_month = parseInt(month);
+
+     document.getElementById("yr").value = v_yr;
+     document.getElementById("mnt").value = v_month;
+
+     document.getElementById("yr-3").value = v_yr;
+     document.getElementById("mnt-3").value = v_month;
+
+    //city_wise_summery();
+
+     var today_date = new Date();
+
+     var six_month_back = moment().subtract(180, 'days').calendar();
+
+     var date2 = new Date(six_month_back);
+
+    today_date_value = today_date.getFullYear()  + '-' + ('0' + (today_date.getMonth() + 1)).slice(-2) + '-' + ('0' + today_date.getDate()).slice(-2) ;
+
+    date3 = date2.getFullYear()  + '-' + ('0' + (date2.getMonth() + 1)).slice(-2) + '-' + ('0' + date2.getDate()).slice(-2) ;
+
+    var from_date = date3;
+
+    var to_date = today_date_value;
+
+    //document.getElementById("to_date").defaultValue = to_date;
+    //document.getElementById("from_date").defaultValue = from_date;
+
+    callMonthWiseBookingsSummery(v_yr,v_month);
+
+ 
+	});
+
+
+</script>
+
+
+
+
+
+<script>
+
+
+/*  bookings chart by month */
+
+
+function slice2(array, chunk, offset) {
+    var subarray = [];
+    for (var i = 0; i<chunk; i++) {
+        var ind = (offset + i) % array.length;
+        subarray.push(array[ind]);
+    }
+
+    return subarray;
+}
+
+
+/* javascript for booking summery */
+
+    function next3(){
+    v_yr = parseInt(document.getElementById("yr-3").value);
+    v_month = parseInt(document.getElementById("mnt-3").value);
+    console.log('####');
+    console.log(v_yr);
+    console.log(v_month);
+    console.log('####');
+
+
+    if (v_month == 12)
+    {
+        document.getElementById("mnt-3").value = 1;
+        document.getElementById("yr-3").value = v_yr + 1 ;
+        v_month = 1
+    }else{
+        document.getElementById("mnt-3").value = v_month+1;
+        v_month = v_month+1;
+    }
+
+    //ctx1.destroy();
+    callMonthWiseBookingsSummery(v_yr,v_month);
+}
+
+function prev3(){
+    v_yr = parseInt(document.getElementById("yr-3").value);
+    v_month = parseInt(document.getElementById("mnt-3").value);
+    console.log('####');
+    console.log(v_yr);
+    console.log(v_month);
+    console.log('####');
+
+    if (v_month == 1)
+    {
+        document.getElementById("mnt-3").value = 12;
+        document.getElementById("yr-3").value = v_yr - 1;
+        v_month = 12;
+    }else{
+
+        document.getElementById("mnt-3").value = v_month-1;
+
+        v_month = v_month-1;
+    }
+
+    //ctx1.destroy();
+    callMonthWiseBookingsSummery(v_yr,v_month);
+}
+
+    function callMonthWiseBookingsSummery(yr,mnt)
+    {
+
+        var_url = '/api/'+'dashboard_bookings_for_six_months'
+    $.ajaxSetup({
+            headers:{
+                'Authorization': "Token {{request.session.agent_access_token}}",
+                'usertype': 10
+            }
+
+        });
+
+$.post(var_url,{'year':yr,'month':mnt},
+      function(data)
+      {
+
+         var chk = mnt;
+
+        taxi_ar = [];
+        bus_ar = [];
+        train_ar = [];
+        flight_ar = [];
+        hotel_ar = [];
+
+        var chk_ar = [];
+        var chkk_ar = [];
+
+
+        chk_ar.push(chk);
+        taxi_ar.push(chk);
+        bus_ar.push(chk);
+        train_ar.push(chk);
+        flight_ar.push(chk);
+        hotel_ar.push(chk);
+        for(i=1;i<=5;i++)
+        {
+            if(chk == 1)
+            {
+                chk = 13;
+            }
+            chk--;
+            taxi_ar.push(chk);
+            bus_ar.push(chk);
+            train_ar.push(chk);
+            flight_ar.push(chk);
+            hotel_ar.push(chk);
+
+            chk_ar.push(chk);
+
+        }
+
+        console.log(chk_ar);
+        taxi_arr = [];
+        bus_arr = [];
+        train_arr = [];
+        flight_arr = [];
+        hotel_arr = [];
+
+        chk_arr = [];
+        taxi = [];
+        bus = [];
+        train = [];
+        flight = [];
+        hotel = [];
+        console.log('###');
+
+        console.log(data['Sales']);
+
+        for (k=0;k<data['Sales'].length;k++)
+        {
+        for (i=0;i<data['Sales'][k].length;i++)
+        {
+
+            switch(k){
+
+            case 0:
+            var a = taxi_ar.indexOf(data['Sales'][k][i].m);
+                if ( a != -1 )
+                {
+                taxi_ar[a] = data['Sales'][k][i].taxi_total;
+                taxi_arr.push(a);
+                }
+
+                break;
+
+            case 1:
+             console.log(data['Sales'][k][i].m);
+            var a = bus_ar.indexOf(data['Sales'][k][i].m);
+                if ( a != -1 )
+                {
+                bus_ar[a] = data['Sales'][k][i].bus_total;
+                bus_arr.push(a);
+                }
+
+                break;
+
+            case 2:
+
+            var a = train_ar.indexOf(data['Sales'][k][i].m);
+                if ( a != -1 )
+                {
+                train_ar[a] = data['Sales'][k][i].train_total;
+                train_arr.push(a);
+                }
+
+                break;
+
+            case 3:
+
+            var a = flight_ar.indexOf(data['Sales'][k][i].m);
+                if ( a != -1 )
+                {
+                flight_ar[a] = data['Sales'][k][i].flight_total;
+                flight_arr.push(a);
+                }
+
+                break;
+
+            case 4:
+
+            var a = hotel_ar.indexOf(data['Sales'][k][i].m);
+                if ( a != -1 )
+                {
+                hotel_ar[a] = data['Sales'][k][i].hotel_total;
+                hotel_arr.push(a);
+                }
+
+                break;
+
+                    }
+
+        }
+
+        }
+
+
+
+        for(l=1;l<=5;l++)
+        {
+
+
+        switch(l) {
+  case 1:
+
+    for (j=0;j<taxi_ar.length;j++)
+        {
+
+        b = taxi_arr.indexOf(j);
+            if ( b == -1 )
+            {
+            taxi_ar[j] = 0;
+            }
+
+        }
+    break;
+  case 2:
+    for (j=0;j<bus_ar.length;j++)
+        {
+
+        b = bus_arr.indexOf(j);
+            if ( b == -1 )
+            {
+            bus_ar[j] = 0;
+            }
+
+        }
+    break;
+  case 3:
+    for (j=0;j<train_ar.length;j++)
+        {
+
+        b = train_arr.indexOf(j);
+            if ( b == -1 )
+            {
+            train_ar[j] = 0;
+            }
+
+        }
+    break;
+  case 4:
+    for (j=0;j<flight_ar.length;j++)
+        {
+
+        b = flight_arr.indexOf(j);
+            if ( b == -1 )
+            {
+            flight_ar[j] = 0;
+            }
+
+        }
+    break;
+  case 5:
+    for (j=0;j<hotel_ar.length;j++)
+        {
+
+        b = hotel_arr.indexOf(j);
+            if ( b == -1 )
+            {
+            hotel_ar[j] = 0;
+            }
+
+        }
+    break;
+  default:
+    // code block
+
+}
+
+
+
+        }
+
+        taxi = taxi_ar.reverse();
+        bus = bus_ar.reverse();;
+        train = train_ar.reverse();;
+        flight = flight_ar.reverse();;
+        hotel = hotel_ar.reverse();;
+
+
+        month_wise_bookings_summery(taxi,bus,train,flight,hotel,yr,mnt,chk_ar);
+
+
+       });
+
+
+
+
+
+    }
+
+
+    function month_wise_bookings_summery(taxi,bus,train,flight,hotel,yr,mnt,chk_ar) {
+
+    var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+
+
+if(chk_ar[5] > 1)
+{
+mnth = parseInt(chk_ar[5]-1);
+}else{
+mnth = parseInt(12);
+}
+ar = slice2(MONTHS,6,mnth);
+
+//ar = [MONTHS[chk_ar[0]],MONTHS[chk_ar[1]],MONTHS[chk_ar[2]],MONTHS[chk_ar[3]],MONTHS[chk_ar[4]],MONTHS[chk_ar[5]]]
+
+//alert(ar);
+
+//alert(current);
+
+
+     var color = Chart.helpers.color;
+     var barChartData3 = {
+         labels: ar,
+         datasets: [{
+             label: 'Taxi',
+             backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+             borderColor: window.chartColors.red,
+             borderWidth: 1,
+             data: [
+                 taxi[0],taxi[1],taxi[2],taxi[3],taxi[4],taxi[5]
+             ]
+         }, {
+             label: 'Bus',
+             backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
+             borderColor: window.chartColors.blue,
+             borderWidth: 1,
+             data: [
+                bus[0],bus[1],bus[2],bus[3],bus[4],bus[5]
+             ]
+         },{
+             label: 'Train',
+             backgroundColor: color(window.chartColors.orange).alpha(0.5).rgbString(),
+             borderColor: window.chartColors.green,
+             borderWidth: 1,
+             data: [
+                 train[0],train[1],train[2],train[3],train[4],train[5]
+             ]
+         },{
+             label: 'Flight',
+             backgroundColor: color(window.chartColors.pink).alpha(0.5).rgbString(),
+             borderColor: window.chartColors.pink,
+             borderWidth: 1,
+             data: [
+                 flight[0],flight[1],flight[2],flight[3],flight[4],flight[5]
+             ]
+         },{
+             label: 'Hotel',
+             backgroundColor: color(window.chartColors.yellow).alpha(0.5).rgbString(),
+             borderColor: window.chartColors.yellow,
+             borderWidth: 1,
+             data: [
+                 hotel[0],hotel[1],hotel[2],hotel[3],hotel[4],hotel[5]
+             ]
+         }
+
+         ]
+
+     };
+
+        if (typeof window.myBar3 != "undefined")
+        {
+
+        window.myBar3.destroy();
+
+        }else{
+
+        //alert("not exist");
+
+        }
+
+
+
+         var ctx3 = document.getElementById("booking-chart-by-months").getContext("2d");
+         window.myBar3 = new Chart(ctx3, {
+             type: 'bar',
+             data: barChartData3,
+             options: {
+              "animation": {
+                            "duration": 1,
+                            "onComplete": function() {
+                                                        var chartInstance = this.chart,
+                                                        ctx = chartInstance.ctx;
+
+                                                        ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+                                                        ctx.textAlign = 'center';
+                                                        ctx.textBaseline = 'bottom';
+
+                            this.data.datasets.forEach(function(dataset, i) {
+                                                              var meta = chartInstance.controller.getDatasetMeta(i);
+                                                              meta.data.forEach(function(bar, index) {
+                                                                var data = dataset.data[index];
+                                                                Math.round(Number(data)) == 0 ?
+
+                                                                ctx.fillText('', bar._model.x, bar._model.y - 10) :
+
+                                                                ctx.fillText(data, bar._model.x, bar._model.y - 10);
+
+                                                              });
+                                                            });
+                                                          }
+                                                        },
+                                                        legend: {
+                                                          "display": false
+                                                        },
+                                                        tooltips: {
+                                                          "enabled": true
+                                                        },
+
+                scales: {
+                            yAxes: [{
+                        scaleLabel: {
+                        display: true,
+                        labelString: 'Total No Of Bookings'
+                                    }
+                                    }]
+                        },
+                 responsive: true,
+                 legend: {
+                     position: 'top',
+                 },
+                 title: {
+                     display: true,
+                     text: 'Six Months Bookings Summary'
+                 }
+             }
+         });
+
+
+         }
+
+
+/* end bookings chart by month */
+
+</script>
+
+
+
+
+
+
+
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,368 @@
+{% extends 'Agent/layout/header.html' %}
+
+{% block content %}
+
+
+{% if user %}
+<!-- start page content -->
+<!-- The Modal -->
+<div class="modal fade model_custom_style" role="dialog" id="add_group_model">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4  class="modal-title-status">Group and Authenticater Details </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+            <form action="/agents/add-company-subgroup/0" method="post" enctype="multipart/form-data" >
+                <input type="hidden" name="group_id" >
+                <input type="hidden" name="user_id" value="{{user.id}}">
+ <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+                <div class="form-group row" id="corporate_id1">
+                        <label class="col-sm-5 control-label">Company Name</label>
+                        <div class="col-sm-7">
+
+                            <select class="form-control myselect" name="corporate_id" id="corporate_id" style="width:100%;" required>
+                                <option value="">Select Company</option>
+                               {% for company in companies %}
+                                <option value="{{company.id}}">{{company.corporate_name}}</option>
+                                {% endfor %}
+                            </select>
+
+                        </div>
+                    </div>
+
+                <div class="form-group row" >
+                       <label class="col-sm-5 control-label">Select Group</label>
+                            <div class="col-sm-7">
+                                <select class="form-control myselect" name="group_id" id="group_id" style="width:100%;">
+                                <option value="">Select Group</option>
+                                {% for group in groups %}
+                                <option value="{{group.id}}">{{group.group_name}}</option>
+                                {% endfor %}
+                            </select>
+                            </div>
+                    </div>
+
+                 <div class="form-group row" >
+                       <label class="col-sm-5 control-label">SubGroup Name</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" name="group_name" placeholder="Subroup Name" type="text" required>
+                            </div>
+                    </div>
+
+                  <div class="form-group row" id="name1">
+                        <label class="col-sm-5 control-label">Authenticater Name</label>
+                        <div class="col-sm-7">
+                            <input class="form-control" id="name" name="name" placeholder="Authenticater Name" required
+                                   type="text">
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="email1">
+                        <label class="col-sm-5 control-label">Authenticater Email</label>
+                        <div class="col-sm-7">
+                            <input class="form-control" id="email" name="email" placeholder="Authenticater Email" required
+                                   type="email">
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="cid1">
+                        <label class="col-sm-5 control-label">Authenticater Company ID</label>
+                        <div class="col-sm-7">
+                            <input class="form-control" id="cid" name="cid" placeholder="Authenticater Company ID"
+                                   type="text">
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="contact_no1">
+                        <label class="col-sm-5 control-label">Contact</label>
+                        <div class="col-sm-7">
+                            <input class="form-control" id="contact_no" name="contact_no" placeholder="Contact" required
+                                   type="text">
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="is_radio1">
+                        <label class="col-sm-5 control-label">Radio Bookings</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" name="is_radio">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="is_local1">
+                        <label class="col-sm-5 control-label">Local Bookings</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" name="is_local">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="is_outstation1">
+                        <label class="col-sm-5 control-label">Outstation Bookings</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" name="is_outstation">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="is_bus1">
+                        <label class="col-sm-5 control-label">Bus Bookings</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" name="is_bus">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="is_train1">
+                        <label class="col-sm-5 control-label">Train Bookings</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" name="is_train">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row" id="is_hotel1">
+                        <label class="col-sm-5 control-label">Hotel Bookings</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" name="is_hotel">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row" id="is_flight1">
+                        <label class="col-sm-5 control-label">Flight Bookings</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" name="is_flight">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="is_meal1">
+                        <label class="col-sm-5 control-label">Meal Bookings</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" name="is_meal">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="is_water_bottles1">
+                        <label class="col-sm-5 control-label">Water Bottles Bookings</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" name="is_water_bottles">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="is_reverse_logistics1">
+                        <label class="col-sm-5 control-label">Reverse Logistics Bookings</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" name="is_reverse_logistics">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                <div class="form-group row" id="is_send_email1">
+                        <label class="col-sm-5 control-label">Is Send Email?</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" name="is_send_email">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="is_send_sms1">
+                        <label class="col-sm-5 control-label">Is Send SMS?</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" name="is_send_sms">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- The Modal -->
+<div class="modal fade model_custom_style" role="dialog" id="model_add_new_group">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 id="delete_label" class="modal-title-status">Are You Want To Activate Back ? </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+           <form action="/agents/softdeleated_update" method="post" enctype="multipart/form-data" id="form_id">
+                <input type="hidden" name="record_id" id="record_id">
+                <input type="hidden" name="table_name" id="table_name">
+                <input type="hidden" name="user_id" value="{{user.id}}">
+                <input type="hidden" name="delete_id" value="1">
+                <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <button id="delete_btn" type="submit" class="btn btn-primary">Yes</button>
+                </div>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+  {% include 'cotrav_alert_message.html' %}
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-topline-aqua">
+                    <div class="card-head">
+                        <header>ALL CORPORATE SUBGROUP LIST</header>
+                          <div class="row p-b-20">
+                            <div class="col-md-6 col-sm-6 col-6">
+                                <div class="btn-group">
+                                    <a class="btn btn-info" href="#" data-toggle="modal"
+                                       data-target="#add_group_model"> Add New <i class="fa fa-plus"></i> </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tools">
+                            <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                            <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                            <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                        </div>
+                    </div>
+
+                                                   <div class="card-body ">
+                        <div class = "mdl-tabs mdl-js-tabs">
+                           <div class = "mdl-tabs__tab-bar tab-left-side">
+
+                              <a href = "/agents/subgroups/0" class = "mdl-tabs__tab  ">Active Corporate Sub Groups</a>
+                              <a href = "/agents/softdeleated/companies/5" class = "mdl-tabs__tab is-active ">Inactive Corporate Sub Groups</a>
+
+                           </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="card-body ">
+
+            <div class="text-center">
+                 <div style="font-size:14px; font-weight:bold;">
+                     Companies Subgroups Details
+                     </div>
+            </div>
+                        <div class="table-scrollable table-bordered">
+                            <table id="example1" class="display full-width table-striped">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Company Name</th>
+                                    <th>Group Name</th>
+                                    <th>SubGroup Name</th>
+                                    <th>Authenticaters</th>
+                                    <th>Action</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for subgroup in subgroups %}
+                                <tr>
+                                    <td>{{ subgroup.id }}</td>
+                                    <td>{{ subgroup.corporate_name }}</td>
+                                    <td>{{ subgroup.group_name }}</td>
+                                    <td>{{ subgroup.subgroup_name }}</td>
+
+                                    <td>
+                                        <a href="/agents/view-company-subgroup/{{ subgroup.id }}" class="btn btn-tbl-edit btn-xs">
+                                            <i class="fa fa-users"></i>
+                                        </a>
+                                    </td>
+
+                                    <td>
+
+
+                                        <a class="btn btn-tbl-edit btn-xs" data-target="#model_add_new_group"
+                                           data-id="{{subgroup.id}}" data-delete_id="1" data-toggle="modal" href="#">
+                                            <i class="fa fa-check "></i>
+                                        </a>
+                                    </td>
+
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- end page content -->
+<script type="text/javascript">
+   $(".myselect").select2();
+</script>
+
+{% else %}
+<p>Welcome, new user. Please log in.<a href="/login">Login</a></p>
+{% endif %}
+
+
+<script type="text/javascript">
+$(function() {
+
+  $('#model_add_new_group').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var id = button.data('id'); // Extract info from data-* attributes
+    var tbl_name = "corporate_subgroups";
+    var modal = $(this);
+    modal.find('#record_id').val(id);
+    modal.find('#table_name').val(tbl_name);
+    });
+
+});
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,127 @@
+{% extends 'Company/Spoc/layout/header.html' %}
+{% load static %}
+{% block content %}
+
+{% if user %}
+<!-- start page content -->
+
+{% include 'cotrav_alert_message.html' %}
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+  <div class="text-center">
+
+
+            <input type="hidden" name="user_id" value="{{user.id}}">
+            <input type="hidden" name="corporate_id" value="{{user.corporate_id}}">
+            <input type="hidden" name="spoc_id" value="{{user.id}}">
+            <input type="hidden" name="group_id" value="{{user.group_id}}">
+            <input type="hidden" name="subgroup_id" value="{{user.subgroup_id}}">
+            <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+            <div class="row">
+                       <div class="col-sm-7  margin_auto">
+                                 <div class="card card-topline-aqua border-radius">
+                                <div class="card-head">
+                                    <header>Available Flight</header>
+
+                                </div>
+                                <div class="card-body">
+                                  <div class="table-wrap">
+                                        <div  class="table-responsive tblDriverDetail">
+                                            <table class="table display product-overview mb-30 table_txt_align" id="support_table5">
+                                                <thead>
+
+                                                    <tr class="bg_color">
+                                                        <th colspan="2">Airline</th>
+                                                        <th colspan="2">Departure</th>
+                                                        <th colspan="2">Duration</th>
+                                                        <th colspan="2">Arrival</th>
+                                                        <th colspan="2">Price </th>
+
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                {% for flight in flights %}
+                                                    <tr>
+                                                        <td colspan="2" height="100"  class="border-section">  <img alt="" src="{% static 'assets/img/blog/flight_indigo.png' %}" class="img_align"></img>{{flight.F_NAME}} <br>
+                                                            <p class="font_txt">{{flight.CN_CODE}}</p></td>
+                                                        <td colspan="2"  class="border-section">{{flight.D_TIME}}<br><p class="font_txt1">{{flight.D_NAME}}</p> </td>
+
+                                                        <td colspan="2"  class="border-section">{{flight.DUR}} <br> <p class="font_txt1">{{ flight.STOP|default:'Non' }} Stop<p></td>
+
+                                                        <td colspan="2"  class="border-section"> {{flight.A_TIME}} <br><p class="font_txt1">{{flight.A_NAME}}</p></td>
+
+                                                        <td colspan="2"  class="border-section"> <i class="fa fa-inr"></i>{{flight.NET_FARE}} <br><p class="font_txt1">{{flight.OI}}</p></td>
+
+                                                        <form method="post" action="/Corporate/Spoc/add-flight-booking-self-conformation/{{user.id}}">
+                                                            <input type="hidden" name="UID" value="{{flight.UID}}">
+                                                            <input type="hidden" name="ID" value="{{flight.ID}}">
+                                                            <input type="hidden" name="TID" value="{{flight.TID}}">
+
+                                                            {% for param in params %}
+                                                            <input type="hidden" name="src" value="{{param.src}}">
+                                                            <input type="hidden" name="des" value="{{param.des}}">
+                                                            <input type="hidden" name="dep_date" value="{{param.dep_date}}">
+                                                            <input type="hidden" name="ret_date" value="{{param.ret_date}}">
+                                                            <input type="hidden" name="adt" value="{{param.adt}}">
+                                                            <input type="hidden" name="chd" value="{{param.chd}}">
+                                                            <input type="hidden" name="inf" value="{{param.inf}}">
+                                                            <input type="hidden" name="L_OW" value="{{param.L_OW}}">
+                                                            <input type="hidden" name="H_OW" value="{{param.H_OW}}">
+                                                            <input type="hidden" name="T_TIME" value="{{param.T_TIME}}">
+                                                            <input type="hidden" name="trip_string" value="{{param.Trip_String}}">
+                                                            {% endfor %}
+
+
+                                                            <td colspan="2"  class="border-section"> <button type="submit" class="btn btn-info">Book</button> <br><p class="font_txt1 butn_color"><a href="" class="read">Flight Details</a></p></td>
+                                                        </form>
+
+                                                    </tr>
+                                                {% for flight_fl in flight.CON_DETAILS %}
+                                                <tr id="flight_details">
+                                                    <td  colspan="2"  class="border-section"> <p>{{flight_fl.FLIGHT_NAME}} {{flight_fl.FLIGHT_CODE}}-{{flight_fl.FLIGHT_NO}} </p></td>
+                                                    <td colspan="2"  class="border-section"> <p>{{flight_fl.DEP_TIME}} <br><p class="font_txt1"> {{flight_fl.ORG_NAME}} </p></td>
+                                                    <td colspan="2"  class="border-section"> <p>{{flight_fl.DURATION}} </p></td>
+                                                    <td colspan="2"  class="border-section"> <p>{{flight_fl.ARRV_TIME}} <i class="fa fa-long-arrow-right"></i> {{flight_fl.DES_NAME}} </p></td>
+                                                    <td colspan="2"  class="border-section"> <p>{{flight_fl.LAYOVER_INFO}} </p></td>
+                                                    <td colspan="2"  class="border-section"> <p>{{flight_fl.OPERATION_INFO}} </p></td>
+
+                                                </tr>
+                                                {% endfor %}
+                                                {% endfor %}
+
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+    </div>
+</div>
+<!-- end page content -->
+
+
+
+
+{% else %}
+    <p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+$('#flight_details').hide();
+
+
+});
+</script>
+
+
+{% endblock %}

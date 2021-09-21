@@ -1,0 +1,77 @@
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+</head>
+<body>
+{% load static %}
+
+
+{{order_id}}
+
+<form action="razor_success" method="POST">
+
+<button id="rzp-button1">Pay</button>
+
+    <input type="hidden" name="shopping_order_id" value="21">
+    <input type="hidden" name="amount" value="50000">
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/hmac-sha256.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/enc-base64.min.js"></script>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+var options = {
+    "key": "rzp_test_eipQBGxGd1SmmJ", // Enter the Key ID generated from the Dashboard
+    "amount": "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise or INR 500.
+    "currency": "INR",
+    "callback_url": "http://localhost:8000/agents/razor_success",
+    "name": "Cotrav",
+    "description": "Taxi Booking From Pune to Mumbai",
+    "image": "http://localhost:8000/static/assets/img/cotrav_logo.png",
+    "order_id": "{{order_id.id}}",//This is a sample Order ID. Create an Order using Orders API. (https://razorpay.com/docs/payment-gateway/orders/integration/#step-1-create-an-order). Refer the Checkout form table given below
+
+    "handler": function (response){
+    razorpay_payment_id = response.razorpay_payment_id;
+    razorpay_order_id = response.razorpay_order_id;
+    razorpay_signature = response.razorpay_signature;
+    secret = "r82J3rVV4NEAZKMGxIJVPyGY";
+    var hash = CryptoJS.HmacSHA256(razorpay_order_id + "|" + razorpay_payment_id, secret);
+    var generated_signature = CryptoJS.enc.Base64.stringify(hash);
+    document.write(generated_signature);
+    //generated_signature = hmac_sha256(razorpay_order_id + "|" + razorpay_payment_id, secret);
+    if (hash == razorpay_signature) {
+    alert("Payment is Successful");
+    //location.href = 'http://localhost:8000/agents/razor_success?payid='+ razorpay_payment_id;
+    }else{
+    alert("Payment is Fail");
+    }
+
+    },
+    "prefill": {
+        "name": "Balwant",
+        "email": "balwant@taxivaxi.in",
+        "contact": "9579477262"
+    },
+    "notes": {
+        "order_reference": "#jhgftdut"
+    },
+    "theme": {
+        "color": "#4583ff"
+    }
+};
+var rzp1 = new Razorpay(options);
+document.getElementById('rzp-button1').onclick = function(e){
+    rzp1.open();
+    e.preventDefault();
+}
+</script>
+
+</form>
+
+
+
+
+</body>
+</html>

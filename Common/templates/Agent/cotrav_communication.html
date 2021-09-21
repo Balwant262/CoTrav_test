@@ -1,0 +1,152 @@
+{% extends 'Agent/layout/header.html' %}
+
+{% block content %}
+
+{% if user %}
+
+<!-- start page content -->
+            <div class="page-content-wrapper">
+                <div class="page-content">
+
+{% include 'cotrav_alert_message.html' %}
+
+            <div class="row">
+
+                <div class="col-md-4 col-sm-4">
+                    <div class="card card-box">
+                        <div class="card-head card-topline-aqua">
+                            <header>Send Notification to all Users</header>
+
+                        </div>
+                        <div class="card-body no-padding height-9" id="bar-parent">
+
+
+
+                            <form method="post" action="/agents/cotrav-communication">
+                            <input type="hidden" name="user_id" value="{{user.id}}">
+                            <input type="hidden" name="user_type" value="{{request.session.login_type}}">
+                            <input type="hidden" name="msg_type" value="notification">
+
+                            <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+                                  <div class="form-group row">
+                                    <label class="col-sm-4">Message Head</label>
+                                        <input class="form-control col-sm-8" name="msg_head" placeholder="Message Head" type="text" required>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-4">Message Title</label>
+                                        <input class="form-control col-sm-8" name="msg_title" placeholder="Message Title" type="text" required>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-4">Enter message Description</label>
+                                     <textarea name="msg_text" rows="4" placeholder="Enter message Description.." class="form-control col-sm-8" required></textarea>
+
+                                </div>
+
+                                <button type="submit" class="btn btn-info">Send Notification</button>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                                <div class="col-md-4 col-sm-4">
+                    <div class="card card-box">
+                        <div class="card-head card-topline-aqua">
+                            <header>Send Message to Mobile No</header>
+
+                        </div>
+                        <div class="card-body no-padding height-9" id="bar-parent">
+
+
+
+                            <form method="post" action="/agents/cotrav-communication">
+                            <input type="hidden" name="user_id" value="{{user.id}}">
+                            <input type="hidden" name="user_type" value="{{request.session.login_type}}">
+                            <input type="hidden" name="msg_type" value="message">
+
+                            <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+                                  <div class="form-group row">
+                                    <label class="col-sm-4">Mobile No's</label>
+                                        <input class="form-control col-sm-8" name="mobile_nos" placeholder="Eg. 98...,92...,99..." type="text" required>
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <label class="col-sm-4">Enter message Description</label>
+                                     <textarea name="msg_text" rows="4" placeholder="Enter message Description.." class="form-control col-sm-8" required></textarea>
+
+                                </div>
+
+                                <button type="submit" class="btn btn-info">Send Message</button>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+                 <div class="col-md-4 col-sm-4">
+                    <div class="card card-box">
+                        <div class="card-head card-topline-aqua">
+                            <header>Send Mail To User</header>
+
+                        </div>
+                        <div class="card-body no-padding height-9" id="bar-parent">
+
+
+
+                            <form method="post" action="/agents/cotrav-communication">
+                            <input type="hidden" name="user_id" value="{{user.id}}">
+                            <input type="hidden" name="user_type" value="{{request.session.login_type}}">
+                            <input type="hidden" name="msg_type" value="mail">
+
+                            <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+                                 <div class="form-group row">
+                                    <label class="col-sm-4">Email To</label>
+                                        <input class="form-control col-sm-8" name="email_to" placeholder="Eg. abx@gmail.com,abc1234@gmail.com" type="text" required>
+                                </div>
+
+                                  <div class="form-group row">
+                                    <label class="col-sm-4">Email Subject</label>
+                                        <input class="form-control col-sm-8" name="email_subject" placeholder="Email Subject" type="text" required>
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <label class="col-sm-4">Mail Description</label>
+                                     <textarea name="email_body" rows="4" placeholder="Mail Description.." class="form-control col-sm-8" required></textarea>
+
+                                </div>
+
+                                <button type="submit" class="btn btn-info">Send Mail</button>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+            </div>
+
+
+
+
+                </div>
+            </div>
+            <!-- end page content -->
+
+{% else %}
+    <p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+{% endblock %}

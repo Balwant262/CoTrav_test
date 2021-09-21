@@ -1,0 +1,38 @@
+{% include 'Email_Templates/Frro_Email_Templates/header.html' %}
+ {% for booking in bookings %}
+Dear Sir
+	<br><br>
+	Greetings from CoTrav..!
+	<br><br>
+	We have got an FRRO Request from you. Details of the request are as follows:<br>
+	<br>
+	<b>Request ID: </b>{{ booking.reference_no|default:'NA' }}<br>
+	<b>Request Type: </b>{{booking.frro_request_type_name|default:'NA'}}<br>
+	<b>City: </b>{{booking.hotel_city_name|default:'NA'}}<br>
+	<b>Registered Email: </b>{{booking.registered_email|default:'NA'}}<br>
+	<b>Name: </b>{{booking.user_name|default:'NA'}}
+	<br><br>
+	As introduction is concerned, we are the authorized service partner for VISA services to support you by Huawei India.<br><br>
+	To serve you better in several kind of VISA services, our team may be in touch with you and may ask for some documents. We will look forward your kind cooperation on the subject.
+	<br><br>
+	Further to above, we hereby request to inform us immediately, if receive any email or any other communication like...
+	<br><br>
+	1. New ID Creation OTP<br>
+	2. Password reset link<br>
+	3. Any requirement mail from FRRO office<br>
+	4. Any update mail from FRRO Office<br>
+	5. Any other communication on email/ sms
+	<br><br>
+	You are requested to forward the same on the emails mentioned below and do not forget to keep Ramesh Kumar Jangra 84051783 in cc.
+	<br>
+	-Pramod Yadav (Pramod.yadav@taxivaxi.in)<br>
+	-Neeraj Tayal (Neeraj.tayal@taxivaxi.com)
+	<br><br>
+	You may please call us for any clarifications to us, we are reachable at ……
+	<br>
+	-Pramod Yadav: 7290030233<br>
+	-Neeraj Tayal: 8860375872
+	<br><br>
+	Please note, any unsatisfactory of the services / support, you may please escalate the matter to your HR , Mr. Shishpal Singh 00382359.
+{% endfor %}
+{% include 'Email_Templates/Frro_Email_Templates/footer.html' %}

@@ -1,0 +1,57 @@
+{% extends 'main_base.html' %}
+
+{% block content %}
+
+{% load static %}
+{% include 'cotrav_alert_message.html' %}
+<div class="main-wrapper">
+    <!-- start registration form -->
+<!-- start registration form -->
+ {{response}}
+
+    {% for k, v in response.items %}
+        <li>{{ k }}: {{ v }}</li>
+    {% endfor %}
+
+<section class="parallax position-relative box-hover" data-overlay-dark="6" data-background="img/bg/bg-login.jpg">
+   <div class="container">
+       <div class="row">
+           <div class="col-lg-6 center-col">
+               <div class="bg-white padding-30px-all sm-padding-20px-all border border-width-5">
+                   <div class="section-heading section-heading2">
+                       <h3 class="login_btn">Api Call</h3>
+
+                   </div>
+                   <form class="registration-form" action="create_token" method="post">
+                       <div class="row">
+                          
+                        
+                           <div class="col-11">
+                                <img src="img/logos/2.png" id="contact_icon1">
+                               <input type="email" name="email" id="email" placeholder="Email *" maxlength="70" class="medium-input input_signupform">
+                           </div>
+                         
+
+                          
+                           <div class="col-12">
+                               <button class="butn theme medium" type="submit"><span>Call API</span></button>
+                               <p class="no-margin float-right" ><a href="login.html" id="signup-txt-color">Forget Password?</a></p>
+                           </div>
+                       </div>
+                   </form>
+               </div>
+           </div>
+       </div>
+
+   </div>
+</section>
+<!-- end registration form -->
+
+</div>
+<!-- end main-wrapper section -->
+
+
+
+
+
+{% endblock %}

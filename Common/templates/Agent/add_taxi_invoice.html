@@ -1,0 +1,816 @@
+{% extends 'Agent/layout/header.html' %}
+
+{% block content %}
+
+{% if user %}
+<!-- start page content -->
+{% include 'cotrav_alert_message.html' %}
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+{% for booking in bookings %}
+        <form method="post" action="/agents/add-taxi-invoice/{{booking.id}}" enctype="multipart/form-data">
+    <input type="hidden" name="booking_id" value="{{booking.id}}">
+    <input type="hidden" name="user_id" value="{{user.id}}">
+    <input type="hidden" name="trip_tour_type" id="trip_tour_type" value="{{booking.tour_type}}">
+
+    <input type="hidden" value="{{ booking.kms }}" id="allowed_kms1">
+    <input type="hidden" value="{{ booking.base_rate }}" id="base_rate1">
+    <input type="hidden" value="{{ booking.night_rate }}" id="driver_allowance1">
+
+    <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+    <input type="hidden" name="tax_on_management_fee" id="tax_on_management_fee" value="100">
+    <input type="hidden" name="tax_on_management_fee_percentage" id="tax_on_management_fee_percentage" value="18">
+    <input type="hidden" name="management_fee_igst" id="management_fee_igst" value="0">
+    <input type="hidden" name="management_fee_cgst" id="management_fee_cgst" value="0">
+    <input type="hidden" name="management_fee_sgst" id="management_fee_sgst" value="0">
+    <input type="hidden" name="management_fee_igst_rate" id="management_fee_igst_rate" value="0">
+    <input type="hidden" name="management_fee_cgst_rate" id="management_fee_cgst_rate" value="0">
+    <input type="hidden" name="management_fee_sgst_rate" id="management_fee_sgst_rate" value="0">
+    <input type="hidden" name="igst_amount" id="igst_amount" value="0">
+    <input type="hidden" name="cgst_amount" id="cgst_amount" value="0">
+    <input type="hidden" name="sgst_amount" id="sgst_amount" value="0">
+
+            <div class="text-center">
+            <input type="submit" class="btn btn-info" value="Add Invoice">
+                 </div>
+             <br>
+
+            <div class="row">
+
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-head card-topline-aqua">
+                        <header>Basic Details : <strong style="font-size:14px;">{{ booking.reference_no }}</strong></header>
+                    </div>
+                    <div class="card-body no-padding height-9">
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 control-label">Booking ID</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" name="group_name" placeholder="Group Name"
+                                     readonly  type="text" value="{{ booking.reference_no }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 control-label">Tour Type</label>
+                            <div class="col-sm-7">
+                                    {% if booking.tour_type == 1 %}
+                                     <input readonly class="form-control"name="tour_type" type="text" value="Radio">
+                                    {% elif booking.tour_type == 2 %}
+                                     <input readonly class="form-control" name="tour_type" type="text" value="Local">
+                                    {% else %}
+                                    <input readonly class="form-control" name="tour_type" type="text" value="Outstation">
+                                    {% endif %}
+                            </div>
+                        </div>
+
+                         <div class="form-group row">
+                            <label class="col-sm-5 control-label">City Name</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" name="group_name" placeholder="City Name"
+                                     readonly  type="text" value="{{ booking.city_name }}">
+                            </div>
+                        </div>
+
+                         <div class="form-group row">
+                            <label class="col-sm-5 control-label">Pickup Location</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" name="pickup_location" placeholder="Pickup Location"
+                                     readonly  type="text" value="{{ booking.pickup_location }}">
+                            </div>
+                        </div>
+
+                         <div class="form-group row">
+                            <label class="col-sm-5 control-label">Drop Location</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" name="drop_location" placeholder="Drop Location"
+                                     readonly  type="text" value="{{ booking.drop_location }}">
+                            </div>
+                        </div>
+
+                         <div class="form-group row">
+                            <label class="col-sm-5 control-label">Taxi Type</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" name="" placeholder="Pickup Date | Time"
+                                     readonly  type="text" value="{{ booking.taxi_type_name }}">
+                            </div>
+                        </div>
+
+                         <div class="form-group row">
+                            <label class="col-sm-5 control-label">Package</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" name="no_of_seats" placeholder="No Of Seats"
+                                     readonly  type="text" value="{{ booking.package_name }}">
+                            </div>
+                        </div>
+
+                         <div class="form-group row">
+                            <label class="col-sm-5 control-label">Pickup Date | Time</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="pickup_datetime1" name="pickup_datetime" placeholder="pickup_datetime"
+                                     readonly  type="text" value="{{ booking.pickup_datetime }}">
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+                {% if booking.tour_type == 2 or booking.tour_type == 3 %}
+             <div class="col-md-3">
+                <div class="card">
+                    <div class="card-head card-topline-aqua">
+                        <header>Package Details</header>
+                    </div>
+                    <div class="card-body no-padding height-9">
+
+
+
+                          <div class="form-group row">
+                                <label class="col-sm-6 control-label">Package Name</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" value="{{booking.package_name}}" readonly>
+                                </div>
+                        </div>
+
+                         <div class="form-group row">
+                                <label class="col-sm-6 control-label">Include Kms</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" value="{{booking.kms}}" readonly>
+                                </div>
+                        </div>
+
+                         <div class="form-group row">
+                                <label class="col-sm-6 control-label">Include Hours</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" value="{{booking.hours}}" readonly>
+                                </div>
+                        </div>
+
+                         <div class="form-group row">
+                                <label class="col-sm-6 control-label">Km Rate</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" value="{{booking.km_rate}}" readonly>
+                                </div>
+                        </div>
+
+                         <div class="form-group row">
+                                <label class="col-sm-6 control-label">Hour Rate</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" value="{{booking.hour_rate}}" readonly>
+                                </div>
+                        </div>
+
+
+                         <div class="form-group row">
+                                <label class="col-sm-6 control-label">Base Rate</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" value="{{booking.base_rate}}" readonly>
+                                </div>
+                        </div>
+
+                         <div class="form-group row">
+                                <label class="col-sm-6 control-label">Night Rate</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" value="{{booking.night_rate}}" readonly>
+                                </div>
+                        </div>
+                         <div class="form-group row">
+                                <label class="col-sm-6 control-label">Night Start</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="night_start" value="{{booking.night_start|default:''}}" readonly>
+                                </div>
+                        </div>
+                         <div class="form-group row">
+                                <label class="col-sm-6 control-label">Night End</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="night_end" value="{{booking.night_end|default:''}}" readonly>
+                                </div>
+                        </div>
+
+
+
+                         </div>
+                </div>
+            </div>
+            {% endif %}
+
+
+
+
+{% if booking.tour_type == 2 or booking.tour_type == 3 %}
+
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-head card-topline-aqua">
+                        <header>Pickup and Drop Details</header>
+                    </div>
+                    <div class="card-body no-padding height-9">
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 control-label">Payin Slip</label>
+                            <div class="col-sm-7">
+                                 <input type="file" class="form-control" name="payin_slip">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 control-label">Pickup Date | Time</label>
+                            <div class="col-sm-7">
+                                <input class="form-control datepicker1" id="pickup_datetime" autocomplete="off" name="pickup_date" placeholder="Pickup Date | Time" type="text">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 control-label">Pickup Time</label>
+                            <div class="col-sm-7">
+                                <input class="form-control timepicker1" id="pickup_time" autocomplete="off" name="pickup_time" placeholder="Pickup Time" type="text">
+                            </div>
+                        </div>
+
+                         <div class="form-group row">
+                            <label class="col-sm-5 control-label">Drop Date</label>
+                            <div class="col-sm-7">
+                                <input class="form-control datepicker1" id="drop_datetime" autocomplete="off" name="drop_datetime" placeholder="Drop Date" type="text">
+                            </div>
+                        </div>
+
+                         <div class="form-group row">
+                            <label class="col-sm-5 control-label">Drop Time</label>
+                            <div class="col-sm-7">
+                                <input class="form-control timepicker1" id="drop_time" autocomplete="off" name="drop_time" placeholder="Drop Time" type="text">
+                            </div>
+                        </div>
+
+                        {% if booking.tour_type == 2 %}
+
+                         <div class="form-group row">
+                            <label class="col-sm-5 control-label">Hours Done</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" name="hours_done" id="hours_done" placeholder="Hours Done" type="text">
+                            </div>
+                        </div>
+
+                          <div class="form-group row">
+                            <label class="col-sm-5 control-label">Allowed Hours	</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="allowed_hours" name="allowed_hours" placeholder="Allowed Hours	" type="text" value="{{ booking.hours }}" readonly>
+                            </div>
+                        </div>
+
+                         <div class="form-group row">
+                            <label class="col-sm-5 control-label">Extra Hours</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="extra_hours" name="extra_hours" placeholder="Extra Hours" type="text">
+                            </div>
+                        </div>
+
+                         <div class="form-group row">
+                            <label class="col-sm-5 control-label">Charge/Hour</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="charge_hour" name="charge_hour" placeholder="Charge/Hour" type="text" value="{{ booking.hour_rate }}" readonly>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if booking.tour_type == 3 %}
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 control-label">Days</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="days" name="days" value="{{booking.days|default:'1'}}" placeholder="Days" type="text">
+                            </div>
+                        </div>
+
+                        {% endif %}
+
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 control-label">Start Km</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="start_km" name="start_km" placeholder="Start Km" type="text" >
+                            </div>
+                        </div>
+
+                         <div class="form-group row">
+                            <label class="col-sm-5 control-label">End Km</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="end_km" name="end_km" placeholder="End Km" type="text">
+                            </div>
+                        </div>
+
+
+                         <div class="form-group row">
+                            <label class="col-sm-5 control-label">Kms Done</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="kms_done" name="kms_done" placeholder="Kms Done" type="text" >
+                            </div>
+                        </div>
+
+                          <div class="form-group row">
+                            <label class="col-sm-5 control-label">Allowed Kms</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="allowed_kms" name="allowed_kms" placeholder="Allowed Kms" type="text" value="{{ booking.kms }}" readonly>
+                            </div>
+                        </div>
+
+                         <div class="form-group row">
+                            <label class="col-sm-5 control-label">Extra Kms</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="extra_kms" name="extra_kms" placeholder="Extra Kms" type="text">
+                            </div>
+                        </div>
+
+                         <div class="form-group row">
+                            <label class="col-sm-5 control-label">Extra Km Rate</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="extra_km_rate" name="extra_km_rate" placeholder="Extra Km Rate" type="text" value="{{ booking.km_rate }}" readonly>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+{% endif %}
+
+
+
+
+                   <div class="col-md-3">
+                <div class="card">
+                    <div class="card-head card-topline-aqua">
+                        <header>Billing Details</header>
+                    </div>
+                    <div class="card-body no-padding height-9">
+
+
+
+                          <div class="form-group row">
+                                <label class="col-sm-5 control-label">Cotrav Billing Entity</label>
+                                <div class="col-sm-7">
+
+                                        <select class="form-control myselect" id="cotrav_billing_entity" name="cotrav_billing_entity"  required style="width:100%;">
+
+                                                {% for c_enttity in c_entitys %}
+                                                <option value="{{c_enttity.id}}" gst="{{c_enttity.gst_id}}">{{c_enttity.entity_name}} </option>
+
+                                                {% endfor %}
+                                        </select>
+
+                                </div>
+                        </div>
+
+                       <div class="form-group row">
+                                <label class="col-sm-5 control-label">Booking Billing Entity</label>
+                                <div class="col-sm-7">
+
+                                        <input type="text" class="form-control" name="b_entity" gst="{{be_gst}}" id="booking_billing_entity" value="{{be_name}}">
+                                        <input type="hidden" class="form-control" name="bb_entity" gst="{{be_gst}}" value="{{booking.billing_entity_id}}">
+
+                                </div>
+                        </div>
+
+                        {% if booking.tour_type == 1 %}
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 control-label">Total Kms</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="km" name="kms_done" placeholder="Total Kms" type="text">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 control-label">Base Rate</label>
+                            <div class="col-sm-7">
+                                <input class="form-control fixed" decimals="2" id="radio_rate" name="radio_rate" placeholder="Base Rate" type="text">
+                            </div>
+                        </div>
+                        {% endif %}
+
+{% if booking.tour_type == 2 or booking.tour_type == 3 %}
+                        <div class="form-group row">
+                            <label class="col-sm-5 control-label">Base Rate</label>
+                            <div class="col-sm-7">
+                                <input class="form-control fixed" decimals="2" id="base_rate" name="base_rate" placeholder="Base Rate" type="text" value="{{booking.base_rate}}">
+                            </div>
+                        </div>
+
+
+
+                         <div class="form-group row">
+                            <label class="col-sm-5 control-label">Extra Hour Charge</label>
+                            <div class="col-sm-7">
+                                <input class="form-control fixed" decimals="2" id="extra_hr_charges" name="extra_hr_charges" placeholder="Extra Hour Charge" type="text">
+                            </div>
+                        </div>
+
+
+                         <div class="form-group row">
+                            <label class="col-sm-5 control-label">Extra Kms Charge</label>
+                            <div class="col-sm-7">
+                                <input class="form-control fixed" decimals="2" id="extra_km_charges" name="extra_km_charges" placeholder="Extra Kms Charge" type="text">
+                            </div>
+                        </div>
+
+                          <div class="form-group row">
+                            <label class="col-sm-5 control-label">Driver Allowance</label>
+                            <div class="col-sm-7">
+                                <input class="form-control fixed" decimals="2" name="driver_allowance"  id="driver_allowance" placeholder="Driver Allowance" type="text">
+                                <input type="hidden" value="{{ booking.night_rate }}" id="night_rate">
+                            </div>
+                        </div>
+
+
+
+                         <div class="form-group row">
+                            <label class="col-sm-5 control-label">Total Excluding Tax</label>
+                            <div class="col-sm-7">
+                                <input class="form-control fixed" decimals="2" id="total_excluding_tax" name="total_excluding_tax" placeholder="Total Excluding Tax" type="text">
+                            </div>
+                        </div>
+
+                         <div class="form-group row">
+                            <label class="col-sm-5 control-label">Service Tax Rate</label>
+                            <div class="col-sm-7">
+                                <input readonly class="form-control" id="service_tax_rate" name="service_tax_rate" placeholder="Service Tax Rate" type="text" value="12">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 control-label">Service Tax Amount</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="service_tax_amount" name="service_tax_amount" placeholder="Service Tax Amount" type="text">
+                            </div>
+                        </div>
+
+                         <div class="form-group row">
+                            <label class="col-sm-5 control-label">Others (Parking, etc.)</label>
+                            <div class="col-sm-7">
+                                <input class="form-control fixed" decimals="2" id="other_charges" name="other_charges" placeholder="Others (Parking, etc.)" required type="text">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 control-label">Total (Total + Tax + Others)</label>
+                            <div class="col-sm-7">
+                                <input class="form-control fixed" decimals="2" id="total" name="total" placeholder="Total (Total + Tax + Others)" type="text">
+                            </div>
+                        </div>
+ {% endif %}
+
+                         <div class="form-group row">
+                            <label class="col-sm-5 control-label">Management Fee</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="management_fee" name="management_fee" placeholder="Management Fee" type="text" value="100">
+                            </div>
+                        </div>
+
+                         <div class="form-group row">
+                            <label class="col-sm-5 control-label">Service Tax Rate (On Mgmt. Fee)</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="service_tax_rate_mgmnt" name="service_tax_rate_mgmnt" placeholder="Service Tax Rate (On Mgmt. Fee)" type="text" value="18">
+                            </div>
+                        </div>
+
+
+                         <div class="form-group row">
+                            <label class="col-sm-5 control-label">  Sub Total</label>
+                            <div class="col-sm-7">
+                                <input class="form-control fixed" decimals="2" id="sub_total" name="sub_total" placeholder=" Sub Total" type="text">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+
+</form>
+
+
+
+
+ {% endfor %}
+
+    </div>
+</div>
+<!-- end page content -->
+
+
+{% else %}
+<p>Welcome, new user. Please log in.<a href="/login">Login</a></p>
+{% endif %}
+
+<script type="text/javascript">
+  var pick_date = $("#pickup_datetime1").val();
+  var data = pick_date.split(" ");
+
+  $("#pickup_datetime").val(data[0]);
+  $("#pickup_time").val(data[1]);
+  $("#drop_datetime").val(data[0]);
+  $("#drop_time").val("00:00");
+
+$( document ).ready(function() {
+
+$('#taxi_details').change(function(){
+     var taxi_detail = $('#taxi_details option:selected').data('details');
+    temp = taxi_detail.split(',');
+
+    if(temp[0] != '' ){
+        $("#taxi_reg_no").val(temp[0]);
+        $("#garage_location").val(temp[1]);
+        $("#garage_distance").val(temp[2]);
+     }
+     else{
+        $("#taxi_reg_no").val('');
+        $("#garage_location").val('');
+        $("#garage_distance").val('');
+     }
+});
+
+$("#pickup_datetime,#drop_datetime,#pickup_time,#drop_time").change(function(){
+
+  var pickup_datetime = $("#pickup_datetime").val();
+  var drop_datetime = $("#drop_datetime").val();
+  var pickup_time = $("#pickup_time").val();
+  var drop_time = $("#drop_time").val();
+
+ var a = moment(pickup_datetime+" "+pickup_time, 'DD.MM.YYYY hh:mm');
+ var b = moment(drop_datetime+" "+drop_time, 'DD.MM.YYYY hh:mm');
+
+  var pickup_datetime1 = new Date(a);
+
+  var drop_datetime1 = new Date(b);
+var allowed_kms = $("#allowed_kms1").val();
+var base_rate = $("#base_rate1").val();
+var driver_allowance = $("#driver_allowance1").val();
+var trip_tour_type = $("#trip_tour_type").val();
+
+
+  if(trip_tour_type == 3){
+    //days_done -> days done
+    var booking_days = $('#days').val();  //Days for which user has booked the cab
+    days_done = Math.round((drop_datetime1 - pickup_datetime1)/(1000*60*60*24)+1);
+
+    if(days_done < booking_days) // if days done is less than booking days, set days done to the greater of two
+        days_done = booking_days;
+
+    $('#days').val(days_done);
+
+if(trip_tour_type == 3){
+        var no_of_days = $('#days').val();
+        $('#allowed_kms').val(no_of_days*allowed_kms);
+        $('#base_rate').val(no_of_days*base_rate);
+        $('#driver_allowance').val(no_of_days*driver_allowance);
+  }
+
+
+  }
+
+});
+
+function daydiff(first, second) {
+    return Math.round((second-first)/(1000*60*60*24));
+}
+
+$("#kms_done,#days,#driver_allowance,#total_excluding_tax,#other_charges,#end_km,#days,#hours_done,#start_km,#end_km,#pickup_datetime,#drop_datetime,#pickup_time,#drop_time").change(function(){
+
+ var trip_tour_type = $("#trip_tour_type").val();
+  var start_km = $("#start_km").val();
+  var end_km = $("#end_km").val();
+var trip_tour_type = $("#trip_tour_type").val();
+  $("#kms_done").val(parseInt(end_km) - parseInt(start_km));
+  var kms_done = $("#kms_done").val();
+  var allowed_kms = $("#allowed_kms").val();
+
+var hours_done1 = parseInt(kms_done) - parseInt(allowed_kms);
+
+if(hours_done1 <= 0){
+     $("#extra_kms").val(0);
+  }else{
+     $("#extra_kms").val(hours_done1);
+  }
+
+var extra_hours =  $("#extra_hours").val();
+var charge_hour =  $("#charge_hour").val();
+
+var extra_kms =  $("#extra_kms").val();
+var extra_km_rate =  $("#extra_km_rate").val();
+
+  var pickup_datetime = $("#pickup_datetime").val();
+  var drop_datetime = $("#drop_datetime").val();
+  var pickup_time = $("#pickup_time").val();
+  var drop_time = $("#drop_time").val();
+
+ var a = moment(pickup_datetime+" "+pickup_time, 'DD.MM.YYYY h:mm');
+  var b = moment(drop_datetime+" "+drop_time, 'DD.MM.YYYY h:mm');
+
+  var pickup_datetime1 = new Date(a);
+
+  var drop_datetime1 = new Date(b);
+
+    // To calculate the time difference of two dates
+ var Difference_In_hours = 0;
+
+    if (pickup_datetime1 > drop_datetime1) {
+   Difference_In_hours = 0;
+} else {
+   Difference_In_hours = Math.ceil(Math.abs(drop_datetime1 - pickup_datetime1)/36e5);
+}
+
+
+
+if(Difference_In_hours <= 0){
+     $("#hours_done").val(0);
+  }else{
+     $("#hours_done").val(Difference_In_hours);
+  }
+
+  var hr_done = $("#hours_done").val();
+  var allow_hr = $("#allowed_hours").val();
+
+  var ext_hr = parseInt(hr_done) - parseInt(allow_hr)
+  if(ext_hr <= 0){
+     $("#extra_hours").val(0);
+  }else{
+     $("#extra_hours").val(ext_hr);
+  }
+
+//convert both time into timestamp
+var pStr = moment(pickup_datetime+" "+pickup_time, 'DD.MM.YYYY h:mm');
+
+var stt = new Date(pStr);
+p_hours = stt.getHours();
+
+var dStr = moment(drop_datetime+" "+drop_time, 'DD.MM.YYYY h:mm');
+var endt = new Date(dStr);
+d_hours = endt.getHours();
+
+var nstart = $("#night_start").val();
+var dstart = moment(drop_datetime+" "+nstart, 'DD.MM.YYYY h:mm:ss');
+var night_s = new Date(dstart);
+nstart_hours = night_s.getHours();
+
+var nend = $("#night_end").val();
+var dend = moment(drop_datetime+" "+nend, 'DD.MM.YYYY h:mm:ss');
+var night_e = new Date(dend);
+nend_hours = night_e.getHours();
+
+
+if(nstart_hours !== '' && nstart_hours !== null){
+nstart_hours = 22;
+}
+if(nend_hours !== '' && nend_hours !== null){
+nend_hours = 7;
+}
+
+if(trip_tour_type == 2){
+
+if((p_hours < nend_hours || p_hours >= nstart_hours ) && (d_hours < nend_hours || d_hours >= nstart_hours))
+{
+    var night_rate = $('#night_rate').val();
+        $('#driver_allowance').val(night_rate);
+}
+else if((p_hours < nend_hours || p_hours >= nstart_hours) || (d_hours < nend_hours || d_hours >= nstart_hours))
+{
+   var night_rate = $('#night_rate').val();
+   $('#driver_allowance').val(night_rate);
+}
+else
+{
+    $('#driver_allowance').val('0');
+}
+
+}
+
+  var ext_hr = parseInt(extra_hours) * parseInt(charge_hour)
+  if(ext_hr <= 0){
+     $("#extra_hr_charges").val(0);
+  }else{
+     $("#extra_hr_charges").val(ext_hr);
+  }
+var extra_hr_charges = $("#extra_hr_charges").val();
+if(extra_hr_charges > 0){
+}else{
+$("#extra_hr_charges").val(0);
+}
+
+  var ext_km = parseInt(extra_kms) * parseInt(extra_km_rate)
+  if(ext_km <= 0){
+     $("#extra_km_charges").val(0);
+  }else{
+     $("#extra_km_charges").val(ext_km);
+  }
+
+
+
+
+
+  var base_rate = $("#base_rate").val();
+  var night_rate = $("#night_rate").val();
+  var extra_hr_charges = $("#extra_hr_charges").val();
+  var extra_km_charges = $("#extra_km_charges").val();
+  var driver_allowance = $("#driver_allowance").val();
+
+var total_excluding_tax = parseInt(base_rate) + parseInt(extra_hr_charges) + parseInt(extra_km_charges) + parseInt(driver_allowance)
+$("#total_excluding_tax").val(total_excluding_tax);
+
+var service_tax_rate = $("#service_tax_rate").val();
+var amount = parseFloat(total_excluding_tax) * 0.18;
+
+val1 = $("#booking_billing_entity").attr("gst");
+val2 = $('option:selected',"#cotrav_billing_entity").attr("gst");
+
+ match = val1.localeCompare(val2);
+var v1 = val1.substring(0, 2);
+var v2 = val2.substring(0, 2);
+if(v1 == v2)
+{
+    cgst = 9;
+    sgst = 9;
+    $('#management_fee_cgst').val(cgst);
+    $('#management_fee_sgst').val(sgst);
+    $('#management_fee_cgst_rate').val(9);
+    $('#management_fee_sgst_rate').val(9);
+    $('#cgst_amount').val(amount/2);
+    $('#sgst_amount').val(amount/2);
+}else{
+    igst = 18;
+    $('#management_fee_igst').val(igst);
+    $('#management_fee_igst_rate').val(18);
+    $('#igst_amount').val(amount/2);
+}
+
+
+$("#service_tax_amount").val(parseFloat(total_excluding_tax) * 0.12);
+var service_tax_amount = $("#service_tax_amount").val();
+var other_charges = $("#other_charges").val();
+$("#total").val(parseFloat(other_charges) + parseFloat(total_excluding_tax) + parseFloat(service_tax_amount));
+
+var total = $("#total").val();
+var management_fee = $("#management_fee").val();
+var service_tax_rate_mgmnt = $("#service_tax_rate_mgmnt").val();
+
+$("#sub_total").val(parseFloat(management_fee) + parseFloat(service_tax_rate_mgmnt) + parseFloat(total) );
+});
+
+
+
+
+
+});
+
+
+
+ </script>
+
+<script>
+
+
+$("#radio_rate").keyup(function(){
+
+var amount = $('#radio_rate').val();
+
+val1 = $("#booking_billing_entity").attr("gst");
+val2 = $('option:selected',"#cotrav_billing_entity").attr("gst");
+
+
+match = val1.localeCompare(val2);
+var v1 = val1.substring(0, 2);
+var v2 = val2.substring(0, 2);
+
+var amount_taxi = parseFloat(amount) * parseFloat(0.18);
+$("#sub_total").val(parseFloat(100) + parseFloat(18) + parseFloat(amount_taxi) + parseFloat(amount) );
+
+$("#tax_on_management_fee").val(parseFloat(100*0.18))
+$("#tax_on_management_fee_percentage").val(18)
+
+if(v1 == v2)
+{
+    $('#management_fee_cgst').val(9);
+    $('#management_fee_sgst').val(9);
+    $('#management_fee_cgst_rate').val(9);
+    $('#management_fee_sgst_rate').val(9);
+    $('#cgst_amount').val(amount_taxi/2);
+    $('#sgst_amount').val(amount_taxi/2);
+
+}else{
+    $('#management_fee_igst').val(18);
+    $('#management_fee_igst_rate').val(18);
+    $('#igst_amount').val(amount_taxi);
+
+}
+
+
+});
+</script>
+
+ {% endblock %}

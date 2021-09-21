@@ -1,0 +1,277 @@
+{% extends 'Company/Admin/layout/header.html' %}
+
+{% block content %}
+
+{% if user %}
+<!-- start page content -->
+
+<!-- The Modal -->
+<div class="modal fade model_custom_style" role="dialog" id="add_group_model">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4  class="modal-title-status">Assessment Codes Details </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+            <form action="/Corporate/Admin/assessment_codes/{{user.corporate_id}}" method="post" enctype="multipart/form-data" id="model_serialize_update">
+                <input type="hidden" name="code_id" id="code_id_edit">
+                <input type="hidden" name="user_id" value="{{user.id}}">
+                <input type="hidden" name="corporate_id" value="{{user.corporate_id}}">
+                <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+
+                 <div class="form-group row" >
+                       <label class="col-sm-5 control-label">Assessment Codes</label>
+                            <div class="col-sm-7">
+                                <input class="form-control " name="assessment_code" id="assessment_code" placeholder="Assessment Codes" type="text" required>
+                            </div>
+                    </div>
+
+                 <div class="form-group row" >
+                       <label class="col-sm-5 control-label">Assessment Description</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" name="code_desc" id="code_desc" placeholder="Assessment Description" type="text" required>
+                            </div>
+                    </div>
+
+                 <div class="form-group row" >
+                       <label class="col-sm-5 control-label">From Date</label>
+                            <div class="col-sm-7">
+                                <input class="form-control datepicker1" autocomplete="off" name="from_date" id="from_date" placeholder="From Date" type="text" required>
+                            </div>
+                    </div>
+
+                 <div class="form-group row" >
+                       <label class="col-sm-5 control-label">To Date</label>
+                            <div class="col-sm-7">
+                                <input class="form-control datepicker2" autocomplete="off" name="to_date" id="to_date" placeholder="To Date" type="text" required>
+                            </div>
+                    </div>
+
+                 <div class="form-group row" >
+                       <label class="col-sm-5 control-label">Service From Date</label>
+                            <div class="col-sm-7">
+                                <input class="form-control datepicker1" autocomplete="off" name="service_from" id="service_from" placeholder="Service From Date" type="text" required>
+                            </div>
+                    </div>
+
+                 <div class="form-group row" >
+                       <label class="col-sm-5 control-label">Service To Date</label>
+                            <div class="col-sm-7">
+                                <input class="form-control datepicker2" autocomplete="off" name="service_to" id="service_to" placeholder="Service To Date" type="text" required>
+                            </div>
+                    </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- The Modal -->
+<div class="modal fade model_custom_style" role="dialog" id="model_add_new_group">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 id="delete_label" class="modal-title-status">Are you sure you want to Delete Assessment Codes ? </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+            <form action="/Corporate/Admin/delete-assessment_codes/0" method="post" enctype="multipart/form-data" id="form_id">
+                <input type="hidden" name="code_id" id="code_id">
+                <input type="hidden" name="user_id" value="{{user.id}}">
+                <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <button id="delete_btn" type="submit" class="btn btn-primary">Yes</button>
+                </div>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% include 'cotrav_alert_message.html' %}
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-topline-aqua">
+                    <div class="card-head">
+                        <header>ALL CORPORATE ASSESSMENT CODES LIST</header>
+
+                                    <div class="btn-group">
+                                        <a class="btn btn-info btn-sm" href="#" data-toggle="modal"
+                                           data-target="#add_group_model"> Add New <i class="fa fa-plus"></i> </a>
+                                    </div>
+
+
+                                        <div class="btn-group">
+                                           <a href="/Corporate/Admin/download-assessment_codes" class="btn btn-success btn-sm">Download</a>
+
+                                  </div>
+
+                        <div class="tools">
+                            <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                            <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                            <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                        </div>
+                    </div>
+                    <div class="card-body ">
+
+    <div class="text-center">
+     <div style="font-size:14px; font-weight:bold;">
+         All Corporate Assessment Codes Details
+         </div>
+   </div>
+                        <div class="table-scrollable table-bordered ">
+                            <table id="example1" class="display full-width table-striped">
+                                <thead>
+                                <tr>
+<!--                                    <th>ID</th>-->
+                                    <th>Company Name</th>
+                                    <th>Assessment Code</th>
+                                    <th>Assessment Description</th>
+                                    <th>Active From</th>
+                                    <th>Active To</th>
+                                    <th>Service From Date</th>
+                                    <th>Service To Date</th>
+                                    <th>Action</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for code in codes %}
+                                <tr>
+<!--                                    <td>{{ code.id }}</td>-->
+                                    <td>{{ code.corporate_name }}</td>
+                                    <td>{{ code.assessment_code }}</td>
+                                    <td>{{ code.code_desc }}</td>
+                                     <td>{{ code.from_date }}</td>
+                                     <td>{{ code.to_date }}</td>
+                                     <td>{{ code.service_from }}</td>
+                                     <td>{{ code.service_to }}</td>
+
+                                    <td>
+                                        <a class="btn btn-tbl-edit btn-xs" data-target="#add_group_model"
+                                           data-id="{{code.id}}" data-corporate_id="{{code.corporate_id}}" data-assessment_code="{{code.assessment_code}}"
+                                           data-code_desc="{{code.code_desc}}" data-from_date="{{code.from_date}}" data-to_date="{{code.to_date}}"
+                                           data-service_from="{{code.service_from}}" data-service_to="{{code.service_to}}"
+                                           data-toggle="modal" href="#">
+                                            <i class="fa fa-pencil "></i>
+                                        </a>
+
+                                        <a class="btn btn-tbl-delete btn-xs" data-target="#model_add_new_group"
+                                           data-id="{{code.id}}" data-delete_id="1" data-toggle="modal" href="#">
+                                            <i class="fa fa-trash-o "></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- end page content -->
+<script type="text/javascript">
+   $(".myselect").select2();
+</script>
+
+{% else %}
+<p>Welcome, new user. Please log in.<a href="/login">Login</a></p>
+{% endif %}
+
+
+<script type="text/javascript">
+$(function() {
+
+  $('#add_group_model').on('shown.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var id = button.data('id'); // Extract info from data-* attributes
+    var corporate_id = button.data('corporate_id');
+    var assessment_code = button.data('assessment_code');
+    var code_desc = button.data('code_desc');
+    var from_date = button.data('from_date');
+    var to_date = button.data('to_date');
+    var service_from = button.data('service_from');
+    var service_to = button.data('service_to');
+
+    var modal = $(this);
+    modal.find('#code_id_edit').val(id);
+    modal.find('#corporate_id').val(corporate_id).trigger('change');
+    modal.find('#assessment_code').val(assessment_code);
+    modal.find('#code_desc').val(code_desc);
+    modal.find('#from_date').val(from_date);
+    modal.find('#to_date').val(to_date);
+    modal.find('#service_from').val(service_from);
+    modal.find('#service_to').val(service_to);
+    });
+
+
+    $('#model_add_new_group').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var id = button.data('id'); // Extract info from data-* attributes
+
+    var modal = $(this);
+    modal.find('#code_id').val(id);
+
+    });
+
+});
+
+
+
+</script>
+<script>
+    $( document ).ready(function() {
+
+$('#model_serialize_update')
+.each(function(){
+$(this).data('serialized', $(this).serialize())
+})
+    .on('change input', function(){
+        $(this)
+            .find('input:submit, button:submit')
+                .attr('disabled', $(this).serialize() == $(this).data('serialized'))
+        ;
+     })
+.find('input:submit, button:submit')
+.attr('disabled', true);
+
+});
+
+$(document.body).on("change",".myselect",function(){
+  $('form')
+      .find('input:submit, button:submit')
+          .attr('disabled', $('#model_serialize_update').serialize() == $('#model_serialize_update').data('serialized'))
+  ;
+});
+
+</script>
+
+{% endblock %}

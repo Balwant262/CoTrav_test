@@ -1,0 +1,211 @@
+{% extends 'Company/Admin/layout/header.html' %}
+
+{% block content %}
+
+{% if user %}
+<!-- start page content -->
+
+
+<!--{{bookings}}-->
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+                 <div class="text-center">
+                 <div style="font-size:14px; font-weight:bold;">
+                     Employee Document Details
+                     </div>
+            </div>
+
+
+
+        <div class="row">
+            {% for emp in employees %}
+            <div class="col-md-3">
+
+				 <div class="card">
+                    <div class="card-head card-topline-aqua">
+                        <header>Employee Details</header>
+                    </div>
+                    <div class="card-body no-padding height-9">
+
+                        <div class="form-group row">
+							<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+
+
+                                <tr>
+                                                <th>Core Employee ID</th>
+                                                <td>{{emp.core_employee_id|default:'NA'}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Employee ID</th>
+                                                <td>{{emp.employee_cid|default:'NA'}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Employee Name</th>
+                                                <td>{{emp.employee_name|default:'NA'}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Email</th>
+                                                <td>{{emp.employee_email|default:'NA'}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Contact</th>
+                                                <td>{{emp.employee_contact|default:'NA'}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Designation</th>
+                                                <td>{{emp.designation|default:'NA'}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Home City</th>
+                                                <td>{{emp.home_city|default:'NA'}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Home Address</th>
+                                                <td>{{emp.home_address|default:'NA'}}</td>
+                                            </tr>
+
+
+							 </table>
+                    </div>
+                </div>
+            </div>
+			</div>
+
+            <div class="col-md-3">
+            <div class="card">
+                    <div class="card-head card-topline-aqua">
+                        <header>Frro Information Details</header>
+                    </div>
+                    <div class="card-body no-padding height-9">
+
+                        <div class="form-group row">
+							<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+
+                                <tr>
+                                                <th>Passport No.</th>
+                                                <td>{{emp.passport_no|default:'NA'}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Passport Issue Date</th>
+                                                <td>
+                                                {% if emp.passport_issue_date == '1970-01-01'%}
+                                                    NA
+                                                    {% else %}
+                                                    {{emp.passport_issue_date}}
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Passport Expiry Date</th>
+                                                <td>
+                                                {% if emp.passport_expiry_date == '1970-01-01'%}
+                                                    NA
+                                                    {% else %}
+                                                    {{emp.passport_expiry_date}}
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Visa No.</th>
+                                                <td>{{emp.visa_number|default:'NA'}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Visa Expiry Date</th>
+                                                <td>
+                                                {% if emp.visa_expiry_date == '1970-01-01'%}
+                                                    NA
+                                                    {% else %}
+                                                    {{emp.visa_expiry_date}}
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Current Location</th>
+                                                <td>{{emp.current_location|default:'NA'}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Latest Stay Address</th>
+                                                <td>{{emp.current_stay_address|default:'NA'}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Company Contract Expiry Date</th>
+                                                <td>
+                                                {% if emp.company_contact_expiry_date == '1970-01-01'%}
+                                                    NA
+                                                    {% else %}
+                                                    {{emp.company_contact_expiry_date}}
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Form C Expiry Date</th>
+                                                <td>{% if emp.formc_expiry_date == '1970-01-01'%}
+                                                    NA
+                                                    {% else %}
+                                                    {{emp.formc_expiry_date}}
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Lease Status(Direct/Company Lease)</th>
+                                                <td>{{emp.lease_status|default:'NA'}}</td>
+                                            </tr>
+
+							 </table>
+                        </div>
+
+                    </div>
+                    </div>
+                    </div>
+
+            {% endfor %}
+
+                <div class="col-sm-6">
+                     <div class="card">
+                    <div class="card-head card-topline-aqua">
+                        <header>All Employee Documents</header>
+                        </div>
+                    <div class="card-body no-padding height-9">
+
+                        <div class="form-group row">
+							<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+
+
+                                {% for doc in documents %}
+                                    <tr>
+                                        <th>{{doc.doc_name}}</th>
+                                        <td>{% if doc.doc_file %}<a href="{{doc.doc_file}}">Download</a>{% else %} Not Uploaded {% endif %} </td>
+                                    </tr>
+                                {% endfor %}
+
+							 </table>
+                        </div>
+
+                    </div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+
+
+
+    </div>
+
+
+
+</div>
+<!-- end page content -->
+
+
+{% else %}
+<p>Welcome, new user. Please log in.<a href="/login">Login</a></p>
+{% endif %}
+
+{% endblock %}
+
+
+

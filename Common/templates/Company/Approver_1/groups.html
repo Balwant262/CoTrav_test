@@ -1,0 +1,68 @@
+{% extends 'Company/Approver_1/layout/header.html' %}
+
+{% block content %}
+
+
+{% if user %}
+<!-- start page content -->
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-topline-aqua">
+                    <div class="card-head">
+                        <header>ALL CORPORATE GROUP LIST</header>
+                        <div class="tools">
+                            <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                            <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                            <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                        </div>
+                    </div>
+                    <div class="card-body ">
+
+                 <div class="text-center">
+                 <div style="font-size:14px; font-weight:bold;">
+                     Company Group List
+                     </div>
+            </div>
+                        <div class="table-scrollable table-bordered">
+                            <table id="example1" class="display full-width table-striped">
+                                <thead>
+                                <tr>
+<!--                                    <th>ID</th>-->
+                                    <th>Group Name</th>
+                                    <th>Zone Name</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for group in groups %}
+                                <tr>
+<!--                                    <td>{{ group.id }}</td>-->
+
+                                    <td>{{ group.group_name }}</td>
+                                    <td>{{ group.zone_name }}</td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- end page content -->
+
+
+{% else %}
+<p>Welcome, new user. Please log in.<a href="/login">Login</a></p>
+{% endif %}
+
+{% endblock %}
+
+
+

@@ -1,0 +1,369 @@
+{% extends 'Agent/layout/header.html' %}
+
+{% block content %}
+
+
+{% if user %}
+			<!-- start page content -->
+{% include 'cotrav_alert_message.html' %}
+            <div class="page-content-wrapper">
+                <div class="page-content">
+
+           <div class="text-center">
+     <div style="font-size:14px; font-weight:bold;">
+         {% if operators %}
+         Edit Hotel Details
+         {% else %}
+            Add New Hotel Details
+         {% endif %}
+         </div>
+   </div>
+
+ <form method="post" action="/agents/add-hotel-portals/0" id="model_serialize_update">
+      {% csrf_token %}
+     <input type="hidden" class="col-sm-8 form-control" name="cotrav_agent_id"  value="{{user.id }}">
+        <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+            {% if operators %}
+            {% for operator in operators %}
+            <input type="hidden" class="col-sm-8 form-control" name="hotel_id" value="{{operator.id }}">
+            <input type="hidden" class="col-sm-8 form-control" name="portal_vendor_id" value="{{operator.portal_vendor_id }}">
+            {% endfor %}
+            {% endif %}
+
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4">
+                            <div class="card card-topline-aqua">
+                                <div class="card-head">
+                                    <header>General Information</header>
+
+				                        <ul class = "mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+				                           data-mdl-for = "panel-button">
+				                           <li class = "mdl-menu__item"><i class="material-icons">assistant_photo</i>Action</li>
+				                           <li class = "mdl-menu__item"><i class="material-icons">print</i>Another action</li>
+				                           <li class = "mdl-menu__item"><i class="material-icons">favorite</i>Something else here</li>
+				                        </ul>
+                                </div>
+                                <div class="card-body " id="bar-parent">
+
+
+
+                                    <div class="form-group row">
+                                            <label class="col-sm-4" >Hotel Name*</label>
+                                            {% if operators %}
+                                            {% for operator in operators %}
+                                            <input type="text" class="col-sm-8 form-control" name="hotel_name" value="{{operator.operator_name}}" required>
+                                            {% endfor %}
+                                              {% else %}
+                                            <input type="text" class="col-sm-8 form-control" name="hotel_name" placeholder="Hotel Name" required>
+                                                {% endif %}
+                                        </div>
+
+                                      <div class="form-group row">
+                                            <label class="col-sm-4"> Email</label>
+                                          {% if operators %}
+                                            {% for operator in operators %}
+                                            <input type="text" class="col-sm-8 form-control" name="hotel_email" value="{{operator.operator_email}}" required>
+                                            {% endfor %}
+                                              {% else %}
+                                            <input type="email" class="col-sm-8 form-control" name="hotel_email" placeholder="Hotel Email" required>
+                                          {% endif %}
+                                        </div>
+
+                                      <div class="form-group row">
+                                            <label class="col-sm-4" >Contact</label>
+                                          {% if operators %}
+                                            {% for operator in operators %}
+                                            <input type="text" class="col-sm-8 form-control" name="hotel_contact" value="{{operator.operator_contact}}" required>
+                                            {% endfor %}
+                                              {% else %}
+                                            <input type="text" class="col-sm-8 form-control" name="hotel_contact" placeholder="Hotel Contact" required>
+                                          {% endif %}
+                                        </div>
+
+                                    <div class="form-group row">
+                                            <label class="col-sm-4">Website</label>
+                                        {% if operators %}
+                                            {% for operator in operators %}
+                                            <input type="text" class="col-sm-8 form-control" name="website" value="{{operator.website}}">
+                                            {% endfor %}
+                                              {% else %}
+                                            <input type="text" class="col-sm-8 form-control" name="website" placeholder="Website">
+                                        {% endif %}
+                                        </div>
+
+                                     {% if operators %}
+                                            {% else %}
+
+                                    <div class="form-group row">
+                                            <label class="col-sm-4">Hotel Address</label>
+                                        {% if operators %}
+                                            {% for operator in operators %}
+                                            <input type="text" class="col-sm-8 form-control" name="hotel_address" value="{{operator.hotel_address}}">
+                                            {% endfor %}
+                                              {% else %}
+                                            <input type="text" class="col-sm-8 form-control" name="hotel_address" placeholder="Hotel Address">
+                                        {% endif %}
+                                        </div>
+
+
+
+                                       <div class="form-group row">
+                                            <label class="col-sm-4">Contact Name</label>
+                                        {% if operators %}
+                                            {% for operator in operators %}
+                                            <input type="text" class="col-sm-8 form-control" name="contact_name" value="{{operator.contact_name}}">
+                                            {% endfor %}
+                                              {% else %}
+                                            <input type="text" class="col-sm-8 form-control" name="contact_name" placeholder="Contact Name">
+                                        {% endif %}
+                                        </div>
+
+
+                                       <div class="form-group row">
+                                            <label class="col-sm-4">Contact Email</label>
+                                        {% if operators %}
+                                            {% for operator in operators %}
+                                            <input type="text" class="col-sm-8 form-control" name="contact_email" value="{{operator.contact_email}}">
+                                            {% endfor %}
+                                              {% else %}
+                                            <input type="text" class="col-sm-8 form-control" name="contact_email" placeholder="Contact Email">
+                                        {% endif %}
+                                        </div>
+
+
+                                       <div class="form-group row">
+                                            <label class="col-sm-4">Contact No</label>
+                                        {% if operators %}
+                                            {% for operator in operators %}
+                                            <input type="text" class="col-sm-8 form-control" name="contact_no" value="{{operator.contact_no}}">
+                                            {% endfor %}
+                                              {% else %}
+                                            <input type="text" class="col-sm-8 form-control" name="contact_no" placeholder="Contact No">
+                                        {% endif %}
+                                        </div>
+
+                                    {% endif %}
+
+                                </div>
+                            </div>
+                        </div>
+
+                        {% if operators %}
+                        {% else %}
+                        <div class="col-md-4 col-sm-4">
+                            <div class="card card-topline-aqua">
+                                <div class="card-head">
+                                    <header>Bank Details</header>
+                                    <button
+				                           class = "mdl-button mdl-js-button mdl-button--icon pull-right"
+				                           data-upgraded = ",MaterialButton">
+				                           <i class = "material-icons">more_vert</i>
+				                        </button>
+				                        <ul class = "mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+				                           data-mdl-for = "panel-button2">
+				                           <li class = "mdl-menu__item"><i class="material-icons">assistant_photo</i>Action</li>
+				                           <li class = "mdl-menu__item"><i class="material-icons">print</i>Another action</li>
+				                           <li class = "mdl-menu__item"><i class="material-icons">favorite</i>Something else here</li>
+				                        </ul>
+                                </div>
+                                <div class="card-body " id="bar-">
+
+                                     <div class="form-group row">
+                                                <label class="col-sm-4">Beneficiary Name</label>
+                                         {% if operators %}
+                                            {% for operator in operators %}
+
+                                              <input type="text" class="col-sm-8 form-control" value="{{operator.beneficiary_name}}" name="beneficiary_name" placeholder="Beneficiary Name">
+
+                                            {% endfor %}
+                                              {% else %}
+
+                                                <input type="text" class="col-sm-8 form-control" name="beneficiary_name" placeholder="Beneficiary Name">
+
+                                         {% endif %}
+
+                                            </div>
+
+
+                                     <div class="form-group row">
+                                            <label class="col-sm-4" for="simpleFormEmail">A/C No</label>
+                                         {% if operators %}
+                                            {% for operator in operators %}
+                                            <input type="text" class="col-sm-8 form-control" name="beneficiary_account_no" value="{{operator.beneficiary_account_no}}">
+                                            {% endfor %}
+                                              {% else %}
+                                            <input type="text" class="col-sm-8 form-control" name="beneficiary_account_no" placeholder="A/C No">
+                                         {% endif %}
+                                        </div>
+
+
+
+                                     <div class="form-group row">
+                                            <label class="col-sm-4" for="simpleFormEmail">Bank Name</label>
+                                         {% if operators %}
+                                            {% for operator in operators %}
+                                            <input type="text" class="col-sm-8 form-control" name="bank_name" value="{{operator.bank_name}}">
+                                            {% endfor %}
+                                              {% else %}
+                                            <input type="text" class="col-sm-8 form-control" name="bank_name" placeholder="Bank Name">
+                                         {% endif %}
+                                        </div>
+
+                                     <div class="form-group row">
+                                            <label class="col-sm-4" for="simpleFormEmail">IFSC Code</label>
+                                         {% if operators %}
+                                            {% for operator in operators %}
+                                             <input type="text" class="col-sm-8 form-control" name="ifsc_code" placeholder="PAN NO" value="{{operator.ifsc_code}}">
+                                            {% endfor %}
+                                              {% else %}
+                                            <input type="text" class="col-sm-8 form-control" name="ifsc_code" placeholder="IFSC Code">
+                                         {% endif %}
+                                        </div>
+
+
+
+
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        {% endif %}
+
+                        <div class="col-md-4 col-sm-4">
+                            <div class="card card-topline-aqua">
+                                <div class="card-head">
+                                    <header>Other Details</header>
+                                    <button id = "panel-button2"
+				                           class = "mdl-button mdl-js-button mdl-button--icon pull-right"
+				                           data-upgraded = ",MaterialButton">
+				                           <i class = "material-icons">more_vert</i>
+				                        </button>
+				                        <ul class = "mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+				                           data-mdl-for = "panel-button2">
+				                           <li class = "mdl-menu__item"><i class="material-icons">assistant_photo</i>Action</li>
+				                           <li class = "mdl-menu__item"><i class="material-icons">print</i>Another action</li>
+				                           <li class = "mdl-menu__item"><i class="material-icons">favorite</i>Something else here</li>
+				                        </ul>
+                                </div>
+                                <div class="card-body " id="bar-parent1">
+
+                                     <div class="form-group row">
+                                                <label class="col-sm-4">Tax Applicable</label>
+                                         {% if operators %}
+                                            {% for operator in operators %}
+
+                                              <select class="col-sm-8 form-control " name="is_service_tax_applicable">
+	                                                <option value="1" {% if operator.is_service_tax_applicable == 1 %} selected {%endif%}>Yes</option>
+	                                                <option value="0" {% if operator.is_service_tax_applicable == 0 %} selected {%endif%}>No</option>
+	                                            </select>
+
+                                            {% endfor %}
+                                              {% else %}
+
+                                                <select class="col-sm-8 form-control" name="is_service_tax_applicable">
+	                                                <option value="1">Yes</option>
+	                                                <option value="0">No</option>
+	                                            </select>
+
+                                         {% endif %}
+
+                                            </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4" for="simpleFormEmail">TDS Rate</label>
+                                         {% if operators %}
+                                            {% for operator in operators %}
+                                            <input type="text" class="col-sm-8 form-control" name="tds_rate" value="{{operator.tds_rate}}">
+                                            {% endfor %}
+                                              {% else %}
+                                            <input type="text" class="col-sm-8 form-control" name="tds_rate" placeholder="TDS Rate">
+                                         {% endif %}
+                                        </div>
+
+
+                                     <div class="form-group row">
+                                            <label class="col-sm-4" for="simpleFormEmail">GST ID</label>
+                                         {% if operators %}
+                                            {% for operator in operators %}
+                                            <input type="text" class="col-sm-8 form-control" name="gst_id" value="{{operator.gst_id}}">
+                                            {% endfor %}
+                                              {% else %}
+                                            <input type="text" class="col-sm-8 form-control" name="gst_id" placeholder="GST ID">
+                                         {% endif %}
+                                        </div>
+
+                                     <div class="form-group row">
+                                            <label class="col-sm-4" for="simpleFormEmail">PAN NO</label>
+                                         {% if operators %}
+                                            {% for operator in operators %}
+                                             <input type="text" class="col-sm-8 form-control" name="pan_no" placeholder="PAN NO" value="{{operator.pan_no}}">
+                                            {% endfor %}
+                                              {% else %}
+                                            <input type="text" class="col-sm-8 form-control" name="pan_no" placeholder="PAN NO">
+                                         {% endif %}
+                                        </div>
+
+
+
+
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                    <div class="text-center">
+                        <input type="submit" value="Submit" class="btn btn-info">
+                        <a href="{{request.META.HTTP_REFERER}}" class="btn btn-default">  Cancel  </a>
+                    </div>
+                </div>
+                <div class="col-sm-4"></div>
+                    </div>
+
+ </form>
+  </div>
+</div>
+
+<!-- end page content -->
+
+<script type="text/javascript">
+   $(".myselect").select2();
+</script>
+
+
+{% else %}
+    <p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+<script>
+$( document ).ready(function() {
+
+$('#model_serialize_update')
+.each(function(){
+$(this).data('serialized', $(this).serialize())
+})
+    .on('change input', function(){
+        $(this)
+            .find('input:submit, button:submit')
+                .attr('disabled', $(this).serialize() == $(this).data('serialized'))
+        ;
+     })
+.find('input:submit, button:submit')
+.attr('disabled', true);
+
+});
+
+$(document.body).on("change",".myselect",function(){
+  $('form')
+      .find('input:submit, button:submit')
+          .attr('disabled', $('#model_serialize_update').serialize() == $('#model_serialize_update').data('serialized'))
+  ;
+});
+
+</script>
+
+{% endblock %}

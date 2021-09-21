@@ -1,0 +1,512 @@
+<html>
+<title>Cotrav Billing Voucher</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+ <head>
+     <style>
+     
+@page {
+size: a4 portrait;
+ font-family: @import url('https://fonts.googleapis.com/css?family=Montserrat:100,300,400,700,900');
+
+
+@frame header_frame { /* Static Frame */
+-pdf-frame-content: header_content;
+ position: fixed;
+  top: 0;
+  left: 0;
+  height:50%;
+
+}
+
+@frame header_frame { /* Static Frame */
+-pdf-frame-content: logo_content;
+ position: fixed;
+  top: 40px;
+  left: 20px;
+}
+
+
+@frame content_frame { /* Content Frame */
+left: 20pt; width: 512pt; top: 90pt; height: 632pt;
+
+}
+
+
+@frame footer_frame { /* Another static Frame */
+-pdf-frame-content: footer_content;
+position: fixed;
+  bottom: 0pt;
+  left: 0;
+  top: 760pt;
+
+}
+
+@frame footer_frame { /* Another static Frame */
+-pdf-frame-content: ftr_content;
+position: fixed;
+  bottom: 0pt;
+  left: 250;
+  top: 800pt;
+
+}
+
+@frame footer_frame { /* Another static Frame */
+-pdf-frame-content: bus_logo;
+position: fixed;
+  bottom: 0pt;
+  left: 0;
+  top: 800pt;
+
+}
+
+}
+
+
+h1{
+  font-size: 20px;
+  font-family: 'Montserrat';
+  text-align: center;
+
+}
+
+p{
+  font-size: 14px;
+  font-family: 'Montserrat';
+  font-weight: 500;
+
+}
+#header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+
+}
+#footer {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+ }
+
+.custom-page-start {
+    margin-top: 100px;
+}
+
+  .p-1{
+     font-size: 13px;
+  }
+  
+.sec{
+  text-align: center;
+}
+.section{
+  text-decoration-line: underline;
+  line-height: 0px;
+}
+.border-left{
+  border-left: solid 1px gray;
+}
+.section2{
+  line-height: 20px;
+}
+table{
+  overflow-wrap: break-word;
+word-break: break-all;
+font-family: Montserrat;
+}
+td{
+  font-size: 11px;
+  font-family: 'Montserrat';
+font-weight: 400;
+overflow-wrap: break-word;
+word-break: break-all;
+}
+.footer{
+  height: 140px;
+}
+.img1{
+  margin-top: -94px;
+    margin-bottom: 20px;
+  }
+
+
+.flight_section{
+      padding-left: 46px;
+    margin-bottom: -8px;
+    font-size: 15px;
+    font-family: montserrat,san-serif;
+    font-weight: 600;
+
+}
+.f1{
+  font-size: 16px;
+    font-family: montserrat,san-serif;
+    font-weight: 600;
+}
+.section-f1{
+  font-size: 16px;
+    font-family: montserrat,san-serif;
+    font-weight: 600;
+}
+.section-f2{
+  font-size: 13px;
+  font-family: montserrat,Regular;
+  font-weight: 500;
+}
+.arow{
+
+  margin-right: 25px;
+  margin-top: 12px
+}
+
+table {
+    border: 1px solid #ebedeb;
+
+}
+table td, table th {
+    border:none;
+     padding: 1px;
+}
+
+span{
+font-size: 13px;
+font-weight: 600;
+text-align: center;
+}
+.plane{
+      width: 10px;
+}
+.plane_detail{
+  font-size: 12px;
+  text-align: center;
+
+}
+
+.plane_detail_1{
+  font-size: 12px;
+  text-align: center;
+   font-weight: 600;
+}
+.f-span{
+  margin-left: 81px;
+  font-size: 12px;
+  font-weight: 500;
+}
+.total_sec{
+font-family: 'Montserrat';
+    font-size: 17px;
+    font-weight: 500;
+    position: relative;
+    right: 18%;
+    padding: 15px;
+}
+.border_bott{
+  border-bottom: 1px solid gray;
+}
+
+</style>
+
+
+</head>
+<body>
+
+<div id="header_content">
+ <img src="http://localhost:8000/static/img/test/bg1.png">
+</div>
+
+
+  <div id="footer_content">
+     <img src="http://localhost:8000/static/img/test/bg2.png">
+</div>
+
+  <div class='header'></div>
+    <div class='footer'></div>
+
+ <table  width="100%" >
+
+  <tr>
+  
+   <td align="center" style="border: solid 1px silver;"> <h1 style="line-height: 0px;font-family: 'Montserrat';padding: 10px;background-color:#e8e8e8; ">VOUCHER </h1>  </td>
+    
+   </tr>
+ </table>
+<br>
+<table width="100%">
+
+      <tr>
+        <td>&nbsp;</td>
+      
+       <td colspan="8"><strong>BILLED BY : </strong></td>
+    
+      <td colspan="8">BAI Infosolutions Private Limited,India</td>
+
+  <td  class="border-left"></td>
+
+    
+      <td colspan="8"><strong>BILLED TO : </strong></td>
+   
+      <td colspan="8">Tata Consultancy Service Ltd ,India</td>
+
+     </tr>
+
+   
+
+      <tr>
+      <td>&nbsp;</td>
+       <td colspan="8"> <strong> BILL DATE : </strong></td>
+    
+      <td colspan="8">19-03-2019 </td>
+
+  <td  class="border-left"></td>
+    
+      <td colspan="8"><strong>GSTIN : </strong></td>
+   
+      <td colspan="8">06AADCR6281N1ZW</td>
+
+     </tr>
+
+
+       <tr>
+      <td>&nbsp;</td>
+      <td colspan="8"><strong>  BILL NUMBER :   </strong></td>
+    
+      <td colspan="8">HWEIBILL6561</td>
+
+  <td class="border-left"></td>
+    
+       <td colspan="8"><strong>Billing City : </strong></td>
+   
+      <td colspan="8">Gurugram</td>
+
+     </tr>
+
+
+  <tr>
+      <td>&nbsp;</td>
+       <td colspan="8"> <strong> GSTIN :  </strong></td>
+    
+      <td colspan="8"> 07AAGCB3556P1Z7 </td>
+
+  <td  class="border-left"></td>
+    
+       <td colspan="8"><strong>Booked By : </strong></td>
+   
+      <td colspan="8"> Rajeev Kumar</td>
+
+     </tr>
+
+
+  <tr>
+      <td>&nbsp;</td>
+       <td colspan="8"><strong>  Pan Number :    </strong></td>
+    
+      <td colspan="8">AAGCB3556P </td>
+
+  <td  class="border-left"></td>
+    
+        <td colspan="8">-</td>
+   
+      <td colspan="8">-</td>
+
+     </tr>
+
+      <tr>
+      <td>&nbsp;</td>
+       <td colspan="8"><strong>CIN Number :   </strong></td>
+    
+      <td colspan="8">U72200DL2015PTC283027 </td>
+
+        <td  class="border-left"></td>
+    
+      <td colspan="8">- </td>
+   
+      <td colspan="8">-</td>
+
+     </tr>
+
+</table>
+
+
+
+<table width="100%"  >
+        <h1 style=" line-height: 0px;font-family: 'Montserrat';padding: 10px;background-color:#e8e8e8;">Details</h1>
+      <tr>
+        <td>&nbsp;</td>
+        <td colspan="8"><strong>CHECK-IN DATE / TIME  :</strong></td>
+    
+      <td colspan="8"> 21-08-2019 / 12:00 </td>
+
+  <td  class="border-left">&nbsp;</td>
+    
+       <td colspan="8"><strong>CHECK-OUT DATE / TIME : </strong></td>
+   
+      <td colspan="8">21-08-2019 / 12:00</td>
+  </tr>
+    
+
+
+      <tr>
+        <td>&nbsp;</td>
+        <td colspan="8"><strong>City : </strong></td>
+    
+      <td colspan="8"> Mumbai </td>
+
+  <td  class="border-left">&nbsp;</td>
+    
+       <td colspan="8"><strong>No. Of Nights : </strong></td>
+   
+      <td colspan="8">12</td>
+ </tr>
+
+
+    <tr>
+      <td>&nbsp;</td>
+       <td colspan="8"><strong>Hotel Name : </strong></td>
+    
+      <td colspan="8"> Hotel Elite 59 </td>
+
+  <td  class="border-left">&nbsp;</td>
+    
+       <td colspan="8"><strong>Guest Contact : </strong></td>
+   
+      <td colspan="8">9727758580</td>
+ </tr>
+
+
+  <tr>
+    <td>&nbsp;</td>
+        <td colspan="8"><strong>Guest Name :</strong>
+      <td colspan="8"> MANISH MAHAN </td>
+
+  <td  class="border-left">&nbsp;</td>
+    
+      <td colspan="8"><strong>Room-Type : </strong></td>
+   
+      <td colspan="8">Classic Room with Breakfast</td>
+ </tr>
+
+
+</table>
+
+
+
+<table width="100%">
+        <h1 style="line-height: 0px;font-family: 'Montserrat';padding: 10px;background-color:#e8e8e8;">Payments Details</h1>
+      <tr>
+        <td>&nbsp;</td>
+        <td colspan="8"><strong>Tarrif (Per Night) [In INR] :</strong></td>
+    
+      <td colspan="8"> 1,500.00   </td>
+
+  <td  class="border-left">&nbsp;</td>
+    
+       <td colspan="8"><strong>CHECK-OUT DATE / TIME  : </strong></td>
+   
+      <td colspan="8">1,500.00</td>
+  </tr>
+    
+
+
+      <tr>
+        <td>&nbsp;</td>
+        <td colspan="8"><strong>No. Of Nights :</strong></td>
+    
+      <td colspan="8"> 12 </td>
+
+  <td  class="border-left">&nbsp;</td>
+    
+       <td colspan="8"><strong>Total Room Price [In INR] : </strong></td>
+   
+      <td colspan="8">18,000.00</td>
+ </tr>
+
+
+    <tr>
+      <td>&nbsp;</td>
+        <td colspan="8"><strong>Room-Type  : </strong></td>
+    
+      <td colspan="8"> 1,620.00 </td>
+
+  <td  class="border-left">&nbsp;</td>
+    
+       <td colspan="8"><strong>CGST [9.00%] : </strong></td>
+   
+      <td colspan="8">1,620.00</td>
+ </tr>
+
+
+  <tr>
+    <td>&nbsp;</td>
+        <td colspan="8"><strong>SGST [9.00%] :</strong>
+      <td colspan="8"> 1,620.00</td>
+
+  <td  class="border-left">&nbsp;</td>
+    
+       <td colspan="8"><strong>IGST </td>
+   
+      <td colspan="8">NA</td>
+ </tr>
+ </table>
+
+
+<table width="100%"  >
+
+
+   <tr>
+        
+    
+         <td align="center" colspan="6"class="total_sec">TOTAL </td>
+           <td align="center" colspan="8" class="total_sec"> INR 21,240.00  </td>
+    
+    </tr>
+ </table>
+
+
+<table width="100%">
+        <h1 style="line-height: 0px;font-family: 'Montserrat';padding: 10px;background-color:#e8e8e8;">Bank Details</h1>
+      <tr>
+        <td>&nbsp;</td>
+        <td colspan="8"><strong>Bank Name :</strong></td>
+    
+      <td colspan="8"> HDFC  </td>
+
+  <td  class="border-left">&nbsp;</td>
+    
+       <td colspan="8"><strong>Beneficiary Name  : </strong></td>
+   
+      <td colspan="8">BAI Infosolutions Private
+Limited,India</td>
+  </tr>
+    
+
+
+      <tr>
+        <td>&nbsp;</td>
+        <td colspan="8"><strong>Account No. :</strong></td>
+    
+      <td colspan="8">12345678901</td>
+
+  <td  class="border-left">&nbsp;</td>
+    
+       <td colspan="8"><strong>IFSC No. : </strong></td>
+   
+      <td colspan="8">12345</td>
+ </tr>
+
+
+</table>
+
+
+ <br /><br /><br />
+  <!-- New page for each client  -->
+
+
+
+</body>
+</html>

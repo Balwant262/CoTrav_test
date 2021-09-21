@@ -1,0 +1,218 @@
+{% extends 'Operator/layout/header.html' %}
+
+{% block content %}
+
+
+{% if user %}
+
+<!-- The Modal -->
+<div class="modal fade model_custom_style" role="dialog" id="model_add_new_group">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 id="delete_label" class="modal-title-status">Operator Bank Details </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+            <form action="/operator/operator-banks/{{user.id}}" method="post" enctype="multipart/form-data" id="form_id">
+                 <input type="hidden" name="bank_id" id="bank_id">
+                <input type="hidden" name="user_id" value="{{user.id}}">
+                <input type="hidden" name="delete_id" id="delete_id">
+                <input type="hidden" name="operator_id" value="{{operator_id}}">
+ <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+                   <div class="form-group row" id="beneficiary_name1">
+                    <label class="col-sm-5 control-label">Beneficiary Name</label>
+                    <div class="col-sm-7">
+                        <input class="form-control" id="beneficiary_name" name="beneficiary_name" placeholder="Beneficiary Name" required
+                               type="text">
+                    </div>
+                 </div>
+
+
+                <div class="form-group row" id="beneficiary_account_no1">
+                    <label class="col-sm-5 control-label">Beneficiary A/C No</label>
+                    <div class="col-sm-7">
+                        <input class="form-control" id="beneficiary_account_no" name="beneficiary_account_no" placeholder="Beneficiary A/C No" required
+                               type="text">
+                    </div>
+                 </div>
+
+
+                <div class="form-group row" id="bank_name1">
+                    <label class="col-sm-5 control-label">Bank Name</label>
+                    <div class="col-sm-7">
+                        <input class="form-control" id="bank_name" name="bank_name" placeholder="Bank Name" required
+                               type="text">
+                    </div>
+                 </div>
+
+                 <div class="form-group row" id="ifsc_code1">
+                    <label class="col-sm-5 control-label">IFSC Code</label>
+                    <div class="col-sm-7">
+                        <input class="form-control" id="ifsc_code" name="ifsc_code" placeholder="IFSC Code" required
+                               type="text">
+                    </div>
+                 </div>
+
+
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <button id="delete_btn" type="submit" class="btn btn-primary">Yes</button>
+                </div>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% include 'cotrav_alert_message.html' %}
+<!-- start page content -->
+            <div class="page-content-wrapper">
+                <div class="page-content">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card card-topline-aqua">
+                                <div class="card-head">
+                                    <header>ALL OPERATOR BANKS</header>
+                                        <div class="row p-b-20">
+                                        <div class="col-md-6 col-sm-6 col-6">
+                                            <div class="btn-group">
+                                                <a class="btn btn-info" data-target="#model_add_new_group" data-toggle="modal" > Add New <i class="fa fa-plus"></i> </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tools">
+                                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+	                                    <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+	                                    <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                                    </div>
+                                </div>
+                                <div class="card-body ">
+
+            <div class="text-center">
+                 <div style="font-size:14px; font-weight:bold;">
+                     Operator Bank Details
+                     </div>
+            </div>
+
+                                  <div class="table-scrollable table-bordered">
+                                    <table id="example1" class="display full-width table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Beneficiary Name</th>
+                                                <th>Beneficiary Account No</th>
+                                                <th>Bank Name</th>
+                                                <th>IFSC Code</th>
+                                                <th>Action</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                        {% for operator_bank in operator_banks %}
+                                            <tr>
+                                                <td>{{ operator_bank.id }}</td>
+                                                <td>{{ operator_bank.beneficiary_name }}</td>
+                                                <td>{{ operator_bank.beneficiary_account_no }}</td>
+                                                <td>{{ operator_bank.bank_name }}</td>
+                                                <td>{{ operator_bank.ifsc_code }}</td>
+
+                                                 <td>
+                                                      <a class="btn btn-tbl-edit btn-xs" data-target="#model_add_new_group"
+                                                       data-id="{{operator_bank.id}}" data-beneficiary_name="{{operator_bank.beneficiary_name}}"
+                                                        data-beneficiary_account_no="{{operator_bank.beneficiary_account_no}}" data-bank_name="{{operator_bank.bank_name}}"
+                                                         data-ifsc_code="{{operator_bank.ifsc_code}}"
+                                                       data-edit_id="1" data-toggle="modal" href="#">
+                                                        <i class="fa fa-pencil "></i>
+                                                    </a>
+
+                                                    <a class="btn btn-tbl-delete btn-xs" data-target="#model_add_new_group"
+                                                       data-id="{{operator_bank.id}}" data-beneficiary_name="{{operator_bank.beneficiary_name}}"
+                                                        data-beneficiary_account_no="{{operator_bank.beneficiary_account_no}}" data-bank_name="{{operator_bank.bank_name}}"
+                                                         data-ifsc_code="{{operator_bank.ifsc_code}}" data-delete_id="1" data-toggle="modal" href="#">
+                                                        <i class="fa fa-trash "></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                            </tbody>
+                                        </table>
+	                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- end page content -->
+
+
+
+
+
+{% else %}
+    <p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+<script type="text/javascript">
+$(function() {
+
+  $('#model_add_new_group').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var id = button.data('id'); // Extract info from data-* attributes
+    var modal = $(this);
+
+    var delete_id = button.data('delete_id');
+    var edit_id = button.data('edit_id');
+    var beneficiary_name = button.data('beneficiary_name');
+    var beneficiary_account_no = button.data('beneficiary_account_no');
+    var bank_name = button.data('bank_name');
+    var ifsc_code = button.data('ifsc_code');
+
+
+
+    if(delete_id == 1){
+    modal.find('#delete_id').val('1');
+    modal.find('#bank_id').val(id);
+    modal.find('#beneficiary_name').val(beneficiary_name);
+    modal.find('#beneficiary_account_no').val(beneficiary_account_no);
+    modal.find('#bank_name').val(bank_name);
+    modal.find('#ifsc_code').val(ifsc_code);
+
+    modal.find('#beneficiary_name1').hide();
+    modal.find('#beneficiary_account_no1').hide();
+    modal.find('#bank_name1').hide();
+    modal.find('#ifsc_code1').hide();
+    }else{
+    modal.find('#delete_id').val('');
+    modal.find('#bank_id').val(id);
+
+    modal.find('#beneficiary_name').val(beneficiary_name);
+    modal.find('#beneficiary_account_no').val(beneficiary_account_no);
+    modal.find('#bank_name').val(bank_name);
+    modal.find('#ifsc_code').val(ifsc_code);
+
+    modal.find('#beneficiary_name1').show();
+    modal.find('#beneficiary_account_no1').show();
+    modal.find('#bank_name1').show();
+    modal.find('#ifsc_code1').show();
+
+    }
+
+      });
+
+});
+
+
+
+</script>
+
+
+{% endblock %}

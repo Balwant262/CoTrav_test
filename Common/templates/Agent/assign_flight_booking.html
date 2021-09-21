@@ -1,0 +1,1252 @@
+{% extends 'Agent/layout/header.html' %}
+
+{% block content %}
+
+{% load static %}
+
+{% if user %}
+<!-- start page content -->
+{% include 'cotrav_alert_message.html' %}
+
+{% for booking in bookings %}
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+
+<form method="post" action="/agents/assign-flight-booking/{{booking.id}}" enctype="multipart/form-data">
+
+<div class="text-center">
+        <input type="submit" id="submit-data" class="btn btn-info" value="Assign Booking">
+    </div>
+
+	 <input type="hidden" name="booking_id" value="{{booking.id}}">
+			<input type="hidden" id="corporate_id" value="{{booking.corporate_id}}">
+            <input type="hidden" name="user_id" value="{{user.id}}">
+            <input type="hidden" name="no_of_passanger" value="{{booking.no_of_seats}}">
+            <input type="hidden" id="no_of_seats" name="no_of_seats" value="{{booking.no_of_seats}}">
+            <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+            <input type="hidden" name="tax_on_management_fee" id="tax_on_management_fee" value="0">
+            <input type="hidden" name="tax_on_management_fee_percentage" id="tax_on_management_fee_percentage" value="0">
+            <input type="hidden" name="management_fee_igst" id="management_fee_igst" value="0">
+            <input type="hidden" name="management_fee_cgst" id="management_fee_cgst" value="0">
+            <input type="hidden" name="management_fee_sgst" id="management_fee_sgst" value="0">
+            <input type="hidden" name="management_fee_igst_rate" id="management_fee_igst_rate" value="0">
+            <input type="hidden" name="management_fee_cgst_rate" id="management_fee_cgst_rate" value="0">
+            <input type="hidden" name="management_fee_sgst_rate" id="management_fee_sgst_rate" value="0">
+            <input type="hidden" name="igst_amount" id="igst_amount" value="0">
+            <input type="hidden" name="cgst_amount" id="cgst_amount" value="0">
+            <input type="hidden" name="sgst_amount" id="sgst_amount" value="0">
+
+			<input type="hidden" name="is_return_flight" value="0">
+			<input type="hidden" name="is_return_flight" value="0">
+			<input type="hidden" name="is_return_flight" value="0">
+			<input type="hidden" name="return_no_of_stops" value="{{booking.return_no_of_stops|default:'0'}}" id="return_no_of_stops">
+			<input type="hidden" id="old_ticket_price" value="{{booking.ticket_price|default:'0'}}">
+			<input type="hidden" id="old_vi_ticket_price" value="{{booking.vi_ticket_price|default:'0'}}">
+			<input type="hidden" id="old_vender_commission" value="{{booking.vender_commission|default:'0'}}">
+
+			<input class="form-control" type = "hidden" name="oper_total_excluding_tax" id="oper_total_excluding_tax" >
+			<input class="form-control" type = "hidden" name="oper_other_charges" id="oper_other_charges" >
+			<input class="form-control" type = "hidden" name="oper_total" id="oper_total" >
+			<input class="form-control" type = "hidden" name="oper_gst_paid" id="oper_gst_paid" >
+			<input class="form-control" type = "hidden" name="oper_tds_cut" id="oper_tds_cut" >
+			<input class="form-control" type = "hidden" name="oper_sub_total" id="oper_sub_total" >
+
+
+
+
+	<div class="row">
+
+	<div class="col-md-3">
+
+		<div class="row">
+
+			<div class="col-md-12">
+
+				<div class="card card-box" >
+								<div class="card-head card-topline-aqua">
+									<header>Basic Details:  </header>
+
+								</div>
+								<div class="card-body row">
+
+									<div class="card-body no-padding height-9">
+
+									<div class="form-group row">
+							 			<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+
+											<tr>
+												<td><label class = "control-label">Booking Booking ID</label></td>
+												<td><input class = "form-control" type = "text" value="{{booking.reference_no}}" readonly></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">From City</label></td>
+												<td><input class = "form-control" type = "text" value="{{booking.from_location}}" readonly></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">To City</label></td>
+												<td><input class = "form-control" type = "text" value="{{booking.to_location}}" readonly></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Booking Date</label></td>
+												<td><input class = "form-control datetimepicker1" type = "text" value="{{booking.booking_datetime}}" readonly></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Departure DateTime</label></td>
+												<td><input class = "form-control date" type = "text" value="{{booking.departure_datetime}}" readonly></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Seat Type</label></td>
+												<td><input class = "form-control" type = "text" value="{{booking.usage_type}}" readonly></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Preferred Flight</label></td>
+												<td><input class = "form-control" type = "text" value="{{booking.preferred_flight}}" readonly></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Cotrav Status</label></td>
+												<td><input class = "form-control" type = "text" value="{{booking.cotrav_status}}" readonly></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Client Status</label></td>
+												<td><input class = "form-control" type = "text" value="{{booking.client_status}}" readonly></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Reason for Booking</label></td>
+												<td><input class = "form-control" type = "text" value="{{booking.reason_booking}}" readonly></td>
+											</tr>
+
+
+
+
+										</table>
+
+									</div>
+
+
+								</div>
+
+					</div>
+
+				</div>
+
+
+			</div>
+
+		</div>
+
+	</div>
+
+	<div class="col-md-3">
+
+	<div class="row">
+
+			<div class="col-md-12">
+
+				<div class="card card-box" >
+								<div class="card-head card-topline-aqua">
+									<header>Onward Flight Details: </header>
+                                     <div class="tools">
+
+										<a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+
+                                    </div>
+								</div>
+								<div class="card-body row">
+
+									<div class="card-body no-padding height-9">
+
+									<div class="form-group row">
+							 			<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+
+											<tr>
+												<td><label class = "control-label">Flight Type </label></td>
+												<td colspan="2"><select name="flight_type" id="flight_type" class="form-control myselect" required>
+                                        <option value="Domestic" {% if 'Domestic' == booking.flight_type %} selected {% endif %}>Domestic</option>
+                                        <option value="International" {% if 'International' == booking.flight_type %} selected {% endif %}>International</option>
+                                    </select></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Seat Type </label></td>
+												<td colspan="2"><select name="seat_type" id="seat_type" class="form-control myselect" required>
+                                            <option value="Economy" {% if 'Economy' == booking.seat_type %} selected {% endif %}>Economy</option>
+                                           <option value="Corporate Economy" {% if 'Corporate Economy' == booking.seat_type %} selected {% endif %}>Corporate Economy</option>
+                                           <option value="Premium Economy" {% if 'Premium Economy' == booking.seat_type %} selected {% endif %}>Premium Economy</option>
+                                           <option value="Business" {% if 'Business' == booking.flight_type %} seat_type {% endif %}>Business</option>
+                                    </select></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Trip Type </label></td>
+												<td colspan="2"><select name="trip_type" id="trip_type" class="form-control myselect" required>
+                                           <option value="One Way" {% if 'One Way' == booking.trip_type %} selected {% endif %}>One Way</option>
+                                           <option value="Round Trip" {% if 'Round Trip' == booking.trip_type %} selected {% endif %}>Round Trip</option>
+                                    </select></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Fare Type </label></td>
+												<td colspan="2"><select name="fare_type" id="fare_type" class="form-control myselect" required>
+                                           <option value="Refundable" {% if 'Refundable' == booking.fare_type %} selected {% endif %}>Refundable</option>
+                                           <option value="Non Refundable" {% if 'Non Refundable' == booking.fare_type %} selected {% endif %}>Non Refundable</option>
+                                           <option value="Partially Refundable" {% if 'Partially Refundable' == fare_type.trip_type %} selected {% endif %}>Partial Refundable</option>
+                                    </select></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Is Meal Included </label></td>
+												<td colspan="2"><select name="meal_is_include" id="meal_is_include" class="form-control myselect" required>
+                                           <option value="1" value="Refundable" {% if 1 == booking.meal_is_include %} selected {% endif %}>Yes</option>
+                                           <option value="0" value="Refundable" {% if 0 == booking.meal_is_include %} selected {% endif %}>No</option>
+                                    </select></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">No. Of Stops</label></td>
+												<td colspan="2"><select name="no_of_stops" id="no_of_stop" class="form-control myselect" required>
+                                           <option value="0" {% if 0 == booking.no_of_stops %} selected {% endif %}>no stop</option>
+                                            <option value="1" {% if 1 == booking.no_of_stops %} selected {% endif %}>1 stop</option>
+                                            <option value="2" {% if 2 == booking.no_of_stops %} selected {% endif %}>2 stop</option>
+                                           <option value="3" {% if 3 == booking.no_of_stops %} selected {% endif %}>3 stop</option>
+                                    </select></td>
+											</tr>
+
+
+											{% for employee in booking.Passangers %}
+
+											 <input type="hidden" name="employee_booking_id" value="{{employee.id}}">
+
+											<tr>
+												<td><label class = "control-label">Ticket Number :</label></td>
+												<td colspan="2"><input required class = "form-control" type = "text" name="ticket_number" placeholder="Ticket Number" value="{{employee.employee_ticket_no|default:''}}" ></td>
+											</tr>
+
+											{% endfor %}
+
+											<tr>
+												<td><label class = "control-label">From</label></td>
+												<td colspan="2">
+<!--													<input class = "form-control" type = "text" name="from" placeholder="Flight From" value="" >-->
+													 <select class="form-control col-sm-8 myselect" name="from" id="from_1" style="width:100%;">
+															<option value="">Select From City</option>-->
+															{% for airport in airports %}
+															<option value="{{airport.city_name}} ({{airport.code}})">{{airport.city_name}}, {{airport.country_name}} ({{airport.code}})</option>
+															{% endfor %}
+												   </select>
+
+												</td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">To</label></td>
+												<td colspan="2">
+<!--													<input class = "form-control" type = "text" name="to" placeholder="Flight To" value="" >-->
+
+													<select class="form-control col-sm-8 myselect" name="to" id="to_1"  style="width:100%;">
+															<option value="">Select To City</option>-->
+															{% for airport in airports %}
+															<option value="{{airport.city_name}} ({{airport.code}})">{{airport.city_name}}, {{airport.country_name}} ({{airport.code}})</option>
+															{% endfor %}
+												   </select>
+
+												</td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Departure Time</label></td>
+												<td colspan="2"><input class = "form-control datetimepicker1" autocomplete="off" type = "text" id="departure_time_1" name="departure_time" value="" ></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Arrival Time</label></td>
+												<td colspan="2"><input class = "form-control datetimepicker1" autocomplete="off" type = "text" name="arival_time" id="arival_time_1" value="" ></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Flight Name</label></td>
+												<td colspan="2"><input class = "form-control" type = "text" name="flight_name" id="flight_name_1" value="" ></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Flight No</label></td>
+												<td colspan="2"><input class = "form-control" type = "text" name="flight_no" id="flight_no_1" value="" ></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">PNR Number</label></td>
+												<td colspan="2"><input class = "form-control" type = "text" name="pnr_number" id="pnr_number_1" placeholder="PNR Number" value="" ></td>
+											</tr>
+
+
+
+											<tr>
+
+												<td class="stop1"><input class="form-control"
+                                                           type="text" value="Stop 1" readonly></td>
+												<td class="stop2"><input class="form-control"
+                                                           type="text" value="Stop 2" readonly></td>
+												<td class="stop3"><input class="form-control"
+                                                           type="text" value="Stop 3" readonly></td>
+											</tr>
+
+											<tr>
+												<td class="stop1">
+<!--													<input class="form-control" name="from" placeholder="From"-->
+<!--                                                           type="text" value="">-->
+													<select class="form-control myselect" name="from" id="from_2">
+															<option value="">Select From City</option>-->
+															{% for airport in airports %}
+															<option value="{{airport.city_name}} ({{airport.code}})">{{airport.city_name}}, {{airport.country_name}} ({{airport.code}})</option>
+															{% endfor %}
+												   </select>
+
+												</td>
+												<td class="stop2">
+<!--													<input class="form-control" name="from" placeholder="From"-->
+<!--                                                           type="text" value="">-->
+													<select class="form-control myselect" name="from" id="from_3">
+															<option value="">Select From City</option>-->
+															{% for airport in airports %}
+															<option value="{{airport.city_name}} ({{airport.code}})">{{airport.city_name}}, {{airport.country_name}} ({{airport.code}})</option>
+															{% endfor %}
+												   </select>
+
+												</td>
+												<td class="stop3">
+<!--													<input class="form-control" name="from" placeholder="From"-->
+<!--                                                           type="text" value="">-->
+												<select class="form-control myselect" name="from" id="from_4">
+															<option value="">Select From City</option>-->
+															{% for airport in airports %}
+															<option value="{{airport.city_name}} ({{airport.code}})">{{airport.city_name}}, {{airport.country_name}} ({{airport.code}})</option>
+															{% endfor %}
+												   </select>
+												</td>
+											</tr>
+
+											<tr>
+												<td class="stop1">
+<!--													<input class="form-control" name="from" placeholder="From"-->
+<!--                                                           type="text" value="">-->
+													<select class="form-control myselect" name="to" id="to_2">
+															<option value="">Select From City</option>-->
+															{% for airport in airports %}
+															<option value="{{airport.city_name}} ({{airport.code}})">{{airport.city_name}}, {{airport.country_name}} ({{airport.code}})</option>
+															{% endfor %}
+												   </select>
+
+												</td>
+												<td class="stop2">
+<!--													<input class="form-control" name="from" placeholder="From"-->
+<!--                                                           type="text" value="">-->
+													<select class="form-control myselect" name="to" id="to_3">
+															<option value="">Select From City</option>-->
+															{% for airport in airports %}
+															<option value="{{airport.city_name}} ({{airport.code}})">{{airport.city_name}}, {{airport.country_name}} ({{airport.code}})</option>
+															{% endfor %}
+												   </select>
+
+												</td>
+												<td class="stop3">
+<!--													<input class="form-control" name="from" placeholder="From"-->
+<!--                                                           type="text" value="">-->
+												<select class="form-control myselect" name="to" id="to_4">
+															<option value="">Select From City</option>-->
+															{% for airport in airports %}
+															<option value="{{airport.city_name}} ({{airport.code}})">{{airport.city_name}}, {{airport.country_name}} ({{airport.code}})</option>
+															{% endfor %}
+												   </select>
+												</td>
+											</tr>
+
+											<tr>
+												<td class="stop1"><input class="form-control datetimepicker1" autocomplete="off" name="arival_time" id="arival_time_2" placeholder="arival_time"
+                                                           type="text" value=""></td>
+												<td class="stop2"> <input class="form-control datetimepicker1" autocomplete="off" name="arival_time" id="arival_time_3" placeholder="arival_time"
+                                                           type="text" value=""></td>
+												<td class="stop3"><input class="form-control datetimepicker1" autocomplete="off" name="arival_time" id="arival_time_4" placeholder="arival_time"
+                                                           type="text" value=""></td>
+											</tr>
+
+											<tr>
+												<td class="stop1"><input class="form-control datetimepicker1" autocomplete="off" name="departure_time" id="departure_time_2" placeholder="Departure Time"
+                                                           type="text" value=""></td>
+												<td class="stop2"> <input class="form-control datetimepicker1" autocomplete="off" name="departure_time" id="departure_time_3" placeholder="Departure Time"
+                                                           type="text" value=""></td>
+												<td class="stop3"><input class="form-control datetimepicker1" autocomplete="off" name="departure_time" id="departure_time_4" placeholder="Departure Time"
+                                                           type="text" value=""></td>
+											</tr>
+
+											<tr>
+												<td class="stop1"><input class="form-control" name="flight_name" id="flight_name_2" placeholder="Flight Name"
+                                                           type="text" value=""></td>
+												<td class="stop2"><input class="form-control" name="flight_name" id="flight_name_3" placeholder="Flight Name"
+                                                           type="text" value=""></td>
+												<td class="stop3"><input class="form-control" name="flight_name" id="flight_name_4" placeholder="Flight Name"
+                                                           type="text" value=""></td>
+											</tr>
+
+											<tr>
+												<td class="stop1"><input class="form-control" name="flight_no" id="flight_no_2" placeholder="Flight No."
+                                                           type="text" value=""></td>
+												<td class="stop2"><input class="form-control" name="flight_no" id="flight_no_3" placeholder="Flight No."
+                                                           type="text" value=""></td>
+												<td class="stop3"><input class="form-control" name="flight_no" id="flight_no_4" placeholder="Flight No."
+                                                           type="text" value=""></td>
+											</tr>
+
+											<tr>
+												<td class="stop1"><input class="form-control" name="pnr_number" id="pnr_number_2" placeholder="PNR Number"
+                                                           type="text" value=""></td>
+												<td class="stop2"><input class="form-control" name="pnr_number" id="pnr_number_3" placeholder="PNR Number"
+                                                           type="text" value=""></td>
+												<td class="stop3"><input class="form-control" name="pnr_number" id="pnr_number_4" placeholder="PNR Number"
+                                                           type="text" value=""></td>
+											</tr>
+
+
+
+											<tr>
+												<td><label class = "control-label">Send Client SMS</label></td>
+												<td colspan="2"><select name="is_client_sms" class="form-control myselect" required>
+                                           <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                    </select></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Send Client Email</label></td>
+												<td colspan="2"><select name="is_client_email" class="form-control myselect" required>
+                                           <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                    </select></td>
+											</tr>
+
+
+										</table>
+
+									</div>
+
+
+								</div>
+
+					</div>
+
+				</div>
+
+
+
+			</div>
+
+
+		</div>
+
+
+	</div>
+
+		{% if booking.journey_type == 'Round Trip' %}
+<div class="col-md-3">
+
+		<div class="row">
+
+			<div class="col-md-12">
+
+				<div class="card card-box" >
+								<div class="card-head card-topline-aqua">
+									<header>Return Flight Details: </header>
+                                     <div class="tools">
+
+										<a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+
+                                    </div>
+								</div>
+								<div class="card-body row">
+
+									<div class="card-body no-padding height-9">
+
+									<div class="form-group row">
+							 			<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+
+
+											<tr>
+												<td><label class = "control-label">Ticket Number :</label></td>
+												<td colspan="2"><input required class = "form-control" type = "text" name="ticket_number" placeholder="ticket number" value="" ></td>
+											</tr>
+
+
+
+											<tr>
+												<td><label class = "control-label">From</label></td>
+												<td colspan="2">
+<!--													<input class = "form-control" type = "text" name="from" placeholder="Flight From" value="" >-->
+													 <select class="form-control col-sm-8 myselect" name="fromr" id="fromr_1" style="width:100%;">
+															<option value="">Select From City</option>-->
+															{% for airport in airports %}
+															<option value="{{airport.city_name}} ({{airport.code}})">{{airport.city_name}}, {{airport.country_name}} ({{airport.code}})</option>
+															{% endfor %}
+												   </select>
+
+												</td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">To</label></td>
+												<td colspan="2">
+<!--													<input class = "form-control" type = "text" name="to" placeholder="Flight To" value="" >-->
+
+													<select class="form-control col-sm-8 myselect" name="tor" id="tor_1" style="width:100%;">
+															<option value="">Select To City</option>-->
+															{% for airport in airports %}
+															<option value="{{airport.city_name}} ({{airport.code}})">{{airport.city_name}}, {{airport.country_name}} ({{airport.code}})</option>
+															{% endfor %}
+												   </select>
+
+												</td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Departure Time</label></td>
+												<td colspan="2"><input class = "form-control datetimepicker1" autocomplete="off" type = "text" id="departure_timer_1" name="departure_timer" value="" ></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Arrival Time</label></td>
+												<td colspan="2"><input class = "form-control datetimepicker1" autocomplete="off" type = "text" name="arival_timer" id="arival_timer_1" value="" ></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Flight Name</label></td>
+												<td colspan="2"><input class = "form-control" type = "text" name="flight_namer" id="flight_namer_1" value="" ></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Flight No</label></td>
+												<td colspan="2"><input class = "form-control" type = "text" name="flight_nor" id="flight_nor_1" value="" ></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">PNR Number</label></td>
+												<td colspan="2"><input class = "form-control" type = "text" name="pnr_numberr" id="pnr_numberr_1" placeholder="PNR Number" value="" ></td>
+											</tr>
+
+
+											<tr>
+												<td><label class = "control-label">Return Flight : No. Of Stops</label></td>
+												<td colspan="2"><select name="no_of_stop_rt" id="no_of_stop_rt" class="form-control myselect" required>
+                                           <option value="0">no stop</option>
+                                            <option value="1">1 stop</option>
+                                            <option value="2" >2 stop</option>
+                                           <option value="3">3 stop</option>
+                                    </select></td>
+											</tr>
+
+											<tr>
+
+												<td class="stop1_r"><input class="form-control"
+                                                           type="text" value="Stop 1" readonly></td>
+												<td class="stop2_r"><input class="form-control"
+                                                           type="text" value="Stop 2" readonly></td>
+												<td class="stop3_r"><input class="form-control"
+                                                           type="text" value="Stop 3" readonly></td>
+											</tr>
+
+											<tr>
+												<td class="stop1_r">
+<!--													<input class="form-control" name="from" placeholder="From"-->
+<!--                                                           type="text" value="">-->
+													<select class="form-control myselect" name="fromr" id="fromr_2">
+															<option value="">Select From City</option>-->
+															{% for airport in airports %}
+															<option value="{{airport.city_name}} ({{airport.code}})">{{airport.city_name}}, {{airport.country_name}} ({{airport.code}})</option>
+															{% endfor %}
+												   </select>
+
+												</td>
+												<td class="stop2_r">
+<!--													<input class="form-control" name="from" placeholder="From"-->
+<!--                                                           type="text" value="">-->
+													<select class="form-control myselect" name="fromr" id="fromr_3">
+															<option value="">Select From City</option>-->
+															{% for airport in airports %}
+															<option value="{{airport.city_name}} ({{airport.code}})">{{airport.city_name}}, {{airport.country_name}} ({{airport.code}})</option>
+															{% endfor %}
+												   </select>
+
+												</td>
+												<td class="stop3_r">
+<!--													<input class="form-control" name="from" placeholder="From"-->
+<!--                                                           type="text" value="">-->
+												<select class="form-control myselect" name="fromr" id="fromr_4">
+															<option value="">Select From City</option>-->
+															{% for airport in airports %}
+															<option value="{{airport.city_name}} ({{airport.code}})">{{airport.city_name}}, {{airport.country_name}} ({{airport.code}})</option>
+															{% endfor %}
+												   </select>
+												</td>
+											</tr>
+
+											<tr>
+												<td class="stop1_r">
+<!--													<input class="form-control" name="from" placeholder="From"-->
+<!--                                                           type="text" value="">-->
+													<select class="form-control myselect" name="tor" id="tor_2">
+															<option value="">Select From City</option>-->
+															{% for airport in airports %}
+															<option value="{{airport.city_name}} ({{airport.code}})">{{airport.city_name}}, {{airport.country_name}} ({{airport.code}})</option>
+															{% endfor %}
+												   </select>
+
+												</td>
+												<td class="stop2_r">
+<!--													<input class="form-control" name="from" placeholder="From"-->
+<!--                                                           type="text" value="">-->
+													<select class="form-control myselect" name="tor" id="tor_3">
+															<option value="">Select From City</option>-->
+															{% for airport in airports %}
+															<option value="{{airport.city_name}} ({{airport.code}})">{{airport.city_name}}, {{airport.country_name}} ({{airport.code}})</option>
+															{% endfor %}
+												   </select>
+
+												</td>
+												<td class="stop3_r">
+<!--													<input class="form-control" name="from" placeholder="From"-->
+<!--                                                           type="text" value="">-->
+												<select class="form-control myselect" name="tor" id="tor_4">
+															<option value="">Select From City</option>-->
+															{% for airport in airports %}
+															<option value="{{airport.city_name}} ({{airport.code}})">{{airport.city_name}}, {{airport.country_name}} ({{airport.code}})</option>
+															{% endfor %}
+												   </select>
+												</td>
+											</tr>
+
+											<tr>
+												<td class="stop1_r"><input class="form-control datetimepicker1" autocomplete="off" name="arival_timer" id="arival_timer_2" placeholder="arival_time"
+                                                           type="text" value=""></td>
+												<td class="stop2_r"> <input class="form-control datetimepicker1" autocomplete="off" name="arival_timer" id="arival_timer_3" placeholder="arival_time"
+                                                           type="text" value=""></td>
+												<td class="stop3_r"><input class="form-control datetimepicker1" autocomplete="off" name="arival_timer" id="arival_timer_4" placeholder="arival_time"
+                                                           type="text" value=""></td>
+											</tr>
+
+											<tr>
+												<td class="stop1_r"><input class="form-control datetimepicker1" autocomplete="off" name="departure_timer" id="departure_timer_2" placeholder="Departure Time"
+                                                           type="text" value=""></td>
+												<td class="stop2_r"> <input class="form-control datetimepicker1" autocomplete="off" name="departure_timer" id="departure_timer_3" placeholder="Departure Time"
+                                                           type="text" value=""></td>
+												<td class="stop3_r"><input class="form-control datetimepicker1" autocomplete="off" name="departure_timer" id="departure_timer_4" placeholder="Departure Time"
+                                                           type="text" value=""></td>
+											</tr>
+
+											<tr>
+												<td class="stop1_r"><input class="form-control" name="flight_namer" id="flight_namer_2" placeholder="Flight Name"
+                                                           type="text" value=""></td>
+												<td class="stop2_r"><input class="form-control" name="flight_namer" id="flight_namer_3" placeholder="Flight Name"
+                                                           type="text" value=""></td>
+												<td class="stop3_r"><input class="form-control" name="flight_namer" id="flight_namer_4" placeholder="Flight Name"
+                                                           type="text" value=""></td>
+											</tr>
+
+											<tr>
+												<td class="stop1_r"><input class="form-control" name="flight_nor" id="flight_nor_2" placeholder="Flight No."
+                                                           type="text" value=""></td>
+												<td class="stop2_r"><input class="form-control" name="flight_nor" id="flight_nor_3" placeholder="Flight No."
+                                                           type="text" value=""></td>
+												<td class="stop3_r"><input class="form-control" name="flight_nor" id="flight_nor_4" placeholder="Flight No."
+                                                           type="text" value=""></td>
+											</tr>
+
+											<tr>
+												<td class="stop1_r"><input class="form-control" name="pnr_numberr" id="pnr_numberr_2" placeholder="PNR Number"
+                                                           type="text" value=""></td>
+												<td class="stop2_r"><input class="form-control" name="pnr_numberr" id="pnr_numberr_3" placeholder="PNR Number"
+                                                           type="text" value=""></td>
+												<td class="stop3_r"><input class="form-control" name="pnr_numberr" id="pnr_numberr_4" placeholder="PNR Number"
+                                                           type="text" value=""></td>
+											</tr>
+
+
+
+
+
+										</table>
+
+									</div>
+
+
+								</div>
+
+					</div>
+
+				</div>
+
+
+
+			</div>
+
+
+		</div>
+
+</div>
+{% endif %}
+
+	<div class="col-md-3">
+
+
+		<div class="row">
+
+			<div class="col-md-12">
+
+				<div class="card card-box" >
+								<div class="card-head card-topline-aqua">
+									<header>Billing Details: </header>
+
+								</div>
+								<div class="card-body row">
+
+									<div class="card-body no-padding height-9">
+
+									<div class="form-group row">
+							 			<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+
+											<tr>
+												<td><label class = "control-label">Ticket Price:</label></td>
+												<td><input class = "form-control" type="number" name="ticket_price" id="ticket_price" required></td>
+											</tr>
+
+<!--											<tr>-->
+<!--												<td><label class = "control-label">Management_fee:</label></td>-->
+<!--												<td><input class = "form-control" type = "text" name="management_fee" id="mng_fee" readonly></td>-->
+<!--											</tr>-->
+
+<!--											<tr>-->
+<!--												<td><label class = "control-label">Tax amount management fee:</label></td>-->
+<!--												<td><input class = "form-control" type = "text" name="tax_mng_amt" id="tax_mng_amt" readonly></td>-->
+<!--											</tr>-->
+
+<!--											<tr>-->
+<!--												<td><label class = "control-label">Total billing amount</label></td>-->
+<!--												<td><input class = "form-control" type = "text" name="sub_total" id="total_billing_amt" readonly></td>-->
+<!--											</tr>-->
+
+											<tr>
+												<td><label class = "control-label">Select Cotrav Billing Entity</label></td>
+												<td><select id="cotrav_billing_entity" name="cotrav_billing_entity" class="form-control myselect" required>
+                                           {% for c_enttity in c_entitys %}
+													<option value="{{c_enttity.id}}" gst="{{c_enttity.gst_id}}">{{c_enttity.entity_name}} </option>
+											{% endfor %}
+                                    </select></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Booking Billing Entity</label></td>
+												<td><input class = "form-control" type = "text" name="bb_entity" gst="{{be_gst}}" id="booking_billing_entity" value="{{be_name|default:''}}"></td>
+											</tr>
+
+<!--											<tr>-->
+<!--												<td><label class = "control-label">CGST (perscentage)</label></td>-->
+<!--												<td><input class = "form-control" type = "text" name="cgst" id="cgst" readonly ></td>-->
+<!--											</tr>-->
+
+<!--											<tr>-->
+<!--												<td><label class = "control-label">SGST (perscentage)</label></td>-->
+<!--												<td><input class = "form-control" type = "text" name="sgst" id="sgst"  readonly ></td>-->
+<!--											</tr>-->
+
+<!--											<tr>-->
+<!--												<td><label class = "control-label">IGST (perscentage)</label></td>-->
+<!--												<td><input class = "form-control" type = "text" name="igst" id="igst"  readonly ></td>-->
+<!--											</tr>-->
+
+											<tr>
+												<td><label class = "control-label">Generate System Ticket</label></td>
+												<td><input class = "form-control client_ticket" type="checkbox" name="client_ticket" value="1" onchange="valueChanged()" ></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Browse Bus Ticket</label></td>
+												<td><input class = "form-control client_ticket" type="file" name="busticketToUpload" id="bus-ticket" ></td>
+											</tr>
+
+
+
+										</table>
+
+									</div>
+
+
+								</div>
+
+					</div>
+
+				</div>
+
+
+
+
+			</div>
+
+
+			<div class="col-md-12">
+		<div class="row">
+
+			<div class="col-md-12">
+
+				<div class="card card-box" >
+								<div class="card-head card-topline-aqua">
+									<header>Operator Billing Details: </header>
+
+								</div>
+								<div class="card-body row">
+
+									<input type="hidden" id="operator_gst_id">
+
+									<div class="card-body no-padding height-9">
+
+									<div class="form-group row">
+							 			<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+
+											<tr>
+												<td> <label class = "control-label">Operator Name</label></td>
+												<td><select name="operator_name" id="operator_id" class="form-control myselect" required>
+                                           <option value="">Select Operator Name</option>
+                                                {% for operator in flight_operators %}
+                                                    <option value="{{operator.id}}" {% if operator.id == booking.operator_name %} selected {% endif %} gst="{{operator.gst_id|default:''}}">{{operator.operator_name}} ({{operator.operator_contact}})</option>
+                                                {% endfor %}
+                                    </select></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Ticket Price:</label></td>
+												<td><input class = "form-control" type="number" name="oper_ticket_price" id="oper_ticket_price"  required ></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Commission:</label></td>
+												<td><input class = "form-control" type="number" name="operator_commission" id="operator_commission"  required ></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Commission Type</label></td>
+												<td><select id="oper_commission_type" name="oper_commission_type" class="form-control myselect" required>
+                                            <option value="1">Percent</option>
+                                            <option value="1">Fixed</option>
+                                    </select></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Select Cotrav Billing Entity</label></td>
+												<td>
+												<select id="cotrav_billing_entity1" name="oper_cotrav_billing_entity"  class="form-control myselect" required>
+                                           		{% for c_enttity in c_entitys %}
+													<option value="{{c_enttity.id}}" gst="{{c_enttity.gst_id}}">{{c_enttity.entity_name}} </option>
+												{% endfor %}
+                                    			</select>
+												</td>
+											</tr>
+
+<!--											<tr>-->
+<!--												<td><label class = "control-label">CGST (perscentage)</label></td>-->
+<!--												<td><input class = "form-control" type="number" name="oper_cgst" id="oper_cgst"  readonly ></td>-->
+<!--											</tr>-->
+
+<!--											<tr>-->
+<!--												<td><label class = "control-label">SGST (perscentage)</label></td>-->
+<!--												<td><input class = "form-control" type="number" name="oper_sgst" id="oper_sgst"  readonly ></td>-->
+<!--											</tr>-->
+
+<!--											<tr>-->
+<!--												<td><label class = "control-label">IGST (perscentage)</label></td>-->
+<!--												<td><input class = "form-control" type="number" name="oper_igst" id="oper_igst"  readonly ></td>-->
+<!--											</tr>-->
+
+											<tr>
+												<td><label class = "control-label">Browse Vendor Ticket</label></td>
+												<td><input class = "form-control" type="file" name="vendorticketToUpload" id="vendor-bus-ticket"  ></td>
+											</tr>
+
+
+										</table>
+
+									</div>
+
+
+								</div>
+
+					</div>
+
+				</div>
+
+
+
+
+			</div>
+
+
+
+			</div>
+</div>
+
+
+		</div>
+	</div>
+
+
+
+
+
+		</div>
+
+
+
+
+        </form>
+    </div></div>
+<!-- end page content -->
+
+<script>
+
+$(".myselect").select2();
+
+var from_1 = $('#from_1');
+from_1.select2();
+var from_2 = $('#from_2');
+from_2.select2();
+var from_3 = $('#from_3');
+from_3.select2();
+var from_4 = $('#from_4');
+from_4.select2();
+
+var to_1 = $('#to_1');
+to_1.select2();
+var to_2 = $('#to_2');
+to_2.select2();
+var to_3 = $('#to_3');
+to_3.select2();
+var to_4 = $('#to_4');
+to_4.select2();
+
+var fromr_1 = $('#fromr_1');
+fromr_1.select2();
+var fromr_2 = $('#fromr_2');
+fromr_2.select2();
+var fromr_3 = $('#fromr_3');
+fromr_3.select2();
+var fromr_4 = $('#fromr_4');
+fromr_4.select2();
+
+var tor_1 = $('#tor_1');
+tor_1.select2();
+var tor_2 = $('#tor_2');
+tor_2.select2();
+var tor_3 = $('#tor_3');
+tor_3.select2();
+var tor_4 = $('#tor_4');
+tor_4.select2();
+</script>
+
+<script type="text/javascript">
+
+$(function() {
+
+
+var flightdata = '{{booking.Flights}}';
+flightdata = flightdata.split('&#39;').join('"');
+var flightdata = JSON.parse(flightdata);
+
+var no_of_stop = $('#no_of_stop').val();
+var return_no_of_stops = $('#return_no_of_stops').val();
+
+var final = parseInt(no_of_stop) + 1;
+var final_r = final + 1;
+
+var final_rt = final + parseInt(return_no_of_stops);
+
+for (var i=0;i<final;i++) {
+
+	var ii_cnt = i + 1;
+
+		if(ii_cnt == 1){
+		from_1.val(flightdata[i].from_city);
+		from_1.trigger('change.select2');
+		}
+		if(ii_cnt == 2){
+		from_2.val(flightdata[i].from_city);
+		from_2.trigger('change.select2');
+		}
+		if(ii_cnt == 3){
+		from_3.val(flightdata[i].from_city);
+		from_3.trigger('change.select2');
+		}
+		if(ii_cnt == 3){
+		from_4.val(flightdata[i].from_city);
+		from_4.trigger('change.select2');
+		}
+
+		if(ii_cnt == 1){
+		to_1.val(flightdata[i].to_city);
+		to_1.trigger('change.select2');
+		}
+		if(ii_cnt == 2){
+		to_2.val(flightdata[i].to_city);
+		to_2.trigger('change.select2');
+		}
+		if(ii_cnt == 3){
+		to_3.val(flightdata[i].to_city);
+		to_3.trigger('change.select2');
+		}
+		if(ii_cnt == 3){
+		to_4.val(flightdata[i].to_city);
+		to_4.trigger('change.select2');
+		}
+
+		$('#departure_time_'+ii_cnt).val(flightdata[i].departure_datetime);
+		$('#arival_time_'+ii_cnt).val(flightdata[i].arrival_datetime);
+		$('#flight_name_'+ii_cnt).val(flightdata[i].flight_name);
+		$('#flight_no_'+ii_cnt).val(flightdata[i].flight_no);
+		$('#pnr_number_'+ii_cnt).val(flightdata[i].pnr_no);
+
+}
+
+	for (var i=final;i<=final_rt;i++){
+
+	var ii_cnt = i - parseInt(no_of_stop);
+
+		if(ii_cnt == 1){
+		fromr_1.val(flightdata[i].from_city);
+		fromr_1.trigger('change.select2');
+		}
+		if(ii_cnt == 2){
+		fromr_2.val(flightdata[i].from_city);
+		fromr_2.trigger('change.select2');
+		}
+		if(ii_cnt == 3){
+		fromr_3.val(flightdata[i].from_city);
+		fromr_3.trigger('change.select2');
+		}
+		if(ii_cnt == 3){
+		fromr_4.val(flightdata[i].from_city);
+		fromr_4.trigger('change.select2');
+		}
+
+		if(ii_cnt == 1){
+		tor_1.val(flightdata[i].to_city);
+		tor_1.trigger('change.select2');
+		}
+		if(ii_cnt == 2){
+		tor_2.val(flightdata[i].to_city);
+		tor_2.trigger('change.select2');
+		}
+		if(ii_cnt == 3){
+		tor_3.val(flightdata[i].to_city);
+		tor_3.trigger('change.select2');
+		}
+		if(ii_cnt == 3){
+		tor_4.val(flightdata[i].to_city);
+		tor_4.trigger('change.select2');
+		}
+
+		$('#departure_timer_'+ii_cnt).val(flightdata[i].departure_datetime);
+		$('#arival_timer_'+ii_cnt).val(flightdata[i].arrival_datetime);
+		$('#flight_namer_'+ii_cnt).val(flightdata[i].flight_name);
+		$('#flight_nor_'+ii_cnt).val(flightdata[i].flight_no);
+		$('#pnr_numberr_'+ii_cnt).val(flightdata[i].pnr_no);
+
+
+
+}
+
+});
+</script>
+
+
+{% endfor %}
+
+{% else %}
+<p>Welcome, new user. Please log in.<a href="/login">Login</a></p>
+{% endif %}
+
+<script type="text/javascript">
+
+  $('.stop2').hide();
+  $('.stop1').hide();
+  $('.stop3').hide();
+
+  $('.stop2_r').hide();
+  $('.stop1_r').hide();
+  $('.stop3_r').hide();
+
+var option = $('#no_of_stop').val();
+if(option == 0){
+  $('.stop2').hide();
+  $('.stop1').hide();
+  $('.stop3').hide();
+}
+  if(option == 1  || option == 2 || option == 3)
+  {
+    $('.stop1').show();
+  }
+  if(option == 2 || option == 3)
+  {
+    $('.stop2').show();
+  }
+  else {
+    $('.stop2').hide();
+  }
+  if(option == 3)
+  {
+    $('.stop3').show();
+  }
+  else{
+    $('.stop3').hide();
+  }
+
+var optionr = $('#return_no_of_stops').val();
+if(optionr == 0){
+  $('.stop2_r').hide();
+  $('.stop1_r').hide();
+  $('.stop3_r').hide();
+}
+  if(optionr == 1  || optionr == 2 || optionr == 3)
+  {
+    $('.stop1_r').show();
+  }
+  if(optionr == 2 || optionr == 3)
+  {
+    $('.stop2_r').show();
+  }
+  else {
+    $('.stop2_r').hide();
+  }
+  if(optionr == 3)
+  {
+    $('.stop3_r').show();
+  }
+  else{
+    $('.stop3_r').hide();
+  }
+
+
+$('#no_of_stop').change(function(){
+  // var option = $('option:selected', this).attr('room-type');
+  var option = $('option:selected', this).attr('value');
+if(option == 0){
+  $('.stop2').hide();
+  $('.stop1').hide();
+  $('.stop3').hide();
+}
+  if(option == 1  || option == 2 || option == 3)
+  {
+    $('.stop1').show();
+  }
+  if(option == 2 || option == 3)
+  {
+    $('.stop2').show();
+  }
+  else {
+    $('.stop2').hide();
+  }
+  if(option == 3)
+  {
+    $('.stop3').show();
+  }
+  else{
+    $('.stop3').hide();
+  }
+});
+
+
+
+
+
+
+
+
+
+
+$('#no_of_stop_rt').change(function(){
+
+ // var option = $('option:selected', this).attr('room-type');
+
+  var option = $('option:selected', this).attr('value');
+
+if(option == 0){
+  $('.stop2_r').hide();
+  $('.stop1_r').hide();
+  $('.stop3_r').hide();
+}
+
+  if(option == 1  || option == 2 || option == 3)
+  {
+    $('.stop1_r').show();
+  }
+
+  if(option == 2 || option == 3)
+  {
+    $('.stop2_r').show();
+  }
+  else {
+    $('.stop2_r').hide();
+  }
+  if(option == 3)
+  {
+    $('.stop3_r').show();
+  }
+  else{
+    $('.stop3_r').hide();
+  }
+
+});
+
+$(window).on("load", function () {
+	old_ticket_price = $('#old_ticket_price').val();
+	old_vi_ticket_price = $('#old_vi_ticket_price').val();
+	old_vender_commission = $('#old_vender_commission').val();
+	setTimeout(function() {
+   $('#ticket_price').val(old_ticket_price);
+   $('#oper_ticket_price').val(old_vi_ticket_price);
+   $('#operator_commission').val(old_vender_commission);
+  }, 3000);
+
+});
+ </script>
+
+<script type="text/javascript">
+function valueChanged()
+{
+    if($('.client_ticket').is(":checked"))
+        $("#client-tkt").hide();
+    else
+        $("#client-tkt").show();
+}
+</script>
+
+
+<script>
+	user_type = {{request.session.agent_login_type}}
+
+	auth_token = "Token {{request.session.agent_access_token}}";
+
+	var url_tax = '{{ API_BASE_URL }}'+'get_corporate_management_tax' ;
+
+	var serve_type = 7 ;
+
+</script>
+
+<script src="{% static 'assets/js/assign_tax.js' %}" ></script>
+
+
+
+
+ {% endblock %}

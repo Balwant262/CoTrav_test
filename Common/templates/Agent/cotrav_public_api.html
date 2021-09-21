@@ -1,0 +1,343 @@
+{% extends 'Agent/layout/header.html' %}
+
+{% block content %}
+
+
+{% if user %}
+<!-- start page content -->
+
+<!-- The Modal -->
+<div class="modal fade model_custom_style" role="dialog" id="add_taxi_model">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4  class="modal-title-status">Access Token  Details </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+            <form action="/agents/cotrav-corporate-public-api" method="post" enctype="multipart/form-data" >
+                <input type="hidden" name="token_id" id="token_id">
+                <input type="hidden" name="user_id" value="{{user.id}}">
+                <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+                 <div class="form-group row" >
+                   <label class="col-sm-5 control-label">Corporate Name</label>
+                    <div class="col-sm-7">
+                       <select class="form-control myselect" name="corporate_id" id="corporate_id" style="width:100%;" required>
+                            <option value="">Select Company</option>
+                                {% for company in companies %}
+                                <option value="{{company.id}}">{{company.corporate_name}}</option>
+                                {% endfor %}
+	                   </select>
+                    </div>
+                 </div>
+
+                <div class="form-group row" >
+                   <label class="col-sm-5 control-label">Spoc Name</label>
+                    <div class="col-sm-7">
+                       <select class="form-control myselect" name="spoc_id" id="spoc_id" style="width:100%;" required>
+                            <option value="">Select Spoc</option>
+                            {% for spoc in spocs %}
+                            <option value="{{spoc.id}}">{{spoc.user_name}}</option>
+                            {% endfor %}
+	                   </select>
+                    </div>
+                 </div>
+
+                <div class="form-group row" >
+                   <label class="col-sm-5 control-label">Billing Entity</label>
+                    <div class="col-sm-7">
+                       <select class="form-control myselect" name="billing_entity_id" id="billing_entity_id" style="width:100%;" required>
+                            <option value="">Select Billing Entity</option>
+                            {% for entity in entitys %}
+                            <option value="{{entity.id}}">{{entity.entity_name}}</option>
+                            {% endfor %}
+	                   </select>
+                    </div>
+                 </div>
+
+                <div class="form-group row" >
+                   <label class="col-sm-5 control-label">User ID</label>
+                    <div class="col-sm-7">
+                       <input type="text" class="form-control" name="user_id" id="user_id" required>
+                    </div>
+                 </div>
+
+                <div class="form-group row" >
+                   <label class="col-sm-5 control-label">User Password</label>
+                    <div class="col-sm-7">
+                       <input type="text" class="form-control" name="user_password" id="user_password" required>
+                    </div>
+                 </div>
+
+                <div class="form-group row" >
+                   <label class="col-sm-5 control-label">User Access Token</label>
+                    <div class="col-sm-7">
+                       <input type="text" class="form-control" name="user_access_token" id="user_access_token" required>
+                    </div>
+                 </div>
+
+                <div class="form-group row" >
+                   <label class="col-sm-5 control-label">Is Active</label>
+                    <div class="col-sm-7">
+                       <select name="is_active" id="is_active" class="form-control col-sm-8 myselect" style="width:100%;" required>
+                          <option value="1">Yes</option>
+                           <option value="0">No</option>
+                       </select>
+                    </div>
+                 </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- The Modal -->
+<div class="modal fade model_custom_style" role="dialog" id="model_add_new_group">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 id="delete_label" class="modal-title-status">Are You Want To Delete Access Token ?</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+            <form action="/agents/cotrav-corporate-public-api" method="post" enctype="multipart/form-data" id="form_id">
+                <input type="hidden" name="token_id" id="token_id_d">
+                <input type="hidden" name="user_id" value="{{user.id}}">
+                <input type="hidden" name="delete_id" value="1">
+                <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <button id="delete_btn" type="submit" class="btn btn-primary">Yes</button>
+                </div>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% include 'cotrav_alert_message.html' %}
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-topline-aqua">
+                    <div class="card-head">
+                        <header>ALL ACCESS TOKEN LIST</header>
+                          <div class="row p-b-20">
+                            <div class="col-md-6 col-sm-6 col-6">
+                                <div class="btn-group">
+                                    <a class="btn btn-info" href="#" data-toggle="modal"
+                                       data-target="#add_taxi_model"> Add New <i class="fa fa-plus"></i> </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tools">
+                            <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                            <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                            <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                        </div>
+                    </div>
+
+
+                    <div class="card-body ">
+            <div class="text-center">
+                 <div style="font-size:14px; font-weight:bold;">
+                     Access Token Details
+                     </div>
+            </div>
+                        <div class="table-scrollable table-bordered ">
+                            <table id="example1" class="display full-width table-striped">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Corporate Name</th>
+                                    <th>Spoc Name</th>
+                                    <th>Spoc Email</th>
+                                    <th>Spoc Contact</th>
+                                    <th>Billing Entity</th>
+                                    <th>User ID</th>
+                                    <th>Access Token</th>
+                                    <th>Is Active</th>
+                                    <th>Action</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for token in tokens %}
+                                <tr>
+                                    <td>{{ token.id }}</td>
+                                    <td>{{ token.corporate_name }}</td>
+                                    <td>{{ token.spoc_name }}</td>
+                                    <td>{{ token.spoc_email }}</td>
+                                    <td>{{ token.spoc_contact }}</td>
+                                    <td>{{ token.entity_name }}</td>
+                                    <td>{{ token.corporate_user_id }}</td>
+
+                                    <td>{{ token.access_token }}</td>
+                                    <td>{{ token.is_active|yesno:'Yes,No' }}</td>
+
+                                    <td>
+
+                                        <a class="btn btn-tbl-edit btn-xs" data-target="#add_taxi_model"
+                                           data-id="{{token.id}}" data-corporate_id="{{token.corporate_id}}" data-spoc_id="{{token.spoc_id}}"
+                                           data-entity_id="{{token.billing_entity_id}}" data-user_id="{{token.corporate_user_id}}" data-access_token="{{token.access_token}}"
+                                           data-is_active="{{token.is_active}}" data-toggle="modal" href="#">
+                                            <i class="fa fa-pencil "></i>
+                                        </a>
+
+                                        <a class="btn btn-tbl-delete btn-xs" data-target="#model_add_new_group"
+                                           data-id="{{token.id}}" data-delete_id="1" data-toggle="modal" href="#">
+                                            <i class="fa fa-trash-o "></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- end page content -->
+<script type="text/javascript">
+   $(".myselect").select2();
+</script>
+
+{% else %}
+<p>Welcome, new user. Please log in.<a href="/login">Login</a></p>
+{% endif %}
+
+
+
+<script type="text/javascript">
+var corporateSelect = $('#corporate_id');
+var spocSelect = $('#spoc_id');
+var entitySelect = $('#billing_entity_id');
+var activeSelect = $('#is_active');
+
+$(function() {
+  $('#model_add_new_group').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var id = button.data('id'); // Extract info from data-* attributes
+
+
+    var modal = $(this);
+    modal.find('#token_id_d').val(id);
+
+    });
+
+
+    $('#add_taxi_model').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var id = button.data('id'); // Extract info from data-* attributes
+    var corporate_id = button.data('corporate_id');
+    var spoc_id = button.data('spoc_id');
+    var entity_id = button.data('entity_id');
+    var entity_id = button.data('entity_id');
+    var user_id = button.data('user_id');
+    var access_token = button.data('access_token');
+    var is_active = button.data('is_active');
+
+
+    var modal = $(this);
+    modal.find('#token_id').val(id);
+    modal.find('#user_id').val(user_id);
+    modal.find('#user_access_token').val(access_token);
+
+
+    corporateSelect.val(corporate_id);
+    corporateSelect.trigger('change.select2');
+
+    spocSelect.val(spoc_id);
+    spocSelect.trigger('change.select2');
+
+    entitySelect.val(entity_id);
+    entitySelect.trigger('change.select2');
+
+    activeSelect.val(is_active);
+    activeSelect.trigger('change.select2');
+
+
+    });
+
+});
+
+
+$("#corporate_id").change(function(){
+
+  $('#spoc_id').empty();
+  $('#billing_entity_id').empty();
+
+   var corporate_id =  $(this).val();
+
+    $.ajaxSetup({
+            headers:{
+                'Authorization': "Token {{request.session.agent_access_token}}",
+                'usertype': 10
+            }
+
+        });
+//   For Entity
+var_url = '/api/'+'billing_entities'
+     $.post(var_url,{ corporate_id: corporate_id },
+      function(data)
+      {
+       //alert(data['Entitys']);
+       if(data['Entitys'].length != 0){
+        entities = data['Entitys']
+        $('#billing_entity_id').append($("<option value=''>Select Entity</option>"));
+         for (var i=0;i<entities.length;i++) {
+            $('#billing_entity_id').append($("<option value='"+entities[i].id+"'>"+entities[i].entity_name+"</option>"));
+         }
+       }else{
+        alert('No Entity Available')
+       }
+       });
+
+//       For SPOC
+
+
+    var_url_spoc = '/api/'+'spocs'
+     $.post(var_url_spoc,{ corporate_id: corporate_id },
+      function(data)
+      {
+       //alert(data['Spocs']);
+       if(data['Spocs'].length != 0){
+        spocs = data['Spocs']
+        $('#spoc_id').append($("<option value=''>Select Spoc</option>"));
+         for (var i=0;i<spocs.length;i++) {
+            $('#spoc_id').append($("<option value='"+spocs[i].id+"'>"+spocs[i].user_name+"</option>"));
+
+         }
+       }else{
+        alert('No SPOC Available')
+       }
+       });
+});
+
+</script>
+
+
+{% endblock %}

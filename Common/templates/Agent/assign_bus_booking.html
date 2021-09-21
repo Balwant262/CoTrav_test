@@ -1,0 +1,704 @@
+{% extends 'Agent/layout/header.html' %}
+
+{% block content %}
+
+{% load static %}
+
+{% if user %}
+<!-- start page content -->
+{% include 'cotrav_alert_message.html' %}
+ <div class="page-content-wrapper">
+                <div class="page-content">
+
+                    {% for booking in bookings %}
+
+    <form method="post" action="/agents/assign-bus-booking/{{booking.id}}" enctype="multipart/form-data">
+    <input type="hidden" name="booking_id" value="{{booking.id}}">
+    <input type="hidden" id="corporate_id" value="{{booking.corporate_id}}">
+    <input type="hidden" name="user_id" value="{{user.id}}">
+    <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+    <input type="hidden" name="checkin" id="checkin" value="{{ booking.checkin_datetime }}">
+    <input type="hidden" name="checkout" id="checkout" value="{{ booking.checkout_datetime }}">
+    <input type="hidden" name="tax_on_management_fee" id="tax_on_management_fee" value="0">
+    <input type="hidden" name="tax_on_management_fee_percentage" id="tax_on_management_fee_percentage" value="0">
+
+    <input type="hidden" name="management_fee_igst" id="management_fee_igst" value="0">
+    <input type="hidden" name="management_fee_cgst" id="management_fee_cgst" value="0">
+    <input type="hidden" name="management_fee_sgst" id="management_fee_sgst" value="0">
+    <input type="hidden" name="management_fee_igst_rate" id="management_fee_igst_rate" value="0">
+    <input type="hidden" name="management_fee_cgst_rate" id="management_fee_cgst_rate" value="0">
+    <input type="hidden" name="management_fee_sgst_rate" id="management_fee_sgst_rate" value="0">
+
+    <input type="hidden" name="igst_amount" id="igst_amount" value="0">
+    <input type="hidden" name="cgst_amount" id="cgst_amount" value="0">
+    <input type="hidden" name="sgst_amount" id="sgst_amount" value="0">
+
+	<input class="form-control" type = "hidden" name="management_fee" id="mng_fee" >
+	<input class="form-control" type = "hidden" name="tax_mng_amt" id="tax_mng_amt" >
+	<input class="form-control" type = "hidden" name="sub_total" id="total_billing_amt" >
+	<input class="form-control" type = "hidden" name="cgst" id="cgst" >
+	<input class="form-control" type = "hidden" name="sgst" id="sgst" >
+	<input class="form-control" type = "hidden" name="igst" id="igst" >
+	<input class="form-control" type = "hidden" name="oper_cgst" id="oper_cgst" >
+	<input class="form-control" type = "hidden" name="oper_sgst" id="oper_sgst" >
+	<input class="form-control" type = "hidden" name="oper_igst" id="oper_igst" >
+	<input type="hidden" id="old_ticket_price" value="{{booking.ticket_price|default:'0'}}">
+	<input type="hidden" id="old_vi_ticket_price" value="{{booking.vi_ticket_price|default:'0'}}">
+	<input type="hidden" id="old_vender_commission" value="{{booking.vender_commission|default:'0'}}">
+
+	<input class="form-control" type = "hidden" name="oper_total_excluding_tax" id="oper_total_excluding_tax" >
+	<input class="form-control" type = "hidden" name="oper_other_charges" id="oper_other_charges" >
+	<input class="form-control" type = "hidden" name="oper_total" id="oper_total" >
+	<input class="form-control" type = "hidden" name="oper_gst_paid" id="oper_gst_paid" >
+	<input class="form-control" type = "hidden" name="oper_tds_cut" id="oper_tds_cut" >
+	<input class="form-control" type = "hidden" name="oper_sub_total" id="oper_sub_total" >
+
+<div class="text-center">
+            <input type="submit" class="btn btn-info" value="assign booking details">
+                 </div>
+
+        <br>
+                     <div class="row">
+
+						<div class="col-md-3">
+
+						<div class="row">
+
+							<div class="col-md-12">
+
+
+							<div class="card" >
+								<div class="card-head card-topline-aqua">
+									<header>Basic Details: </header>
+								</div>
+
+								<div class="card-body no-padding height-9">
+
+									<div class="form-group row">
+							 			<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+											<tr>
+												<td>
+													<label class="control-label" >Booking ID</label>
+												</td>
+												<td>
+													<input class="form-control" type = "text" name="group_name"  id = "group_name" value="{{ booking.reference_no|default:'' }}" readonly>
+												</td>
+											</tr>
+
+											<tr>
+												<td>
+													<label class="control-label" >Bus Priority 1</label>
+
+												</td>
+												<td>
+													<input class="form-control" type = "text" id = "bus_type_priority_1_name" name="bus_type_priority_1_name" value="{{ booking.assign_bus_type_id|default:'' }}" readonly>
+
+												</td>
+
+											</tr>
+
+											<tr>
+												<td>
+													<label class="control-label">Booking Date | Time</label>
+												</td>
+												<td>
+													<input class="form-control" type = "text" id = "booking_datetime" name="booking_datetime" value="{{ booking.booking_datetime|default:'' }}" readonly>
+
+												</td>
+
+											</tr>
+
+											<tr>
+												<td>
+													<label class="control-label">Pickup Location</label>
+												</td>
+												<td>
+													<input class="form-control" type = "text" id = "pickup_location" name="pickup_location"  value="{{ booking.pickup_location|default:'' }}" readonly>
+
+												</td>
+
+											</tr>
+
+											<tr>
+												<td>
+
+													<label class="control-label">Drop Location</label>
+
+												</td>
+												<td>
+
+													<input class="form-control" type = "text" name="drop_location"  id = "pickup_datetime" value="{{ booking.drop_location|default:'' }}" readonly>
+
+
+												</td>
+
+											</tr>
+
+											<tr>
+												<td><label class="control-label">Pickup From Date</label></td>
+												<td><input class="form-control" type = "text" name="pickup_from_datetime"  id = "pickup_from_datetime" value="{{ booking.pickup_from_datetime|default:'' }}" readonly></td>
+
+											</tr>
+
+											<tr>
+												<td><label class="control-label">Pickup To Date</label></td>
+												<td><input class="form-control" type = "text" id = "pickup_to_datetime" name="pickup_to_datetime"  value="{{ booking.pickup_to_datetime|default:'' }}" readonly></td>
+
+											</tr>
+
+											<tr>
+												<td><label class="control-label">No Of Seats</label></td>
+												<td><input class="form-control" type = "text" id = "no_of_seats" name="no_of_seats"  value="{{ booking.no_of_seats|default:'' }}" readonly></td>
+
+
+											</tr>
+
+											<tr>
+												<td><label class="control-label">Booking Reason</label></td>
+												<td><input class="form-control" type = "text" id = "reason_booking" name="reason_booking"  value="{{ booking.reason_booking|default:'' }}" readonly></td>
+
+											</tr>
+
+											<tr>
+												<td><label class="control-label">Client Status</label></td>
+												<td><input class="form-control" type = "text" id = "client_status" name="client_status"  value="{{ booking.client_status|default:'' }}" readonly></td>
+
+											</tr>
+
+											<tr>
+												<td><label class="control-label">CoTrav Status</label></td>
+												<td><input class="form-control" type = "text" id = "cotrav_status" name="cotrav_status"  value="{{ booking.cotrav_status|default:'' }}" readonly></td>
+
+											</tr>
+
+
+										</table>
+									</div>
+
+
+
+
+
+								</div>
+							</div>
+
+						</div>
+
+
+						</div>
+
+								<div class="row">
+
+							<div class="col-md-12">
+
+								<div class="card" >
+								<div class="card-head card-topline-aqua">
+									<header>SPOC Details: </header>
+
+								</div>
+
+								<div class="card-body no-padding height-9">
+
+									<div class="form-group row">
+							 			<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+
+											<tr>
+												<td><label class="control-label" >SPOC Name</label></td>
+												<td><input class="form-control" type = "text" name="user_name"  id = "user_name" value="{{ booking.user_name|default:'' }}" readonly></td>
+											</tr>
+
+											<tr>
+												<td><label class="control-label" >Contact Number</label></td>
+												<td><input class="form-control" type = "text" id = "user_contact" name="user_contact" value="{{ booking.user_contact|default:'' }}" readonly></td>
+											</tr>
+
+											<tr>
+												<td><label class="control-label" >Email ID</label></td>
+												<td><input class="form-control" type = "text" id = "email" name="email"  value="{{ booking.user_email|default:'' }}" readonly></td>
+											</tr>
+
+
+										</table>
+
+									</div>
+
+								</div>
+							</div>
+
+
+							</div>
+
+
+
+
+
+						</div>
+
+
+
+
+						</div>
+
+
+						<div class="col-md-3">
+
+							<div class="row">
+
+								<div class="col-md-12">
+
+									<div class="card" >
+								<div class="card-head card-topline-aqua">
+									<header>Assigned Bus Details: </header>
+
+								</div>
+								<div class="card-body no-padding height-9">
+
+									<div class="form-group row">
+							 			<table class="table table-striped ">
+
+											<tr>
+												<td><label class="control-label">Ticket No</label></td>
+												<td><input class="form-control" type = "text" name="ticket_no" placeholder="Ticket No" value="{{booking.ticket_no|default:''}}" required></td>
+											</tr>
+											<tr>
+												<td><label class="control-label">PNR No</label></td>
+												<td><input class="form-control" type = "text" name="pnr_no" placeholder="PNR Number" value="{{booking.pnr_no|default:''}}" required></td>
+											</tr>
+
+											<tr>
+												<td>Bus Type Request</td>
+												<td>1. {{ booking.bus_type_priority_1|default:'' }}<br>2. {{booking.bus_type_priority_2|default:''}}<br>3.{{booking.bus_type_priority_3|default:''}}</td>
+											</tr>
+
+											<tr>
+												<td><label class="control-label" >Bus Type*</label></td>
+												<td><select name="assign_bus_type_id" class="col-sm-8 form-control myselect" style="width:100%;" required>
+												 <option value="">Select Bus Type</option>
+												 <option value="1" {% if booking.assign_bus_type_id == 'AC Seater'%} selected {% endif %}>AC Seater</option>
+												  <option value="2" {% if booking.assign_bus_type_id == 'AC Sleeper'%} selected {% endif %}>AC Sleeper</option>
+												  <option value="3" {% if booking.assign_bus_type_id == 'NON AC Seater'%} selected {% endif %}>NON AC Seater</option>
+												  <option value="4" {% if booking.assign_bus_type_id == 'NON AC Sleeper'%} selected {% endif %}>NON AC Sleeper</option>
+											</select></td>
+											</tr>
+
+											<tr>
+												<td><label class="control-label" >Select Portal Used</label></td>
+												<td><select name="portal_used" class="col-sm-8 form-control myselect" style="width:100%;" required>
+												<option value="">Select Portal Used</option>
+													{% for bus_port in bus_operators %}
+														<option value="{{bus_port.id}}" {% if booking.portal_used == bus_port.id|slugify %} selected {% endif %}> {{bus_port.operator_name}}</option>
+													{% endfor %}
+											</select></td>
+											</tr>
+
+											<tr>
+												<td><label class="control-label" >Enter Operator Name*</label></td>
+												<td><input class="form-control" type="text" name="operator_name" placeholder="Operator Name" value="{{booking.operator_name|default:''}}" required></td>
+											</tr>
+
+											<tr>
+												<td><label class="control-label" >Enter Operator Contact*</label></td>
+												<td><input class="form-control" type="text" name="operator_contact" placeholder="Operator Contact" value="{{booking.operator_contact|default:''}}" required></td>
+											</tr>
+
+											<tr>
+												<td><label class="control-label" >Boarding Point</label></td>
+												<td><input class="form-control" type = "text" name="boarding_point" value="{{ booking.boarding_point|default:'' }}" placeholder="Boarding Point"></td>
+											</tr>
+											<tr>
+												<td><label class="control-label">Boarding Time</label></td>
+												<td><input class="form-control datetimepicker1" autocomplete="off" type = "text" name="boarding_datetime" value="{{ booking.boarding_datetime|default:'' }}" placeholder="Boarding Time" required></td>
+											</tr>
+											<tr>
+												<td><label class="control-label">Droping Point</label></td>
+												<td><input class="form-control" type = "text" name="droping_point"id="" value="{{ booking.droping_point|default:'' }}" placeholder="Droping Point" required></td>
+											</tr>
+											<tr>
+												<td><label class="control-label" >Send SMS</label></td>
+												<td><select name="is_client_sms" class="col-sm-8 form-control myselect" style="width:100%;">
+												<option value="1">Yes</option>
+                                    			<option value="0">No</option>
+											</select></td>
+											</tr>
+											<tr>
+												<td><label class="control-label" >Send Email</label></td>
+												<td><select name="is_client_email" class="col-sm-8 form-control myselect" style="width:100%;">
+												<option value="1">Yes</option>
+                                    			<option value="0">No</option>
+											</select></td>
+											</tr>
+
+
+
+										</table>
+
+									</div>
+
+								</div>
+							</div>
+
+
+								</div>
+
+
+							</div>
+
+							<div class="row">
+
+							<div class="col-md-12">
+
+							{% if booking.operator_name %}
+
+								<div class="card" >
+								<div class="card-head card-topline-aqua">
+									<header>Operator Details: </header>
+
+								</div>
+
+								<div class="card-body no-padding height-9">
+
+									<div class="form-group row">
+							 			<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+
+											<tr>
+												<td><label class = "control-label">Operator Name</label></td>
+												<td><input class = "form-control" type = "text" name="operator_name"  id = "operator_name" value="{{ booking.operator_name|default:'' }}" readonly></td>
+											</tr>
+
+											<tr>
+												<td><label class = "control-label">Contact Number</label></td>
+												<td><input class = "form-control" type = "text" id = "operator_contact" name="operator_contact" value="{{ booking.operator_contact|default:'' }}" readonly></td>
+											</tr>
+
+
+										</table>
+
+									</div>
+
+								</div>
+							</div>
+
+
+							{% endif %}
+
+
+
+							</div>
+
+
+
+						</div>
+
+
+
+
+
+
+
+						</div>
+
+						<div class="col-md-6">
+
+						<div class="row">
+							<div class="col-md-12">
+
+								<div class="card">
+								<div class="card-head card-topline-aqua">
+									<header>Passenger Details: </header>
+
+								</div>
+
+								<div class="card-body no-padding height-9">
+
+									<div class="form-group row">
+
+
+
+							 			<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+
+											<tr>
+												<th>  Name  </th>
+												<th>  Email Id </th>
+												<th>  Contact  </th>
+												<th>  Age   </th>
+												<th>  Gender </th>
+												<th> SeatNo </th>
+											</tr>
+
+										{% for passanger in booking.Passangers %}
+								<tr>
+									<input type="hidden" name="employee_id" value="{{passanger.id}}">
+								<td><input class="form-control" name="employee_name" type = "text"  id = "employee_name" value="{{ passanger.employee_name }}" readonly></td>
+								<td><input class="form-control" name="employee_email" type = "text" id = "employee_email" name="employee_email" value="{{ passanger.employee_email }}" readonly></td>
+							    <td><input class="form-control" name="employee_contact" type = "text" id = "employee_contact" name="employee_contact" value="{{ passanger.employee_contact }}" readonly></td>
+								<td><input class="form-control" name="age" type = "text" id = "age" name="age" value="{{ passanger.age|default:'' }}" readonly></td>
+							    <td><input class="form-control" name="gender" type = "text" id = "gender" name="gender" value="{{ passanger.gender|default:'' }}" readonly></td>
+									<td><input required class = "form-control"  name="seat_no" placeholder="Seat No" value="{{ passanger.seat_no|default:'' }}" ></td>
+								</tr>
+							{% endfor %}
+
+
+
+										</table>
+
+
+
+									</div>
+
+								</div>
+							</div>
+
+							</div>
+
+
+
+						</div>
+
+
+							<div class="row">
+
+							<div class="col-md-6">
+
+
+
+								<div class="card" >
+								<div class="card-head card-topline-aqua">
+									<header>Client Billing Details </header>
+
+								</div>
+
+								<div class="card-body no-padding height-9">
+
+									<div class="form-group row">
+							 			<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+
+
+
+											<tr>
+												<td><label class="control-label">Ticket Price</label></td>
+
+												<td><input class="form-control" type = "text" decimals="2" name="ticket_price" id="ticket_price"></td>
+											</tr>
+<!--											<tr>-->
+<!--												<td><label class="control-label">Management Fee</label></td>-->
+<!--												<td><input class="form-control" type = "text" name="management_fee" id="mng_fee" ></td>-->
+<!--											</tr>-->
+<!--											<tr>-->
+<!--												<td><label class="control-label" >Tax amount management fee*</label></td>-->
+<!--												<td><input class="form-control" type = "text" name="tax_mng_amt" id="tax_mng_amt" ></td>-->
+<!--											</tr>-->
+<!--											<tr>-->
+<!--												<td><label class="control-label" >Total billing amount</label></td>-->
+<!--												<td><input class="form-control" type = "text" name="sub_total" id="total_billing_amt" ></td>-->
+<!--											</tr>-->
+											<tr>
+												<td><label class="control-label" >Select Cotrav Billing Entity</label></td>
+												<td><select id="cotrav_billing_entity" name="cotrav_billing_entity" style="width:100%;" class="col-sm-8 form-control myselect" required>
+
+													 {% for c_enttity in c_entitys %}
+														<option value="{{c_enttity.id}}" gst="{{c_enttity.gst_id}}">{{c_enttity.entity_name}} </option>
+													{% endfor %}
+											</select></td>
+											</tr>
+											<tr>
+												<td><label class="control-label" >Booking Billing Entity</label></td>
+												<td><input type="text" class="form-control" name="bb_entity" gst="{{be_gst}}" id="booking_billing_entity" value="{{be_name}}"></td>
+											</tr>
+
+<!--											<tr>-->
+<!--												<td><label class="control-label" >CGST (perscentage)</label></td>-->
+<!--												<td><input class="form-control" name="cgst" id="cgst"  readonly></td>-->
+<!--											</tr>-->
+<!--											<tr>-->
+<!--												<td><label class="control-label" >SGST (perscentage)</label></td>-->
+<!--												<td><input class="form-control" type = "text" name="sgst" id="sgst" readonly></td>-->
+<!--											</tr>-->
+<!--											<tr>-->
+<!--												<td><label class="control-label" >IGST (perscentage)</label></td>-->
+<!--												<td><input class="form-control" type = "text" name="igst" id="igst"  readonly></td>-->
+<!--											</tr>-->
+											<tr>
+												<td><label class="control-label" >Generate System Ticket</label></td>
+												<td><input type="checkbox" name="client_ticket" id="client_ticket" value="1" onchange="valueChanged()"></td>
+											</tr>
+											<tr id="client-tkt">
+												<td><label class="control-label" >Browse Ticket</label></td>
+												<td><input type="file" class="form-control" name="busticketToUpload" id="bus-ticket"></td>
+											</tr>
+
+
+										</table>
+
+									</div>
+
+								</div>
+							</div>
+
+
+
+
+
+							</div>
+
+								<div class="col-md-6">
+
+								<div class="card">
+								<div class="card-head card-topline-aqua">
+									<header>Operator Billing Details </header>
+
+								</div>
+
+								<div class="card-body no-padding height-9">
+
+									<div class="form-group row">
+							 			<table class="table table-striped table-bordered bootstrap-datatable datatable responsive" >
+
+											<tr>
+												<td><label class="control-label">Ticket Price</label></td>
+												<td><input class="form-control" decimals="2" type="text" name="oper_ticket_price" id="oper_ticket_price" required placeholder="Operator Ticket Price" ></td>
+											</tr>
+
+											<tr>
+												<td><label class="control-label">Commission</label></td>
+												<td><input class="form-control" type="text" name="operator_commission" id="operator_commission" required placeholder="Operator Commission" value="{{booking.v_operator_commission|default:''}}"></td>
+											</tr>
+
+											<tr>
+												<td><label class="control-label" >Commission Type</label></td>
+												<td><select id="oper_commission_type" name="oper_commission_type" class="mdl-textfield__input myselect" style="width:100%;" required>
+												<option value="1">Percent</option>
+												<option value="2">Fixed</option>
+											</select></td>
+											</tr>
+
+											<tr>
+												<td><label class="control-label" >Select Cotrav Billing Entity</label></td>
+												<td><select id="cotrav_billing_entity1" name="cotrav_billing_entity" class="col-sm-8 form-control myselect" style="width:100%;" required>
+
+													 {% for c_enttity in c_entitys %}
+														<option value="{{c_enttity.id}}" gst="{{c_enttity.gst_id}}">{{c_enttity.entity_name}} </option>
+													{% endfor %}
+											</select></td>
+											</tr>
+
+<!--											<tr>-->
+<!--												<td><label class="control-label">CGST (perscentage)</label></td>-->
+<!--												<td><input class="form-control" name="oper_cgst" id="oper_cgst"  readonly></td>-->
+<!--											</tr>-->
+
+<!--											<tr>-->
+<!--												<td><label class="control-label">SGST (perscentage)</label></td>-->
+<!--												<td><input class="form-control" type = "text" name="oper_sgst" id="oper_sgst"  readonly></td>-->
+<!--											</tr>-->
+
+<!--											<tr>-->
+<!--												<td><label class="control-label" >IGST (perscentage)</label></td>-->
+<!--												<td><input class="form-control" type = name="oper_igst" id="oper_igst"  readonly></td>-->
+<!--											</tr>-->
+
+											<tr>
+												<td><label class="control-label" >Browse Vendor Ticket</label></td>
+												<td><input type="file" class="form-control" name="vendorticketToUpload" id="vendor-bus-ticket"></td>
+											</tr>
+
+
+										</table>
+
+									</div>
+
+								</div>
+							</div>
+
+								</div>
+
+
+							</div>
+
+
+
+
+
+						</div>
+
+
+
+					</div>
+
+<!--- operator billing details ---->
+
+
+</form>
+                </div>
+
+
+            </div>
+				<div>
+
+				</div>
+
+
+{% endfor %}
+
+
+{% else %}
+<p>Welcome, new user. Please log in.<a href="/login">Login</a></p>
+{% endif %}
+
+<script type="text/javascript">
+
+$('#taxi_details').change(function(){
+     var taxi_detail = $('#taxi_details option:selected').data('details');
+    temp = taxi_detail.split(',');
+
+    if(temp[0] != '' ){
+        $("#taxi_reg_no").val(temp[0]);
+        $("#garage_location").val(temp[1]);
+        $("#garage_distance").val(temp[2]);
+     }
+     else{
+        $("#taxi_reg_no").val('');
+        $("#garage_location").val('');
+        $("#garage_distance").val('');
+     }
+});
+ </script>
+
+<script type="text/javascript">
+$('#client_ticket').change(function(){
+if($('#client_ticket').is(":checked"))
+        $("#client-tkt").hide();
+    else
+        $("#client-tkt").show();
+});
+
+$(window).on("load", function () {
+	old_ticket_price = $('#old_ticket_price').val();
+	old_vi_ticket_price = $('#old_vi_ticket_price').val();
+	old_vender_commission = $('#old_vender_commission').val();
+	setTimeout(function() {
+   $('#ticket_price').val(old_ticket_price);
+   $('#oper_ticket_price').val(old_vi_ticket_price);
+   $('#operator_commission').val(old_vender_commission);
+  }, 3000);
+
+});
+</script>
+
+
+<script>
+	user_type = {{request.session.login_type}}
+
+	auth_token = "Token {{request.session.agent_access_token}}";
+
+	var url_tax = '{{ API_BASE_URL }}'+'get_corporate_management_tax' ;
+
+	var serve_type = 4 ;
+
+</script>
+
+<script src="{% static 'assets/js/assign_tax.js' %}" ></script>
+
+
+
+
+ {% endblock %}

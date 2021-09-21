@@ -1,0 +1,808 @@
+
+
+{% extends 'main_base.html' %}
+
+{% block description %}Cotrav is a B2B SaaS based Platform, end-to-end corporate travel management company offering seamless, cashless, and paperless corporate travel solutions.{% endblock %}
+{% block keywords %}Corporate Travel, Travel Management Company, Paperless Corporate Travel Solution, Cashless Corporate Travel Solution, Policy Compliance Bookings, Approval Based Bookings, Self Booking Facility, Detailed Analytics{% endblock %}
+{% block title %}Cotrav | Corporate Travel Simplified{% endblock %}
+
+{% block content %}
+
+{% load static %}
+
+ <section class="page-title-section2 bg_chng bg-img cover-background bg_height "  style="padding-top: 0;" >
+
+<div id="slideshow" >
+  
+ <div class="slideitem current">
+        <div class="bg_video_display">
+                <div class="row">
+                   <div class="col-md-6">
+                       <div class="bg_video_contnt">
+                         <span  class="bg_txt" >  Corporate Travel Simplified</span>
+
+                          <p id="txt_1-bg" >We offer holistic solutions for all your travel needs. </p>
+
+                            <p  id="txt_2-bg"> CoTrav is a B2B SaaS Platform based end-to-end travel management company offering seamless, cashless, and paperless corporate travel solutions.
+                      </p>
+
+                             <ul>
+                            <li>    <button type="button" class="butn-style3 theme grey-hover butn_theme_white btn-align " data-toggle="modal" data-target="#myModal" id="demo" >
+                       Book a Demo 
+                  </button></li>
+
+             <li><!-- Modal -->
+               <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModal2Label" aria-hidden="true">
+                <div class="modal-dialog model2" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="myModal2Label">Modal title</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+               </button>
+      </div>
+      <div class="modal-body">
+                <div class="col-sm-12">
+                    <input type="text" name="name" placeholder=" Name:" data-constraints="@LettersOnly @NotEmpty">
+                </div>
+
+                <div class="col-sm-12">
+                    <input type="text" name="email" placeholder="Phone Number:" data-constraints=" @phone">
+                </div>
+                 <div class="col-sm-12">
+                    <input type="text" name="email" placeholder="Email:" data-constraints="@Email @NotEmpty">
+                </div>
+                <div class="col-sm-12">
+                    <textarea name="message" rows="5" placeholder="Message:" data-constraints="@NotEmpty"></textarea>
+                </div>
+
+      </div>
+             <div class="modal-footer">
+                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+               </div>
+                 </div>
+              </div></li>
+                        </ul>
+
+
+                    
+         </div>
+
+     </div>
+   
+
+                 
+                 <div class="col-md-6">
+                       <div class="bg_home_new">
+                           <img src="{% static 'img/bg/bg_new_led.png' %}" >
+                         </div> 
+
+                          <div class="btn_cotrav_vdeo">
+                             
+                       
+                            <div class="display-table-cell vertical-align-middle story-video">
+                                <div class="display-inline-block vertical-align-middle z-index-1 text-left margin-30px-bottom">
+                                    <a class="video video_btn " href="{% static 'video/cotrav_intro.mp4' %}"><i class="fas fa-play font-size18 xs-font-size16"></i>
+                            </a>
+                                </div>
+                            </div>
+                        
+                  
+                        </div> 
+ 
+
+                      </div>
+                   </div>
+                 </div>
+
+                   <script>
+             $('#myModal2').on('shown.bs.modal', function () {
+               $('#myInput').trigger('focus')
+             })
+         </script>
+   </div>
+
+    <div class="slideitem">
+ 
+  <div class="row">
+    
+     <div class="col-md-5">
+      <div class="box">
+        <img src="{% static 'img/bg/e_m.png' %}" class="img_bx">
+      </div>
+    </div>
+    
+    <div class="col-md-7">
+      <div class="box_cntnt">
+        <p class="feature_cntn">EMPLOYEE MANAGEMENT</P>
+            
+                <p class="management_cntnt">Integrated and smooth-running travel solution 
+for all your employees. Single interface to 
+manage all the travel needs</p>
+      </div>
+    </div>
+    
+  </div>
+     
+  
+
+</div>
+      <div class="slideitem">
+    
+  <div class="row">
+    
+   <div class="col-md-5">
+      <div class="box">
+        <img src="{% static 'img/bg/mis.png' %}" class="img_bx">
+      </div>
+    </div>
+    
+   <div class="col-md-7">
+      <div class="box_cntnt">
+        <p class="feature_cntn">MANAGEMENT INFORMATION</P>
+            
+                 <p  class="feature_cntn">SYSTEM</P>
+                <p class="management_cntnt">Empower users to use data in making 
+decisions about travel activities. 
+Get the summarized details anytime.</p>
+      </div>
+    </div>
+    
+  </div>
+     
+   </div>
+
+ <div class="slideitem">
+    
+  <div class="row">
+    
+  <div class="col-md-5">
+      <div class="box">
+        <img src="{% static 'img/bg/drm.png' %}" class="img_bx">
+      </div>
+    </div>
+    
+     <div class="col-md-7">
+      <div class="box_cntnt">
+        <p class="feature_cntn">Dedicated RELATIONSHIP</P>
+           
+                 <p  class="feature_cntn">Manager</P>
+                <p class="management_cntnt">Reliable and supportive relationship 
+manager to support you today and tomorrow.</p>
+      </div>
+    </div>
+    
+  </div>
+     
+   </div>
+
+   
+
+   <div class="slideitem">
+    
+  <div class="row">
+    
+    <div class="col-md-5">
+      <div class="box">
+        <img src="{% static 'img/bg/ap.png' %}" class="img_bx">
+      </div>
+    </div>
+    
+    <div class="col-md-7">
+      <div class="box_cntnt">
+        <p class="feature_cntn">Approval Based</P>
+             <p  class="feature_cntn">  Booking</P>
+             
+                <p class="management_cntnt">We follow a proper Approval Matrix for all the travel 
+requests. Single window systems for approvers to 
+view all requests holistically and approve or 
+reject travel requests easily.</p>
+      </div>
+    </div>
+    
+  </div>
+     
+   </div>
+  
+
+   <div class="slideitem">
+    
+  <div class="row">
+    
+    <div class="col-md-5">
+      <div class="box">
+        <img src="{% static 'img/bg/se.png' %}" class="img_bx">
+      </div>
+    </div>
+    
+    <div class="col-md-7">
+      <div class="box_cntnt">
+        <p class="feature_cntn">SELF BOOKING</P>
+             <p class="feature_cntn">   FACILITY</P>
+             
+                <p class="management_cntnt">Assign roles of user, admin, and levels 
+of approving authority seamlessly to manage
+ internal work-flows.</p>
+      </div>
+    </div>
+    
+  </div>
+     
+   </div>
+
+
+   
+   <div class="slideitem">
+    
+  <div class="row">
+    
+   <div class="col-md-5">
+      <div class="box">
+        <img src="{% static 'img/bg/gst.png' %}" class="img_bx">
+      </div>
+    </div>
+    
+    <div class="col-md-7">
+      <div class="box_cntnt">
+        <p class="feature_cntn">INVOICE  MANAGEMENT</P>
+            
+             
+                <p class="management_cntnt">Comprehensive invoice management 
+solutions and automated GST reconciliation 
+for your convenience.</p>
+      </div>
+    </div>
+    
+  </div>
+     
+   </div>
+
+
+</div>
+
+</section>
+
+        <section class="bg_chng bg_txt_bg">
+           
+                
+        <div class="text_section-1">
+         <p >
+              
+               Your comfort and safety are our priority. 
+                   With a strategic approach, we cater to all types of travel bookings, compliance and data management through integrated applications for a seamless travel experience for users and admins.
+            </p>
+           </div>
+        </section>
+
+           <section class="bg-white">
+            <div class="container" style="position: relative;bottom: 50px;">
+                <div class="section-heading" >
+                    <h3 class="title-style2">Our Services</h3>
+                    <p class="width-55 sm-width-75 xs-width-95 center-col">Our truly proactive and dedicated team of professionals with years of experience and operational capability offer unparalleled travel management service to our clients.</p>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 margin-30px-bottom xs-margin-20px-bottom">
+                        <div class="services-block-three">
+                            <a href="hotel">
+                                <div class="padding-15px-bottom">
+                                      <img src="{% static 'img/content/hotel_1.png' %}" style="width: 80px">
+
+                                </div>
+                                <h4>    Hotel Bookings</h4>
+                            </a>
+                            <p>&nbsp;</p>
+                            <p>Your home away from home with a wide array of options to suit every budget – Economy, Mid-Segment, and Premium.
+                                <br><a href="/hotel" style="color: #477ED1">Read More...</a></p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 margin-30px-bottom xs-margin-20px-bottom">
+                        <div class="services-block-three">
+                            <a href="ticketing">
+                                <div class="padding-15px-bottom">
+                                   <img src="{% static 'img/content/flight_1.png' %}" style="width: 80px">
+
+                                </div>
+
+                                <h4>Flight/Bus/Train Bookings</h4>
+                            </a>
+                            <p>&nbsp;</p>
+                            <p>
+                                Access the best price for flight, train, or bus tickets with CoTrav's bulk negotiated prices across sectors.
+                                <br><a href="ticketing" style="color: #477ED1">Read More...</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="services-block-three col-lg-4 col-md-6 margin-30px-bottom xs-margin-20px-bottom">
+                        <div class="services-block-three">
+                            <a href="cab">
+                                <div class="padding-15px-bottom">
+                                    <img src="{% static 'img/content/taxi_1.png' %}" style="width: 80px">
+                                </div>
+                                <h4>Cab Travel Management </h4>
+                            </a>
+                            <p>&nbsp;</p>
+                            <p>
+                                With a fleet ranging from sedan to luxury cars, CoTrav takes care of your local and outstation mobility at ease.
+                                <br><a href="cab" style="color: #477ED1">Read More...</a>
+                            </p>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="services-block-three col-lg-4 col-md-6 xs-margin-20px-bottom">
+                        <div class="services-block-three">
+                            <a href="visa">
+                                <div class="padding-15px-bottom">
+                                   <img src="{% static 'img/content/visa_1.png' %}" style="width: 80px">
+                                </div>
+                                <h4>Visa Services</h4>
+                            </a>
+                            <p>&nbsp;</p>
+                            <p>
+                                Our services extend beyond just booking your flights or accommodation. Travel carefree with Cotrav's Visa Services.
+                                <br><a href="visa" style="color: #477ED1">Read More...</a>
+                            </p>
+                        </div><br>
+                    </div>
+                    <div class="services-block-three col-lg-4 col-md-6">
+                        <div class="services-block-three">
+                            <a href="travel">
+                                <div class="padding-15px-bottom">
+                                       <img src="{% static 'img/content/travel_remb_1.png' %}" style="width: 80px">
+                                </div>
+                                <h4>Travel reimbursement</h4>
+                            </a>
+                            <p>&nbsp;</p>
+                            <p>
+                                No more tedious paperwork or manual efforts with Cotrav’s automated travel reimbursement solutions.
+                                <br><a href="travel" style="color: #477ED1">Read More...</a>
+                            </p>
+                        </div><br>
+                    </div>
+                       <div class="services-block-three col-lg-4 col-md-6">
+                        <div class="services-block-three">
+                            <a href="mice">
+                                <div class="padding-15px-bottom">
+                                 <img src="{% static 'img/content/meeting_1.png' %}" style="width: 60px">
+                                </div>
+                                <h4> Meetings, Incentives, Conferences, and Events(MICE).</h4>
+                            </a>
+                            <p>&nbsp;</p>
+                            <p>
+                                As your comprehensive event partners, we make organizing large-scale events fun.
+                                <br><a href="mice" style="color: #477ED1">Read More...</a>
+                            </p>
+                        </div><br>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <section class="bg_benifit">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5 col-sm-12 margin-50px-bottom sm-no-margin-bottom">
+                        <h5 class="alt-font text-uppercase font-size32 md-font-size30 sm-font-size24 xs-font-size22" style="padding-bottom: 25px; padding-left: 40px; padding-top: 25px; position: relative; font-weight: 700; z-index: 1">Cotrav Features</h5>
+                    </div>
+                    <div class="col-lg-7 col-sm-12 margin-50px-bottom sm-margin-30px-bottom">
+                        <div class="display-table height-100">
+                            <div class="display-table-cell vertical-align-middle">
+                                <p class="no-margin-bottom font-size16 line-height-28 sm-font-size15 sm-line-height-26 border-left border-color-light-black sm-no-border-left padding-20px-tb sm-no-padding padding-50px-left">We are an integrated travel management service provider keeping your comfort and safety at the centre of all our offerings.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <!-- start services item -->
+                    <div class="col-lg-3 col-md-6 sm-margin-30px-bottom">
+                        <div class="bg-white border border-width-2 border-color-extra-light-gray text-center padding-30px-tb sm-padding-25px-tb xs-padding-20px-all feature-box9" style="height: 90%;">
+                            <div class="display-inline-block margin-20px-bottom xs-margin-10px-bottom"><i class="fa fa-group" style="font-size:36px; color:#112f5a;"></i></div>
+                            <div class="alt-font text-extra-dark-gray margin-10px-bottom" style="font-weight: 600;"> Employee Management</div>
+                            <p class="width-75 md-width-90 xs-width-100 center-col no-margin-bottom" style="font-weight: normal">
+                           Single user interface to manage the travel needs of all your employees. </p>
+                        </div><br>
+                    </div>
+                    <!-- end services item -->
+                    <!-- start services item -->
+                    <div  class="col-lg-3 col-md-6 sm-margin-30px-bottom">
+                        <div class="bg-white border border-width-2 border-color-extra-light-gray text-center padding-30px-tb sm-padding-25px-tb xs-padding-20px-all feature-box9" style="height: 90%;">
+                            <div class="display-inline-block margin-20px-bottom xs-margin-10px-bottom">   <img  src="{% static 'img/content/Designation_Management_1.png' %}" style="width: 50px;"></div>
+                            <div class="alt-font text-extra-dark-gray margin-10px-bottom" style="font-weight: 600;">    Designation Management</div>
+                            <p class="width-75 md-width-90 xs-width-100 center-col no-margin-bottom" style="font-weight: normal">Assign roles of user, admin, and levels of approving authority seamlessly to manage internal workflows.</p>
+                        </div><br>
+                    </div>
+                    <!-- end services item -->
+                    <!-- start services item -->
+                    <div class="col-lg-3 col-md-6 xs-margin-30px-bottom">
+                        <div class="bg-white border border-width-2 border-color-extra-light-gray text-center padding-30px-tb sm-padding-25px-tb xs-padding-20px-all feature-box9" style="height: 90%;">
+                            <div class="display-inline-block margin-20px-bottom xs-margin-10px-bottom" style="margin-bottom: 0px;"> <img  src="{% static 'img/content/Approval_ _Rejections_1.png' %}" style="width: 75px;"></div>
+                            <div class="alt-font text-extra-dark-gray margin-10px-bottom" style="font-weight: 600;"> Approval And Rejections</div>
+                            <p class="width-75 md-width-90 xs-width-100 center-col no-margin-bottom" style="font-weight: normal">Single window systems for approvers to view all requests holistically and approve or reject travel requests easily. </p>
+                        </div><br>
+                    </div>
+                    <!-- end services item -->
+                    <!-- start services item -->
+                    <div class="col-lg-3 col-md-6 xs-margin-30px-bottom">
+                        <div class="bg-white border border-width-2 border-color-extra-light-gray text-center padding-30px-tb sm-padding-25px-tb xs-padding-20px-all feature-box9" style="height: 90%;">
+                            <div class="display-inline-block margin-20px-bottom xs-margin-10px-bottom" style="margin-top: 7px;"><i class="fa fa-file" aria-hidden="true" style="font-size:36px; color:#112f5a;"></i></div>
+                            <div class="alt-font text-extra-dark-gray margin-10px-bottom" style="font-weight: 600;"> Passenger Reports </div>
+                            <p class="width-75 md-width-90 xs-width-100 center-col no-margin-bottom" style="font-weight: normal">Integrated solutions to allow users to submit passenger reports easily using mobile phones.</p>
+                        </div><br>
+                    </div>
+
+                        <div class="col-lg-3 col-md-6">
+                        <div class="bg-white border border-width-2 border-color-extra-light-gray text-center padding-30px-tb sm-padding-25px-tb xs-padding-20px-all feature-box9" style="height: 90%;">
+                            <div class="display-inline-block margin-20px-bottom xs-margin-10px-bottom" ><img  src="{% static 'img/content/self_booking_1.png' %}" style="width: 45px;"></div>
+                            <div class="alt-font text-extra-dark-gray margin-10px-bottom" style="font-weight: 600;"> Self Booking Facility </div>
+                            <p class="width-75 md-width-90 xs-width-100 center-col no-margin-bottom" style="font-weight: normal">Empower users to make travel bookings or adjustments on the go at their convenience. </p>
+                        </div><br>
+                    </div>
+
+                      <div class="col-lg-3 col-md-6">
+                        <div class="bg-white border border-width-2 border-color-extra-light-gray text-center padding-30px-tb sm-padding-25px-tb xs-padding-20px-all feature-box9" style="height: 90%;">
+                            <div class="display-inline-block margin-20px-bottom xs-margin-10px-bottom" ><i class="fa fa-credit-card"  style="font-size:36px; color:#112f5a;"></i></div>
+                            <div class="alt-font text-extra-dark-gray margin-10px-bottom" style="font-weight: 600;"> Payment Gateway Integration</div>
+                            <p class="width-75 md-width-90 xs-width-100 center-col no-margin-bottom" style="font-weight: normal">Benefit from the integrated payment solutions and extensive payment options available at CoTrav - Net Banking, Credit and Debit cards.</p>
+                        </div><br>
+                    </div>
+
+
+
+
+                      <div class="col-lg-3 col-md-6">
+                        <div class="bg-white border border-width-2 border-color-extra-light-gray text-center padding-30px-tb sm-padding-25px-tb xs-padding-20px-all feature-box9"  style="    height: 90%;">
+                            <div class="display-inline-block margin-20px-bottom xs-margin-10px-bottom">
+                                <i class="fa fa-file" aria-hidden="true" style="font-size:36px; color:#112f5a;"></i>
+                            </div>
+                            <div class="alt-font text-extra-dark-gray margin-10px-bottom"  style="font-weight: 600;"> Booking and Cancellation Reports</div>
+                            <p class="width-75 md-width-90 xs-width-100 center-col no-margin-bottom" style="font-weight: normal">Receive booking and cancellation summary once a month to monitor and control travel and expenses. </p>
+                        </div><br>
+                    </div>
+
+
+                     <div class="col-lg-3 col-md-6">
+                        <div class="bg-white border border-width-2 border-color-extra-light-gray text-center padding-30px-tb sm-padding-25px-tb xs-padding-20px-all feature-box9" style="height: 90%;">
+                            <div class="display-inline-block margin-20px-bottom xs-margin-10px-bottom"><i class="fas fa-file-invoice" style="font-size:36px; color:#112f5a;"></i></div>
+                            <div class="alt-font text-extra-dark-gray margin-10px-bottom"  style="font-weight: 600;"> Invoices Management</div>
+                            <p class="width-75 md-width-90 xs-width-100 center-col no-margin-bottom" style="font-weight: normal">Comprehensive invoice management solutions and automated GST reconciliation for your convenience. </p>
+                        </div><br>
+                    </div>
+
+                  <!-- end services item -->
+                </div>
+            </div>
+        </section>
+        <!-- end features section -->
+
+
+
+           <section>
+            <div class="container">
+                <div class="section-heading">
+                    <h3>How we work</h3>
+                </div>
+            </div>
+            <div class="container-fluid no-padding sm-padding-15px-lr">
+                <div class="horizontaltab tab-style7">
+                    <ul class="resp-tabs-list hor_1">
+                        <li>Booking</li>
+                        <li>Travel</li>
+                        <li>Billing</li>
+                      
+                    </ul>
+                    <div class="resp-tabs-container hor_1 no-padding">
+                        <div>
+
+                            <div class="container sm-no-padding">
+                                <div class="row">
+                                    <div class="col-lg-6 sm-margin-20px-bottom sm-text-center">
+                                        <div class="box-shadow-large padding-15px-all">
+                                            <img src="{% static 'img/content/content_book.png' %}" alt="" class="sm-width-100" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="padding-30px-left md-padding-20px-left sm-no-padding-left" style="text-align: justify">
+                                            <h5>Booking</h5>
+                                            <p>Holistic 24x7 booking management solution to meet all your travel needs</p>
+
+                                            <ul class="list-style-16">
+                                                <li><span style="font-weight: 700;">Omnichannel Booking:</span> Seamlessly make bookings on CoTrav through the internet, user app or offline through our dedicated relationship managers or email.</li>
+                                                <li><span style="font-weight: 700;"> Integrated Solutions:</span> All bookings are directly sent to your system through API integration with your HRMS system.</li>
+                                                <li><span style="font-weight: 700;"> Book On-the-go:</span> CoTrav's booking app can be accessed by users directly to make or revise bookings on the go.</li>
+                                                
+                                            </ul>-
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div>
+
+                            <div class="container sm-no-padding">
+                                <div class="row">
+                                    <div class="col-lg-6 order-lg-1 order-2">
+                                        <div class="padding-30px-right md-padding-20px-right sm-no-padding-right" style="text-align: justify">
+                                            <h5>Travel</h5>
+                                            <p>Travel hassle-free with our state-of-the-art connected systems</p>
+
+                                            <ul class="list-style-16">
+                                                <li><span style="font-weight: 700;">Trip management:</span> Our Mobile App now enable users to access all details on upcoming trips at the click of a button.</li>
+                                                <li><span style="font-weight: 700;">Tracking feature:</span> For us, your safety is above all. Safeguard your employee's safety using our tracking feature.</li>
+                                                <li><span style="font-weight: 700;">24x7 assistance:</span> Our dedicated relationship managers are always available for your assistance.</li>
+                                               
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-lg-6 order-lg-2 order-1 sm-text-center sm-margin-20px-bottom">
+                                        <div class="box-shadow-large padding-15px-all">
+                                            <img src="{% static 'img/content/content_travel.png'  %}" alt="" class="sm-width-100" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div>
+
+                            <div class="container sm-no-padding">
+                                <div class="row">
+                                    <div class="col-lg-6 sm-margin-20px-bottom sm-text-center">
+                                        <div class="box-shadow-large padding-15px-all">
+                                            <img src="{% static 'img/content/content_billing.png' %}" alt="" class="sm-width-100" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="padding-30px-left md-padding-20px-left sm-no-padding-left" style="text-align: justify">
+                                          <h5>Billing</h5>
+                                            <p>Be on top of your travel expenses real-time </p>
+
+                                            <ul class="list-style-16">
+                                                <li><span style="font-weight: 700;">Customized Reporting:</span> Receive periodic customized MIS and Billing Reports as per your unique policy requirements.</li>
+
+                                                <li><span style="font-weight: 700;">Online Workflows:</span> Skip time-consuming physical verifications and verify all bills using our centralized and transparent online billing process.</li>
+
+                                                <li><span style="font-weight: 700;">Statutorily Compliant:</span> Every bill issued is GST and Tax compliant, ensuring full transparency.</li>
+                                               
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div>
+
+                          
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg_benifit">
+            <div class="container">
+                <div class="text-center section-heading white">
+                    <h3 style="color: black;">CoTrav Benefits </h3>
+                     <p class="width-55 sm-width-75 xs-width-95 center-col" style="color: #616161;">One-stop solution provider for end-to-end Corporate Travel Management </p>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                        <div class="feature-block1 last-paragraph-no-margin">
+                            <div class="">
+                               <img src="{% static 'img/content/icon_1_large1.png' %}" class="feature_img" style="width: 60px;">
+                            </div>
+                            <h5 class="title" style="color: #616161;"> Integrated Solutions</h5>
+                            <p style="color: #616161; font-weight: 500;">Book online or offline. Integrated travel solutions empower you to manage travel seamlessly.</p>
+                        </div>
+                    </div>
+                      <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                        <div class="feature-block1 xs-no-margin-bottom last-paragraph-no-margin">
+                            <div class="">
+                                 <img src="{% static 'img/content/icon_2_large2.png' %}" style="width: 60px">
+                            </div>
+                            <h5 class="title" style="color: #616161;"> Transparent Billing</h5>
+                            <p style="color: #616161; font-weight: 500;">No hidden costs or charges. Experience GST-enabled comprehensive billing of all travel expenses together. </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                        <div class="feature-block1 last-paragraph-no-margin">
+                            <div class="">
+                                 <img src="{% static 'img/content/icon_3_large3.png' %}" style="width: 60px">
+                            </div>
+                            <h5 class="title" style="color: #616161;"> Guaranteed Safety</h5>
+                            <p style="color: #616161; font-weight: 500;">Your safety is our priority. We deploy certified cars and work with verified drivers to ensure your safety. </p>
+                        </div>
+                    </div>
+                  <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                        <div class="feature-block1 xs-no-margin-bottom last-paragraph-no-margin">
+                            <div class="">
+                                  <img src="{% static 'img/content/icon_4_large4.png' %}"style="width: 60px"
+                                  >
+                            </div>
+                            <h5 class="title" style="color: #616161;">  24*7 Support</h5>
+                            <p style="color: #616161; font-weight: 500;">We are available 24*7. Manage all your travel bookings effortlessly, with our dedicated relationship managers. </p>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </section>
+
+                <section class="bg-white">
+            <div class="container">
+
+                <div class="section-heading">
+                    <h3 class="font-weight-600" >Why Cotrav</h3>
+                    <p class="width-55 sm-width-75 xs-width-95 center-col">Our flexible processes are customized to align with your travel policies to ensure smooth expense management. But the benefits of partnering with CoTrav are numerous does not end there.</p>
+                </div>
+
+                <div class="owl-carousel owl-theme testmonial-style5">
+                    <div class="row testmonials-style5 sm-text-center">
+                        <div class="col-md-12 col-lg-4 sm-margin-15px-bottom">
+                            <img alt="image" src="{% static 'img/content/t-4_1.png' %}">
+                        </div>
+                        <div class="col-md-12 col-lg-8">
+                            <div class="data">
+                                 <strong class="font_increase"> Wide Network Coverage</strong> <p>Dedicated local teams and relationship managers available 24*7 </p>
+                               <a href="#"><span>Read More</span></a>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row testmonials-style5 sm-text-center">
+                        <div class="col-md-12 col-lg-4 sm-margin-15px-bottom"><img alt="image" src="{% static 'img/content/t-5_1.png' %}">
+                        </div>
+                        <div class="col-md-12 col-lg-8">
+                            <div class="data">
+                                 <strong class="font_increase">  Cost-effective Solutions</strong><p>Best negotiated prices offering access to services at affordable costs</p>
+                              <a href="#"><span>Read More</span></a>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row testmonials-style5 sm-text-center">
+                        <div class="col-md-12 col-lg-4 sm-margin-15px-bottom">
+                            <img alt="image" src="{% static 'img/content/t-6_1.png' %}">
+                        </div>
+                        <div class="col-md-12 col-lg-8">
+                            <div class="data">
+                               <strong class="font_increase">  Connected Travel Technology</strong> <p>Real-time MIS and Dashboard to manage all your travel bookings </p>
+                            <a href="#"><span>Read More</span></a>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                       <div class="row testmonials-style5 sm-text-center">
+                        <div class="col-md-12 col-lg-4 sm-margin-15px-bottom">
+                            <img alt="image" src="{% static 'img/content/t-7_1.png' %}">
+                        </div>
+                        <div class="col-md-12 col-lg-8">
+                            <div class="data">
+                               <strong class="font_increase">  Best-in-Class Service</strong>  <p>Unparalleled quality standards to ensure your travels are hassle-free</p>
+                            <a href="#"><span>Read More</span></a>
+
+                            </div>
+                        </div>
+                     </div>
+
+                          
+                </div>
+            </div>
+        </section>
+
+        <!-- end why cotrav section -->
+
+     
+
+        <!-- end video section -->
+         <!-- start department section -->
+
+        <!-- end department section -->
+
+             <section class="no-padding xs-padding-40px-tb bg-white">
+
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12">
+
+                        <div class="padding-ten-all md-padding-eight-all xs-no-padding">
+
+                            <div class="section-heading title-style5 left white" >
+                                <h4 id="sections_title2"> STATS</h4>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12 margin-50px-bottom sm-margin-30px-bottom">
+                                    <div class="feature-flex-square last-paragraph-no-margin">
+                                        <div class="clearfix">
+                                            <div class="feature-flex-square-icon">
+                                                 <img src="{% static 'img/content/state_1_large.png' %}" style="position: relative;
+    bottom: 6px;
+    width: 100%;">
+                                            </div>
+                                            <div class="feature-flex-square-content">
+                                                <h4><a href="javascript:void(0)"  class="text-black">300+ Cities</a></h4>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12 margin-50px-bottom sm-margin-30px-bottom">
+                                    <div class="feature-flex-square last-paragraph-no-margin">
+                                        <div class="clearfix">
+                                            <div class="feature-flex-square-icon">
+                                                <img src="{% static 'img/content/state_2_large.png' %}" >
+                                            </div>
+                                            <div class="feature-flex-square-content">
+                                                <h4><a href="javascript:void(0)" class=".text-white">  15000+ Hotel Partnerships</a></h4>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12 xs-margin-30px-bottom">
+                                    <div class="feature-flex-square last-paragraph-no-margin">
+                                        <div class="clearfix">
+                                            <div class="feature-flex-square-icon">
+                                               <img src="{% static 'img/content/state_3_large.png' %}" >
+                                            </div>
+                                            <div class="feature-flex-square-content">
+                                                <h4><a href="javascript:void(0)" class=".text-white"> 30000+ Cab tie-ups</a></h4>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="feature-flex-square last-paragraph-no-margin">
+                                        <div class="clearfix">
+                                            <div class="feature-flex-square-icon">
+                                              <img src="{% static 'img/content/state_4_large.png' %}" >
+                                            </div>
+                                            <div class="feature-flex-square-content">
+                                                <h4><a href="javascript:void(0)" class=".text-white">  100000+ Travels Requests Fulfilled</a></h4>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12 no-padding-right sm-display-none">
+
+                        <div class="position-relative height-100 cover-background bg-img"  data-overlay-dark="0" data-background="{% static 'img/interior/gif_ctrav_animatin.gif' %}" style="width:70%;"></div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+
+
+
+
+{% endblock %}

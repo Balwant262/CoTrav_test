@@ -1,0 +1,194 @@
+{% extends 'Company/Employee/layout/header.html' %}
+
+{% block content %}
+
+
+
+{% if user %}
+<!-- start page content -->
+{% include 'cotrav_alert_message.html' %}
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+          <div class="text-center">
+                 <div style="font-size:14px; font-weight:bold;">
+                    Add Bus Booking
+                     </div>
+            </div>
+
+        <form method="post" action="/Corporate/Employee/add-bus-booking/{{user.corporate_id}}">
+            <input type="hidden" name="employee_id_1" value="{{user.id}}">
+            <input type="hidden" name="employee_id" value="{{user.id}}">
+            <input type="hidden" name="spoc_id" value="{{user.spoc_id}}">
+            <input type="hidden" name="corporate_id" value="{{user.corporate_id}}">
+            <input type="hidden" name="no_of_seats" value="1">
+            <input type="hidden" name="entity_id" value="{{user.billing_entity_id}}">
+             <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card card-topline-aqua">
+                    <div class="card-head">
+                        <header>ADD BUS BOOKING</header>
+                        <div class="tools">
+                            <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                            <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                            <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                        </div>
+                    </div>
+                    <div class="card-body ">
+                     <div class="row">
+
+                         <div class="col-md-12 col-sm-12">
+
+                              <div class="form-group row">
+                                <label class="col-sm-4" >From City*</label>
+                                 <input type="text" class="form-control col-sm-8" name="from" id="pickup_location" placeholder="From City" required>
+                            </div>
+
+                              <div class="form-group row">
+                                <label class="col-sm-4" >To City*</label>
+                                 <input type="text" class="form-control col-sm-8" name="to" id="drop_location" placeholder="To City" required>
+                            </div>
+
+                         <div class="form-group row">
+                                <label class="col-sm-4" >Bus Type Priority1*</label>
+                                 <select name="bus_type" class="form-control col-sm-8 tour_type myselect" style="width:66%" >
+                                      <option value="1">AC Seater</option>
+                                      <option value="2">AC Sleeper</option>
+                                      <option value="3">NON AC Seater</option>
+                                      <option value="4">NON AC Sleeper</option>
+                                  </select>
+                            </div>
+
+                        <div class="form-group row">
+                                <label class="col-sm-4" >Bus Type Priority2*</label>
+                                 <select name="bus_type2" class="form-control col-sm-8 tour_type myselect" style="width:66%" >
+                                      <option value="1">AC Seater</option>
+                                      <option value="2">AC Sleeper</option>
+                                      <option value="3">NON AC Seater</option>
+                                      <option value="4">NON AC Sleeper</option>
+                                  </select>
+                            </div>
+
+                        <div class="form-group row">
+                                <label class="col-sm-4" >Bus Type Priority3*</label>
+                                 <select name="bus_type3" class="form-control col-sm-8 tour_type myselect" style="width:66%" >
+                                      <option value="1">AC Seater</option>
+                                      <option value="2">AC Sleeper</option>
+                                      <option value="3">NON AC Seater</option>
+                                      <option value="4">NON AC Sleeper</option>
+                                  </select>
+                            </div>
+
+                        <div class="form-group row">
+                                <label class="col-sm-4" >Preferred Bus*</label>
+                                 <input type="text" class="form-control col-sm-8" name="preferred_bus" placeholder="Preferred Bus">
+                            </div>
+
+                             <div class="form-group row">
+                                <label class="col-sm-4" >Boarding Point*</label>
+                                 <input type="text" class="form-control col-sm-8" name="preferred_board_point" placeholder="Preferred Boarding Point">
+                        </div>
+
+                        <div class="form-group row">
+                                <label class="col-sm-4" >Drop Point</label>
+                                 <input type="text" class="form-control col-sm-8" name="preferred_drop_point" placeholder="Preferred Drop Point">
+                        </div>
+
+
+                               <div class="form-group row">
+                                <label class="col-sm-4" >Journey Date From*</label>
+                                 <input type="text" class="form-control col-sm-8 datetimepicker1" autocomplete="off" name="journey_datetime" placeholder="Journey Date From" required>
+                            </div>
+
+                         <div class="form-group row">
+                                <label class="col-sm-4" >Journey Date To*</label>
+                                 <input type="text" class="form-control col-sm-8 datetimepicker2" autocomplete="off" name="journey_datetime_to" placeholder="Journey Date To" required>
+                            </div>
+
+
+                             {% for corp_acces in corp_access %}
+                                {% if corp_acces.has_assessment_codes == 1 %}
+
+                              <div class="form-group row">
+                                <label class="col-sm-4" >Assessment Code*</label>
+                                   <select name="assessment_code" class="form-control col-sm-8  myselect" style="width:66%" >
+                                       <option value="">Select Assessment Code</option>
+                                        {% for assessment in assessments %}
+                                        <option value="{{assessment.id}}">{{assessment.assessment_code}}</option>
+                                        {% endfor %}
+                                    </select>
+                            </div>
+
+
+                              <div class="form-group row">
+                                <label class="col-sm-4" >Assessment City*</label>
+                                   <select name="assessment_city_id" class="form-control col-sm-8  myselect" style="width:66%" >
+                                       <option value="">Select Assessment City</option>
+                                        {% for city in cities %}
+                                        <option value="{{city.id}}">{{city.city_name}}</option>
+                                        {% endfor %}
+                                    </select>
+                            </div>
+
+                              {% endif %}
+                              {% endfor %}
+
+
+                               <div class="form-group row">
+                                <label class="col-sm-4" >Booking Reason/ Comment*</label>
+                                <textarea name="reason_booking" class="form-control col-sm-8" placeholder="Reason/Comment for Booking"></textarea>
+                            </div>
+
+
+
+
+                        </div>
+
+
+                     </div>
+
+
+
+
+                     </div>
+                      <div class="form-group">
+                    <div class="offset-md-3 col-md-9">
+                        <input type="submit" value="Submit" class="btn btn-info">
+                        <a href="{{request.META.HTTP_REFERER}}" class="btn btn-default">  Cancel  </a>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+<!-- end page content -->
+
+
+
+
+
+{% else %}
+    <p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCstbhex4F6X2-AXz3B1sR1oRvxssE3sc&libraries=places"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+$(".js-example-basic-single").select2();
+});
+ var input = document.getElementById('pickup_location');
+  var autocomplete = new google.maps.places.Autocomplete(input);
+
+  var input = document.getElementById('drop_location');
+  var autocomplete = new google.maps.places.Autocomplete(input);
+
+</script>
+
+
+{% endblock %}

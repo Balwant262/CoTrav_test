@@ -1,0 +1,341 @@
+{% extends 'Company/Admin/layout/header.html' %}
+{% load datetime_format %}
+{% block content %}
+
+
+{% if user %}
+
+<div class="modal fade" role="dialog" id="modalDownloadTaxiReport">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title-status">Select Download Details</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <form id="payment_request_form" action="/Corporate/Admin/download-frro-request" method="post" enctype="multipart/form-data">
+        <!-- Modal body -->
+          <input type="hidden" name="user_id" value="{{user.id}}">
+          <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+        <div class="modal-body">
+        <table class="table table-striped table-bordered">
+
+        <tr>
+            <th> Filter By </th>
+            <td>
+            <select class="form-control myselect" name="filter_by" id="filter_by" style="width:100%">
+                <option value="0">All</option>
+                <option value="1">Booking Date</option>
+                <option value="2">Service Date</option>
+              </select>
+            </td>
+          </tr>
+
+          <tr>
+            <th id="download_from_date1"> From Date </th>
+            <td>
+            <input type="text" class="form-control datepicker1" name="booking_from_datetime" id="download_from_date" placeholder="From Date">
+            </td>
+          </tr>
+
+          <tr>
+            <th id="download_to_date1"> To Date </th>
+            <td>
+            <input type="text" class="form-control datepicker1" name="booking_to_datetime" id="download_to_date" placeholder="To Date">
+            </td>
+          </tr>
+
+
+          <tr>
+            <th id=""> Select Corporate </th>
+            <td>
+            <select class="form-control myselect" name="company_name" id="booking_company_id" style="width:100%">
+                <option value="0">All</option>
+                    {% for corporate in corporates %}
+                        <option value="{{corporate.id}}">{{corporate.corporate_name}}</option>
+                    {% endfor %}
+              </select>
+            </td>
+          </tr>
+
+        </table>
+
+
+        </div>
+         <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" >Download</button>
+      </div>
+    </form>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- The Modal -->
+<div class="modal fade model_custom_style" role="dialog" id="model_action">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 id="delete_label" class="modal-title-status">Frro Action</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+            <form action="/Corporate/Admin/accept-frro-request" method="post" enctype="multipart/form-data" id="form_id">
+                <input type="hidden" name="booking_id" id="booking_id">
+                <input type="hidden" name="user_id" value="{{user.id}}">
+                <input type="hidden" name="accept_id" id="accept_id">
+                <input type="hidden" name="reject_id" id="reject_id">
+                <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+                <label>Are you sure you want to Perform Action</label>
+                                <div class="modal-body">
+                <div class="row">
+                    <label class="control-label col-sm-2">Comment</label>
+                    <textarea class="form-control col-sm-10" id="user_comment" rows="4" name="user_comment" placeholder="Comment.."></textarea>
+                </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <button id="delete_btn" type="submit" class="btn btn-primary">Yes</button>
+                </div>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- start page content -->
+{% include 'cotrav_alert_message.html' %}
+            <div class="page-content-wrapper">
+                <div class="page-content">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card card-topline-aqua">
+                                <div class="card-head">
+                                    <header>ALL FRRO REQUEST</header>
+                                    <div class="btn-group">
+                                                <a class="btn btn-info btn-sm" href="/Corporate/Admin/add-new-frro-request" > Add FRRO Request <i class="fa fa-plus"></i> </a>
+                                            </div>
+
+
+                                    <div class="tools">
+                                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+	                                    <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+	                                    <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                                    </div>
+                                </div>
+                                <div class="card-body ">
+
+                                    <div class="text-center">
+                                         <a href = "/Corporate/Admin/frro-requests" class = "btn btn-primary btn-xs disabled">FRRO Requests</a>
+                                         <a href = "/Corporate/Admin/frro-billing/15" class = "btn btn-primary btn-xs">FRRO Invoices</a>
+                                     </div>
+
+                                    <div class = "mdl-tabs mdl-js-tabs">
+                           <div class = "mdl-tabs__tab-bar tab-left-side">
+                              <a href = "/Corporate/Admin/frro-requests/11" class = "mdl-tabs__tab {% if booking_type == 11 %} is-active {% endif %} ">Unapproved Requests</a>
+                              <a href = "/Corporate/Admin/frro-requests/12" class = "mdl-tabs__tab {% if booking_type == 12 %} is-active {% endif %}">Approved Requests</a>
+                              <a href = "/Corporate/Admin/frro-requests/13" class = "mdl-tabs__tab {% if booking_type == 13 %} is-active {% endif %}">Acknowledged By CoTrav</a>
+                              <a href = "/Corporate/Admin/frro-requests/14" class = "mdl-tabs__tab {% if booking_type == 14 %} is-active {% endif %}">Documents Pending</a>
+                              <a href = "/Corporate/Admin/frro-requests/15" class = "mdl-tabs__tab {% if booking_type == 15 %} is-active {% endif %}">Application Submitted</a>
+                              <a href = "/Corporate/Admin/frro-requests/16" class = "mdl-tabs__tab {% if booking_type == 16 %} is-active {% endif %}">Under Process</a>
+                              <a href = "/Corporate/Admin/frro-requests/17" class = "mdl-tabs__tab {% if booking_type == 17 %} is-active {% endif %}">Completed | Certificate Issued</a>
+                              <a href = "/Corporate/Admin/frro-requests/18" class = "mdl-tabs__tab {% if booking_type == 18 %} is-active {% endif %}">Cancelled / Rejected Request</a>
+
+                           </div>
+                        </div>
+
+
+
+                                  <div class="table-scrollable table-bordered">
+                                   <table id="example1" class="display full-width table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Booking ID</th>
+                                                <th>FRRO Application ID</th>
+                                                <th>SPOC Name</th>
+                                                <th>Employee Name</th>
+                                                <th>Employee Email</th>
+                                                <th>Request Type</th>
+                                                <th>Booking Date | Time</th>
+                                                <th>Client Status</th>
+                                                <th>CoTrav Status</th>
+                                                <th>FRRO Status</th>
+
+                                                <th>Certificate</th>
+                                                <th>Details</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+
+                                        {% for visa in visa_services %}
+                                            <tr>
+                                                <td>{{ visa.reference_no|default:'' }}<br/>({{visa.corporate_name}})</td>
+                                                <td>{{ visa.frro_application_id|default:'' }}</td>
+                                                <td>{{ visa.user_name|default:'' }} <br/>({{ visa.user_contact|default:'' }})</td>
+
+                                                <td>
+                                                    {% for passanger in visa.Passangers %}
+                                                    {{ passanger.employee_name|default:'' }} <br/>({{ passanger.employee_contact|default:''}})<br/>
+                                                    {% endfor %}
+
+                                                </td>
+                                                <td>
+                                                    {% for passanger in visa.Passangers %}
+                                                    {{ passanger.employee_email|default:'' }} <br/>
+                                                    {% endfor %}
+
+                                                </td>
+
+                                                <td>{{visa.frro_request_type_name|default:''}}</td>
+                                                <td>{{visa.booking_datetime|datetime_format}}</td>
+
+                                                <td>{{visa.client_status|default:''}}</td>
+                                                <td>{{visa.cotrav_status|default:''}}
+                                                {% if visa.status_cotrav > 1 %}
+                                                    ({{ visa.cotrav_agent_name|default:'' }})
+                                                {% endif %}
+                                                </td>
+
+
+                                                <td> {{visa.request_status_name|default:''}}
+
+                                                </td>
+
+
+
+
+
+                                                <td>
+                                                    {% if visa.frro_certificate %}
+                                                    <a target="_blank" href="{{ visa.frro_certificate }}">Download</a>
+                                                    {% endif %}
+                                                </td>
+
+
+                                                 <td>
+                                                    <a href="/Corporate/Admin/view-frro-request/{{ visa.id }}" class="btn  btn-tbl-edit btn-xs">
+                                                        <i class="fa fa-search"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                            </tbody>
+                                        </table>
+	                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- end page content -->
+
+
+
+
+
+{% else %}
+    <p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+
+<script type="text/javascript">
+$(function() {
+
+  $('#model_action_assign').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var id = button.data('id'); // Extract info from data-* attributes
+
+    var modal = $(this);
+    modal.find('#booking_id_assign').val(id);
+
+    });
+
+  $('#model_action_tracking').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var id = button.data('id'); // Extract info from data-* attributes
+
+    var modal = $(this);
+    modal.find('#booking_id_tracking').val(id);
+
+    });
+
+      $('#model_visa_status').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var id = button.data('id'); // Extract info from data-* attributes
+    var request_type = button.data('request_type');
+
+    var_url = '/api/'+'get_frro_status_by_request_type'
+    $.ajaxSetup({
+                headers:{
+                    'Authorization': "Token {{request.session.agent_access_token}}",
+                    'usertype': 10
+                }
+
+            });
+         $.post(var_url,{ request_type: request_type },
+          function(data)
+          {
+           //alert(JSON.stringify(data));
+           if(data['Rules'].length != 0){
+           $('#frro_status').empty();
+           $('#frro_status').append($("<option value=''>Select Status</option>"));
+            entities = data['Rules'];
+            for (var i=0;i<entities.length;i++) {
+            $('#frro_status').append($("<option value='"+entities[i].id+"'>"+entities[i].status+"</option>"));
+            }
+           }else{
+            alert('No Status Available')
+           }
+           });
+
+    var modal = $(this);
+    modal.find('#booking_id_visastatus').val(id);
+
+    });
+
+  $('#model_action').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var id = button.data('id'); // Extract info from data-* attributes
+    var accept_id = button.data('accept_id');
+    var reject_id = button.data('reject_id');
+
+    var modal = $(this);
+    modal.find('#booking_id').val(id);
+
+    if(reject_id == 1){
+        modal.find('#accept_id').val('');
+        modal.find('#reject_id').val(1);
+        modal.find('#user_comment').prop('required',true);
+    }
+    if(accept_id == 1){
+        modal.find('#reject_id').val('');
+        modal.find('#accept_id').val(1);
+        modal.find('#user_comment').prop('required',false);
+    }
+
+    });
+
+});
+
+
+
+</script>
+
+
+{% endblock %}

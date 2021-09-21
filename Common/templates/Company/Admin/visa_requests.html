@@ -1,0 +1,160 @@
+{% extends 'Company/Admin/layout/header.html' %}
+
+{% block content %}
+
+
+{% if user %}
+
+<!-- The Modal -->
+<div class="modal fade model_custom_style" role="dialog" id="model_add_new_group">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 id="delete_label" class="modal-title-status">Are You Want Perform Action ? </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+            <form action="#" method="post" enctype="multipart/form-data" id="form_id">
+                <input type="hidden" name="agents_id" id="set_agents_id">
+                <input type="hidden" name="user_id" value="{{user.id}}">
+                <input type="hidden" name="delete_id" id="delete_id">
+                 <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <button id="delete_btn" type="submit" class="btn btn-primary">Yes</button>
+                </div>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- start page content -->
+{% include 'cotrav_alert_message.html' %}
+            <div class="page-content-wrapper">
+                <div class="page-content">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card card-topline-aqua">
+                                <div class="card-head">
+                                    <header>ALL VISA REQUEST</header>
+                                        <div class="row p-b-20">
+                                        <div class="col-md-6 col-sm-6 col-6">
+<!--                                            <div class="btn-group">-->
+<!--                                                <a class="btn btn-info btn-sm" href="/Corporate/Spoc/add-new-visa-request" > New Visa <i class="fa fa-plus"></i> </a>-->
+<!--                                            </div>-->
+                                        </div>
+                                    </div>
+                                    <div class="tools">
+                                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+	                                    <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+	                                    <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                                    </div>
+                                </div>
+                                <div class="card-body ">
+
+								   <div class="text-center">
+                                 <a href = "/Corporate/Admin/visa-bokings" class = "btn btn-primary btn-xs disabled">Visa Requests</a>
+                                      <a href = "/Corporate/Admin/visa-billing/14" class = "btn btn-primary btn-xs ">Visa Invoices</a>
+                                 </div>
+
+                                  <div class="table-scrollable table-bordered">
+                                    <table id="example1" class="display full-width table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Request ID</th>
+                                                <th>Visa Country</th>
+                                                <th>Visa Type</th>
+                                                <th>Visa Request Type</th>
+                                                <th>Visa Duration</th>
+                                                <th>Purpose of Visit</th>
+                                                <th>Consulate offices</th>
+                                                <th>Employee Details</th>
+                                                <th>Visa Status</th>
+                                                <th>Cotrav Status</th>
+                                                <th>Application Form</th>
+                                                <th >Action</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                        {% for visa in visa_services %}
+                                            <tr>
+                                                <td>{{ visa.reference_no|default:'' }}<br/>({{visa.corporate_name}})</td>
+                                                <td>{{ visa.country_name|default:'' }}</td>
+                                                <td>{{ visa.visa_type_name|default:'' }}</td>
+                                                <td>{{ visa.request_type|default:'' }}</td>
+                                                <td>{{ visa.visa_duration|default:'' }} Month</td>
+                                                <td>{{ visa.booking_note|default:'' }}</td>
+                                                <td>{{ visa.address_line_1|default:'' }}{{ visa.address_line_2|default:'' }}{{ visa.address_line_3|default:'' }}</td>
+
+                                                <td>
+                                                    {% for passanger in visa.EmployeesDocs %}
+                                                    {% if forloop.first %}
+                                                    {{ passanger.employee_name|default:'' }} <br/>({{ passanger.employee_contact|default:''}})<br/>
+                                                    {% endif %}
+                                                    {% endfor %}
+                                                </td>
+
+                                                <td>{{visa.client_status|default:''}}</td>
+                                                <td>{{visa.cotrav_status|default:''}}</td>
+
+                                                <td> <a target="_blank" href="{{visa.application_form_link}}">Download</a></td>
+
+                                                 <td>
+                                                    <a href="/Corporate/Admin/view-visa-request/{{ visa.id }}" class="btn  btn-tbl-edit btn-xs">
+                                                        <i class="fa fa-search"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                            </tbody>
+                                        </table>
+	                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- end page content -->
+
+
+
+
+
+{% else %}
+    <p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+
+<script type="text/javascript">
+$(function() {
+
+  $('#model_add_new_group').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var id = button.data('id'); // Extract info from data-* attributes
+    var delete_id = button.data('delete_id'); // Extract info from data-* attributes
+    var modal = $(this);
+
+    modal.find('#set_agents_id').val(id);
+    modal.find('#delete_id').val(delete_id);
+
+
+    });
+
+});
+
+
+
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,342 @@
+{% extends 'Agent/layout/header.html' %}
+
+{% block content %}
+
+{% if user %}
+<!-- start page content -->
+{% include 'cotrav_alert_message.html' %}
+<!-- The Modal -->
+<div class="modal fade model_custom_style" role="dialog" id="model_action">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 id="delete_label" class="modal-title-status">Bill Action</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+            <form action="/agents/pay-bill" method="post" enctype="multipart/form-data" id="form_id">
+                <input type="hidden" name="bill_id" id="booking_id">
+                <input type="hidden" name="total_paid" id="total_paid">
+                <input type="hidden" name="total_balance" id="total_balance">
+                <input type="hidden" name="total" id="total">
+                <input type="hidden" name="user_id" value="{{user.id}}">
+                <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+                <div class="modal-body">
+
+
+
+                 <div class="form-group row">
+                    <label class="control-label col-sm-4">Total Amount</label>
+                    <input type="text" id="total_amt" name="total_amt" class="form-control col-sm-8" placeholder="Total Amount">
+                </div>
+
+                <div class="form-group row">
+                    <label class="control-label col-sm-4">System Calculated TDS</label>
+                    <input type="text" id="tds" name="tds" class="form-control col-sm-8" placeholder="System Calculated TDS">
+                </div>
+
+                    <div class="form-group row">
+                    <label class="control-label col-sm-4">Actual TDS Deducted</label>
+                    <input type="text" id="client_tds" name="tds_deducted_by_client" class="form-control col-sm-8" placeholder="Actual TDS Deducted">
+                </div>
+
+                <div class="form-group row">
+                    <label class="control-label col-sm-4">Paybale Amount</label>
+                    <input type="text" id="paybale" name="paybale" class="form-control col-sm-8" placeholder="Paybale Amount">
+                </div>
+
+                <div class="form-group row">
+                    <label class="control-label col-sm-4">Balance Amount</label>
+                    <input type="text" id="balance" name="balance" class="form-control col-sm-8" placeholder="Balance Amount">
+                </div>
+
+                    <div class="form-group row">
+                    <label class="control-label col-sm-4">Payment Mode</label>
+                    <select class="form-control col-sm-8 myselect" name="payment_mode" style="width:66%;" required>
+                        <option value="">Select Payment Mode</option>
+                        <option value="NetBanking">NetBanking</option>
+                        <option value="UPI">UPI</option>
+                        <option value="GPay">GPay</option>
+                        <option value="Cash">Cash</option>
+                        <option value="Cheque">Cheque</option>
+                    </select>
+                </div>
+
+                <div class="form-group row">
+                    <label class="control-label col-sm-4">Paid Amount</label>
+                    <input type="text" name="paid_amount" class="form-control col-sm-8" placeholder="Paid Amount" required>
+                </div>
+
+                 <div class="form-group row">
+                    <label class="control-label col-sm-4">Payment Ref No</label>
+                    <input type="text" name="payment_ref_no" class="form-control col-sm-8" placeholder="(Eg - cheque no, transaction id, UPI id)">
+                </div>
+
+                 <div class="form-group row">
+                    <label class="control-label col-sm-4">Paid By</label>
+                    <select class="form-control col-sm-8 myselect" name="paid_by" style="width:66%;">
+                        <option value="">Select Company Account</option>
+                        {% for acc in comp_accounts %}
+                                <option value="{{acc.id}}">{{acc.bank_name}}({{acc.acoount_no}})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group row">
+                    <label class="control-label col-sm-4">Paid To</label>
+                    <select class="form-control col-sm-8 myselect" name="paid_to" style="width:66%;">
+                        <option value="">Select Cotrav Account</option>
+                        {% for acc in cotrav_accounts %}
+                                <option value="{{acc.id}}">{{acc.bank_name}}({{acc.acoount_no}})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                 <div class="form-group row">
+                    <label class="control-label col-sm-4">Payment Date</label>
+                    <input type="text" name="payment_dateTime" class="form-control col-sm-8 datepicker1" autocomplete="off" placeholder="Payment Date" required>
+                </div>
+
+                 <div class="form-group row">
+                    <label class="control-label col-sm-4">Payment Receipt</label>
+                    <input type="file" name="attachments" class="form-control col-sm-8">
+                </div>
+
+
+                <div class="form-group row">
+                    <label class="control-label col-sm-4">Comment</label>
+                    <textarea class="form-control col-sm-8" id="user_comment" rows="4" name="user_comment" placeholder="Comment.."></textarea>
+                </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <button id="delete_btn" type="submit" class="btn btn-primary">Yes</button>
+                </div>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-topline-aqua">
+                    <div class="card-head">
+                        <header>Non-Taxable Invoice Status</header>
+                        <div class="tools">
+                            <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                            <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                            <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                        </div>
+                    </div>
+
+                    <div class="card-body ">
+                        <div class = "mdl-tabs mdl-js-tabs">
+                           <div class = "mdl-tabs__tab-bar tab-left-side">
+                              <a href = "/agents/bill-tax-invoice/1" class = "mdl-tabs__tab {% if bill_type == 1 %} is-active {% endif %} ">Unpaid tax invoices</a>
+                              <a href = "/agents/bill-tax-invoice/2" class = "mdl-tabs__tab {% if bill_type == 2 %} is-active {% endif %}">Partially paid invoices</a>
+                              <a href = "/agents/bill-tax-invoice/3" class = "mdl-tabs__tab {% if bill_type == 3 %} is-active {% endif %}">Paid invoices</a>
+
+                           </div>
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="card-body ">
+
+                        <div class="table-scrollable table-bordered">
+
+                            <table id="example1" class="display full-width table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Bill id</th>
+                                    <th>Corporate Name</th>
+                                    <th>No of Invoices</th>
+                                    <th>Client Entity</th>
+                                    <th>Cotrav Entity</th>
+                                    <th>Service Type</th>
+
+                                    <th>Created Date</th>
+
+                                    <th>Total Tax</th>
+                                    <th>Mgmt Fee</th>
+                                    <th>Client TDS</th>
+                                    <th>System TDS</th>
+                                    <th>IGST</th>
+                                    <th>CGST</th>
+                                    <th>SGST</th>
+                                    <th>Total Amount</th>
+                                    <th>Paid Amount</th>
+                                    <th>Balance Amount</th>
+                                    <th>Advance Payment</th>
+                                    <th>Voucher</th>
+                                    <th>Rembsmt</th>
+                                    <th>Tax Invoice</th>
+
+                                    {% if not bill_type == 3  %}
+                                    <th>Pay</th>
+                                    {% endif %}
+
+                                    <th>Details</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for bill in bills %}
+                                <tr>
+                                    <td>{{bill.bill_number}}</td>
+                                    <td>{{bill.corporate_name}}</td>
+                                    <td>{{bill.no_of_invoices}}</td>
+                                    <td>{{bill.client_entity_name}}</td>
+                                    <td>{{bill.cotrav_entity_name}}</td>
+
+
+                                    <td>
+                                        {% if bill.service_types == '1' %}
+                                            Radio
+                                        {% elif bill.service_types == '2' %}
+                                            Local
+                                        {% elif bill.service_types == '3' %}
+                                            Outstation
+                                        {% elif bill.service_types == '4' %}
+                                            Bus
+                                        {% elif bill.service_types == '5' %}
+                                            Train
+                                        {% elif bill.service_types == '6' %}
+                                            Hotel
+                                        {% elif bill.service_types == '7' %}
+                                            Flight
+                                        {% else %}
+                                            Travel
+
+                                        {% endif %}
+                                    </td>
+
+
+                                    <td>{{bill.bill_created_date}}</td>
+                                    <td>{{bill.total_gst_paid}}</td>
+                                    <td>{{bill.management_fee}}</td>
+                                    <td>{{bill.tds_deducted_by_client}}</td>
+                                    <td>{{bill.system_calculated_tds}}</td>
+                                    <td>{{bill.igst}}</td>
+                                    <td>{{bill.cgst}}</td>
+                                    <td>{{bill.sgst}}</td>
+                                    <td>{{bill.total_amount}}</td>
+                                    <td>{{bill.paid_total_amount}}</td>
+                                    <td>{{bill.balance_total_amount}}</td>
+                                    <td>{{bill.advance_payment}}</td>
+
+                                    <td>
+                                        {% if bill.voucher_gen_pdf %}
+                                        <a href="../../media/Bill_PDF/{{bill.voucher_gen_pdf|default:''}}" download >View</a>
+                                        {% endif %}
+                                    </td>
+
+                                    <td>
+                                        {% if bill.rembusment_gen_pdf %}
+                                        <a href="../../media/Bill_PDF/{{bill.rembusment_gen_pdf|default:''}}" download >View</a>
+                                        {% endif %}
+                                    </td>
+
+                                    <td>
+                                        {% if bill.tax_invoice_gen_pdf %}
+                                        <a href="../../media/Bill_PDF/{{bill.tax_invoice_gen_pdf|default:''}}" download >View</a>
+                                        {% endif %}
+                                    </td>
+
+
+                                    {% if not bill_type == 3  %}
+                                    <td style="display: inline-flex;"><a title="Add Payment" style="margin-left:10px; background:cadetblue; color:white;" data-target="#model_action" data-id="{{bill.id}}" data-system_calculated_tds="{{bill.system_calculated_tds}}"
+                                      data-total_paid="{{bill.paid_total_amount}}" data-total_balance="{{bill.balance_total_amount}}" data-total="{{bill.total_amount}}"
+                                           data-toggle="modal" class="btn btn-tbl-edit btn-xs"> <i class="fa fa-plus"></i>  </a>
+                                    </td>
+                                    {% endif %}
+
+                                    <td >
+                                        <a href="/agents/edit-bill-detail/{{ bill.id }}" class="btn btn-tbl-edit btn-xs" style="background:#6288b1;"> <i class="fa fa-search"></i></a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- end page content -->
+
+
+{% else %}
+<p>Welcome, new user. Please log in.<a href="/login">Login</a></p>
+{% endif %}
+
+<script type="text/javascript">
+$(function() {
+  $('#model_action').on('shown.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var id = button.data('id'); // Extract info from data-* attributes
+    var total_paid = button.data('total_paid');
+    var total_balance = button.data('total_balance');
+    var total = button.data('total');
+    var system_calculated_tds = button.data('system_calculated_tds');
+
+    var modal = $(this);
+    modal.find('#booking_id').val(id);
+    modal.find('#total_paid').val(total_paid);
+
+    modal.find('#total').val(total);
+
+    modal.find('#total_amt').val(total);
+    modal.find('#tds').val(system_calculated_tds);
+    modal.find('#client_tds').val(system_calculated_tds);
+    var paybale_amt = total - system_calculated_tds;
+    modal.find('#paybale').val(paybale_amt);
+    modal.find('#total_balance').val(total_balance);
+
+    if(total_balance === '0.0' || total_balance === ''){
+        modal.find('#balance').val(paybale_amt);
+    }else{
+        modal.find('#balance').val(total_balance);
+    }
+
+
+    });
+
+
+
+$('#tds,#client_tds,#paybale').change(function(){
+
+   var total = $('#total_amt').val();
+   var client_tds = $('#client_tds').val();
+   var paybale_amt = total - client_tds;
+   $('#paybale').val(paybale_amt);
+   $('#balance').val(paybale_amt);
+
+});
+
+
+});
+
+
+
+</script>
+
+{% endblock %}

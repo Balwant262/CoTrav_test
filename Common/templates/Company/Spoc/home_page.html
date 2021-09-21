@@ -1,0 +1,284 @@
+{% extends 'Company/Spoc/layout/header.html' %}
+
+{% block content %}
+
+{% for Dashboard in dataDashboard %}
+{% if user %}
+
+<!-- start page content -->
+            <div class="page-content-wrapper">
+                <div class="page-content">
+
+
+                               	<div class="row state-overview">
+				                  <div class="col-lg-3">
+			                        <div class="info-box bg-b-purple">
+							            <span class="info-box-icon"><i class="material-icons">group</i></span>
+
+							            <div class="info-box-content">
+                                            <span class="info-box-text"></span>
+                                          <span class="info-box-text">Total Number of Users</span>
+                                            <span class="info-box-number" >{{Dashboard.total_users}}</span>
+							            </div>
+							          </div>
+								  </div>
+
+
+
+									<div class="col-lg-3">
+			                        <div class="info-box bg-b-green">
+							            <span class="info-box-icon"><i class="material-icons">group</i></span>
+							            <div class="info-box-content">
+							              <span class="info-box-text">Number of Active Users</span>
+							              <span class="info-box-number">{{Dashboard.total_active_users}}</span>
+							            </div>
+							          </div>
+								  </div>
+
+
+
+									<div class="col-lg-3">
+			                        <div class="info-box bg-b-blue">
+							            <span class="info-box-icon"><i class="material-icons">group</i></span>
+							            <div class="info-box-content">
+							              <span class="info-box-text">Number of Inactive Users</span>
+							              <span class="info-box-number">{{Dashboard.total_inactive_users}}</span>
+							            </div>
+							          </div>
+								  </div>
+
+
+									<div class="col-lg-3">
+			                        <div class="info-box bg-b-green">
+							            <span class="info-box-icon"><i class="material-icons">card_travel</i></span>
+							            <div class="info-box-content">
+							              <span class="info-box-text">Total Bookings</span>
+							              <span class="info-box-number">{{Dashboard.total_bookings_count}}</span>
+							            </div>
+							          </div>
+								  </div>
+
+		                    </div>
+
+
+
+
+
+
+
+
+
+                    <div class="row">
+
+                        <div class="col-md-9">
+
+                             <div class="card card-topline-lightblue">
+                                <div class="card-head">
+                                    <header>Booking summary for last 12 Months: (till {% now "jS \o\f F" %})</header>
+
+                                </div>
+                                <div class="card-body" id="chartjs_bar_parent" >
+                                    <div class="row">
+
+
+<!--                                        <canvas id="chart-horiz-bar" height="283" class="chartjs-render-monitor" width="567" style="display: block; width: 567px; height: 283px;"></canvas>-->
+                                        <canvas id="myChart" height="400"></canvas>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+
+                         <div class="col-lg-3 col-md-3 col-sm-12 text-center">
+                                <div class="card circle">
+                                    <div class="panel-body">
+                                        <div >
+
+                                            <div style=" background: white;justify-content: center; align-items: center; border-radius: 100%; border: 5px solid turquoise; text-align: center;
+                                                     margin: 5px 20px; font-size: 15px; padding: 15px; display: flex; height: 80px; width: 80px; color: #000; Margin-left:auto; Margin-right:auto;">
+                                                {{Dashboard.total_invoice_count}}
+                                            </div>
+                                         </div>
+                                        <div style="padding:10px;">
+                                            <h5>Total Invoices</h5>
+                                        </div>
+                                     </div>
+                                </div>
+
+                                <div class="card circle">
+                                    <div class="panel-body">
+                                        <div >
+
+                                            <div style=" background: white;justify-content: center; align-items: center; border-radius: 100%; border: 5px solid turquoise; text-align: center;
+                                                     margin: 5px 20px; font-size: 15px; padding: 15px; display: flex; height: 80px; width: 80px; color: #000; Margin-left:auto; Margin-right:auto;">
+                                                {{Dashboard.total_verify_invoice_count}}
+
+                                            </div>
+                                         </div>
+                                         <div style="padding:10px;">
+                                            <h5>Verified Invoices</h5>
+                                         </div>
+                                     </div>
+                                </div>
+
+                                <div class="card circle">
+                                    <div class="panel-body">
+                                        <div >
+
+<!--                                            <input type="text" class="knob" value="16" data-width="90" data-height="90" data-thickness="0.1" data-fgColor="#18d1ef" readonly>-->
+
+                                            <div style=" background: white;justify-content: center; align-items: center; border-radius: 100%; border: 5px solid turquoise; text-align: center;
+                                                     margin: 5px 20px; font-size: 15px; padding: 15px; display: flex; height: 80px; width: 80px; color: #000; Margin-left:auto; Margin-right:auto;">
+                                                {{Dashboard.pi_total_bookings_count}}
+
+                                            </div>
+                                         </div>
+                                        <div style="padding:10px;">
+                                            <h5>Invoices - Pending Verification</h5>
+                                        </div>
+                                     </div>
+                                </div>
+                            </div>
+
+
+
+
+
+                    </div>
+                    </div>
+                    </div>
+    <!--Chart JS-->
+{% load static %}
+    <script src="{% static 'assets/plugins/chart-js/Chart.bundle.js' %}" ></script>
+    <script src="{% static 'assets/plugins/chart-js/utils.js' %}" ></script>
+
+
+
+{% else %}
+    <p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+<script>
+var ctx = document.getElementById("myChart").getContext("2d");
+
+var chart = {
+   options: {
+       barValueSpacing: 20,
+      scales: {
+         yAxes: [{
+
+            barPercentage: 1.0
+         }],
+      },
+      tooltips: {
+         mode: 'nearest', //<- set this
+         callbacks: {
+            label: function(tooltipItem, data) {
+               console.log(tooltipItem);
+               return data.datasets[tooltipItem.datasetIndex].label + ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].toLocaleString();
+            }
+         }
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: {
+         onComplete: function(animation) {
+
+                const chartInstance = this.chart,
+                ctx = chartInstance.ctx;
+
+                const fontSize = 10;
+                const fontStyle = '600';
+                const fontFamily = 'Open Sans';
+                ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
+
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'bottom';
+                ctx.fillStyle = '#676A6C';
+
+                this.data.datasets.forEach(function (dataset, i) {
+                const meta = chartInstance.controller.getDatasetMeta(i);
+                meta.data.forEach(function (bar, index) {
+                if(dataset.data[index] != 0){
+                  const data = dataset.data[index];
+                  ctx.fillText(data, bar._model.x+10, bar._model.y+5);
+            }
+          });
+        });
+
+         }
+      }
+   },
+   type: 'horizontalBar',
+   data: {
+      labels: ['Total Bookings', 'Archived-Assigned', 'Active - Assigned','Active - Approved','Active- Pending Approval' ],
+      datasets: [{
+         label: 'Taxi',
+         borderColor: 'blue',
+         borderWidth: 1,
+         backgroundColor: Color('blue').alpha(0.5).rgbString(),
+         data: [{{Dashboard.taxi_bookings_count}},{{Dashboard.archiv_taxi_bookings_count}},{{Dashboard.tom_taxi_bookings_count}},{{Dashboard.uc_taxi_bookings_count}},{{Dashboard.pa_taxi_bookings_count}}],
+         fill: false
+      }, {
+         label: 'Bus',
+         borderColor: 'orange',
+         borderWidth: 1,
+         backgroundColor: Color('orange').alpha(0.5).rgbString(),
+         data: [{{Dashboard.bus_bookings_count}},{{Dashboard.archiv_bus_bookings_count}},{{Dashboard.tom_bus_bookings_count}},{{Dashboard.uc_bus_bookings_count}},{{Dashboard.pa_bus_bookings_count}}],
+         fill: false
+      }, {
+         label: 'Train',
+         borderColor: 'green',
+         borderWidth: 1,
+         backgroundColor: Color('green').alpha(0.5).rgbString(),
+         data: [{{Dashboard.train_bookings_count}},{{Dashboard.archiv_train_bookings_count}},{{Dashboard.tom_train_bookings_count}},{{Dashboard.uc_train_bookings_count}},{{Dashboard.pa_train_bookings_count}}],
+         fill: false
+      }, {
+         label: 'Hotel',
+         borderColor: 'yellow',
+         borderWidth: 1,
+         backgroundColor: Color('yellow').alpha(0.5).rgbString(),
+         data: [{{Dashboard.hotel_bookings_count}},{{Dashboard.archiv_hotel_bookings_count}},{{Dashboard.tom_hotel_bookings_count}},{{Dashboard.uc_hotel_bookings_count}},{{Dashboard.pa_hotel_bookings_count}}],
+         fill: false
+      }, {
+         label: 'Flight',
+         borderColor: 'brown',
+         borderWidth: 1,
+         backgroundColor: Color('brown').alpha(0.5).rgbString(),
+         data: [{{Dashboard.flight_bookings_count}},{{Dashboard.archiv_flight_bookings_count}},{{Dashboard.tom_flight_bookings_count}},{{Dashboard.uc_flight_bookings_count}},{{Dashboard.pa_flight_bookings_count}}],
+         fill: false
+      },{
+         label: 'Visa',
+         borderColor: 'gray',
+         borderWidth: 1,
+         backgroundColor: Color('gray').alpha(0.5).rgbString(),
+         data: [{{Dashboard.visa_bookings_count}},{{Dashboard.pa_visa_bookings_count}},{{Dashboard.tom_visa_bookings_count}},{{Dashboard.uc_visa_bookings_count}}],
+         fill: false
+      },{
+         label: 'FRRO',
+         borderColor: 'red',
+         borderWidth: 1,
+         backgroundColor: Color('red').alpha(0.5).rgbString(),
+         data: [{{Dashboard.frro_bookings_count}},{{Dashboard.pa_frro_bookings_count}},{{Dashboard.tom_frro_bookings_count}},{{Dashboard.uc_frro_bookings_count}}],
+         fill: false
+      }]
+
+
+
+
+
+   }
+};
+
+var myLiveChart = new Chart(ctx, chart);
+
+</script>
+
+{% endfor %}
+
+{% endblock %}

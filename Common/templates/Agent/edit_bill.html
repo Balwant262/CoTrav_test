@@ -1,0 +1,633 @@
+{% extends 'Agent/layout/header.html' %}
+
+{% block content %}
+{% load humanize %}
+
+{% if user %}
+<!-- start page content -->
+{% include 'cotrav_alert_message.html' %}
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+      <div class="text-center">
+                 <div style="font-size:14px; font-weight:bold;">
+                     {% if bills %}
+                      Edit Bill Details
+                     {% endif %}
+                     </div>
+            </div>
+
+        <form method="post" action="/agents/edit-bill-detail/0" id="model_serialize_update">
+            {% csrf_token %}
+            <input type="hidden" class="col-sm-8 form-control" name="user_id" value="{{user.id }}">
+            <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+            <div class="row">
+                {% for bill in bills %}
+                <input type="hidden" class="col-sm-8 form-control" name="bill_id" value="{{bill.id }}">
+
+                <div class="col-md-4 col-sm-4">
+                    <div class="card card-box">
+                        <div class="card-head card-topline-aqua">
+                            <header>General Information</header>
+
+
+                        </div>
+
+                        <div class="card-body " id="bar-parent">
+
+                            <div class="form-group row">
+                               <label class="col-sm-4 ">Bill No</label>
+                               <input type="text" name="bill_number" class="form-control col-sm-8" value="{{bill.bill_number}}" required>
+                            </div>
+
+                            <div class="form-group row" id="corporate_id1">
+                                    <label class="col-sm-4 ">Company Name</label>
+                                        <select class="form-control col-sm-8  myselect" style="width:66%"  name="corporate_id"  id="corporate_id" required>
+                                            <option value="">Select Company</option>
+                                            {% for company in companies %}
+                                            <option value="{{company.id}}" {% if company.id == bill.corporate_id %}  selected {%endif%}>{{company.corporate_name}}</option>
+                                            {% endfor %}
+
+                                        </select>
+                                </div>
+
+                            <div class="form-group row">
+                                    <label class="col-sm-4 ">Company Billing Entity</label>
+                                        <select class="form-control col-sm-8  myselect" style="width:66%"  name="client_billing_entity" required>
+                                            <option value="">Select Billing Entity</option>
+                                            {% for entity in comp_enitys %}
+                                            <option value="{{entity.id}}" {% if entity.id == bill.client_billing_entity %}  selected {%endif%}>{{entity.entity_name}}</option>
+                                            {% endfor %}
+
+                                        </select>
+                                </div>
+
+                            <div class="form-group row">
+                                    <label class="col-sm-4 ">Cotrav Billing Entity {{bill.cotrav_billing_entity}}</label>
+                                        <select class="form-control col-sm-8  myselect" style="width:66%"  name="cotrav_billing_entity" required>
+                                            <option value="">Select Billing Entity</option>
+                                            {% for entity in c_entitys %}
+                                            <option value="{{entity.id}}" {% if entity.id == bill.cotrav_billing_entity %}  selected {%endif%}>{{entity.entity_name}}</option>
+                                            {% endfor %}
+
+                                        </select>
+                                </div>
+
+
+
+                             <div class="form-group row">
+                                    <label class="col-sm-4 ">PO Number</label>
+                                        <select class="form-control col-sm-8  myselect" style="width:66%"  name="po_id">
+                                            <option value="">Select PO Number</option>
+                                            {% for po_no in po_nos %}
+                                            <option value="{{po_no.id}}" {% if po_no.id == bill.po_id %}  selected {%endif%}>{{po_no.po_number}}</option>
+                                            {% endfor %}
+
+                                        </select>
+                                </div>
+
+
+
+
+
+
+
+
+
+
+
+                        </div>
+                    </div>
+                      <div class="text-center">
+                            <input type="submit" disabled="" value="Submit" class="btn btn-info">
+                            <a href="{{request.META.HTTP_REFERER}}" class="btn btn-default">  Cancel  </a>
+                        </div>
+                </div>
+
+
+
+
+
+                <div class="col-md-4 col-sm-4">
+                    <div class="card card-box">
+                        <div class="card-head card-topline-aqua">
+                            <header>Bill Details</header>
+
+                        </div>
+                        <div class="card-body " id="bar-parent1">
+
+                            <div class="form-group row">
+                               <label class="col-sm-4 ">Management Fee</label>
+                               <input type="text" name="management_fee" class="form-control col-sm-8" value="{{bill.management_fee|floatformat:2|intcomma}}" required>
+                            </div>
+
+                             <div class="form-group row">
+                               <label class="col-sm-4 ">TDS Deducted Client</label>
+                               <input type="text" name="tds_deducted_by_client" class="form-control col-sm-8" value="{{bill.tds_deducted_by_client|floatformat:2|intcomma}}" required>
+                            </div>
+
+                             <div class="form-group row">
+                               <label class="col-sm-4 ">System Calculated TDS</label>
+                               <input type="text" name="system_calculated_tds" class="form-control col-sm-8" value="{{bill.system_calculated_tds|floatformat:2|intcomma}}" required>
+                            </div>
+
+                             <div class="form-group row">
+                               <label class="col-sm-4 ">IGST</label>
+                               <input type="text" name="igst" class="form-control col-sm-8" value="{{bill.igst|floatformat:2|intcomma}}" required>
+                            </div>
+
+                             <div class="form-group row">
+                               <label class="col-sm-4 ">CGST</label>
+                               <input type="text" name="cgst" class="form-control col-sm-8" value="{{bill.cgst|floatformat:2|intcomma}}" required>
+                            </div>
+
+                             <div class="form-group row">
+                               <label class="col-sm-4 ">SGST</label>
+                               <input type="text" name="sgst" class="form-control col-sm-8" value="{{bill.sgst|floatformat:2|intcomma}}" required>
+                            </div>
+
+                            <div class="form-group row">
+                               <label class="col-sm-4 ">Total GST Paid</label>
+                               <input type="text" name="gst_paid" class="form-control col-sm-8" value="{{bill.gst_paid|floatformat:2|intcomma}}" required>
+                            </div>
+
+                             <div class="form-group row">
+                               <label class="col-sm-4 ">Total Amount</label>
+                               <input type="text" name="total_amount" class="form-control col-sm-8" value="{{ bill.total_amount|floatformat:2|intcomma }}" required>
+                            </div>
+
+
+                             <div class="form-group row">
+                               <label class="col-sm-4 ">Bill Created Date</label>
+                               <input type="text" name="bill_created_date" class="form-control col-sm-8 datepicker1" value="{{bill.bill_created_date}}" required>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+                                {% if bill.taxi_flag == 1  %}
+                {% for booking in bill.BookingTaxi %}
+                                 <div class="col-sm-4">
+                                    <div class="card">
+                                    <div class="card-head card-topline-aqua">
+                                        <header>Booking Details</header>
+                                    </div>
+                                    <div class="card-body no-padding height-9">
+
+                                        <div class="form-group row">
+                                            <table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+                                                <tr>
+                                                    <td>Service Type</td>
+                                                    <td>
+                                                        Taxi
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Booking ID</td>
+                                                    <td>{{ booking.reference_no }}</td>
+                                                </tr>
+
+                                                    <tr>
+                                                        <td>Pickup Localtion</td>
+                                                        <td>{{ booking.pickup_location }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Drop Localtion</td>
+                                                        <td>{{ booking.drop_location }}</td>
+                                                    </tr>
+                                                     <tr>
+                                                        <td>Booking Date | Time</td>
+                                                        <td>{{ booking.booking_date }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Pickup Date | Time</td>
+                                                        <td>{{ booking.pickup_datetime }} </td>
+                                                    </tr>
+
+                                             </table>
+                    </div>
+                </div>
+            </div>
+
+                </div>
+                 {% endfor %}
+                                {% endif %}
+
+                                {% if bill.bus_flag == 1 %}
+                {% for booking in bill.BookingBus %}
+                                 <div class="col-sm-4">
+                                    <div class="card">
+                                    <div class="card-head card-topline-aqua">
+                                        <header>Booking Details</header>
+                                    </div>
+                                    <div class="card-body no-padding height-9">
+
+                                        <div class="form-group row">
+                                            <table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+                                                <tr>
+                                                    <td>Service Type</td>
+                                                    <td>
+                                                        Bus
+                                                    </td>
+                                                </tr>
+
+
+
+                                                 <tr>
+                                                    <td>Booking ID</td>
+                                                    <td>{{ booking.reference_no }}</td>
+                                                </tr>
+                                    <tr>
+                                        <td>Pickup Localtion</td>
+                                        <td>{{ booking.pickup_location }}</td>
+                                    </tr>
+
+                                     <tr>
+                                        <td>Drop Localtion</td>
+                                        <td>{{ booking.drop_location }}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>Booking Date | Time</td>
+                                        <td>{{ booking.booking_datetime }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Pickup Date | Time</td>
+                                        <td>{{ booking.pickup_from_datetime }} To {{booking.pickup_to_datetime}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Assign Bus Type</td>
+                                        <td>{{booking.assign_bus_type_id}}</td>
+                                    </tr>
+
+
+                                                							 </table>
+                    </div>
+                </div>
+            </div>
+
+                </div>
+                {% endfor %}
+                                {% endif %}
+
+                                {% if bill.train_flag == 1 %}
+                {% for booking in bill.BookingTrain %}
+                                                                                 <div class="col-sm-4">
+                                    <div class="card">
+                                    <div class="card-head card-topline-aqua">
+                                        <header>Booking Details</header>
+                                    </div>
+                                    <div class="card-body no-padding height-9">
+
+                                        <div class="form-group row">
+                                            <table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+                                                <tr>
+                                                    <td>Service Type</td>
+                                                    <td>
+                                                        Train
+                                                    </td>
+                                                </tr>
+
+
+
+                                                 <tr>
+                                                    <td>Booking ID</td>
+                                                    <td>{{ booking.reference_no }}</td>
+                                                </tr>
+                                    <tr>
+                                        <td>Pickup Localtion</td>
+                                        <td>{{ booking.pickup_location }}</td>
+                                    </tr>
+
+                                     <tr>
+                                        <td>Drop Localtion</td>
+                                        <td>{{ booking.drop_location }}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>Booking Date | Time</td>
+                                        <td>{{ booking.booking_datetime }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Pickup Date | Time</td>
+                                        <td>{{ booking.pickup_from_datetime }} To {{booking.pickup_to_datetime}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Train Coach</td>
+                                        <td>{{booking.assign_bus_type_id}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Train Name</td>
+                                        <td>{{booking.train_name}}</td>
+                                    </tr>
+                                <tr>
+                                    <td>Train No</td>
+                                    <td>{{booking.ticket_no}}</td>
+                                </tr>
+                                <tr>
+                                    <td>PNR No</td>
+                                    <td>{{booking.pnr_no}}</td>
+                                </tr>
+                                 <tr>
+                                    <td>Seat No</td>
+                                    <td>{{booking.seat_no}}</td>
+                                </tr>
+
+                                                							 </table>
+                    </div>
+                </div>
+            </div>
+
+                </div>
+                {% endfor %}
+                                {% endif %}
+
+
+                                {% if bill.hotel_flag == 1 %}
+                {% for booking in bill.BookingHotel %}
+                                                                                 <div class="col-sm-4">
+                                    <div class="card">
+                                    <div class="card-head card-topline-aqua">
+                                        <header>Booking Details</header>
+                                    </div>
+                                    <div class="card-body no-padding height-9">
+
+                                        <div class="form-group row">
+                                            <table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+                                                <tr>
+                                                    <td>Service Type</td>
+                                                    <td>
+                                                        Hotel
+                                                    </td>
+                                                </tr>
+
+
+
+                                                <tr>
+                                                    <td>Booking ID</td>
+                                                    <td>{{ booking.booking_reference_no }}</td>
+                                                </tr>
+                                    <tr>
+                                        <td>From City</td>
+                                        <td>{{ booking.from_location }}</td>
+                                    </tr>
+
+                                     <tr>
+                                        <td>To City</td>
+                                        <td>{{ booking.to_location }}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>Booking Date | Time</td>
+                                        <td>{{ booking.booking_datetime }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Checkin DateTime</td>
+                                        <td>{{ booking.checkin_datetime }} </td>
+                                    </tr>
+                                    <tr>
+                                            <td>Checkout DateTime</td>
+                                            <td>{{ booking.checkout_datetime }} </td>
+                                        </tr>
+                                    <tr>
+                                        <td>Room Type</td>
+                                        <td>{{booking.assign_room_type}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>No Of Nights</td>
+                                        <td>{{booking.no_of_nights}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Room Price</td>
+                                        <td>{{booking.total_room_price}}</td>
+                                    </tr>
+
+                                                							 </table>
+                    </div>
+                </div>
+            </div>
+
+                </div>
+                {% endfor %}
+                                {% endif %}
+
+                                {% if bill.flight_flag == 1 %}
+                {% for booking in bill.BookingFlight %}
+                                                                                 <div class="col-sm-4">
+                                    <div class="card">
+                                    <div class="card-head card-topline-aqua">
+                                        <header>Booking Details</header>
+                                    </div>
+                                    <div class="card-body no-padding height-9">
+
+                                        <div class="form-group row">
+                                            <table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+                                                <tr>
+                                                    <td>Service Type</td>
+                                                    <td>
+                                                        Flight
+                                                    </td>
+                                                </tr>
+
+
+
+                                                 <tr>
+                                                    <td>Booking ID</td>
+                                                    <td>{{ booking.reference_no }}</td>
+                                                </tr>
+
+                                 <tr>
+                                        <td>From City</td>
+                                        <td>{{ booking.from_location }}</td>
+                                    </tr>
+
+                                     <tr>
+                                        <td>To City</td>
+                                        <td>{{ booking.to_location }}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>Booking Date | Time</td>
+                                        <td>{{ booking.booking_datetime }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Departure Date</td>
+                                        <td>{{ booking.departure_datetime }} </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Usage Type</td>
+                                        <td>
+                                            {{booking.usage_type}}
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Journey Type</td>
+                                        <td>
+                                            {{booking.journey_type}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Flight Class</td>
+                                        <td>
+                                            {{ booking.flight_class }}
+
+                                        </td>
+                                    </tr>
+
+                                                							 </table>
+                    </div>
+                </div>
+            </div>
+
+                </div>
+                {% endfor %}
+                                {% endif %}
+
+
+
+
+
+
+
+{% endfor %}
+
+            </div>
+
+
+
+
+        </form>
+    </div>
+</div>
+
+<!-- end page content -->
+
+
+{% else %}
+<p>Welcome, new user. Please log in.<a href="/login">Login</a></p>
+{% endif %}
+<script>
+$( document ).ready(function() {
+
+$('#model_serialize_update')
+.each(function(){
+$(this).data('serialized', $(this).serialize())
+})
+    .on('change input', function(){
+        $(this)
+            .find('input:submit, button:submit')
+                .attr('disabled', $(this).serialize() == $(this).data('serialized'))
+        ;
+     })
+.find('input:submit, button:submit')
+.attr('disabled', true);
+
+});
+
+$(document.body).on("change",".myselect",function(){
+  $('form')
+      .find('input:submit, button:submit')
+          .attr('disabled', $('#model_serialize_update').serialize() == $('#model_serialize_update').data('serialized'))
+  ;
+});
+
+</script>
+<script type="text/javascript">
+$("#corporate_id").change(function(){
+
+  $('#spoc_id').empty();
+  $('#group_id').empty();
+  $('#subgroup_id').empty();
+
+   var corporate_id =  $(this).val();
+
+ $.ajaxSetup({
+            headers:{
+                'Authorization': "Token {{request.session.agent_access_token}}",
+                'usertype': 10
+            }
+
+        });
+
+   var get_corporate_details = '/api/'+'view_company'
+
+
+//   For Company
+
+     $.post(get_corporate_details,{ corporate_id: corporate_id },
+      function(data)
+      {
+       //alert(data['Corporates']);
+       if(data['Corporates'].length != 0){
+        company = data['Corporates']
+
+        if(company[0].has_auth_level == 1){
+
+if(company[0].no_of_auth_level == 1){
+//       For SubGroup
+
+
+    var_subgroups = '/api/'+'subgroups'
+     $.post(var_subgroups,{ corporate_id: corporate_id },
+      function(data)
+      {
+       //alert(data['Subgroups']);
+       if(data['Subgroups'].length != 0){
+        spocs = data['Subgroups']
+         for (var i=0;i<spocs.length;i++) {
+            $('#subgroup_id').append($("<option value='"+spocs[i].id+" '>"+spocs[i].subgroup_name+"</option>"));
+
+         }
+         $('#row_subgroup').show();
+       }else{
+        alert('No SubGroup Available')
+       }
+       });
+}else{
+
+//   For Entity
+
+   var_url = '/api/'+'groups'
+     $.post(var_url,{ corporate_id: corporate_id },
+      function(data)
+      {
+       //alert(data['Groups']);
+       if(data['Groups'].length != 0){
+        entities = data['Groups']
+         for (var i=0;i<entities.length;i++) {
+            $('#group_id').append($("<option value='"+entities[i].id+"'>"+entities[i].group_name+"</option>"));
+         }
+         $('#row_group').show();
+       }else{
+        alert('No Group Available')
+       }
+       });
+
+}
+
+
+
+
+        }else{
+
+            $('#row_group').hide();
+            $('#row_subgroup').hide();
+        }
+
+       }
+       });
+
+
+
+});
+</script>
+
+{% endblock %}

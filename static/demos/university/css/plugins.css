@@ -1,0 +1,39 @@
+/*-----------------------------------------------------------------------------------
+
+    Theme Name: Fabrex - University of Education
+    Description: University of Education
+    Author: Chitrakoot Web
+
+-----------------------------------------------------------------------------------*/
+
+/* ----------------------------------------------------------------
+			[ All CSS Plugins & Default Classes File ]
+-----------------------------------------------------------------*/
+
+/* == bootstrap == */
+@import url("../../../css/plugins/bootstrap.min.css");
+
+/* == animate Headline == */
+@import url("../../../css/plugins/animate.css");
+
+/* == fontawesome icon font == */
+@import url("../../../css/plugins/fontawesome-all.min.css");
+
+/* == et-line icon font == */
+@import url("../../../css/plugins/et-line.css");
+
+/* == magnific-popup == */
+@import url("../../../css/plugins/magnific-popup.css");
+
+/* == owl.carousel == */
+@import url("../../../css/plugins/owl.carousel.min.css");
+@import url("../../../css/plugins/owl.theme.default.min.css");
+
+/* == default classes == */
+@import url("../../../css/plugins/default.css");
+
+/* == navigation == */
+@import url("../../../css/plugins/nav-menu.css");
+
+/* == contact form classes == */
+@import url("../../../css/plugins/mailform.css");

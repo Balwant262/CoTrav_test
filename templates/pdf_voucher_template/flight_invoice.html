@@ -1,0 +1,414 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<style>
+@page {
+size: a4 portrait;
+
+font-family:Montserrat,san-serif;
+ background: whitesmoke;
+
+
+@frame header_frame { /* Static Frame */
+-pdf-frame-content: header_content;
+ position: fixed;
+  top: 0;
+  left: 0;
+}
+
+@frame header_frame { /* Static Frame */
+-pdf-frame-content: logo_content;
+ position: fixed;
+  top: 0;
+  left: 0;
+}
+
+
+@frame content_frame { /* Content Frame */
+left: 50pt; width: 512pt; top: 90pt; height: 632pt;
+
+}
+
+
+@frame footer_frame { /* Another static Frame */
+-pdf-frame-content: footer_content;
+position: fixed;
+  bottom: 0pt;
+  left: 0;
+  top: 750pt;
+}
+
+@frame footer_frame { /* Another static Frame */
+-pdf-frame-content: ftr_content;
+position: fixed;
+  bottom: 0pt;
+  left: 250;
+  top: 800pt;
+
+}
+
+@frame footer_frame { /* Another static Frame */
+-pdf-frame-content: bus_logo;
+position: fixed;
+  bottom: 0pt;
+  left: 0;
+  top: 800pt;
+
+}
+
+
+}
+
+   body{
+      font-family: Montserrat;
+      background-color: whitesmoke;
+    }
+
+
+    .container{
+     width: 70%;
+      background-color: white;
+      margin-left:200px;
+
+    }
+    .logo{
+      margin-top: -163px;
+       margin-left: 68px;
+        width: 175px;
+         margin-bottom: 100px;
+    }
+    h5 {
+   font-family: montserrat,san-serif;
+   font-weight: 600;
+   font-size: 19px;
+    }
+
+       h6{
+   font-family: montserrat,san-serif;
+   font-weight: 600;
+   font-size: 17px;
+    }
+     h4{
+   font-family: montserrat,san-serif;
+   font-weight: 600;
+   font-size: 20px;
+    }
+    p{
+       font-family: 'Montserrat',Regular;
+   font-weight: 600;
+   font-size: 15px;
+    }
+  .p-1{
+     font-size: 13px;
+  }
+  .border{
+    border: solid 1px gray;
+  }
+.sec{
+  text-align: center;
+}
+.section{
+  text-decoration-line: underline;
+}
+.border-bottom{
+  border-bottom: solid 1px gray;
+}
+.section2{
+  line-height: 35px;
+}
+td{
+  font-size: 16px;
+}
+.footer{
+  height: 153px;
+}
+.img1{
+  margin-top: -94px;
+    margin-bottom: 37px;
+}
+.BAI{
+
+    margin-bottom: -45px;
+    margin-top: -58px;
+    color: white;
+      font-family: montserrat,san-serif;
+      line-height: 2px;
+      font-size: 17px;
+      text-align: center;}
+
+.agent{
+  margin-top: 45px;
+    font-size: 12px;
+    color: white;
+    font-family: montserrat,san-serif;
+    padding-top: 12px;
+    text-align: center;
+}
+.fligh-head{
+  line-height: 3px;
+}
+.flight_section{
+      padding-left: 46px;
+    margin-bottom: -8px;
+    font-size: 15px;
+    font-family: montserrat,san-serif;
+    font-weight: 600;
+
+}
+.f1{
+  font-size: 16px;
+    font-family: montserrat,san-serif;
+    font-weight: 600;
+}
+.section-f1{
+  font-size: 16px;
+    font-family: montserrat,san-serif;
+    font-weight: 600;
+}
+.section-f2{
+  font-size: 13px;
+  font-family: montserrat,Regular;
+  font-weight: 500;
+}
+.arow{
+
+  margin-right: 25px;
+  margin-top: 12px
+}
+
+.fare-section{
+  font-size: 13px;
+  font-weight: 500;
+    font-family: montserrat;
+
+}
+.fare-section1{
+  font-size: 16px;
+
+}
+span{
+font-size: 13px;
+font-weight: 600;
+text-align: center;
+}
+.plane{
+      width: 10px;
+}
+.plane_detail{
+  font-size: 12px;
+  text-align: center;
+
+}
+
+.plane_detail_1{
+  font-size: 12px;
+  text-align: center;
+   font-weight: 600;
+}
+.f-span{
+  margin-left: 81px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+
+</style>
+<head>
+<body>
+<div id="header_content">
+
+  <img src="http://localhost:8000/static/img/test/bg1.png">
+
+</div>
+<div id="logo_content">
+    <img src="http://localhost:8000/static/img/test/logo.png" class="logo">
+
+</div>
+
+<div id="footer_content">
+    <img src="http://localhost:8000/static/img/test/bg2.png">
+
+</div>
+<div id="bus_logo">
+    <img src="http://localhost:8000/static/img/test/bus.png">
+</div>
+
+ <div id="ftr_content" >BAI INFOSOLUTION PVT LTD  <pdf:pagenumber>
+of <pdf:pagecount>
+      <br> <small style="font-weight: 500;font-size: 13px;">AGENT CONTACT : 0987654321<small>
+ </div>
+
+
+ <div class="detail">
+
+
+      <table  align="center" width="100%" >
+  <tbody>
+  <tr>
+    <td class="fligh-head border-bottom" align="center">
+    <h5> PNR/Booking Ref : {{reference_no}}  </h5>
+     <p> Your Booking is Confirmed </p><br><br>
+
+  </td>
+   </tr>
+
+
+
+<table  width="100%"><br><br>
+
+    {% for Flight in Flights %}}
+
+    <tr>
+      <tr>
+      <p class="plane_detail_1">  <img src="plane.png" class="plane"> Departing Flight . {{Flight.departure_datetime}} . 1 Stop </p>
+
+          <p class="plane_detail">Check in/ Bag Drop closes 03:55</p>
+      </tr>
+     <td class="f1"><br/>
+      <img src="flight_indigo.png" class="flight_section"> {{Flight.flight_name}}  <br> <span class="f-span">{{Flight.flight_no}}({{Flight.pnr_no}})</span> <br>
+
+      </td>
+
+
+     <td><br/>
+     <p class="section-f1"> {{Flight.from_city}}</p>
+    <p class="section-f2">Pune International Airport<br> {{Flight.departure_datetime}}
+    </p>
+
+     </td>
+
+      <td class="align"><br/>
+
+       <img src="arow.png" class="arow">
+         <p class="section-f2 Ar-1"> 25-10-2019 <br>
+           (1h 50m)
+</p>
+
+     </td>
+
+     <td><br/>
+     <p class="section-f1">  {{Flight.to_city}}</p>
+       <p class="section-f2">Indira Gandhi <br> {{Flight.arrival_datetime}}
+
+     </td>
+
+   </tr>
+
+    {% endfor %}
+
+</table>
+
+
+<table  width="100%"><br><br>
+
+
+      <tr>
+      <p class="plane_detail_1">  05 Hours 20 Mins layover at Ahmedabad Change of aircraft</p>
+
+          <p class="plane_detail"> Bag Drop closes 03:55</p>
+      </tr>
+
+</table>
+
+
+
+
+
+    <table align="center" width="100%" class="section2 border-bottom">
+
+    <tr>
+      <h6 align="center" class="section">Passenger Details</h6>
+    </tr>
+    <tr>
+     <td align="center">
+    Passenger Name : Md eliyaz Shaik<br>
+    (ticket)
+
+     </td>
+
+      <td align="center">
+       Passenger Name : Md eliyaz Shaik<br>
+    (ticket)
+
+
+     </td>
+
+   <td align="center">
+       Passenger Name : Md eliyaz Shaik<br>
+    (ticket)
+
+
+     </td>
+
+
+   </tr>
+
+
+</table>
+
+  <table  width="100%" >
+
+     <tr>
+      <h6 align="center"  class="section">Fare Summary</h6>
+    </tr>
+
+    <tr>
+      <td  align="center" class="fare-section"><br>
+      Airfare Charges(INR)<br>
+      6,700
+      </td>
+
+        <td   align="center" class="fare-section"><br>
+     ASF(INR)<br>
+      107.00
+      </td>
+  </tr>
+
+
+     <tr>
+      <td align="center" class="fare-section"><br>
+     IGST for Uttar Pradesh(INR)<br>
+      365.00s
+      </td>
+
+        <td align="center" class="fare-section"><br>
+     User Development Fee(INR)<br>
+      185.00
+      </td>
+  </tr>
+
+   <tr>
+      <td colspan="6px" align="center" class="fare-section fare-section1"><br>
+     Total Fare(INR)<br>
+     7,406.00
+      </td>
+
+
+  </tr>
+
+
+
+</table>
+
+  <table  width="100%" class="border-bottom"><br>
+
+     <tr>
+      <h6 align="center"  class="section">GST Information</h6>
+    </tr>
+
+    <tr>
+      <td  align="center" class="fare-section">
+     GST Company Name : BAI INFOSOLUTIONS PRIVATE LIMITED<br>
+   GST Number : 07AAGCB3556P1Z7
+      </td>
+  </tr>
+
+
+  </table>
+
+
+ </div>
+
+
+</body>
+</html>

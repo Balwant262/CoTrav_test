@@ -1,0 +1,194 @@
+{% extends 'Agent/layout/header.html' %}
+
+{% block content %}
+
+
+{% if user %}
+<!-- start page content -->
+
+
+<!-- The Modal -->
+<div class="modal fade model_custom_style" role="dialog" id="model_add_new_group">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 id="delete_label" class="modal-title-status">Are You Want To Activate Back ? </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+            <form action="/agents/softdeleated_update" method="post" enctype="multipart/form-data" id="form_id">
+                <input type="hidden" name="record_id" id="record_id">
+                <input type="hidden" name="table_name" id="table_name">
+                <input type="hidden" name="user_id" value="{{user.id}}">
+                 <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <button id="delete_btn" type="submit" class="btn btn-primary">Yes</button>
+                </div>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% include 'cotrav_alert_message.html' %}
+            <div class="page-content-wrapper">
+                <div class="page-content">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card card-topline-aqua">
+                                <div class="card-head">
+                                    <header><b>Company Admins List</b></pre>
+
+                                    </header>
+                                     <div class="row p-b-20">
+                            <div class="col-md-6 col-sm-6 col-6">
+                                <div class="btn-admin">
+                                    <a class="btn btn-info" data-target="#model_add_new_group" data-toggle="modal"
+                                       href="#"> Add New Admin <i class="fa fa-plus"></i> </a>
+                                </div>
+                            </div>
+                        </div>
+                                    <div class="tools">
+                                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+	                                    <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+	                                    <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                                    </div>
+
+                                </div>
+
+
+
+                        <div class="card-body ">
+                            <div class = "mdl-tabs mdl-js-tabs">
+                                <div class = "mdl-tabs__tab-bar tab-left-side">
+
+                                    <a href = "/agents/admins/0" class = "mdl-tabs__tab  ">Active Corporate Admins</a>
+                                    <a href = "/agents/softdeleated/companies/6" class = "mdl-tabs__tab is-active ">Inactive Corporate Admins</a>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                                <div class="card-body ">
+         <div class="text-center">
+             <div style="font-size:14px; font-weight:bold;">
+                 All Companies Admins
+                 </div>
+         </div>
+                                  <div class="table-scrollable table-bordered">
+                                   <table id="example1" class="display full-width table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Operator Name</th>
+                                                <th>Admin Email</th>
+                                                <th>Admin Name</th>
+                                                <th>Admin Contact No</th>
+
+                                                <th>Edit/Delete</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                        {% for admin in admins %}
+                                            <tr>
+                                                <td>{{ admin.id }}</td>
+                                                <td>{{ admin.corporate_name }}</td>
+                                                <td>{{ admin.email }}</td>
+                                                <td>{{ admin.name }}</td>
+                                                <td>{{ admin.contact_no }}</td>
+
+
+                                               <td>
+
+                                        <a class="btn btn-tbl-edit btn-xs" data-delete_id="1" data-id="{{admin.id}}" data-name="{{admin.name}}" data-email="{{admin.email}}"
+                                        data-contact_no="{{admin.contact_no}}" data-cid="{{admin.cid}}" data-corporate_id="{{admin.corporate_id}}" data-is_reverse_logistics="{{admin.is_reverse_logistics}}"
+                                        data-is_local="{{admin.is_local}}" data-is_water_bottles="{{admin.is_water_bottles}}" data-is_radio="{{admin.is_radio}}"
+                                        data-is_hotel="{{admin.is_hotel}}" data-is_outstation="{{admin.is_outstation}}" data-is_bus="{{admin.is_bus}}"
+                                        data-is_train="{{admin.is_train}}" data-is_flight="{{admin.is_flight}}" data-is_meal="{{admin.is_meal}}"
+                                           data-is_send_email="{{admin.is_send_email}}" data-is_send_sms="{{admin.is_send_sms}}" data-has_billing_access="{{admin.has_billing_access}}"
+                                           data-target="#model_add_new_group" data-toggle="modal" href="#">
+                                            <i class="fa fa-check "></i>
+                                        </a>
+
+                                    </td>
+                                            </tr>
+                                        {% endfor %}
+                                            </tbody>
+                                        </table>
+	                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- end page content -->
+
+{% else %}
+    <p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+<script>
+
+        $(".myselect").select2();
+
+        var mymod = $('#corporate_id');
+
+        mymod.select2();
+
+</script>
+
+
+<script type="text/javascript">
+$(function() {
+
+  $('#model_add_new_group').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var id = button.data('id'); // Extract info from data-* attributes
+    var tbl_name = "corporate_logins";
+    var modal = $(this);
+    modal.find('#record_id').val(id);
+    modal.find('#table_name').val(tbl_name);
+    });
+
+});
+</script>
+
+
+<script>
+$( document ).ready(function() {
+
+$('#model_serialize_update')
+.each(function(){
+$(this).data('serialized', $(this).serialize())
+})
+    .on('change input', function(){
+        $(this)
+            .find('input:submit, button:submit')
+                .attr('disabled', $(this).serialize() == $(this).data('serialized'))
+        ;
+     })
+.find('input:submit, button:submit')
+.attr('disabled', true);
+
+});
+
+$(document.body).on("change",".myselect",function(){
+  $('form')
+      .find('input:submit, button:submit')
+          .attr('disabled', $('#model_serialize_update').serialize() == $('#model_serialize_update').data('serialized'))
+  ;
+});
+
+</script>
+
+{% endblock %}

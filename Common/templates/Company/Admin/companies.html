@@ -1,0 +1,113 @@
+{% extends 'Company/Admin/layout/header.html' %}
+
+{% block content %}
+
+
+{% if user %}
+<!-- start page content -->
+{% include 'cotrav_alert_message.html' %}
+            <div class="page-content-wrapper">
+                <div class="page-content">
+
+            <div class="text-center">
+                 <div style="font-size:14px; font-weight:bold;">
+                     Companys
+                     </div>
+            </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card card-topline-aqua">
+                                <div class="card-head">
+                                    <header>BASIC TABLE</header>
+                                      <div class="row p-b-20">
+                                        <div class="col-md-6 col-sm-6 col-6">
+                                            <div class="btn-group">
+                                                <a class="btn btn-info" href="/agents/company" > Add New <i class="fa fa-plus"></i> </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tools">
+                                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+	                                    <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+	                                    <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                                    </div>
+                                </div>
+                                <div class="card-body ">
+
+
+
+                                  <div class="table-scrollable table-bordered">
+                                    <table id="example1" class="display full-width table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Code</th>
+                                                <th>Person Name</th>
+                                                <th>Person No</th>
+                                                <th>Person Email</th>
+                                                <th>Radio</th>
+                                                <th>Local</th>
+                                                <th>OutStation</th>
+                                                <th>Bus</th>
+                                                <th>Train</th>
+                                                <th>Hotel</th>
+                                                <th>Meal</th>
+                                                <th>Flight</th>
+                                                <th>Watter Bottle</th>
+                                                <th >Reverse Logistics</th>
+                                                <th >Action</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                        {% for company in companies %}
+                                            <tr>
+                                                <td>{{ company.corporate_name }}</td>
+                                                <td>{{ company.corporate_code }}</td>
+                                                <td>{{ company.contact_person_name }}</td>
+                                                <td>{{ company.contact_person_no }}</td>
+                                                <td>{{ company.contact_person_email }}</td>
+                                                <td>{{ company.is_radio }}</td>
+                                                <td>{{ company.is_local }}</td>
+                                                <td>{{ company.is_outstation }}</td>
+                                                <td>{{ company.is_bus }}</td>
+                                                <td>{{ company.is_train }}</td>
+                                                <td>{{ company.is_hotel }}</td>
+                                                <td>{{ company.is_meal }}</td>
+                                                <td>{{ company.is_flight }}</td>
+                                                <td>{{ company.is_water_bottles }}</td>
+                                                <td>{{ company.is_reverse_logistics }}</td>
+
+                                                <td>
+                                                    <a href="edit_corporate/{{ company.id }}"><span class="glyphicon glyphicon-pencil" >Edit</span></a>
+
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                            </tbody>
+                                        </table>
+	                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- end page content -->
+
+
+
+
+
+{% else %}
+    <p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+{% endblock %}
+
+
+
+
+

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- BEGIN HEAD -->
+<head>
+    {% load static %}
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta name="description" content="Responsive Admin Template" />
+    <meta name="author" content="SmartUniversity" />
+    <title>CoTrav - Spoc</title>
+    <!-- google font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet" type="text/css" />
+	<!-- icons -->
+    <link href="{% static 'fonts/material-design-icons/material-icon.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'fonts/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css"/>
+	<!--bootstrap -->
+	<link href="{% static 'assets/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+	<link href="{% static 'assets/plugins/summernote/summernote.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'assets/plugins/jquery-toast/dist/jquery.toast.min.css' %}">
+    <!-- data tables -->
+    <link href="{% static 'assets/plugins/datatables/plugins/bootstrap/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css"/>
+	<!-- morris chart -->
+    <link href="{% static 'assets/plugins/morris/morris.css' %}" rel="stylesheet" type="text/css" />
+    <!-- Material Design Lite CSS -->
+	<link rel="stylesheet" href="{% static 'assets/plugins/material/material.min.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/css/material_style.css' %}">
+	<!-- animation -->
+	<link href="{% static 'assets/css/pages/animate_page.css' %}" rel="stylesheet">
+	<!-- Theme Styles -->
+    <link href="{% static 'assets/css/plugins.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'assets/css/responsive.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'assets/css/theme-color.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'assets/css/pre-style.css' %}" rel="stylesheet" type="text/css" />
+	<!-- favicon -->
+    <link rel="shortcut icon" href="{% static 'assets/img/favicon.png' %}" />
+
+    <!-- dropzone -->
+    <link href="{% static 'assets/plugins/dropzone/dropzone.css' %}" rel="stylesheet" media="screen">
+    <!--tagsinput-->
+    <link href="{% static 'assets/plugins/jquery-tags-input/jquery-tags-input.css' %}" rel="stylesheet">
+
+    <!-- Insert this line above script imports  -->
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/themes/base/jquery-ui.css" type="text/css" media="all" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js" type="text/javascript"></script>
+   <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script> -->
+
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css" >
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.full.js"></script>
+    <script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
+    <link href="{% static 'assets/css/select2_custome.css' %}" rel="stylesheet" type="text/css" />
+
+    <!-- Date Time item CSS -->
+    <link rel="stylesheet" href="{% static 'assets/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/plugins/material-datetimepicker/bootstrap-material-datetimepicker.css' %}" />
+
+    <link href="{% static 'assets/css/main.css' %}" rel="stylesheet" type="text/css" />
+
+    <!-- Insert this line after script imports -->
+    <script>if (window.module) module = window.module;</script>
+<style>
+  .datetimepicker{
+        background: #ffffff;
+        transform: translate(0, 9.4em);
+
+  }
+  .datetimepicker.dropdown-menu{
+    padding: 10px;
+
+  }
+  .datetimepicker table th {
+    font-weight: 600 !important;
+    font-family: 'Poppins,sans-serif';
+    font-size: 12px;
+}
+  .datetimepicker thead tr:first-child th:hover, .datetimepicker tfoot th:hover {
+    background: #427BD1;
+}
+
+</style>
+
+
+      <!--select2-->
+
+
+</head>
+<!-- END HEAD -->
+<body class="page-header-fixed sidemenu-closed-hidelogo page-content-white page-md page-full-width header-white white-sidebar-color logo-white">
+
+{% include "Company/Spoc/layout/menu_bar_layout.html" %}
+
+{% block content %}
+
+
+{% endblock %}
+
+
+</body>
+
+<script type="text/javascript">
+   $(".myselect").select2({});
+</script>
+<script type="text/javascript">
+
+    $(".js-select2").select2({
+        theme: "material",
+    });
+
+    $(".select2-selection__arrow")
+        .addClass("material-icons")
+        .html("arrow_drop_down");
+
+</script>
+
+    <!-- start footer -->
+    <div class="page-footer">
+        <div class="page-footer-inner">
+            Copyright &copy; 2020 <a href="/" target="_blank">COTRAV</a> All Rights Reserved
+        </div>
+        <div class="scroll-to-top">
+            <i class="material-icons">eject</i>
+        </div>
+    </div>
+    <!-- end footer -->
+    {% load static %}
+    <!-- start js include path -->
+    <script src="{% static 'assets/plugins/jquery/jquery.min.js' %}" ></script>
+    <script src="{% static 'assets/plugins/popper/popper.min.js' %}" ></script>
+    <script src="{% static 'assets/plugins/jquery-blockui/jquery.blockui.min.js' %}" ></script>
+	<script src="{% static 'assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
+    <!-- bootstrap -->
+    <script src="{% static 'assets/plugins/bootstrap/js/bootstrap.min.js' %}" ></script>
+    <script src="{% static 'assets/plugins/sparkline/jquery.sparkline.min.js' %}" ></script>
+	<script src="{% static 'assets/js/pages/sparkline/sparkline-data.js' %}" ></script>
+
+    <!-- notifications -->
+    <script src="{% static 'assets/plugins/jquery-toast/dist/jquery.toast.min.js' %}" ></script>
+    <script src="{% static 'assets/plugins/jquery-toast/dist/toast.js' %}" ></script>
+    <!-- Common js-->
+	<script src="{% static 'assets/js/app.js' %}" ></script>
+    <script src="{% static 'assets/js/layout.js' %}" ></script>
+    <script src="{% static 'assets/js/theme-color.js' %}" ></script>
+    <!-- material -->
+    <script src="{% static 'assets/plugins/material/material.min.js' %}"></script>
+    <!-- animation -->
+    <script src="{% static 'assets/js/pages/ui/animations.js' %}" ></script>
+    <!-- morris chart -->
+    <script src="{% static 'assets/plugins/morris/morris.min.js' %}" ></script>
+    <script src="{% static 'assets/plugins/morris/raphael-min.js' %}" ></script>
+    <script src="{% static 'assets/js/pages/chart/morris/morris_home_data.js' %}" ></script>
+
+    <!-- google map -->
+    <script src="{% static 'assets/plugins/modernizr/modernizr.min.js' %}" ></script>
+    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtPIcsjNx-GEuJDPmiXOVyB3G9k1eulX0&callback=initMap" async defer></script>-->
+    <!--<script src="{% static 'assets/js/pages/map/gmap-home.js' %}" ></script>-->
+
+     <!-- end js include path -->
+    <!-- data tables -->
+    <script src="{% static 'assets/plugins/datatables/jquery.dataTables.min.js' %}" ></script>
+ 	<script src="{% static 'assets/plugins/datatables/plugins/bootstrap/dataTables.bootstrap4.min.js' %}" ></script>
+<!--     -->
+
+     <!-- animation -->
+<!--	<script src="{% static 'assets/js/pages/ui/animations.js' %}" ></script>-->
+	<script src="{% static 'assets/plugins/material-datetimepicker/moment-with-locales.min.js' %}"></script>
+<!--	<script src="{% static 'assets/plugins/material-datetimepicker/bootstrap-material-datetimepicker.js' %}"></script>-->
+<!--	<script src="{% static 'assets/plugins/material-datetimepicker/datetimepicker.js' %}"></script>-->
+
+    <script src="{% static 'assets/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js' %}"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js" ></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js" ></script>
+
+<script>
+  $(document).ready(function() {
+    var table = $('#example1').DataTable( {
+        responsive: true,
+         'ordering': false
+    } );
+    new $.fn.dataTable.FixedHeader( table );
+} );
+</script>
+<script>
+
+            $(function () {
+         $('.datetimepicker1').datetimepicker(
+         {
+           minDate: 0,
+           inline: true,
+           sideBySide: true,
+           autoclose: true,
+           format: 'dd-mm-yyyy hh:ii', /*remove this line if you want to use time as well */
+           startDate: new Date(),  /* disable past date*/
+           orientation: 'bottom left',
+
+       });
+
+       $('.datetimepicker2').datetimepicker(
+         {
+           minDate: 0,
+           inline: true,
+           sideBySide: true,
+           autoclose: true,
+           format: 'dd-mm-yyyy hh:ii', /*remove this line if you want to use time as well */
+           startDate: new Date(),  /* disable past date*/
+           orientation: 'bottom left',
+
+       });
+
+       $(".datetimepicker1").on("changeDate", function (e) {
+            var minDate = new Date(e.date.valueOf());
+            $('.datetimepicker2').datetimepicker('setStartDate', minDate);
+        });
+
+    $(".datetimepicker2").on("changeDate", function (e) {
+         var maxDate = new Date(e.date.valueOf());
+        $('.datetimepicker1').datetimepicker('setEndDate', maxDate);
+    });
+
+       $('.datepicker_download').datetimepicker(
+         {
+           inline: true,
+           sideBySide: true,
+           showMeridian: true,
+           minView: 2,
+           autoclose: true,
+           format: 'dd-mm-yyyy', /*remove this line if you want to use time as well */
+       });
+
+       $('.datepicker1').datetimepicker(
+         {
+           inline: true,
+           sideBySide: true,
+           showMeridian: true,
+           minView: 2,
+           autoclose: true,
+           format: 'dd-mm-yyyy', /*remove this line if you want to use time as well */
+           startDate: new Date(),  /* disable past date*/
+       });
+
+        $('.datepicker2').datetimepicker(
+         {
+           inline: true,
+           sideBySide: true,
+           showMeridian: true,
+           minView: 2,
+           autoclose: true,
+           format: 'dd-mm-yyyy', /*remove this line if you want to use time as well */
+           startDate: new Date(),  /* disable past date*/
+       });
+
+       $(".datepicker1").on("changeDate", function (e) {
+            var minDate = new Date(e.date.valueOf());
+            $('.datepicker2').datetimepicker('setStartDate', minDate);
+        });
+
+    $(".datepicker2").on("changeDate", function (e) {
+         var maxDate = new Date(e.date.valueOf());
+        $('.datepicker1').datetimepicker('setEndDate', maxDate);
+    });
+
+   });
+    </script>
+
+      <script>
+
+
+            $(function () {
+                setNavigation();
+            });
+
+            function setNavigation() {
+                var path = window.location.pathname;
+                path = path.replace(/\/$/, "");
+                path = decodeURIComponent(path);
+
+                var a = path.substring(24,16);
+
+                switch(a) {
+
+                    case 'taxi-boo' :
+                    case 'add-taxi' :
+                    $('#taxi_li_menu').addClass('active');
+                      return;
+                      break;
+                    case 'bus-book':
+                    case 'add-bus-' :
+                      // code block
+                      $('#bus_li_menu').addClass('active');
+                      return;
+                      break;
+                    case 'train-bo':
+                    case 'add-trai' :
+                      // code block
+                      $('#train_li_menu').addClass('active');
+                      return;
+                      break;
+                    case 'hotel-bo':
+                    case 'add-hote' :
+                      // code block
+                      $('#hotel_li_menu').addClass('active');
+                      return;
+                      break;
+                    case 'flight-b':
+                    case 'add-flig' :
+                      // code block
+                      $('#flight_li_menu').addClass('active');
+                      return;
+                      break;
+                    default:
+                      // code block
+                  }
+
+
+                $(".mynav a").each(function () {
+                    var href = $(this).attr('href');
+                   // alert(a);
+
+                    if (path.substring(0, href.length) === href) {
+                        $(this).closest('li').addClass('active');
+                    }
+                });
+            }
+
+
+    </script>
+
+</body>
+</html>

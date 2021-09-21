@@ -1,0 +1,130 @@
+{% extends 'main_base.html' %}
+
+{% block content %}
+
+{% load static %}
+ <div class="main-wrapper">
+             <!-- start registration form -->
+        <section class="parallax_1 position-relative box-hover">
+            <div class="container">
+
+                      <div class="row" style="margin-top: -6%;">
+                      <div class="col-sm-5  text-center" style="background-image: url({% static 'img/bg/bg_login.jpg' %}); background-repeat: no-repeat; margin-left: auto;margin-right: auto;padding: 20px; "> <i class="fa fa-user-circle fa-5x fa_login" aria-hidden="true"></i>
+                         <h2 class="account-text">Wel-Come To Cotrav</h2>
+                            <h4 class="account-description">Corporate Travel Simplified</h4>
+                         </div>
+                     </div>
+                     <div class="row">
+                      <div class="col-sm-5 text-center abc-login" style="margin-left: auto;margin-right: auto;" >
+                        <form class="registration-form section_signup">
+                                <div class="row">
+
+                                    <div class="col-11">
+                                     <img src="{% static 'img/logos/2.png' %}" id="contact_icon1">
+                                        <input type="text" name="email" id="email" required="required" placeholder="Email *" maxlength="70" class="medium-input input_signupform input_signup">
+                                    </div>
+
+                                       <div class="col-11">
+                                        <img src="{% static 'img/logos/4.png' %}" id="contact_icon1">
+                                        <input type="password" name="password" id="password" required="required" placeholder="Password *" maxlength="70" class="medium-input input_signupform input_signup">
+                                    </div>
+
+                                    <div class="col-11">
+
+                                        <select name="Hear_About_Us" class="medium-input input_signupform input_signup select_font" id="Hear_About_Us" required style="color:gray;padding-top: 4px;">
+                                            <option value="">How Did You Hear About Us?</option>
+                                            <option value="Website">Website</option>
+                                            <option value="news paper">News Paper</option>
+                                            <option value="Email">Email</option>
+                                            <option value="mobile sms">Mobile SMS</option>
+                                            <option value="other">Others</option>
+                                        </select>
+
+                                        <input type="text" style="display:none;" name="input_Hear_About_Us" id="input_field_here" class="medium-input input_signupform input_signup ">
+
+                                   </div>
+
+                                    <div class="col-12">
+                                        <button class="butn theme medium bt_par" type="submit"><span>Login</span></button>
+                                        <p class="no-margin float-right" ><a href="login.html" id="signup-txt-color" class="bt_par_a" >Forgot password?</a></p>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </section>
+        <!-- end registration form -->
+
+    </div>
+    <!-- end main-wrapper section -->
+
+
+ <div class="main-wrapper">
+             <!-- start registration form -->
+        <section class="parallax_1 position-relative box-hover">
+            <div class="container">
+
+                      <div class="row" style="margin-top: -6%;">
+                      <div class="col-sm-5  text-center" style="background-image: url(img/bg/bg_login.jpg); background-repeat: no-repeat; margin-left: auto;margin-right: auto;padding: 20px; "> <i class="fa fa-user-circle fa-5x fa_login" aria-hidden="true"></i>
+                         <h2 class="account-text">Wel-Come To Cotrav</h2>
+                            <h4 class="account-description">Corporate Travel Simplified</h4>
+                         </div>
+                     </div>
+                     <div class="row">
+                      <div class="col-sm-5 text-center abc-login" style="margin-left: auto;margin-right: auto;" >
+                        <form class="registration-form section_signup">
+                                <div class="row">
+
+                                    <div class="col-11">
+                                         <img src="img/logos/2.png" id="contact_icon1">
+                                        <input type="text" name="email" id="email" required="required" placeholder="Email *" maxlength="70" class="medium-input input_signupform input_signup">
+                                    </div>
+
+                                       <div class="col-11">
+                                         <img src="img/logos/4.png" id="contact_icon1">
+                                        <input type="password" name="password" id="password" required="required" placeholder="Password *" maxlength="70" class="medium-input input_signupform input_signup">
+                                    </div>
+
+                                    <div class="col-11">
+
+                                        <select name="Hear_About_Us" class="medium-input input_signupform input_signup select_font" id="Hear_About_Us" required style="color:gray;padding-top: 4px;">
+                                            <option value="">How Did You Hear About Us?</option>
+                                            <option value="Website">Website</option>
+                                            <option value="news paper">News Paper</option>
+                                            <option value="Email">Email</option>
+                                            <option value="mobile sms">Mobile SMS</option>
+                                            <option value="other">Others</option>
+                                        </select>
+
+                                        <input type="text" style="display:none;" name="input_Hear_About_Us" id="input_field_here" class="medium-input input_signupform input_signup ">
+
+                                   </div>
+
+                                    <div class="col-12">
+                                        <button class="butn theme medium bt_par" type="submit"><span>Login</span></button>
+                                        <p class="no-margin float-right" ><a href="login.html" id="signup-txt-color" class="bt_par_a" >Forgot password?</a></p>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </section>
+        <!-- end registration form -->
+
+    </div>
+    <!-- end main-wrapper section -->
+
+
+
+
+{% endblock %}

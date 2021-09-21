@@ -1,0 +1,195 @@
+date{% extends 'Company/Employee/layout/header.html' %}
+
+{% block content %}
+
+{% if user %}
+<!-- start page content -->
+
+{% include 'cotrav_alert_message.html' %}
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <form method="post" action="/Corporate/Employee/add-flight-booking/{{user.id}}">
+            <input type="hidden" name="user_id" value="{{user.id}}">
+            <input type="hidden" name="corporate_id" value="{{user.corporate_id}}">
+            <input type="hidden" name="spoc_id" value="{{user.spoc_id}}">
+            <input type="hidden" name="entity_id" value="{{user.billing_entity_id}}">
+            <input type="hidden" name="employee_id" value="{{user.id}}">
+             <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+        <div class="row">
+            <div class="col-md-4">
+
+                  <div class="text-center">
+                     <div style="font-size:14px; font-weight:bold;">
+                        Add Flight Booking
+                         </div>
+                </div>
+
+                <div class="card card-topline-aqua">
+                    <div class="card-head">
+                        <header>Flight Booking Details</header>
+                        <div class="tools">
+                            <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                            <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                            <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                        </div>
+                    </div>
+                    <div class="card-body ">
+
+                        <div class="form-group row">
+                                <label class="col-sm-4" >Usage Type*</label>
+                                 <select name="usage_type"  class="form-control col-sm-8  myselect" style="width:66%" >
+                                      <option value="Flight">Flight</option>
+                                      <option value="Web Checkin">Web Checkin</option>
+
+                                 </select>
+                            </div>
+
+                        <div class="form-group row">
+                                <label class="col-sm-4" >Journey Type*</label>
+                                 <select name="trip_type"  class="form-control col-sm-8  myselect" style="width:66%" >
+                                      <option value="One Way">One Way</option>
+                                      <option value="Round Trip">Round Trip</option>
+                                 </select>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label class="col-sm-4" >Select Class*</label>
+                                 <select name="seat_type"  class="form-control col-sm-8  myselect" style="width:66%" >
+                                      <option value="Economy">Economy</option>
+                                      <option value="Premium Economy">Premium Economy</option>
+                                      <option value="Business">Business</option>
+                                 </select>
+                            </div>
+
+
+                              <div class="form-group row">
+                                <label class="col-sm-4" >From City*</label>
+<!--                                 <input type="text" class="form-control col-sm-8" name="from_city" id="pickup_location" placeholder="From City" required>-->
+                                  <select class="form-control col-sm-8 myselect" name="from_city" >
+                                            <option value="">Select From City</option>-->
+                                            {% for airport in airports %}
+                                            <option value="{{airport.city_name}} ({{airport.code}})">{{airport.city_name}}, {{airport.country_name}} ({{airport.code}})</option>
+                                            {% endfor %}
+                                   </select>
+
+                            </div>
+
+                              <div class="form-group row">
+                                <label class="col-sm-4" >To City*</label>
+<!--                                 <input type="text" class="form-control col-sm-8" name="to_city" id="drop_location" placeholder="To City" required>-->
+                                  <select class="form-control col-sm-8 myselect" name="to_city" >
+                                            <option value="">Select To City</option>-->
+                                            {% for airport in airports %}
+                                            <option value="{{airport.city_name}} ({{airport.code}})">{{airport.city_name}}, {{airport.country_name}} ({{airport.code}})</option>
+                                            {% endfor %}
+                                   </select>
+                            </div>
+
+
+                               <div class="form-group row">
+                                <label class="col-sm-4" >Departure Date*</label>
+                                 <input type="text" class="form-control col-sm-8 datepicker1" autocomplete="off" name="departure_date" placeholder="Departure Date" required>
+                            </div>
+
+                         <div class="form-group row">
+                                <label class="col-sm-4" >Preferred Flights</label>
+                                 <input type="text" class="form-control col-sm-8" name="preferred_flight" placeholder="Preferred Flights">
+                            </div>
+
+
+                        {% for corp_acces in corp_access %}
+                                {% if corp_acces.has_assessment_codes == 1 %}
+
+                              <div class="form-group row">
+                                    <label class="col-sm-4" >Assessment Code*</label>
+                                     <select id="assessment_code" name="assessment_code" class="form-control col-sm-8  myselect" style="width:66%" >
+                                        <option value="">Select Assessment Code</option>
+                                         {% for assessment in assessments %}
+                                        <option value="{{assessment.id}}">{{assessment.assessment_code}}</option>
+                                        {% endfor %}
+
+                                    </select>
+                                </div>
+
+                         <div class="form-group row">
+                                                <label class="col-sm-4">Assessment City</label>
+                                                <select class="col-sm-8 form-control  myselect" style="width:66%"  name="assessment_city">
+                                                    <option value="">Select Assessment City</option>
+                                                    {% for city in cities_ass %}
+                                                        <option value="{{city.id}}">{{city.city_name}}</option>
+                                                        {% endfor %}
+                                                </select>
+
+                                        </div>
+
+                                {% endif %}
+                              {% endfor %}
+
+                          <div class="form-group row">
+                                <label class="col-sm-4" >Booking Reason/ Comment*</label>
+                                <textarea name="reason_booking" class="form-control col-sm-8" required placeholder="Reason/Comment for Booking"></textarea>
+                            </div>
+
+
+
+                                <div class="form-group">
+                                               <div class="offset-md-3 col-md-9">
+                                                   <input type="submit" value="Submit" class="btn btn-info">
+                        <a href="{{request.META.HTTP_REFERER}}" class="btn btn-default">  Cancel  </a>
+                                               </div>
+                                           </div>
+
+
+                        </div>
+
+
+
+
+                     </div>
+
+
+
+
+                     </div>
+
+
+
+
+
+        </div>
+        </form>
+    </div>
+</div>
+<!-- end page content -->
+
+
+
+
+
+{% else %}
+    <p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCstbhex4F6X2-AXz3B1sR1oRvxssE3sc&libraries=places"></script>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+$(".js-example-basic-single").select2();
+});
+
+ var input = document.getElementById('pickup_location');
+ var autocomplete = new google.maps.places.Autocomplete(input);
+
+ var input = document.getElementById('drop_location');
+ var autocomplete = new google.maps.places.Autocomplete(input);
+
+
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,260 @@
+{% extends 'Agent/layout/header.html' %}
+
+{% block content %}
+
+{% if user %}
+<!-- start page content -->
+
+<!-- The Modal -->
+<div class="modal fade model_custom_style" role="dialog" id="add_group_model">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4  class="modal-title-status">Management Fees Details </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+            <form action="/agents/company-management-fees" method="post" enctype="multipart/form-data" id="model_serialize_update">
+                <input type="hidden" name="fees_id" id="code_id_edit">
+                <input type="hidden" name="user_id" value="{{user.id}}">
+                <input type="hidden" name="delete_id" id="delete_id">
+                 <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+
+                <div class="form-group row">
+                        <label class="col-sm-5 control-label">Company Name</label>
+                        <div class="col-sm-7">
+
+                            <select class="form-control myselect" name="corporate_id" id="corporate_id" style="width:100%;" required>
+                                <option value="">Select Company</option>
+                                 {% for company in companies %}
+                                    <option value="{{company.id}}">{{company.corporate_name}}</option>
+                                {% endfor %}
+                            </select>
+
+                        </div>
+                    </div>
+
+                 <div class="form-group row" >
+                       <label class="col-sm-5 control-label">Service Fees Type </label>
+                            <div class="col-sm-7">
+                                 <select class="form-control myselect" name="service_fees_type_id" id="service_fees_type_id" style="width:100%;" required>
+                                    <option value="">Select Type</option>
+                                   {% for fee_type in fee_types %}
+                                    <option value="{{fee_type.id}}">{{fee_type.service_fees_name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                    </div>
+
+                 <div class="form-group row" >
+                       <label class="col-sm-5 control-label">Service Fees Value</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" name="service_fees_type_value" id="service_fees_type_value" placeholder="Service Fees Value" type="text" required>
+                            </div>
+                    </div>
+
+                <div class="form-group row" >
+                       <label class="col-sm-5 control-label">Service Fees Type</label>
+                            <div class="col-sm-7">
+                                <select class="form-control myselect" name="service_fees_type" id="service_fees_type" style="width:100%;" required>
+                                    <option value="">Select Service Fees Type</option>
+                                    <option value="1">Fix</option>
+                                    <option value="2">Percentage</option>
+                                </select>
+                            </div>
+                    </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% include 'cotrav_alert_message.html' %}
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-topline-aqua">
+                    <div class="card-head ">
+                        <header>ALL CORPORATE MANAGEMENT FEES LIST</header>
+                          <div class="row p-b-20">
+                            <div class="col-md-6 col-sm-6 col-6">
+                                <div class="btn-group">
+                                    <a class="btn btn-info" href="#" data-toggle="modal"
+                                       data-target="#add_group_model"> Add New <i class="fa fa-plus"></i> </a>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="tools">
+                            <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                            <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                            <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                        </div>
+
+                    </div>
+
+                          <div class="card-body ">
+                            <div class = "mdl-tabs mdl-js-tabs">
+                                <div class = "mdl-tabs__tab-bar tab-left-side">
+
+                                    <a href = "/agents/company-management-fees" class = "mdl-tabs__tab is-active ">Active Management Fee</a>
+                                    <a href = "/agents/softdeleated/companies/10" class = "mdl-tabs__tab   ">Inactive Management Fee</a>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    <div class="card-body ">
+
+ <div class="text-center">
+     <div style="font-size:14px; font-weight:bold;">Corporate Management Fees</div>
+ </div>
+                        <div class="table-scrollable table-bordered ">
+
+                            <table id="example1" class="display full-width table-striped">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Company Name</th>
+                                    <th>Service Name</th>
+                                    <th>Value</th>
+                                    <th>Fee Type</th>
+                                    <th>Action</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for fee in fees %}
+                                <tr>
+                                    <td>{{ fee.id }}</td>
+                                    <td>{{ fee.corporate_name }}</td>
+                                    <td>{{ fee.service_fees_name }}</td>
+                                    <td>{{ fee.service_fees_type_value }}</td>
+                                    <td>{{ fee.service_fees_type|yesno:'Fix,Percentage' }}</td>
+
+                                    <td>
+                                        <a class="btn btn-tbl-edit btn-xs" data-target="#add_group_model"
+                                           data-id="{{fee.id}}" data-corporate_id="{{fee.corporate_id}}" data-service_fees_type_id="{{fee.service_fees_type_id}}"
+                                           data-service_fees_type_value="{{fee.service_fees_type_value}}"  data-service_fees_type="{{fee.service_fees_type}}" data-toggle="modal" href="#">
+                                            <i class="fa fa-pencil "></i>
+                                        </a>
+
+                                        <a class="btn btn-tbl-delete btn-xs" data-target="#add_group_model"
+                                           data-id="{{fee.id}}" data-corporate_id="{{fee.corporate_id}}" data-service_fees_type_id="{{fee.service_fees_type_id}}"
+                                           data-service_fees_type_value="{{fee.service_fees_type_value}}"  data-service_fees_type="{{fee.service_fees_type}}" data-delete_id="1" data-toggle="modal" href="#">
+                                            <i class="fa fa-trash-o "></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- end page content -->
+<script type="text/javascript">
+   $(".myselect").select2();
+
+   var mymod = $('#corporate_id');
+   mymod.select2();
+
+   var mymod1 = $('#service_fees_type_id');
+   mymod1.select2();
+
+   var mymod2 = $('#service_fees_type');
+   mymod2.select2();
+
+
+</script>
+
+{% else %}
+<p>Welcome, new user. Please log in.<a href="/login">Login</a></p>
+{% endif %}
+
+
+<script type="text/javascript">
+$(function() {
+
+  $('#add_group_model').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var id = button.data('id'); // Extract info from data-* attributes
+    var corporate_id = button.data('corporate_id');
+    var service_fees_type_id = button.data('service_fees_type_id');
+    var service_fees_type_value = button.data('service_fees_type_value');
+    var service_fees_type = button.data('service_fees_type');
+    var delete_id = button.data('delete_id');
+
+    var modal = $(this);
+    modal.find('#code_id_edit').val(id);
+
+    mymod.val(corporate_id);
+    mymod.trigger('change.select2');
+    mymod1.val(service_fees_type_id);
+    mymod1.trigger('change.select2');
+    mymod2.val(service_fees_type);
+    mymod2.trigger('change.select2');
+
+    modal.find('#service_fees_type_id').val(service_fees_type_id);
+    modal.find('#service_fees_type_value').val(service_fees_type_value);
+    modal.find('#service_fees_type').val(service_fees_type);
+
+    if(delete_id == 1){
+
+        modal.find('#delete_id').val(1);
+    }else{
+        modal.find('#delete_id').val('');
+    }
+
+    });
+
+});
+
+
+
+</script>
+
+<script>
+$( document ).ready(function() {
+
+$('#model_serialize_update')
+.each(function(){
+$(this).data('serialized', $(this).serialize())
+})
+    .on('change input', function(){
+        $(this)
+            .find('input:submit, button:submit')
+                .attr('disabled', $(this).serialize() == $(this).data('serialized'))
+        ;
+     })
+.find('input:submit, button:submit')
+.attr('disabled', true);
+
+});
+
+$(document.body).on("change",".myselect",function(){
+  $('form')
+      .find('input:submit, button:submit')
+          .attr('disabled', $('#model_serialize_update').serialize() == $('#model_serialize_update').data('serialized'))
+  ;
+});
+
+</script>
+{% endblock %}

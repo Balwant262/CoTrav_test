@@ -1,0 +1,1139 @@
+{% extends 'Company/Spoc/layout/header.html' %}
+{% load static %}
+{% block content %}
+
+{% if user %}
+<!-- start page content -->
+
+{% include 'cotrav_alert_message.html' %}
+
+<style>
+    #footer{
+  background-color: white;
+    position: fixed;
+    width: 90%;
+    bottom: 5px;
+    border: 2px solid #188ae2;
+    left: 50px;
+    padding: 8px;
+    font-weight: 600;
+    line-height: 30px;
+    font-size:14px;
+}
+
+#flight_loader {
+   width: 100%;
+   height: 100%;
+   top: 0;
+   left: 0;
+   position: fixed;
+   display: block;
+   opacity: 0.7;
+   background-color: #fff;
+   z-index: 99;
+   text-align: center;
+}
+
+<!-- style -->
+
+.flight_details_row {
+
+    font-variant: normal;
+    font-style: normal;
+
+    margin: 5px 5px 5px 5px;
+}
+
+
+</style>
+
+             <!-- start page content -->
+            <div class="page-content-wrapper">
+                <div class="page-content">
+
+                                     <!-- start page content -->
+
+
+
+                    <div class="row">
+                       <div class="col-sm-12">
+                          <div class="card card-topline-aqua">
+                             <div class="card-head">
+                                    <header>Modify Search</header>
+                            </div>
+
+                              <form method="post" action="/Corporate/Spoc/add-flight-booking-self/{{user.id}}">
+                                <input type="hidden" name="user_id" value="{{user.id}}">
+                                <input type="hidden" name="corporate_id" value="{{user.corporate_id}}">
+                                <input type="hidden" name="spoc_id" value="{{user.id}}">
+                                <input type="hidden" name="group_id" value="{{user.group_id}}">
+                                <input type="hidden" name="subgroup_id" value="{{user.subgroup_id}}">
+                                <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+
+                              <div class="col-sm-6">
+                                 <div class="row">
+                                  <div class="col-sm-3 ">
+                                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option_1">
+                                              <input type="radio" id="option_1" class="mdl-radio__button " name="trip_type" value="1" {% if booking_datas.trip_type == '1' %} checked {%endif%} checked >
+                                              <span class="mdl-radio__label">One-Way</span>
+                                            </label>
+                                 </div>
+
+                                   <div class="col-sm-3 ">
+                                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option_2">
+                                              <input type="radio" id="option_2" class="mdl-radio__button " name="trip_type" value="2" {% if booking_datas.trip_type == '2' %} checked {%endif%}>
+                                              <span class="mdl-radio__label">Round-Trip</span>
+                                            </label>
+                                        </div>
+
+                             </div>
+                             </div>
+
+
+
+                              <div class="col-sm-12">
+                                <div class="border_style">
+                                 <div class="row">
+                                  <div class="col-sm-2 border_right">
+                                        <p class="md_fli_fnt"> <i class="fa fa-map-marker" aria-hidden="true"></i> FROM</p>
+
+                                          <select class="form-control mdl-textfield js-select2" name="from_city" >
+                                                    <option value="">Select From City</option>-->
+                                                    {% for airport in airports %}
+                                                    <option value="{{airport.code}}" {% if booking_datas.from_city == airport.code %} selected {%endif%}>{{airport.city_name}}, {{airport.country_name}} ({{airport.code}})</option>
+                                                    {% endfor %}
+                                           </select>
+
+                                     </div>
+
+                                   <div class="col-sm-2 border_right">
+                                         <p  class="md_fli_fnt"> <i class="fa fa-map-marker" aria-hidden="true"></i> TO</p>
+                                          <select class="form-control mdl-textfield js-select2" name="to_city" >
+                                                    <option value="">Select To City</option>-->
+                                                    {% for airport in airports %}
+                                                    <option value="{{airport.code}}" {% if booking_datas.to_city == airport.code %} selected {%endif%}>{{airport.city_name}}, {{airport.country_name}} ({{airport.code}})</option>
+                                                    {% endfor %}
+                                           </select>
+
+                                   </div>
+
+
+                                      <div class="col-sm-2 border_right">
+                                        <p class="md_fli_fnt"><i class="fa fa-calendar"></i> DEPARTURE DATE</p>
+                                          <input class = "floating-label mdl-textfield__input datepicker2" autocomplete="off"  type="text" name="departure_date" id="departure_date" style="border:none;background: none; background-color: none;">
+                                                 <input type="hidden" value="{{ booking_datas.departure_datetime }}" id="d_date">
+                                    </div>
+
+                                     <div class="col-sm-2 border_right">
+                                        <p  class="md_fli_fnt"><i class="fa fa-calendar"></i> RETURN DATE</p>
+                                          <input class = "floating-label mdl-textfield__input datepicker2" autocomplete="off"  type = "text" name="return_date" id="return_date" style="border:none;background: none; background-color: none;">
+                                                 <input type="hidden" value="{{ booking_datas.return_date }}" id="r_date">
+                                      </div>
+
+                                      <div class="col-sm-2 border_right">
+                                         <p  class="md_fli_fnt"><i class="fa fa-list-alt"></i> Class</p>
+                                          <select class="form-control mdl-textfield js-select2" name="fl_class" >
+                                                    <option value="EC" {% if booking_datas.fl_class == 'EC' %} selected {%endif%}>Economy</option>
+                                                    <option value="BU" {% if booking_datas.fl_class == 'BU' %} selected {%endif%}>Business</option>
+
+                                           </select>
+                                      </div>
+
+                                        <div class="col-sm-2 ">
+                                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height select-width md-28_fli">
+                                              <p  class="md_fli_fnt fnt_mar"> <i class="fa fa-user" aria-hidden="true"></i> Passengers</p>
+
+                                                <select class="form-control mdl-textfield js-select2" name="no_of_seats" >
+                                                    <option value="1" {% if booking_datas.no_of_seats == '1' %} selected {%endif%}>1</option>
+                                                    <option value="2" {% if booking_datas.no_of_seats == '2' %} selected {%endif%}>2</option>
+                                                    <option value="3" {% if booking_datas.no_of_seats == '3' %} selected {%endif%}>3</option>
+                                                    <option value="4" {% if booking_datas.no_of_seats == '4' %} selected {%endif%}>4</option>
+                                                    <option value="5" {% if booking_datas.no_of_seats == '5' %} selected {%endif%}>5</option>
+                                                    <option value="6" {% if booking_datas.no_of_seats == '6' %} selected {%endif%}>6</option>
+                                                    <option value="7" {% if booking_datas.no_of_seats == '7' %} selected {%endif%}>7</option>
+                                                    <option value="8" {% if booking_datas.no_of_seats == '8' %} selected {%endif%}>8</option>
+                                                    <option value="9" {% if booking_datas.no_of_seats == '9' %} selected {%endif%}>9</option>
+                                           </select>
+                                            </div>
+                                       </div>
+
+
+                                </div>
+                               </div>
+
+                              </div>
+
+                               <div class="col-sm-12 ">
+                             <button type="submit" class="btn btn-lg btn-primary" style="border-radius: 30px; margin-top: 16px; margin-bottom: 7px; position: relative; left: 45%;">Search</button>
+                             </div>
+                              </form>
+                          </div>
+                       </div>
+                       </div>
+
+
+
+
+
+
+          {% if flights2 %}
+
+                    <div class="row">
+
+                      <div class="col-sm-6">
+
+                    {% for flight in flights %}
+
+                       <div class="col-sm-12 margin_auto">
+                                 <div class="card card-topline-aqua ">
+
+                                <div class="card-body">
+                                  <div class="table-wrap">
+                                     <div class="panel-group accordion" id="accordion3">
+
+
+                                           <div class="table-responsive">
+
+                                            <input type="hidden" name="no_of_seats" value="{{no_of_seats}}">
+                                        <table class="table display product-overview mb-30 table_txt_align">
+                                             <thead>
+                                                    {% if forloop.counter == 1 %}
+                                                    <tr class="bg_color" >
+                                                        <th colspan="2">Select</th>
+                                                        <th colspan="2">Airline</th>
+                                                        <th colspan="2">Departure</th>
+                                                        <th colspan="2">Duration</th>
+                                                        <th colspan="2">Arrival</th>
+                                                        <th colspan="2">Class</th>
+                                                        <th>Price</th>
+
+                                                    </tr>
+                                                    {% endif %}
+                                                </thead>
+                                                <tbody>
+                                                 <tr>
+                                                        <td>
+                                                            <input type="radio" class="flight_radio" name="onword" value="onword" data-onword_UID="{{flight.UID}}" data-onword_ID="{{flight.ID}}" data-onword_TID="{{flight.TID}}" data-onword_CN_CODE="{{flight.CN_CODE}}" data-onword_F_NAME = "{{flight.F_NAME}}" data-onword_D_NAME="{{flight.D_NAME}}" data-onword_D_CODE="{{flight.D_CODE}}" data-onword_D_DATE = "{{flight.D_DATE}}" data-onword_D_TIME = "{{flight.D_TIME}}" data-onword_DUR = "{{flight.DUR}}" data-onword_STOP = "{{ flight.STOP|default:'Non' }}" data-onword_A_NAME = "{{flight.A_NAME}}" data-onword_A_CODE = "{{flight.A_CODE}}" data-onword_A_DATE = "{{flight.A_DATE}}" data-onword_A_TIME = "{{flight.A_TIME}}" data-onword_F_CLAS = "{{flight.F_CLASS}}" data-onword_OI = "{{flight.OI}}" data-onword_NET_FARE = "{{flight.AMT}}"  >
+                                                        </td>
+
+                                                        <td colspan="2" height="100"  class="accordion-toggle accordion-toggle-styled"  href="#collapse_3_{{forloop.counter}}" data-toggle="collapse" data-parent="#accordion3">  <img style='background-position: {{flight.F_LOGO}}' class="fltLogo">{{flight.F_NAME}}  <br>
+                                                         <p class="font_txt">{{flight.CN_CODE}} </p></td>
+
+                                                         <td colspan="2" height="100"  class="accordion-toggle accordion-toggle-styled"  href="#collapse_3_{{forloop.counter}}" data-toggle="collapse" data-parent="#accordion3"> {{flight.D_TIME}}<br>
+                                                        <p class="font_txt1">{{flight.D_NAME}}</p> </td>
+
+                                                        <td colspan="2" height="100"  class="accordion-toggle accordion-toggle-styled"  href="#collapse_3_{{forloop.counter}}" data-toggle="collapse" data-parent="#accordion3"> {{flight.DUR}} <br> <i class="fa fa-exchange"></i> <br> <p class="font_txt1">{{ flight.STOP|default:'Non' }} Stop<p></td>
+
+                                                         <td colspan="2" height="100"  class="accordion-toggle accordion-toggle-styled"  href="#collapse_3_{{forloop.counter}}" data-toggle="collapse" data-parent="#accordion3">  {{flight.A_TIME}} <br>
+                                                        <p class="font_txt1">{{flight.A_NAME}}</p></td>
+
+                                                     <td colspan="2" height="100"  class="accordion-toggle accordion-toggle-styled"  href="#collapse_3_{{forloop.counter}}" data-toggle="collapse" data-parent="#accordion3">  {{flight.A_TIME}} <br>
+                                                        <p class="font_txt1">{{flight.F_CLASS}}</p></td>
+
+                                                      <td colspan="2" height="100"  class="accordion-toggle accordion-toggle-styled"  href="#collapse_3_{{forloop.counter}}" data-toggle="collapse" data-parent="#accordion3">  <i class="fa fa-inr"></i> {{flight.AMT}} <br>
+
+
+
+
+                                                            <input type="hidden" name="UID" value="{{flight.UID}}">
+                                                            <input type="hidden" name="ID" value="{{flight.ID}}">
+                                                            <input type="hidden" name="TID" value="{{flight.TID}}">
+
+                                                            {% for param in params %}
+                                                            <input type="hidden" name="src" value="{{param.src}}">
+                                                            <input type="hidden" name="des" value="{{param.des}}">
+                                                            <input type="hidden" name="dep_date" value="{{param.dep_date}}">
+                                                            <input type="hidden" name="ret_date" value="{{param.ret_date}}">
+                                                            <input type="hidden" name="adt" value="{{param.adt}}">
+                                                            <input type="hidden" name="chd" value="{{param.chd}}">
+                                                            <input type="hidden" name="inf" value="{{param.inf}}">
+                                                            <input type="hidden" name="L_OW" value="{{param.L_OW}}">
+                                                            <input type="hidden" name="H_OW" value="{{param.H_OW}}">
+                                                            <input type="hidden" name="T_TIME" value="{{param.T_TIME}}">
+                                                            <input type="hidden" name="trip_string" value="{{param.Trip_String}}">
+                                                            {% endfor %}
+
+                                                          <td colspan="2">  <p class="font_txt1 butn_color"><a href="#collapse_31_{{forloop.counter}}" data-toggle="collapse" class="read accordion-toggle accordion-toggle-styled" > <i class="fa fa-angle-down"></i> Flight Details</a></p></td>
+
+                                                       </tr>
+                                                       </tbody>
+                                                     </table>
+
+
+
+                                              <div id="collapse_31_{{forloop.counter}}" class="panel-collapse collapse ">
+                                                  <div class="panel-body">
+                                             <div class="table-responsive mar_blk border_panel">
+
+
+
+                                        <ul class="nav nav-tabs nav-tabs1">
+                                        <li class="nav-item"><a href="#home1_{{forloop.counter}}" data-toggle="tab" class="active">Flight Details</a>
+                                        </li>
+                                        <li class="nav-item"><a href="#about1_{{forloop.counter}}" data-toggle="tab">Cancellation Policy</a>
+                                        </li>
+
+                                    </ul>
+                                </header>
+                                <div class="panel-body">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="home1_{{forloop.counter}}">
+
+                                            <table class="table display product-overview mb-30 table_txt_align ">
+
+                                                <tbody>
+                                                <p class="fli_bac">  Connected Flights </p>
+                                            {% for flight_fl in flight.CON_DETAILS %}
+                                             <tr>
+
+
+                                                <td >  <img style='background-position: {{flight.F_LOGO}}' class="fltLogo">{{flight_fl.FLIGHT_NAME}} <br>
+                                                   <p class="font_txt">{{flight_fl.FLIGHT_CODE}}-{{flight_fl.FLIGHT_NO}}</p></td>
+
+                                                   <td>{{flight_fl.DEP_TIME}}<br><p class="font_txt1">{{flight_fl.ORG_NAME}}</p> </td>
+
+                                                    <td>{{flight_fl.DURATION}}  <br> <p class="font_txt1">Non Stop<p></td>
+
+                                                    <td> {{flight_fl.ARRV_TIME}}  <br><p class="font_txt1">{{flight_fl.DES_NAME}}</p></td>
+
+                                                    </tr>
+                                                 {% endfor %}
+
+
+
+                                                       </tbody>
+                                                     </table>
+                                                 </div>
+                                            <div class="tab-pane" id="about1_{{forloop.counter}}">
+                                                <p> mportant Rules: For B2C customers 200Rs charges per person per sector will be charged on all cancellations and 200Rs as Rescheduling charges. Changes/cancellations are subject to 4hrs prior to departure. The charges are per passenger per sector. Partial cancellation is not allowed on tickets booked under special discounted fares. In case of no-show or ticket not cancelled within the stipulated time only statutory taxes are refundable Infant fare is non-refundable. The above Fare Rules are just a guideline for your convenience and is subject to changes by the Airline from time to time.</p>
+                                        </div>
+
+
+                                              </div>
+                                                   </div>
+                                                 </div>
+
+                                              </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+{% endfor %}
+                      </div>
+
+ <div class="col-sm-6">
+
+ {% for flight in flights2 %}
+
+                       <div class="col-sm-12 margin_auto">
+                                 <div class="card card-topline-aqua ">
+
+                                <div class="card-body">
+                                  <div class="table-wrap">
+                                     <div class="panel-group accordion" id="accordion3">
+
+
+                                           <div class="table-responsive">
+
+                                            <input type="hidden" name="no_of_seats" value="{{no_of_seats}}">
+                                        <table class="table display product-overview mb-30 table_txt_align">
+                                             <thead>
+                                                    {% if forloop.counter == 1 %}
+                                                    <tr class="bg_color" >
+                                                        <th colspan="2">Select</th>
+                                                        <th colspan="2">Airline</th>
+                                                        <th colspan="2">Departure</th>
+                                                        <th colspan="2">Duration</th>
+                                                        <th colspan="2">Arrival</th>
+                                                        <th colspan="2">Class</th>
+                                                        <th>Price</th>
+
+                                                    </tr>
+                                                    {% endif %}
+                                                </thead>
+                                                <tbody>
+                                                 <tr>
+
+                                                         <td>
+                                                            <input type="radio" class="flight_radio" name="return" value="return" data-return_UID="{{flight.UID}}" data-return_ID="{{flight.ID}}" data-return_TID="{{flight.TID}}" data-return_CN_CODE="{{flight.CN_CODE}}" data-return_F_NAME = "{{flight.F_NAME}}" data-return_D_NAME="{{flight.D_NAME}}" data-return_D_CODE="{{flight.D_CODE}}" data-return_D_DATE = "{{flight.D_DATE}}" data-return_D_TIME = "{{flight.D_TIME}}" data-return_DUR = "{{flight.DUR}}" data-return_STOP = "{{ flight.STOP|default:'Non' }}" data-return_A_NAME = "{{flight.A_NAME}}" data-return_A_CODE = "{{flight.A_CODE}}" data-return_A_DATE = "{{flight.A_DATE}}" data-return_A_TIME = "{{flight.A_TIME}}" data-return_F_CLAS = "{{flight.F_CLASS}}" data-return_OI = "{{flight.OI}}" data-return_NET_FARE = "{{flight.AMT}}"  >
+                                                        </td>
+
+
+                                                        <td colspan="2" height="100"  class="accordion-toggle accordion-toggle-styled"  href="#collapse_3_{{forloop.counter}}" data-toggle="collapse" data-parent="#accordion3">  <img style='background-position: {{flight.F_LOGO}}' class="fltLogo">{{flight.F_NAME}}  <br>
+                                                         <p class="font_txt">{{flight.CN_CODE}} </p></td>
+
+                                                         <td colspan="2" height="100"  class="accordion-toggle accordion-toggle-styled"  href="#collapse_3_{{forloop.counter}}" data-toggle="collapse" data-parent="#accordion3"> {{flight.D_TIME}}<br>
+                                                        <p class="font_txt1">{{flight.D_NAME}}</p> </td>
+
+                                                        <td colspan="2" height="100"  class="accordion-toggle accordion-toggle-styled"  href="#collapse_3_{{forloop.counter}}" data-toggle="collapse" data-parent="#accordion3"> {{flight.DUR}} <br> <i class="fa fa-exchange"></i> <br> <p class="font_txt1">{{ flight.STOP|default:'Non' }} Stop<p></td>
+
+                                                         <td colspan="2" height="100"  class="accordion-toggle accordion-toggle-styled"  href="#collapse_3_{{forloop.counter}}" data-toggle="collapse" data-parent="#accordion3">  {{flight.A_TIME}} <br>
+                                                        <p class="font_txt1">{{flight.A_NAME}}</p></td>
+
+                                                     <td colspan="2" height="100"  class="accordion-toggle accordion-toggle-styled"  href="#collapse_3_{{forloop.counter}}" data-toggle="collapse" data-parent="#accordion3">  {{flight.A_TIME}} <br>
+                                                        <p class="font_txt1">{{flight.F_CLASS}}</p></td>
+
+                                                      <td colspan="2" height="100"  class="accordion-toggle accordion-toggle-styled"  href="#collapse_3_{{forloop.counter}}" data-toggle="collapse" data-parent="#accordion3">  <i class="fa fa-inr"></i> {{flight.AMT}} <br>
+
+                                                            <input type="hidden" name="UID" value="{{flight.UID}}">
+                                                            <input type="hidden" name="ID" value="{{flight.ID}}">
+                                                            <input type="hidden" name="TID" value="{{flight.TID}}">
+
+
+
+                                                          <td colspan="2"> <p class="font_txt1 butn_color"><a href="#collapse_3_{{forloop.counter}}" data-toggle="collapse" class="read accordion-toggle accordion-toggle-styled" > <i class="fa fa-angle-down"></i> Flight Details</a></p></td>
+
+                                                       </tr>
+                                                       </tbody>
+                                                     </table>
+
+
+
+                                              <div id="collapse_3_{{forloop.counter}}" class="panel-collapse collapse ">
+                                                  <div class="panel-body">
+                                             <div class="table-responsive mar_blk border_panel">
+
+
+
+                                        <ul class="nav nav-tabs nav-tabs1">
+                                        <li class="nav-item"><a href="#home2_{{forloop.counter}}" data-toggle="tab" class="active">Flight Details</a>
+                                        </li>
+                                        <li class="nav-item"><a href="#about2_{{forloop.counter}}" data-toggle="tab">Cancellation Policy</a>
+                                        </li>
+
+                                    </ul>
+                                </header>
+                                <div class="panel-body">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="home2_{{forloop.counter}}">
+
+                                            <table class="table display product-overview mb-30 table_txt_align " id="support_table5">
+
+                                                <tbody>
+                                                <p class="fli_bac">  Connected Flights </p>
+                                            {% for flight_fl in flight.CON_DETAILS %}
+                                             <tr>
+
+
+                                                <td >  <img style='background-position: {{flight.F_LOGO}}' class="fltLogo">{{flight_fl.FLIGHT_NAME}} <br>
+                                                   <p class="font_txt">{{flight_fl.FLIGHT_CODE}}-{{flight_fl.FLIGHT_NO}}</p></td>
+
+                                                   <td>{{flight_fl.DEP_TIME}}<br><p class="font_txt1">{{flight_fl.ORG_NAME}}</p> </td>
+
+                                                    <td>{{flight_fl.DURATION}}  <br> <p class="font_txt1">Non Stop<p></td>
+
+                                                    <td> {{flight_fl.ARRV_TIME}}  <br><p class="font_txt1">{{flight_fl.DES_NAME}}</p></td>
+
+
+                                                    </tr>
+                                                 {% endfor %}
+
+
+
+                                                       </tbody>
+                                                     </table>
+                                                 </div>
+                                            <div class="tab-pane" id="about2_{{forloop.counter}}">
+                                                <p> mportant Rules: For B2C customers 200Rs charges per person per sector will be charged on all cancellations and 200Rs as Rescheduling charges. Changes/cancellations are subject to 4hrs prior to departure. The charges are per passenger per sector. Partial cancellation is not allowed on tickets booked under special discounted fares. In case of no-show or ticket not cancelled within the stipulated time only statutory taxes are refundable Infant fare is non-refundable. The above Fare Rules are just a guideline for your convenience and is subject to changes by the Airline from time to time.</p>
+                                        </div>
+
+
+                                              </div>
+                                                   </div>
+                                                 </div>
+
+                                              </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+{% endfor %}
+
+ </div>
+                        <div id="footer" class="flight_details_row">
+                            <div class="row">
+                                <div class="col-md-10" data-height="50%">
+
+                                    <div class="row " id="roundtrip_onword"  >
+
+
+
+                                    </div>
+
+                                </div>
+                                <div class="col-md-2" id="final_price">
+
+
+
+                                </div>
+                            </div>
+                            <div class="row"></div>
+                            <div class="row">
+                                <div class="col-md-10" data-height="50%">
+
+                                    <div class="row " id="roundtrip_return">
+
+
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-2">
+
+                                    <form method="post" action="/Corporate/Spoc/add-flight-booking-self-conformation/{{user.id}}">
+                                            <input type="hidden" name="no_of_seats" value="{{no_of_seats}}">
+                                            <input type="hidden" name="departure_datetime" value="{{booking_datas.departure_datetime}}">
+                                            <input type="hidden" name="return_datetime" value="{{booking_datas.return_date}}">
+                                        <div id="form_data_to_save"></div>
+                                        <div id="form_data_to_save2"></div>
+
+                                            {% for deal in Deals %}
+                                        {% if forloop.counter == 1 %}
+                                            {% if deal.TRIP == 'I' %}
+                                                <input type="hidden" name="flight_class_is_international" value="{{deal.TRIP}}">
+                                            {% endif %}
+                                         {% endif %}
+                                            {% endfor %}
+
+                                        {% for param in params %}
+                                        <input type="hidden" name="src" value="{{param.src}}">
+                                        <input type="hidden" name="des" value="{{param.des}}">
+                                        <input type="hidden" name="dep_date" value="{{param.dep_date}}">
+                                        <input type="hidden" name="ret_date" value="{{param.ret_date}}">
+                                        <input type="hidden" name="adt" value="{{param.adt}}">
+                                        <input type="hidden" name="chd" value="{{param.chd}}">
+                                        <input type="hidden" name="inf" value="{{param.inf}}">
+                                        <input type="hidden" name="L_OW" value="{{param.L_OW}}">
+                                        <input type="hidden" name="H_OW" value="{{param.H_OW}}">
+                                        <input type="hidden" name="T_TIME" value="{{param.T_TIME}}">
+                                        <input type="hidden" name="trip_string" value="{{param.Trip_String}}">
+                                        {% endfor %}
+
+                                        <input class="btn btn-primary" id="btSubmit" type="submit" disabled   value="Book">
+                                    </form>
+
+
+                                </div>
+
+                            </div>
+
+
+
+                            </div>
+
+
+
+
+
+
+
+               {% else %}
+
+
+<div class="row">
+
+                  <div class="col-sm-12">
+    {% if flights %}
+
+
+
+
+
+
+                      <div class="profile-sidebar">
+                                   <div class="card card-topline-aqua">
+                                    <div class="card-body height-9">
+
+                                        <div class="profile-usertitle">
+                                            <div class="profile-usertitle-name">  <i class="fa fa-plane" aria-hidden="true"></i> Flights </div>
+
+                                        </div>
+                                        <ul class="list-group list-group-unbordered">
+
+                                            {% for name,code,image in uniq_flights %}
+
+                                            <li class="list-group-item">
+                                                    <img style='background-position: {{image}}' class="fltLogo"> <b> {{name}}</b> <a class="pull-right"> <div class="col-lg-12">
+                                                    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect">
+                                                      <input type="checkbox" name="sport1" value="{{code}}" class="mdl-switch__input flight_filter_class">
+
+                                                    </label>
+                                                </div></a>
+                                            </li>
+
+                                             {% endfor %}
+
+
+
+                                        </ul>
+                                        <!-- END SIDEBAR USER TITLE -->
+
+                                    </div>
+                             </div>
+
+
+
+                               <div class="card card-topline-aqua">
+                                    <div class="card-body height-9">
+
+                                        <div class="profile-usertitle">
+                                            <div class="profile-usertitle-name">  <i class="fa fa-plane" aria-hidden="true"></i> Stops </div>
+
+                                        </div>
+
+
+                                    <div class="card-body no-padding height-9">
+
+                                        <div class="row list-separated profile-stat">
+                                            <div class="col-md-3 col-sm-3 col-6">
+                                                <div class="lower profile-stat-title"> 0</div>
+                                                <div class="uppercase profile-stat-text"> Stops </div>
+                                                 <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect">
+                                                      <input type="checkbox" id="0_id" class="mdl-switch__input">
+
+                                                    </label>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-6">
+                                                <div class="uppercase profile-stat-title"> 1 </div>
+                                                <div class="uppercase profile-stat-text"> Stops </div>
+                                                 <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect">
+                                                      <input type="checkbox" id="1_id" class="mdl-switch__input">
+
+                                                    </label>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-6">
+                                                <div class="uppercase profile-stat-title"> 2 </div>
+                                                <div class="uppercase profile-stat-text"> stops </div>
+                                                 <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect">
+                                                      <input type="checkbox" id="2_id" class="mdl-switch__input">
+
+                                                    </label>
+                                            </div>
+                                                <div class="col-md-3 col-sm-3 col-6">
+                                                <div class="uppercase profile-stat-title"> 3+ </div>
+                                                <div class="uppercase profile-stat-text"> stops </div>
+                                                 <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect">
+                                                      <input type="checkbox" id="3_id" class="mdl-switch__input">
+
+                                                    </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    </div>
+                             </div>
+
+
+
+
+
+<!--                               <div class="card card-topline-aqua">-->
+<!--                                    <div class="card-body height-9">-->
+
+<!--                                        <div class="profile-usertitle">-->
+<!--                                            <div class="profile-usertitle-name">  <i class="fa fa-plane" aria-hidden="true"></i> Time</div>-->
+
+<!--                                        </div>-->
+
+
+<!--                                    <div class="card-body no-padding height-9">-->
+<!--                                         <div class="row list-separated profile-stat">-->
+<!--                                            <div class="col-md-3 col-sm-3 col-6">-->
+<!--                                                <div class="lower profile-stat-title"> -</div>-->
+<!--                                                <div class="uppercase profile-stat-text"> 00-06 </div>-->
+<!--                                                <div class="uppercase profile-stat-text"> <input type="checkbox" id="1_time" class="mdl-switch__input"> </div>-->
+<!--                                            </div>-->
+<!--                                            <div class="col-md-3 col-sm-3 col-6">-->
+<!--                                                <div class="uppercase profile-stat-title"> - </div>-->
+<!--                                                <div class="uppercase profile-stat-text"> 06-12 </div>-->
+<!--                                                <div class="uppercase profile-stat-text"> <input type="checkbox" id="2_time" class="mdl-switch__input"> </div>-->
+<!--                                            </div>-->
+<!--                                            <div class="col-md-3 col-sm-3 col-6">-->
+<!--                                                <div class="uppercase profile-stat-title"> - </div>-->
+<!--                                                <div class="uppercase profile-stat-text"> 12-18 </div>-->
+<!--                                                <div class="uppercase profile-stat-text"> <input type="checkbox" id="3_time" class="mdl-switch__input"> </div>-->
+<!--                                            </div>-->
+<!--                                                <div class="col-md-3 col-sm-3 col-6">-->
+<!--                                                <div class="uppercase profile-stat-title"> -</div>-->
+<!--                                                <div class="uppercase profile-stat-text"> 18-24 </div>-->
+<!--                                                <div class="uppercase profile-stat-text"> <input type="checkbox" id="4_time" class="mdl-switch__input"> </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+
+
+<!--                                    </div>-->
+<!--                             </div>-->
+
+
+
+
+
+                            </div>
+{% endif %}
+
+                                   <div class="profile-content">
+
+        {% for flight in flights %}
+
+              <div class="row {{flight.F_CODE}}" id="flight_filter">
+                       <div class="col-sm-12" id="hide_all_details">
+                                 <div class="card card-topline-aqua ">
+
+                                <div class="card-body">
+                                  <div class="table-wrap">
+                                     <div class="panel-group accordion" id="accordion3">
+
+
+                                           <div class="">
+                                        <form method="post" action="/Corporate/Spoc/add-flight-booking-self-conformation/{{user.id}}">
+                                            <input type="hidden" name="no_of_seats" value="{{no_of_seats}}">
+                                            <input type="hidden" name="departure_datetime" value="{{booking_datas.departure_datetime}}">
+                                            <input type="hidden" name="return_datetime" value="{{booking_datas.return_date}}">
+
+                                            {% for deal in Deals %}
+                                            {% if deal.TRIP == 'I' %}
+                                                <input type="hidden" name="flight_class_is_international" value="{{deal.TRIP}}">
+                                            {% endif %}
+                                            {% endfor %}
+                                        <table class="table display product-overview mb-30 table_txt_align" style="margin-bottom:-25px;">
+                                             <thead>
+                                                    {% if forloop.counter == 1 %}
+                                                    <tr class="bg_color" >
+                                                        <th colspan="2">Airline</th>
+                                                        <th colspan="2">Departure</th>
+                                                        <th colspan="2">Duration</th>
+                                                        <th colspan="2">Arrival</th>
+                                                        <th colspan="2">Class</th>
+                                                        <th>Price</th>
+
+                                                    </tr>
+                                                    {% endif %}
+                                                </thead>
+                                                <tbody>
+                                                 <tr id="{{flight.F_NAME}}">
+                                                        <td colspan="2" height="100"  class="accordion-toggle accordion-toggle-styled"  href="#collapse_3_{{forloop.counter}}" data-toggle="collapse" data-parent="#accordion3">  <img style='background-position: {{flight.F_LOGO}}' class="fltLogo">{{flight.F_NAME}}  <br>
+                                                         <p class="font_txt">{{flight.CN_CODE}} </p></td>
+
+                                                         <td colspan="2" height="100"  class="accordion-toggle accordion-toggle-styled"  href="#collapse_3_{{forloop.counter}}" data-toggle="collapse" data-parent="#accordion3"> {{flight.D_TIME}}<br>
+                                                        <p class="font_txt1">{{flight.D_NAME}}</p> </td>
+
+                                                        <td colspan="2" height="100"  class="accordion-toggle accordion-toggle-styled"  href="#collapse_3_{{forloop.counter}}" data-toggle="collapse" data-parent="#accordion3"> {{flight.DUR}} <br> <i class="fa fa-exchange"></i> <br> <p class="font_txt1">{{ flight.STOP|default:'Non' }} Stop<p></td>
+
+                                                         <td colspan="2" height="100"  class="accordion-toggle accordion-toggle-styled"  href="#collapse_3_{{forloop.counter}}" data-toggle="collapse" data-parent="#accordion3">  {{flight.A_TIME}} <br>
+                                                        <p class="font_txt1">{{flight.A_NAME}}</p></td>
+
+                                                     <td colspan="2" height="100"  class="accordion-toggle accordion-toggle-styled"  href="#collapse_3_{{forloop.counter}}" data-toggle="collapse" data-parent="#accordion3">  {{flight.A_TIME}} <br>
+                                                        <p class="font_txt1">{{flight.F_CLASS}}</p></td>
+
+                                                      <td colspan="2" height="100"  class="accordion-toggle accordion-toggle-styled"  href="#collapse_3_{{forloop.counter}}" data-toggle="collapse" data-parent="#accordion3">  <i class="fa fa-inr"></i> {{flight.AMT}} <br>
+                                                        <p class="font_txt1">{{flight.OI}}</p></td>
+
+
+
+                                                            <input type="hidden" name="UID" value="{{flight.UID}}">
+                                                            <input type="hidden" name="ID" value="{{flight.ID}}">
+                                                            <input type="hidden" name="TID" value="{{flight.TID}}">
+
+                                                            {% for param in params %}
+                                                            <input type="hidden" name="src" value="{{param.src}}">
+                                                            <input type="hidden" name="des" value="{{param.des}}">
+                                                            <input type="hidden" name="dep_date" value="{{param.dep_date}}">
+                                                            <input type="hidden" name="ret_date" value="{{param.ret_date}}">
+                                                            <input type="hidden" name="adt" value="{{param.adt}}">
+                                                            <input type="hidden" name="chd" value="{{param.chd}}">
+                                                            <input type="hidden" name="inf" value="{{param.inf}}">
+                                                            <input type="hidden" name="L_OW" value="{{param.L_OW}}">
+                                                            <input type="hidden" name="H_OW" value="{{param.H_OW}}">
+                                                            <input type="hidden" name="T_TIME" value="{{param.T_TIME}}">
+                                                            <input type="hidden" name="trip_string" value="{{param.Trip_String}}">
+                                                            {% endfor %}
+
+                                                          <td colspan="2"> <input type="submit" value="Book Now" class="btn btn-info"> <p class="font_txt1 butn_color"><a href="#collapse_3_{{forloop.counter}}" data-toggle="collapse" class="read accordion-toggle accordion-toggle-styled" > <i class="fa fa-angle-down"></i> Flight Details</a></p></td>
+
+                                                       </tr>
+                                                       </tbody>
+                                                     </table>
+                                                    </form>
+
+
+                                              <div id="collapse_3_{{forloop.counter}}" class="panel-collapse collapse ">
+                                                  <div class="panel-body">
+                                             <div class="table-responsive mar_blk border_panel">
+
+
+
+                                        <ul class="nav nav-tabs nav-tabs1">
+                                        <li class="nav-item"><a href="#home_{{forloop.counter}}" data-toggle="tab" class="active">Flight Details</a>
+                                        </li>
+                                        <li class="nav-item"><a href="#about_{{forloop.counter}}" data-toggle="tab">Cancellation Policy</a>
+
+                                        </li>
+
+                                    </ul>
+                                </header>
+                                <div class="panel-body">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="home_{{forloop.counter}}">
+
+                                            <table class="table display product-overview mb-30 table_txt_align " id="support_table5">
+
+                                                <tbody>
+                                                <p class="fli_bac">  Connected Flights </p>
+                                            {% for flight_fl in flight.CON_DETAILS %}
+                                             <tr>
+
+
+                                                <td >  <img style='background-position: {{flight.F_LOGO}}' class="fltLogo">{{flight_fl.FLIGHT_NAME}} <br>
+                                                   <p class="font_txt">{{flight_fl.FLIGHT_CODE}}-{{flight_fl.FLIGHT_NO}}</p></td>
+
+                                                   <td>{{flight_fl.DEP_TIME}}<br><p class="font_txt1">{{flight_fl.ORG_NAME}}</p> </td>
+
+                                                    <td>{{flight_fl.DURATION}}  <br> <p class="font_txt1">Non Stop<p></td>
+
+                                                    <td> {{flight_fl.ARRV_TIME}}  <br><p class="font_txt1">{{flight_fl.DES_NAME}}</p></td>
+
+
+
+
+                                                    </tr>
+                                                 {% endfor %}
+
+
+
+                                                       </tbody>
+                                                     </table>
+                                                 </div>
+                                            <div class="tab-pane" id="about_{{forloop.counter}}">
+                                                <p> {{flight_fl.FLIGHT_INFO}}</p>
+                                                <p>
+Important Rules:
+For B2C customers 200Rs charges per person per sector will be charged on all cancellations and 200Rs as Rescheduling charges.
+Changes/cancellations are subject to 4hrs prior to departure.
+The charges are per passenger per sector.
+Partial cancellation is not allowed on tickets booked under special discounted fares.
+In case of no-show or ticket not cancelled within the stipulated time only statutory taxes are refundable
+Infant fare is non-refundable.
+The above Fare Rules are just a guideline for your convenience and is subject to changes by the Airline from time to time.</p>
+                                        </div> <div class="tab-pane" id="profile">
+                                             <p> {{flight_fl.LAYOVER_INFO}}</p>
+                                             <p> {{flight_fl.FLIGHT_INFO}}</p>
+                                    </div>
+
+
+                                              </div>
+                                                   </div>
+                                                 </div>
+
+                                              </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+{% endfor %}
+
+</div>
+            </div>
+ {% endif %}
+
+
+              </div>
+            </div>
+            </div>
+            </div>
+
+ <div class="body_bdy" id="flight_loader">
+
+     <svg class="svg-calLoader" xmlns="http://www.w3.org/2000/svg" width="50" height="50"><path class="cal-loader__path" d="M86.429 40c63.616-20.04 101.511 25.08 107.265 61.93 6.487 41.54-18.593 76.99-50.6 87.643-59.46 19.791-101.262-23.577-107.142-62.616C29.398 83.441 59.945 48.343 86.43 40z" fill="none" stroke="#0099cc" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="10 10 10 10 10 10 10 432" stroke-dashoffset="77"/><path class="cal-loader__plane" d="M141.493 37.93c-1.087-.927-2.942-2.002-4.32-2.501-2.259-.824-3.252-.955-9.293-1.172-4.017-.146-5.197-.23-5.47-.37-.766-.407-1.526-1.448-7.114-9.773-4.8-7.145-5.344-7.914-6.327-8.976-1.214-1.306-1.396-1.378-3.79-1.473-1.036-.04-2-.043-2.153-.002-.353.1-.87.586-1 .952-.139.399-.076.71.431 2.22.241.72 1.029 3.386 1.742 5.918 1.644 5.844 2.378 8.343 2.863 9.705.206.601.33 1.1.275 1.125-.24.097-10.56 1.066-11.014 1.032a3.532 3.532 0 0 1-1.002-.276l-.487-.246-2.044-2.613c-2.234-2.87-2.228-2.864-3.35-3.309-.717-.287-2.82-.386-3.276-.163-.457.237-.727.644-.737 1.152-.018.39.167.805 1.916 4.373 1.06 2.166 1.964 4.083 1.998 4.27.04.179.004.521-.076.75-.093.228-1.109 2.064-2.269 4.088-1.921 3.34-2.11 3.711-2.123 4.107-.008.25.061.557.168.725.328.512.72.644 1.966.676 1.32.029 2.352-.236 3.05-.762.222-.171 1.275-1.313 2.412-2.611 1.918-2.185 2.048-2.32 2.45-2.505.241-.111.601-.232.82-.271.267-.058 2.213.201 5.912.8 3.036.48 5.525.894 5.518.914 0 .026-.121.306-.27.638-.54 1.198-1.515 3.842-3.35 9.021-1.029 2.913-2.107 5.897-2.4 6.62-.703 1.748-.725 1.833-.594 2.286.137.46.45.833.872 1.012.41.177 3.823.24 4.37.085.852-.25 1.44-.688 2.312-1.724 1.166-1.39 3.169-3.948 6.771-8.661 5.8-7.583 6.561-8.49 7.387-8.702.233-.065 2.828-.056 5.784.011 5.827.138 6.64.09 8.62-.5 2.24-.67 4.035-1.65 5.517-3.016 1.136-1.054 1.135-1.014.207-1.962-.357-.38-.767-.777-.902-.893z" class="cal-loader__plane" fill="#000033"/></svg>
+      </div>
+
+{% else %}
+    <p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCstbhex4F6X2-AXz3B1sR1oRvxssE3sc&libraries=places"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+var today = moment().format('DD-MM-YYYY');
+
+var data = document.getElementById("d_date").value
+if(data){
+document.getElementById("departure_date").value = data;
+}else{
+document.getElementById("departure_date").value = today;
+}
+
+var data1 = document.getElementById("r_date").value
+if(data1){
+document.getElementById("return_date").value = data1;
+}else{
+document.getElementById("return_date").value = '';
+}
+
+
+});
+</script>
+
+<script>
+
+$(window).load(function(){
+
+$('#flight_loader').hide();
+
+
+});
+
+$(document).ready(function(){
+
+var trip_type = $('input[name="trip_type"]:checked').val();
+if(trip_type == '2'){
+$("#return_date").show();
+}else{
+$("#return_date").hide();
+}
+
+
+$("form").submit(function(){
+$('#flight_loader').show();
+
+});
+
+$('#option_2').change(function() {
+        if(this.checked) {
+            $("#return_date").show();
+        }
+    });
+
+    $('#option_1').change(function() {
+        if(this.checked) {
+            $("#return_date").hide();
+        }
+
+    });
+
+
+$(".flight_filter_class").click(function(){
+
+$.each($("input[name='sport1']:checked"), function(){
+    var row_show = $(this).val();
+    $('.'+row_show).show();
+});
+$.each($("input[name='sport1']:not(:checked)"), function(){
+    var row_show = $(this).val();
+    $('.'+row_show).hide();
+});
+
+if($(".flight_filter_class:checked").length == 0) {
+    $(".row").show();
+  }
+
+});
+
+        $('input[type=radio][name=onword]').change(function(){
+
+            selected_radio = $('input[name="onword"]:checked');
+
+            var data = document.getElementById("d_date").value
+
+            var bt = document.getElementById('btSubmit');
+
+            CN_COD = selected_radio.attr("data-onword_CN_COD");
+            F_NAME = selected_radio.attr("data-onword_F_NAME");
+            D_NAME = selected_radio.attr("data-onword_D_NAME");
+            D_CODE = selected_radio.attr("data-onword_D_CODE");
+            D_TIME = selected_radio.attr("data-onword_D_TIME");
+            D_DATE = selected_radio.attr("data-onword_D_DATE");
+            DUR = selected_radio.attr("data-onword_DUR");
+            STOP = selected_radio.attr("data-onword_STOP");
+            A_NAME = selected_radio.attr("data-onword_A_NAME");
+            A_CODE = selected_radio.attr("data-onword_A_CODE");
+            A_TIME = selected_radio.attr("data-onword_A_TIME");
+            A_DATE = selected_radio.attr("data-onword_A_DATE");
+            F_CLAS = selected_radio.attr("data-onword_F_CLAS");
+            OI = selected_radio.attr("data-onword_OI");
+            NET_FARE = selected_radio.attr("data-onword_NET_FARE");
+            NET_FARE_RETURN = parseInt($('input[name="return"]:checked').attr("data-return_NET_FARE"));
+            UID = selected_radio.attr("data-onword_UID");
+            ID = selected_radio.attr("data-onword_ID");
+            TID = selected_radio.attr("data-onword_TID");
+
+
+            if (isNaN(NET_FARE_RETURN))
+            {
+               total_fair = parseInt(NET_FARE);
+
+            }else{
+
+                total_fair = parseInt(NET_FARE) + parseInt(NET_FARE_RETURN) ;
+
+            }
+
+            onword_data = '<div class="col-md-2"><span>'+ F_NAME +'</span></h5></div><div class="col-md-2"><span>'+ D_TIME + ' ' + D_CODE + ' ' + D_DATE +'</span></div>' +
+                           '<div class="col-md-2"><i class="fa fa-plane"></i></div><div class="col-md-2"><span>'+ A_TIME + ' ' + A_CODE + ' ' + A_DATE +'</span></div>'+
+                            '<div class="col-md-2"><span>'+ DUR + ' ' + STOP + ' stops' +'</span></div><div class="col-md-2"><span><i class="fa fa-inr"></i>'+ NET_FARE +'</span></div>';
+
+            final_price = '<span class="flight_total_fair"><i class="fa fa-inr"></i>' + total_fair +'</span>';
+
+            form_data = '<input type="hidden" name="UID" value="'+ UID +'"> <input type="hidden" name="ID" value="'+ ID +'"> <input type="hidden" name="TID" value="'+ TID +'"> ';
+            $("#form_data_to_save").html(form_data);
+
+                                $("#roundtrip_onword").html(onword_data);
+
+                                $("#final_price").html(final_price);
+
+                                bt.disabled = false;
+
+        });
+
+        $('input[type=radio][name=return]').change(function(){
+
+            selected_radio = $('input[name="return"]:checked');
+
+            var data1 = document.getElementById("r_date").value
+
+            var bt = document.getElementById('btSubmit');
+
+            total_fair = 0;
+
+            CN_COD = selected_radio.attr("data-return_CN_COD");
+            F_NAME = selected_radio.attr("data-return_F_NAME");
+            D_NAME = selected_radio.attr("data-return_D_NAME");
+            D_CODE = selected_radio.attr("data-return_D_CODE");
+            D_TIME = selected_radio.attr("data-return_D_TIME");
+            D_DATE = selected_radio.attr("data-return_D_DATE");
+            DUR = selected_radio.attr("data-return_DUR");
+            STOP = selected_radio.attr("data-return_STOP");
+            A_NAME = selected_radio.attr("data-return_A_NAME");
+            A_CODE = selected_radio.attr("data-return_A_CODE");
+            A_TIME = selected_radio.attr("data-return_A_TIME");
+            A_DATE = selected_radio.attr("data-return_A_DATE");
+            F_CLAS = selected_radio.attr("data-return_F_CLAS");
+            OI = selected_radio.attr("data-return_OI");
+            NET_FARE = parseInt(selected_radio.attr("data-return_NET_FARE"));
+            NET_FARE_ONWRD = parseInt($('input[name="onword"]:checked').attr("data-onword_NET_FARE"));
+            UID = selected_radio.attr("data-return_UID");
+            ID = selected_radio.attr("data-return_ID");
+            TID = selected_radio.attr("data-return_TID");
+
+
+            if (isNaN(NET_FARE_ONWRD))
+            {
+               total_fair = parseInt(NET_FARE);
+
+            }else{
+
+                total_fair = parseInt(NET_FARE) + parseInt(NET_FARE_ONWRD) ;
+
+            }
+
+            return_data = '<div class="col-md-2"><span>'+ F_NAME +'</span></h5></div><div class="col-md-2"><span>'+ D_TIME + ' ' + D_CODE + ' ' + D_DATE +'</span></div>' +
+                           '<div class="col-md-2"><i class="fa fa-plane fa-rotate-180"></i></div><div class="col-md-2"><span>'+ A_TIME + ' ' + A_CODE + ' ' + A_DATE +'</span></div>'+
+                            '<div class="col-md-2"><span>'+ DUR + ' ' + STOP + ' stops' +'</span></div><div class="col-md-2"><span><i class="fa fa-inr"></i>'+ NET_FARE +'</span></div>';
+
+            final_price = '<span class="flight_total_fair"><i class="fa fa-inr"></i>' + total_fair +'</span>';
+
+            form_data = '<input type="hidden" name="UID2" value="'+ UID +'"> <input type="hidden" name="ID2" value="'+ ID+'"> <input type="hidden" name="TID2" value="'+ TID +'"> ';
+            $("#form_data_to_save2").html(form_data);
+
+            $("#roundtrip_return").html(return_data);
+            $("#final_price").html(final_price);
+
+
+            bt.disabled = false;
+
+
+        });
+
+
+        $('#0_id').click(function(){
+            if($("#0_id").prop("checked") == true){
+                var abc = "0 stop"
+                var data = abc.toLowerCase();
+
+                 $("#flight_filter #hide_all_details").filter(function() {
+                      $(this).toggle($(this).text().toLowerCase().indexOf(data) > -1)
+                    });
+            }else{
+                $("#flight_filter #hide_all_details").show();
+            }
+
+        });
+
+        $('#1_id').click(function(){
+            if($("#1_id").prop("checked") == true){
+                var abc = "1 stop"
+                var data = abc.toLowerCase();
+
+                 $("#flight_filter #hide_all_details").filter(function() {
+                      $(this).toggle($(this).text().toLowerCase().indexOf(data) > -1)
+                    });
+            }else{
+                $("#flight_filter #hide_all_details").show();
+            }
+
+        });
+
+
+        $('#2_id').click(function(){
+            if($("#2_id").prop("checked") == true){
+                var abc = "2 stop"
+                var data = abc.toLowerCase();
+
+                 $("#flight_filter #hide_all_details").filter(function() {
+                      $(this).toggle($(this).text().toLowerCase().indexOf(data) > -1)
+                    });
+            }else{
+                $("#flight_filter #hide_all_details").show();
+            }
+
+        });
+
+
+                $('#3_id').click(function(){
+            if($("#3_id").prop("checked") == true){
+                var abc = "3 stop"
+                var data = abc.toLowerCase();
+
+                 $("#flight_filter #hide_all_details").filter(function() {
+                      $(this).toggle($(this).text().toLowerCase().indexOf(data) > -1)
+                    });
+            }else{
+                $("#flight_filter #hide_all_details").show();
+            }
+
+        });
+
+
+
+
+
+
+
+
+
+
+    });
+
+
+
+
+</script>
+
+
+{% endblock %}

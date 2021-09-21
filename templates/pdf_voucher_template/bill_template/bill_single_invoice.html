@@ -1,0 +1,774 @@
+<html>
+<title>Single CoTrav Billing Voucher</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+
+ <head>
+     <style>
+
+     
+@page {
+size: a4 portrait;
+
+
+
+@frame header_frame { /* Static Frame */
+-pdf-frame-content: header_content;
+ position: fixed;
+  top: 0;
+  left: 0;
+  height:50%;
+
+}
+
+@frame header_frame { /* Static Frame */
+-pdf-frame-content: logo_content;
+ position: fixed;
+  top: 40px;
+  left: 20px;
+}
+
+
+@frame content_frame { /* Content Frame */
+left: 39pt; width: 512pt; top: 90pt; height: 632pt;
+
+}
+
+
+@frame footer_frame { /* Another static Frame */
+-pdf-frame-content: footer_content;
+position: fixed;
+  bottom: 0pt;
+  left: 0;
+  top: 760pt;
+
+}
+
+@frame footer_frame { /* Another static Frame */
+-pdf-frame-content: ftr_content;
+position: fixed;
+  bottom: 0pt;
+  left: 250;
+  top: 800pt;
+
+}
+
+@frame footer_frame { /* Another static Frame */
+-pdf-frame-content: bus_logo;
+position: fixed;
+  bottom: 0pt;
+  left: 0;
+  top: 800pt;
+
+}
+
+}
+
+
+h1{
+  font-size: 10px;
+  font-family: 'Montserrat';
+  text-align: center;
+
+}
+
+p{
+  font-size: 10px;
+  font-family: 'Montserrat';
+  font-weight: 500;
+
+}
+#header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+
+}
+#footer {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+ }
+
+.custom-page-start {
+    margin-top: 100px;
+}
+
+  .p-1{
+     font-size: 13px;
+  }
+  
+.sec{
+  text-align: center;
+}
+.section{
+  text-decoration-line: underline;
+  line-height: 0px;
+}
+.border-left{
+  border-left: solid 1px gray;
+}
+.section2{
+  line-height: 20px;
+}
+table{
+  overflow-wrap: break-word;
+word-break: break-all;
+font-family: Montserrat;
+}
+td{
+  font-size: 8px;
+  font-family: 'Montserrat';
+font-weight: 400;
+overflow-wrap: break-word;
+word-break: break-all;
+}
+.footer{
+  height: 140px;
+}
+.img1{
+  margin-top: -94px;
+    margin-bottom: 20px;
+  }
+
+
+.flight_section{
+      padding-left: 46px;
+    margin-bottom: -8px;
+    font-size: 15px;
+    font-family: montserrat,san-serif;
+    font-weight: 600;
+
+}
+.f1{
+  font-size: 16px;
+    font-family: montserrat,san-serif;
+    font-weight: 600;
+}
+.section-f1{
+  font-size: 16px;
+    font-family: montserrat,san-serif;
+    font-weight: 600;
+}
+.section-f2{
+  font-size: 13px;
+  font-family: montserrat,Regular;
+  font-weight: 500;
+}
+.arow{
+
+  margin-right: 25px;
+  margin-top: 12px
+}
+
+table {
+    border: 1px solid #ebedeb;
+ vertical-align: middle;
+
+}
+table td, table th {
+    border:none;
+     padding: 1px;
+     
+
+}
+th{
+  font-size: 15px;
+
+}
+
+span{
+font-size: 13px;
+font-weight: 600;
+text-align: center;
+}
+.plane{
+      width: 10px;
+}
+.plane_detail{
+  font-size: 12px;
+  text-align: center;
+
+}
+
+.plane_detail_1{
+  font-size: 12px;
+  text-align: center;
+   font-weight: 600;
+}
+.f-span{
+  margin-left: 81px;
+  font-size: 12px;
+  font-weight: 500;
+}
+.total_sec{
+font-family: 'Montserrat';
+    font-size: 12px;
+    font-weight: 400;
+    position: relative;
+    right: 18%;
+    padding: 8px;
+}
+.border_bott{
+  border-bottom: 1px solid gray;
+}
+
+</style>
+</head>
+
+<body>
+  <div id="header_content">
+ <img src="http://cotrav.co/static/img/test/bg1.png">
+</div>
+
+
+  <div id="footer_content">
+     <img src="http://cotrav.co/static/img/test/bg2.png">
+</div>
+
+  <div class='header'></div>
+    <div class='footer'></div>
+
+<table  width="100%" >
+
+   <tr>
+  
+   <td  align="center" style=" border: solid 1px silver;"> <h1 style="line-height: 0px;font-family: 'Montserrat';padding: 10px;background-color:#e8e8e8; ">VOUCHER</h1>  </td>
+    
+   </tr>
+
+    <tr>
+  {% load humanize %}
+   <td align="center">  <p style="padding: 5px; font-family: 'Montserrat';font-weight: normal;">USAGE TYPE:
+
+       {% if bill_datas.taxi_flag == 1 %}
+       <strong>  Taxi  </strong>
+       {% endif %}
+
+       {% if bill_datas.serviceType == 1 %}
+       <strong> Bus </strong>
+       {% endif %}
+
+       {% if bill_datas.serviceType == 1 %}
+       <strong> Train </strong>
+       {% endif %}
+
+       {% if bill_datas.serviceType == 1 %}
+       <strong> Hotel </strong>
+       {% endif %}
+
+       {% if bill_datas.serviceType == 1 %}
+       <strong> Flight </strong>
+       {% endif %}
+
+
+       <br>BOOKING ID:
+       {% for booking in bill_datas.BookingTaxi %}
+       <strong> {{booking.reference_no}}  </strong>
+       {% endfor %}
+   </p>  </td>
+    
+   </tr>
+ </table>
+
+<table width="100%" >
+
+      <tr>
+        
+      
+       <td align="left"  colspan="8" ><strong>BILLED BY : </strong></td>
+    
+      <td align="left"  colspan="8">{{bill_datas.ct_entity_name}}, {{bill_datas.ct_addr_1}} {{bill_datas.ct_addr_2}} {{bill_datas.ct_addr_3}}</td>
+
+          
+           <td  class="border-left"></td>
+
+    
+      <td align="left"  colspan="8"><strong>BILLED TO : </strong></td>
+   
+      <td align="left"  colspan="8">{{bill_datas.cb_entity_name}}, {{bill_datas.cb_addr_1}} {{bill_datas.cb_addr_2}} {{bill_datas.cb_addr_3}}</td>
+
+     </tr>
+
+   
+
+      <tr>
+    
+       <td align="left" colspan="8" style="padding-top: 3px;"> <strong> BILL DATE : </strong></td>
+    
+      <td align="left" colspan="8" style="padding-top: 3px;">{{bill_datas.bill_created_date}} </td>
+
+  <td valign="left"  class="border-left"></td>
+    
+      <td align="left" colspan="8" style="padding-top: 3px;"><strong>GSTIN : </strong></td>
+   
+      <td align="left" colspan="8" style="padding-top: 3px;">{{bill_datas.cb_gst_id}}</td>
+
+     </tr>
+
+
+       <tr>
+    
+      <td align="left" colspan="8" style="padding-top: 3px;"><strong>  BILL NUMBER :   </strong></td>
+    
+      <td align="left" colspan="8" style="padding-top: 3px;">{{bill_datas.bill_number}}</td>
+
+  <td class="border-left"></td>
+    
+       <td align="left" colspan="8" style="padding-top: 3px;"><strong>Billing City : </strong></td>
+   
+      <td align="left" colspan="8" style="padding-top: 3px;">{{bill_datas.bill_city}}</td>
+
+     </tr>
+
+
+  <tr>
+    
+       <td align="left" colspan="8" style="padding-top: 3px;"> <strong> GSTIN :  </strong></td>
+    
+      <td align="left" colspan="8" style="padding-top: 3px;"> {{bill_datas.ct_gst_id}} </td>
+
+          <td  class="border-left"></td>
+    
+       <td align="left" colspan="8" style="padding-top: 3px;"><strong>Booked By : </strong></td>
+   
+      <td align="left" colspan="8" style="padding-top: 3px;">
+
+          {% for booking in bill_datas.BookingTaxi %}
+          {% if forloop.counter == 1 %}
+           {% for action in booking.ActionLogs %}
+          {% if forloop.counter == 1 %}
+             {{action.employee_name}}({{action.name}})
+          {% endif %}
+           {% endfor %}
+          {% endif %}
+          {% endfor %}
+
+      </td>
+
+     </tr>
+
+
+  <tr>
+    
+       <td align="left" colspan="8" style="padding-top: 3px;"><strong>  Pan Number :    </strong></td>
+    
+      <td align="left" colspan="8" style="padding-top: 3px;">{{bill_datas.ct_pan_no}} </td>
+
+          <td class="border-left"></td>
+    
+        <td align="left" colspan="8" style="padding-top: 3px;"></td>
+   
+      <td align="left" colspan="8" style="padding-top: 3px;"></td>
+
+     </tr>
+
+      <tr>
+     
+       <td align="left" colspan="8" style="padding-top: 3px;"><strong>CIN Number :   </strong></td>
+    
+      <td align="left" colspan="8" style="padding-top: 3px;">U72200DL2015PTC283027 </td>
+
+        <td  class="border-left"></td>
+    
+      <td align="left" colspan="8" style="padding-top: 3px;"> </td>
+   
+      <td align="left" colspan="8" style="padding-top: 3px;"></td>
+
+     </tr>
+
+</table>
+
+
+
+<table width="100%"  >
+        <h1 style=" line-height: 0px;font-family: 'Montserrat';padding: 10px;background-color:#e8e8e8;">Services Details</h1>
+       {% for booking in bill_datas.BookingTaxi %}
+        <tr>
+
+        <td align="left" colspan="8" style="padding-top: 3px;"><strong>Booking Date | Time :</strong></td>
+
+      <td align="left" colspan="8" style="padding-top: 3px;"> {{booking.booking_date}} </td>
+
+  <td  class="border-left"></td>
+
+       <td align="left" colspan="8" style="padding-top: 3px;"><strong>Vehicle Type : </strong></td>
+
+      <td align="left" colspan="8" style="padding-top: 3px;">{{booking.taxi_type_name}}</td>
+  </tr>
+
+<tr>
+
+        <td align="left" colspan="8" style="padding-top: 3px;"><strong>Pickup Date | Time :</strong></td>
+
+      <td align="left" colspan="8" style="padding-top: 3px;"> {{booking.pickup_datetime}} </td>
+
+  <td  class="border-left"></td>
+
+       <td align="left" colspan="8" style="padding-top: 3px;"><strong>Package : </strong></td>
+
+      <td align="left" colspan="8" style="padding-top: 3px;">
+          {% if booking.tour_type == 1 %}
+          Radio
+          {% elif booking.tour_type == 2 %}
+          Local | {{booking.hours}}Hr / {{booking.kms}}Km
+          {% else %}
+          Outstation | {{booking.days}}
+          {% endif %}
+      </td>
+  </tr>
+<tr>
+
+        <td align="left" colspan="8" style="padding-top: 3px;"><strong>Pick-Up City | Address :</strong></td>
+
+      <td align="left" colspan="8" style="padding-top: 3px;"> {{booking.city_name}} {{booking.pickup_location}}</td>
+
+  <td  class="border-left"></td>
+
+       <td align="left" colspan="8" style="padding-top: 3px;"><strong>Vehicle No : </strong></td>
+
+      <td align="left" colspan="8" style="padding-top: 3px;">{{booking.taxi_reg_no}}</td>
+  </tr>
+
+<tr>
+
+        <td align="left" colspan="8" style="padding-top: 3px;"><strong>Travel To:</strong></td>
+
+      <td align="left" colspan="8" style="padding-top: 3px;"> {{booking.drop_location}}</td>
+
+  <td  class="border-left"></td>
+
+       <td align="left" colspan="8" style="padding-top: 3px;"><strong>Passenger Name : </strong></td>
+
+      <td align="left" colspan="8" style="padding-top: 3px;">
+          {% for pass in booking.Passanger %}
+          {% if forloop.first %}
+            {{pass.employee_name}}
+          {% endif %}
+          {% endfor %}
+      </td>
+  </tr>
+
+    <tr>
+
+        <td align="left" colspan="8" style="padding-top: 3px;"><strong>Base Package {% if booking.tour_type == 3 %} (Per Day) {% endif %}:</strong></td>
+
+      <td align="left" colspan="8" style="padding-top: 3px;">
+      {% if booking.tour_type == 1 %}
+          Radio
+          {% elif booking.tour_type == 2 %}
+          Local | {{booking.hours}}Hrs / {{booking.kms}}Kms
+          {% else %}
+          {{booking.days}}Day | {{booking.kms}}Kms
+          {% endif %}
+      </td>
+
+  <td  class="border-left"></td>
+
+       <td align="left" colspan="8" style="padding-top: 3px;"><strong>Passenger Contact : </strong></td>
+
+      <td align="left" colspan="8" style="padding-top: 3px;">
+          {% for pass in booking.Passanger %}
+          {% if forloop.first %}
+            {{pass.employee_contact}}
+          {% endif %}
+          {% endfor %}
+      </td>
+
+  </tr>
+
+<tr>
+
+        <td align="left" colspan="8" style="padding-top: 3px;"><strong>Base Package Charge (INR Per day):</strong></td>
+
+      <td align="left" colspan="8" style="padding-top: 3px;"> {{booking.base_rate|floatformat:2|intcomma}}</td>
+
+  <td  class="border-left"></td>
+ <td align="left" colspan="8" style="padding-top: 3px;"><strong>Extra Km Charge: [In INR per Kms] : </strong></td>
+
+      <td align="left" colspan="8" style="padding-top: 3px;">
+          {{booking.km_rate|floatformat:2|intcomma}}
+      </td>
+
+  </tr>
+
+
+<tr>
+
+        <td align="left" colspan="8" style="padding-top: 3px;"><strong>Driver Allowance (In INR per Day):</strong></td>
+
+      <td align="left" colspan="8" style="padding-top: 3px;"> {{booking.night_rate}}</td>
+
+  <td  class="border-left"></td>
+<td align="left" colspan="8" style="padding-top: 3px;"><strong>Extra
+    {% if booking.tour_type == 1 %}
+          -
+          {% elif booking.tour_type == 2 %}
+          Hours
+          {% else %}
+          Day
+          {% endif %}
+
+    Charge: [In INR per {% if booking.tour_type == 1 %}
+          -
+          {% elif booking.tour_type == 2 %}
+          Hours
+          {% else %}
+          Day
+          {% endif %}
+    ] : </strong></td>
+
+      <td align="left" colspan="8" style="padding-top: 3px;">
+          {% if booking.tour_type == 1 %}
+          -
+          {% elif booking.tour_type == 2 %}
+          {{booking.hour_rate}}
+          {% else %}
+          {{booking.hour_rate}}
+          {% endif %}
+      </td>
+
+  </tr>
+
+    <tr>
+
+        <td align="left" colspan="8" style="padding-top: 3px;"><strong style="font-size:5px;">**Fare Terms and Conditions Apply As Applicbale</strong></td>
+
+      <td align="left" colspan="8" style="padding-top: 3px;"> </td>
+
+  <td  class="border-left"></td>
+
+       <td align="left" colspan="8" style="padding-top: 3px;"><strong>(Every Extra
+           {% if booking.tour_type == 1 %}
+          -
+          {% elif booking.tour_type == 2 %}
+          Hours
+          {% else %}
+          Day
+          {% endif %}
+           include min {{booking.kms}} Kms) : </strong></td>
+
+      <td align="left" colspan="8" style="padding-top: 3px;">
+          {% if booking.tour_type == 1 %}
+          -
+          {% elif booking.tour_type == 2 %}
+          {{booking.hour_rate}}
+          {% else %}
+          {{booking.base_rate|floatformat:2|intcomma}}
+          {% endif %}
+      </td>
+  </tr>
+
+        <tr>
+
+        <td align="left" colspan="8" style="padding-top: 3px;"><strong>Total Days Usage [In No. of Days]</strong></td>
+
+      <td align="left" colspan="8" style="padding-top: 3px;"> {{booking.days}}</td>
+
+  <td  class="border-left"></td>
+
+       <td align="left" colspan="8" style="padding-top: 3px;"><strong>Base Package Charge [In INR] </strong></td>
+
+      <td align="left" colspan="8" style="padding-top: 3px;">
+{{booking.i_base_rate|floatformat:2|intcomma}}
+      </td>
+  </tr>
+
+            <tr>
+
+        <td align="left" colspan="8" style="padding-top: 3px;"><strong>Allowed KMs</strong></td>
+
+      <td align="left" colspan="8" style="padding-top: 3px;"> {{booking.allowed_kms}}</td>
+
+  <td  class="border-left"></td>
+
+       <td align="left" colspan="8" style="padding-top: 3px;"><strong>Total Extra KMs Charge [In INR] </strong></td>
+
+      <td align="left" colspan="8" style="padding-top: 3px;"> {{booking.extra_km_charges|floatformat:2|intcomma}}</td>
+  </tr>
+
+    <tr>
+
+        <td align="left" colspan="8" style="padding-top: 3px;"><strong>Total Kms Usage [In Kms]</strong></td>
+
+      <td align="left" colspan="8" style="padding-top: 3px;"> {{booking.kms_done}}</td>
+
+  <td  class="border-left"></td>
+
+       <td align="left" colspan="8" style="padding-top: 3px;"><strong>Total Driver Allowance [In INR] </strong></td>
+
+      <td align="left" colspan="8" style="padding-top: 3px;"> {{booking.driver_allowance|floatformat:2|intcomma}}</td>
+  </tr>
+
+
+    <tr>
+
+        <td align="left" colspan="8" style="padding-top: 3px;"><strong>Extra Kms [In Kms] </strong></td>
+
+      <td align="left" colspan="8" style="padding-top: 3px;"> {{booking.extra_kms}}</td>
+
+  <td  class="border-left"></td>
+
+       <td align="left" colspan="8" style="padding-top: 3px;"><strong> </strong></td>
+
+      <td align="left" colspan="8" style="padding-top: 3px;"> </td>
+  </tr>
+
+
+   <tr>
+        <td align="left" colspan="8" style="padding-top: 3px;"><strong></strong></td><td align="left" colspan="8" style="padding-top: 3px;"></td>
+  <td  class="border-left"></td>
+       <td align="left" colspan="8" style="padding-top: 3px;"><strong> Others: Toll, Parking, MCD Etc. [In INR]</strong></td>
+        <td align="left" colspan="8" style="padding-top: 3px;">{{booking.other_charges|floatformat:2|intcomma}} </td>
+  </tr>
+
+    <tr>
+        <td align="left" colspan="8" style="padding-top: 3px;"><strong></strong></td><td align="left" colspan="8" style="padding-top: 3px;"></td>
+  <td  class="border-left"></td>
+       <td align="left" colspan="8" style="padding-top: 3px;"><strong> Total Taxable [In INR] </strong></td>
+        <td align="left" colspan="8" style="padding-top: 3px;">{{booking.management_fee|floatformat:2|intcomma}} </td>
+  </tr>
+
+    <tr>
+        <td align="left" colspan="8" style="padding-top: 3px;"><strong></strong></td><td align="left" colspan="8" style="padding-top: 3px;"></td>
+  <td  class="border-left"></td>
+       <td align="left" colspan="8" style="padding-top: 3px;"><strong> Total Non Taxable [In INR] </strong></td>
+        <td align="left" colspan="8" style="padding-top: 3px;">{{booking.total|floatformat:2|intcomma}} </td>
+  </tr>
+
+    <tr>
+        <td align="left" colspan="8" style="padding-top: 3px;"><strong></strong></td><td align="left" colspan="8" style="padding-top: 3px;"></td>
+  <td  class="border-left"></td>
+       <td align="left" colspan="8" style="padding-top: 3px;"><strong> CGST
+           {% if booking.management_fee_cgst %}
+           [{{booking.management_fee_sgst|floatformat:2|intcomma}} %]
+           {% else %}
+           {{booking.management_fee_cgst|default:''}}
+           {% endif %}
+       </strong></td>
+        <td align="left" colspan="8" style="padding-top: 3px;">
+
+            {% if booking.management_fee_cgst %}
+           {{booking.management_fee_sgst|floatformat:2|intcomma}}
+           {% else %}
+           {{booking.management_fee_cgst|default:'NA'}}
+           {% endif %}
+
+        </td>
+  </tr>
+
+    <tr>
+        <td align="left" colspan="8" style="padding-top: 3px;"><strong></strong></td><td align="left" colspan="8" style="padding-top: 3px;"></td>
+  <td  class="border-left"></td>
+       <td align="left" colspan="8" style="padding-top: 3px;"><strong> SGST
+       {% if booking.management_fee_sgst %}
+           [{{booking.management_fee_sgst|floatformat:2|intcomma}} %]
+           {% else %}
+           {{booking.management_fee_sgst|default:''}}
+           {% endif %}
+       </strong></td>
+        <td align="left" colspan="8" style="padding-top: 3px;">
+        {% if booking.management_fee_sgst %}
+           {{booking.management_fee_sgst|floatformat:2|intcomma}}
+           {% else %}
+           {{booking.management_fee_sgst|default:'NA'}}
+           {% endif %}
+        </td>
+  </tr>
+
+    <tr>
+        <td align="left" colspan="8" style="padding-top: 3px;"><strong></strong></td><td align="left" colspan="8" style="padding-top: 3px;"></td>
+  <td  class="border-left"></td>
+       <td align="left" colspan="8" style="padding-top: 3px;"><strong>IGST
+       {% if booking.management_fee_igst %}
+           [{{booking.management_fee_igst|floatformat:2|intcomma}} %]
+           {% else %}
+           {{booking.management_fee_igst|default:''}}
+           {% endif %}
+       </strong></td>
+        <td align="left" colspan="8" style="padding-top: 3px;">
+        {% if booking.management_fee_igst %}
+           {{booking.management_fee_igst|floatformat:2|intcomma}}
+           {% else %}
+           {{booking.management_fee_igst|default:'NA'}}
+           {% endif %}
+        </td>
+  </tr>
+
+
+    <tr>
+        <td align="left" colspan="8" style="padding-top: 3px;"><strong></strong></td><td align="left" colspan="8" style="padding-top: 3px;"></td>
+  <td  class="border-left"></td>
+       <td align="left" colspan="8" style="padding-top: 3px;"><strong> Advance Paid </strong></td>
+        <td align="left" colspan="8" style="padding-top: 3px;">0.00</td>
+  </tr>
+
+    <tr>
+        <td align="left" colspan="8" style="padding-top: 3px;"><strong></strong></td><td align="left" colspan="8" style="padding-top: 3px;"></td>
+  <td  class="border-left"></td>
+       <td align="left" colspan="8" style="padding-top: 3px;"><strong> TOTAL </strong></td>
+        <td align="left" colspan="8" style="padding-top: 3px;">{{booking.sub_total|floatformat:2|intcomma}} </td>
+  </tr>
+
+
+       {% endfor %}
+
+
+
+
+</table>
+
+
+
+<table width="100%"  >
+
+
+   <tr>
+        
+    
+         <td align="center" colspan="3"class="total_sec"> <strong>TOTAL </strong> </td>
+           <td align="center" colspan="4" class="total_sec"> <strong>{{bill_datas.total_amount|floatformat:2|intcomma}}  </strong> </td>
+    
+    </tr>
+ </table>
+
+
+<table width="100%">
+        <h1 style="line-height: 0px;font-family: 'Montserrat';padding: 10px;background-color:#e8e8e8;">Bank Details</h1>
+      <tr>
+       
+        <td colspan="8" align="left" style="padding-top: 2px;"><strong>Bank Name :</strong></td>
+    
+      <td colspan="8" align="left" style="padding-top: 2px;"> HDFC  </td>
+
+  <td  class="border-left"></td>
+    
+       <td colspan="8" align="left" style="padding-top: 2px;"><strong>Beneficiary Name  : </strong></td>
+   
+      <td colspan="8" align="left" style="padding-top: 2px;">BAI Infosolutions Private
+Limited,India</td>
+  </tr>
+     
+    <tr>
+        
+        <td colspan="8" align="left" style="padding-top: 2px;"><strong>Account No. :</strong></td>
+    
+      <td colspan="8" align="left" style="padding-top: 2px;">12345678901</td>
+
+  <td  class="border-left"></td>
+    
+       <td colspan="8" align="left" style="padding-top: 2px;"><strong>IFSC No. : </strong></td>
+   
+      <td colspan="8" align="left" style="padding-top: 2px;">12345</td>
+ </tr>
+
+
+</table>
+</body>
+</html>

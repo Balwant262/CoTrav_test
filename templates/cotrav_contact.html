@@ -1,0 +1,159 @@
+
+{% extends 'main_base.html' %}
+
+{% block description %}Have unique travel needs that are unmet still? Drop us a message, and one of our experts will get in touch with you to address your requirements. Access personalized travel solutions with a single click of a button.{% endblock %}
+{% block keywords %}{% endblock %}
+{% block title %}Cotrav | Contact Us{% endblock %}
+
+{% block content %}
+
+{% load static %}
+{% include 'cotrav_alert_contact.html' %}
+  <!-- start page title section -->
+        <section class="page-title-section2 bg-img cover-background" data-background="{% static 'img/bg/contactus.jpg' %}" style="padding-top: 0px;">
+          <div class="row">
+             <div class="col-md-6">
+             </div>
+
+             <div class="col-md-6">
+              
+
+                   <div class="about_cotrav_1 contact_us" >
+     <span class="about_content contact_us_1"> CONTACT US</span>
+       <p class="about_content_1 contact-us_query" >Any Queries? Please send us your requirement.</p>
+
+         <p class="about_content_ contact-us_solution">We will surely have a solution for you.</p>
+
+</div>
+
+
+          </div>
+          </div>
+
+         </section>
+
+        <!-- end page title section -->
+
+        <!-- start contact section -->
+        <section style="padding-bottom: 10px;">
+            <div class="container">
+                <div class="row">
+                    <!-- start contact form -->
+                    <div class="col-lg-6 sm-margin-30px-bottom xs-margin-20px-bottom">
+                        <div class="section-heading left">
+                            <h4>Let's talk TRAVEL!</h4>
+                        </div>
+                        <div class="contact-form-box margin-30px-top">
+                          <form method="post" action="contact" class="mailform off2">
+                                <input type="hidden" name="form-type" value="contact">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="text" name="contact_person_name" id="name" placeholder="Contact Person " data-constraints="@NotEmpty">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" name="corporate_name" id="comp_name" placeholder="Name Of Your Company " data-constraints="@NotEmpty">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" name="contact_person_no" id="contact_no" placeholder="Contact Number" data-constraints=" @phone">
+                                    </div>
+                                     <div class="col-md-6">
+                                        <input type="text" name="contact_person_email" id="email" placeholder="Contact Email" data-constraints="@Email @NotEmpty">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <textarea name="message" rows="5" placeholder="Tell us more about your requirments.." id="message" data-constraints="@NotEmpty"></textarea>
+                                    </div>
+                                    <div class="mfControls col-md-12">
+                                        <button type="submit" class="butn theme medium bt_par" style="background: #112f5a;"><span>Submit</span></button>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- end contact form  -->
+
+                    <!-- start contact detail -->
+                    <div class="col-lg-6">
+                        <div class="contact-info-box padding-30px-left sm-no-padding">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="contact-info-section no-padding-top margin-10px-top">
+
+                                        <h4>Send in your specific requirements</h4>
+                                        <p style="text-align: justify">
+                                           Have unique travel needs that are unmet still? Drop us a message, and one of our experts will get in touch with you to address your requirements. Access personalized travel solutions with a single click of a button. 
+                                        </p>
+
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="contact-info-section">
+
+                                        <h4>Alternatively, you could reach out to us on the coordinates detailed below. </h4>
+                                        <ul class="list-style-1 no-margin-bottom">
+                                            <li>
+                                                <p><i class="fas fa-map-marker-alt text-center"></i> <strong>Address:</strong> 6/813 ,Main Market, Mehrauli, New Delhi, Delhi 110030.</p>
+                                            </li>
+                                            <li>
+                                                <p><i class="fas fa-phone text-center"></i> <strong>Phone:</strong> (+91) 762 016 7793</p>
+                                            </li>
+                                            <li>
+                                                <p><i class="far fa-envelope text-center"></i> <strong>Email:</strong> <a href="javascript:void(0)" class="email_content">support@cotrav.co</a></p>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="contact-info-section border-none no-padding-bottom no-margin-bottom">
+
+                                        <h4>Business Hours</h4>
+                                        <ul class="list-style-2">
+                                            <li>Monday - Friday - 9 AM to 9 PM</li>
+                                            <li>Saturday - 9 AM to 5 PM</li>
+                                            <li>Sunday - Closed</li>
+                                        </ul>
+
+                                    </div>
+                                </div>
+
+                                 <div class="col-xs-3 col-md-3 xs-display-none">
+                                 <ul class="top-social-icon">
+                                <li><a href="javascript:void(0)"><i class="fab fa-facebook-f"></i></a></li>
+                                <li><a href="javascript:void(0)"><i class="fab fa-twitter"></i></a></li>
+                                <li><a href="javascript:void(0)"><i class="fab fa-google-plus-g"></i></a></li>
+                                <li><a href="javascript:void(0)"><i class="fab fa-linkedin-in"></i></a></li>
+                            </ul>
+                        </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end contact detail -->
+                </div>
+            </div>
+        </section>
+        <!-- end contact section -->
+
+        <!-- start map section -->
+        <section style="padding-top: 0px;">
+            <div id="map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3782.5519435333053!2d73.78805671479118!3d18.54913898739236!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bf26d21b2aa9%3A0xd233741af9777c1e!2sTaxiVaxi!5e0!3m2!1sen!2sin!4v1590566461318!5m2!1sen!2sin" width="100%" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+            </div>
+        </section>
+        <!-- end map section -->
+
+{% endblock %}
+
+
+{% block custome_page_only_js %}
+<!-- this block contain javascript used only for this page -->
+<!-- map js -->
+    <!--<script src="{% static 'js/map.js' %}"></script>-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlvk_48YDPOwR_zeL1_AR87qUjGDeeM6Q&region=IN&callback=initMap" async defer></script>
+
+<!-- end custome javascript block -->
+
+
+{% endblock %}

@@ -1,0 +1,267 @@
+{% extends 'Agent/layout/header.html' %}
+
+{% block content %}
+
+
+{% if user %}
+<!-- start page content -->
+
+<!-- The Modal -->
+<div class="modal fade" role="dialog" id="model_add_new_entities">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 id="delete_label" class="modal-title-status">Add New Corporate PO Numbers Form</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <form action="/agents/add-corporate-podetail/0" method="post" enctype="multipart/form-data" id="model_serialize_update">
+                <input type="hidden" name="bill_id" id="bill_id">
+                <input type="hidden" name="user_id" value="{{user.id}}">
+                <input type="hidden" name="delete_id" id="delete_id">
+                 <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+                <!-- Modal footer -->
+                <div class="modal-body">
+
+                     <div class="form-group row" id="corporate_id1">
+                        <label class="col-sm-3 control-label">Company Name</label>
+                        <div class="col-sm-9">
+                            <select class="form-control myselect" name="corporate_id" id="corporate_id" style="width:100%;" required>
+                                <option value="">Select Company</option>
+                               {% for company in companies %}
+                                <option value="{{company.id}}">{{company.corporate_name}}</option>
+                                {% endfor %}
+                            </select>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="po_number1">
+                        <label class="col-sm-3 control-label">PO Number</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="po_number" id="po_number" placeholder="PO Number" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="po_date1">
+                        <label class="col-sm-3 control-label">PO Date</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control datepicker1"  autocomplete="off" name="po_date" id="po_date" required placeholder="PO Date">
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="po_amount1">
+                        <label class="col-sm-3 control-label">PO Amount</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="po_amount" id="po_amount" required placeholder="PO Amount">
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="po_copy1" >
+                        <label class="col-sm-3 control-label">PO Copy</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="po_copy"  id="po_copy" placeholder="PO Copy">
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="po_balance1" >
+                        <label class="col-sm-3 control-label">PO Balance</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="po_balance"  id="po_balance" placeholder="PO Balance">
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button id="delete_btn" type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+</div>
+
+
+{% include 'cotrav_alert_message.html' %}
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-topline-aqua">
+                    <div class="card-head">
+                        <header>ALL CORPORATE PO NUMBER LIST</header>
+                          <div class="row p-b-20">
+                            <div class="col-md-6 col-sm-6 col-6">
+                                <div class="btn-group">
+                                    <a class="btn btn-info" href="#" data-toggle="modal"
+                                       data-target="#model_add_new_entities"> Add New  <i class="fa fa-plus"></i> </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tools">
+                            <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                            <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                            <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                        </div>
+                    </div>
+                    <div class="card-body ">
+
+
+
+
+                        <div class="table-scrollable table-bordered">
+                            <table id="example1" class="display full-width table-striped">
+                                <thead>
+                                <tr>
+<!--                                    <th>ID</th>-->
+                                    <th>Company Name</th>
+                                    <th>PO Number</th>
+                                    <th>PO Date</th>
+                                    <th>PO Amount</th>
+                                    <th>PO Copy</th>
+                                    <th>PO Balance</th>
+
+                                    <th>Edit/Delete</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for be in pos %}
+                                <tr>
+<!--                                    <td>{{ be.id }}</td>-->
+                                    <td>{{ be.corporate_name }}</td>
+                                    <td>{{ be.po_number }}</td>
+                                    <td>{{ be.po_date }}</td>
+                                    <td>{{ be.po_amount|default:'' }}</td>
+                                    <td>{{ be.po_copy|default:'' }}</td>
+                                    <td>{{ be.po_balance|default:'' }}</td>
+
+                                    <td>
+                                        <a href="#" data-toggle="modal" data-target="#model_add_new_entities"
+                                           class="btn btn-tbl-edit btn-xs" data-id="{{be.id}}" data-corporate_id="{{be.corporate_id}}"  data-po_number="{{be.po_number}}"
+                                        data-po_date="{{be.po_date}}" data-po_amount="{{be.po_amount}}" data-po_copy="{{be.po_copy}}" data-po_balance="{{be.po_balance}}">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                        <a  href="#" data-toggle="modal" class="btn btn-tbl-delete btn-xs" data-target="#model_add_new_entities"  data-id="{{be.id}}"
+                                            data-corporate_id="{{be.corporate_id}}" data-po_number="{{be.po_number}}" data-po_date="{{be.po_date}}"
+                                            data-po_amount="{{be.po_amount}}" data-po_copy="{{be.po_copy}}" data-po_balance="{{be.po_balance}}" data-delete_id="1">
+                                            <i class="fa fa-trash-o "></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- end page content -->
+
+
+{% else %}
+<p>Welcome, new user. Please log in.<a href="/login">Login</a></p>
+{% endif %}
+
+
+<script>
+
+        $(".myselect").select2();
+
+        var mymod = $('#corporate_id');
+
+        mymod.select2();
+
+        var billingcitySelect = $('#billing_city_id');
+
+        billingcitySelect.select2();
+
+</script>
+
+
+<script type="text/javascript">
+$(function() {
+  $('#model_add_new_entities').on('shown.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var id = button.data('id'); // Extract info from data-* attributes
+    var po_number = button.data('po_number');
+    var corporate_id = button.data('corporate_id');
+    var po_date = button.data('po_date');
+    var po_amount = button.data('po_amount');
+    var po_copy = button.data('po_copy');
+    var po_balance = button.data('po_balance');
+
+    var delete_id = button.data('delete_id');
+
+    var modal = $(this);
+
+    if(delete_id == 1){
+    modal.find('#delete_id').val(delete_id);
+    modal.find('#bill_id').val(id);
+
+    mymod.val(corporate_id);
+    mymod.trigger('change.select2');
+
+    modal.find('#po_number').val(po_number);
+    modal.find('#po_date').val(po_date);
+    modal.find('#po_amount').val(po_amount);
+    modal.find('#po_copy').val(po_copy);
+    modal.find('#po_balance').val(po_balance);
+
+    $('#delete_label').text("do you want to delete this record");
+    $('#delete_btn').html("Yes");
+
+    $('#po_number1').hide();
+    $('#corporate_id1').hide();
+    $("#po_date1").val(po_date).hide();
+    $('#po_amount1').hide();
+    $('#po_copy1').hide();
+    $('#po_balance1').hide();
+
+    }else{
+
+    modal.find('#bill_id').val(id);
+
+    mymod.val(corporate_id);
+    mymod.trigger('change.select2');
+
+    modal.find('#po_number').val(po_number).trigger('change');
+    modal.find('#po_date').val(po_date);
+    modal.find('#po_amount').val(po_amount);
+    modal.find('#po_copy').val(po_copy);
+    modal.find('#po_balance').val(po_balance);
+    modal.find('#delete_id').val('');
+
+    $('#delete_label').text("PO Number Details");
+    $('#delete_btn').html("Save");
+
+    $('#po_number1').show();
+    $('#corporate_id1').show();
+    $("#po_date1").val(po_date1).show();
+    $('#po_amount1').show();
+    $('#po_copy1').show();
+    $('#po_balance1').show();
+
+    }
+
+    });
+
+});
+
+</script>
+
+{% endblock %}
+
+

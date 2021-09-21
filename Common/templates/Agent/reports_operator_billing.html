@@ -1,0 +1,163 @@
+{% extends 'Agent/layout/header.html' %}
+
+{% block content %}
+
+
+{% if user %}
+<!-- start page content -->
+
+{% include 'cotrav_alert_message.html' %}
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-topline-aqua">
+                    <div class="card-head">
+                        <header>BILL REPORTS</header>
+
+
+                        <div class="tools">
+                            <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                            <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                            <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                        </div>
+
+                    </div>
+
+                     <div class="card-body ">
+                            <div class = "mdl-tabs mdl-js-tabs">
+                                <div class = "mdl-tabs__tab-bar tab-left-side">
+
+                                    <a href = "/agents/reports/invoice" class = "mdl-tabs__tab  ">Invoice Report</a>
+                                    <a href = "/agents/reports/client-billing" class = "mdl-tabs__tab   ">Client Billing Report</a>
+                                    <a href = "/agents/reports/operator-billing" class = "mdl-tabs__tab is-active ">Operator Billing Report</a>
+
+                                </div>
+                            </div>
+                        </div>
+
+<form action="#" method="post" >
+<div class="card-body ">
+ <fieldset style="border: solid 1px #dedede; padding: 9px;">
+     <legend style="display: block;
+    width: auto;
+    font-size: 12px;
+    font-weight: 500;line-height:0;">Select Filter</legend>
+                           <div class="row">
+
+                                <div class="col-sm-2">
+                                    <select name="corporate_id" class="form-control myselect">
+                                         <option value="">All Company</option>
+                                        {% for company in companies %}
+                                        <option value="{{company.id}}" {% if data.corporate_id == company.id %} selected {%endif%}>{{company.corporate_name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                               <div class="col-sm-2">
+                                    <select name="date_type" class="form-control myselect">
+                                         <option value="">Select Date Type</option>
+                                         <option value="2">Booking Date</option>
+                                         <option value="3">Service Date</option>
+                                         <option value="0">Bill Date</option>
+                                    </select>
+                                </div>
+
+                               <div class="col-sm-2">
+                                    <input required style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" class="form-control datepicker1" autocomplete="off" name="from_date" value="{{data.from_date}}" placeholder="From Date">
+                                </div>
+
+                               <div class="col-sm-2">
+                                    <input required style="line-height: 20px; border-radius: 4px; border-color: darkgray;" type="text" class="form-control datepicker1" autocomplete="off" value="{{data.to_date}}" name="to_date" placeholder="To Date">
+                                </div>
+
+                               <div class="col-sm-2">
+                                    <input style="line-height: 12px; border-radius: 4px; border-color: darkgray;" type="submit" class="btn btn-info"  value="Bill Search">
+                                </div>
+
+
+
+
+                        </div>
+ </fieldset>
+</div>
+</form>
+
+                    <form action="#" id="taxiBilling" method="post" >
+                    <input type="hidden" name="current_url" id="current_url" value="{{ request.get_full_path }}">
+                    <div class="card-body ">
+
+
+                        <div class="table-scrollable table-bordered">
+                           <table id="example1" class="display full-width table-striped">
+                                <thead>
+                                <tr>
+                                    <th>S.No</th>
+                                    <th>Bill No.</th>
+                                    <th>Bill Type</th>
+                                    <th>Bill Date</th>
+                                    <th>Company Name</th>
+                                    <th>No. Of Bookings</th>
+                                    <th>Booking IDs</th>
+                                    <th>Passenger Name</th>
+                                    <th>Passenger Contact</th>
+                                    <th>BASIC VALUE</th>
+                                        <th>EXTRAS</th>
+                                        <th>DRIVER CHARGE</th>
+                                        <th>MANAGEMENT FEE</th>
+
+
+
+                                        <th>PG Charges</th>
+                                        <th>NIGHTS</th>
+                                        <th>CGST</th>
+                                        <th>SGST</th>
+
+                                        <th>IGST</th>
+
+                                        <th>TOTAL TAX</th>
+                                        <th>TOTAL AMOUNT</th>
+                                        <th>CALCULATED TDS</th>
+
+
+
+                                    <th>PAYMENT DATE</th>
+                                    <th>GST Number</th>
+                                    <th>Billing Entity</th>
+                                    <th>Paid By TaxiVaxi</th>
+                                    <th>Comment</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+
+
+                                <tr>
+
+
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- end page content -->
+
+
+{% else %}
+<p>Welcome, new user. Please log in.<a href="/login">Login</a></p>
+{% endif %}
+
+
+
+{% endblock %}
+
+

@@ -1,0 +1,166 @@
+{% extends 'Company/Admin/layout/header.html' %}
+
+{% block content %}
+
+{% if user %}
+			<!-- start page content -->
+{% include 'cotrav_alert_message.html' %}
+
+            <div class="page-content-wrapper">
+                <div class="page-content">
+
+                                      <div class="text-center">
+                     <div style="font-size:14px; font-weight:bold;">
+                        View Guest House Details
+                         </div>
+                </div>
+
+
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4">
+                            <div class="card card-topline-aqua">
+                                <div class="card-head">
+                                    <header>Guest House Details</header>
+                                    <div class="tools">
+                                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                                        <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                                        <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                                    </div>
+                                </div>
+                                <div class="card-body " id="bar-parent">
+
+                                    {% for house in guesthouses %}
+                                    <table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+                                      <tr>
+                                        <th>GuestHouse ID</th>
+                                        <td>{{ house.guest_house_id }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>GuestHouse Code</th>
+                                            <td>{{ house.guest_house_code }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Name</th>
+                                            <td>{{ house.guest_house_name }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>City Name</th>
+                                            <td>{{ house.city_id_name }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Location</th>
+                                            <td>{{ house.area_location }}</td>
+                                        </tr>
+
+
+                                    </table>
+                                {% endfor %}
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-8">
+                            <div class="card card-topline-aqua">
+                                <div class="card-head">
+                                    <header>Guest House Amenities Details</header>
+                                    <div class="tools">
+                                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                                        <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                                        <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                                    </div>
+                                </div>
+                                <div class="card-body " id="bar-parent">
+
+                                    {% for house in guesthouses %}
+                                    <table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+                                      <tr>
+                                        <th>Bed Type</th>
+                                        <td>{{ house.bed_type|yesno:'Yes,No' }}</td>
+                                        <th>Is TV</th>
+                                        <td>{{ house.tv|yesno:'Yes,No' }}</td>
+                                          <th>WiFi</th>
+                                            <td>{{ house.wifi|yesno:'Yes,No' }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Queen Size Bed</th>
+                                            <td>{{ house.queen_size_bed|yesno:'Yes,No' }}</td>
+                                            <th>AC</th>
+                                            <td>{{ house.ac|yesno:'Yes,No' }}</td>
+                                            <th>Functional Living Area</th>
+                                            <td>{{ house.functional_living_area|yesno:'Yes,No' }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Power Backup</th>
+                                            <td>{{ house.power_backup|yesno:'Yes,No' }}</td>
+                                            <th>Geyser</th>
+                                            <td>{{ house.geyser|yesno:'Yes,No' }}</td>
+                                            <th>Elevator</th>
+                                            <td>{{ house.elevator|yesno:'Yes,No' }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>CCTV Cameras</th>
+                                            <td>{{ house.cctv_cameras|yesno:'Yes,No' }}</td>
+                                            <th>Security</th>
+                                            <td>{{ house.security|yesno:'Yes,No' }}</td>
+                                            <th>Fire Extinguisher</th>
+                                            <td>{{ house.fire_extinguisher|yesno:'Yes,No' }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Room Facilities</th>
+                                            <td>{{ house.room_facilities|yesno:'Yes,No' }}</td>
+                                            <th>Intercom</th>
+                                            <td>{{ house.intercom|yesno:'Yes,No' }}</td>
+                                            <th>FAN</th>
+                                            <td>{{ house.fan|yesno:'Yes,No' }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Telephone</th>
+                                            <td>{{ house.telephone|yesno:'Yes,No' }}</td>
+
+                                        </tr>
+
+
+
+                                    </table>
+                                {% endfor %}
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        </div>
+
+    </div>
+    </div>
+
+
+
+<!-- end page content -->
+
+
+
+
+{% else %}
+    <p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+<script>
+
+$(document).ready(function() {
+$(".js-example-basic-single").select2();
+});
+
+
+</script>
+
+{% endblock %}

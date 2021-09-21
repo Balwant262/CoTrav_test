@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+{% load static %}
+    <!-- metas -->
+    <meta charset="utf-8">
+    <meta name="author" content="Chitrakoot Web" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="keywords" content="CoTrav" />
+    <meta name="description" content="CoTrav" />
+
+    <!-- title  -->
+    <title>Cotrav | Comingsoon</title>
+
+    <!-- favicon -->
+    <link rel="shortcut icon" href="{% static 'img/logos/favicon.png' %}">
+    <link rel="apple-touch-icon" href="{% static 'img/logos/apple-touch-icon-57x57.png' %}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'img/logos/apple-touch-icon-72x72.png' %}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'img/logos/apple-touch-icon-114x114.png' %}">
+
+
+    <!-- plugins -->
+    <link rel="stylesheet" href="{% static 'css/plugins.css' %}" />
+
+    <!-- search css -->
+    <link rel="stylesheet" href="{% static 'search/search.css' %}" />
+
+    <!-- custom css -->
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" id="colors">
+
+
+	 
+</head>
+
+<body>
+   <!-- start header section -->
+       
+ <header>
+
+            <div class="navbar-default">
+
+                <!-- Start Top Search -->
+                <div class="top-search bg-theme">
+                    <div class="container">
+                        <form class="search-form" action="search.html" method="GET" accept-charset="utf-8">
+                            <div class="input-group">
+                                <span class="input-group-addon cursor-pointer">
+                                    <button class="search-form_submit fas fa-search font-size18 text-white" type="submit"></button>
+                                </span>
+                                <input type="text" class="search-form_input form-control" name="s" autocomplete="off" placeholder="Type & hit enter...">
+                                <span class="input-group-addon close-search"><i class="fas fa-times font-size18 line-height-28 margin-5px-top"></i></span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- End Top Search -->
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-12 col-lg-12">
+                            <div class="menu_area alt-font">
+                                <nav class="navbar navbar-expand-lg navbar-light no-padding">
+
+                                    <div class="navbar-header navbar-header-custom">
+                                        <!-- Start Logo -->
+                                       <img id="logo" src="{% static 'img/logos/logo-com.png' %}" alt="logo" class="pg-logo logo-img navbar-brand logodefault">
+                                        <!-- End Logo -->
+                                    </div>
+
+                                    <div class="navbar-toggler"></div>
+
+                                    <!-- Menu Area -->
+
+
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </header>
+        <!-- end header section --> 
+        <!-- end header section -->
+
+   <section class="fullscreen_bg">
+       
+        <div class="container position-unset">
+           
+                <div class="row">
+                    <div class="col-md-6 text-center">
+                        <div class="coming-soon">
+                            <h5 class="txt-block-sec">Coming Soon</h5>
+                              <p class="p-txt">  To Simplify Corporate Travel </p>
+
+                                 <p class="p-txt p-txt1">  For
+
+               Cab | Hotels | Flights | Trains | Bus | Events </p>
+                        </div>
+                    </div>
+
+                      <div class="col-md-6">
+                           
+                           <img src="{% static 'img/logos/mis.jpg' %}" class="img_1">
+                        </div>
+                    </div>
+                 <br /> <br />
+
+                <div class="row">
+                   
+                     
+                 <div class="row">
+                    <div class="col-md-6">
+                     <img src="{% static 'img/bg/NEW1.jpg' %}"><br><br>
+                    </div>
+
+                     <div class="col-md-6">
+                     <img src="{% static 'img/bg/taxi2.jpg' %}">
+                    </div>
+               </div>
+           
+                 <div class="row">
+                    <div class="col-md-6">
+                     <img src="{% static 'img/bg/mobil.jpg' %}"><br><br>
+                    </div>
+
+                     <div class="col-md-6">
+                     <img src="{% static 'img/bg/taxi3.jpg' %}">
+                    </div>
+               </div>
+
+         </div>
+
+     <br /> <br />
+
+          <div class="row">
+               
+                     
+                 <div class="row">
+                    <div class="col-md-6">
+                     <img src="{% static 'img/bg/bus.jpg' %}">
+                    </div>
+                     <div class="col-md-6">
+                     <img src="{% static 'img/bg/train.jpg' %}">
+                    </div>
+               </div>
+               
+         </div>  
+
+ <br /> <br />
+
+
+  <div class="row">
+                 
+                     
+                 <div class="row">
+                    <div class="col-md-7">
+                     <img src="{% static 'img/bg/hotel.jpg' %}">
+                    </div>
+                    <div class="col-md-5">
+                     <img src="{% static 'img/bg/flight.jpg' %}">
+                    </div>
+               </div>
+         </div>  
+
+
+             </div>
+       
+    </section>
+
+    
+   
+            <div class="footer-bar footer_txt">
+                <div class="container">
+                    <div class="row">
+                        
+                        <div class="col-md-12">
+                            <p class="xs-margin-5px-top xs-font-size13">&copy; 2019 Designed by Cotrav</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+     
+        <!-- end footer section -->
+
+    <!-- start scroll to top -->
+    <a href="javascript:void(0)" class="scroll-to-top"><i class="fas fa-angle-up" aria-hidden="true"></i></a>
+    <!-- end scroll to top -->
+
+ <!-- all js include start -->
+
+    <!-- jQuery -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+
+    <!-- modernizr js -->
+    <script src="{% static 'js/modernizr.js' %}"></script>
+
+    <!-- bootstrap -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    <!-- navigation -->
+    <script src="{% static 'js/nav-menu.js' %}"></script>
+
+    <!-- serch -->
+    <script src="{% static 'search/search.js' %}"></script>
+
+    <!-- tab -->
+    <script src="{% static 'js/easy.responsive.tabs.js' %}"></script>
+
+    <!-- owl carousel -->
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+
+    <!-- jquery.counterup.min -->
+    <script src="{% static 'js/jquery.counterup.min.js' %}"></script>
+
+    <!-- stellar js -->
+    <script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+
+    <!-- waypoints js -->
+    <script src="{% static 'js/waypoints.min.js' %}"></script>
+
+    <!-- tab js -->
+    <script src="{% static 'js/tabs.min.js' %}"></script>
+
+    <!-- countdown js -->
+    <script src="{% static 'js/countdown.js' %}"></script>
+
+    <!-- jquery.magnific-popup js -->
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+
+    <!-- isotope.pkgd.min js -->
+    <script src="{% static 'js/isotope.pkgd.min.js' %}"></script>
+
+    <!--  chart js -->
+    <script src="{% static 'js/chart.min.js' %}"></script>
+
+
+
+    <!--  clipboard js -->
+    <script src="{% static 'js/clipboard.min.js' %}"></script>
+
+    <!--  prism js -->
+    <script src="{% static 'js/prism.js' %}"></script>
+
+    <!-- map js -->
+    <script src="{% static 'js/map.js' %}"></script>
+
+    <!-- custom scripts -->
+    <script src="{% static 'js/main.js' %}"></script>
+
+    <!-- contact form scripts -->
+    <script src="{% static 'js/mailform/jquery.form.min.js' %}"></script>
+    <script src="{% static 'js/mailform/jquery.rd-mailform.min.c.js' %}"></script>
+
+    <!-- all js include end -->
+
+</body>
+
+</html>

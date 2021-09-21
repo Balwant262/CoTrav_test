@@ -1,0 +1,439 @@
+{% extends 'Agent/layout/header.html' %}
+
+{% block content %}
+
+
+{% if user %}
+
+<style>
+
+.
+.autocomplete-active:hover{
+background:white;
+}
+#myInputautocomplete-list{
+z-index:100;
+display:block;
+cursor: pointer;
+list-style:
+}
+    .autocomplete-items{
+     border: solid 3px lightgray;
+    overflow: auto;
+    padding:8px;
+    line-height:30px;
+     border-collapse: collapse;
+  border-spacing: 0;
+ z-index:99
+ display:block;
+ border-radius:6px;
+ background-color:#dee2e6;
+ font-size:13px;
+  color: #041261;
+ }
+ .autocomplete-items div:hover,
+.autocomplete-active {
+  color: #041261;
+  background-color:#9ba9f7;
+
+
+}
+
+
+
+</style>
+
+
+<!-- The Modal -->
+<div class="modal fade model_custom_style" role="dialog" id="model_add_new_group">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 id="delete_label" class="modal-title-status">Are You Want To Activate Back ? </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+            <form action="/agents/softdeleated_update" method="post" enctype="multipart/form-data" id="form_id">
+                <input type="hidden" name="record_id" id="company_id">
+                <input type="hidden" name="table_name" id="table_name">
+                <input type="hidden" name="user_id" value="{{user.id}}">
+                 <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <button id="delete_btn" type="submit" class="btn btn-primary">Yes</button>
+                </div>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+{% include 'cotrav_alert_message.html' %}
+
+<!-- start page content -->
+            <div class="page-content-wrapper">
+                <div class="page-content">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card card-topline-aqua">
+                                <div class="card-head">
+                                    <header>ALL CORPORATE RATES LIST</header>
+                                     <div class="row p-b-20">
+                                        <div class="col-md-6 col-sm-6 col-6">
+                                            <div class="btn-admin">
+                                                <a class="btn btn-info" data-target="#model_add_new_group" data-toggle="modal"
+                                                   href="#"> Add New Rate <i class="fa fa-plus"></i> </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tools">
+                                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+	                                    <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+	                                    <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                                    </div>
+                                </div>
+
+                                            <div class="card-body ">
+                        <div class = "mdl-tabs mdl-js-tabs">
+                           <div class = "mdl-tabs__tab-bar tab-left-side">
+
+                              <a href = "/agents/rates/0" class = "mdl-tabs__tab  ">Active Corporate Rates</a>
+                              <a href = "/agents/softdeleated/companies/3" class = "mdl-tabs__tab is-active ">Inactive Corporate Rates</a>
+
+                           </div>
+                        </div>
+                    </div>
+
+
+                                <div class="card-body ">
+
+                            
+         <div class="text-center">
+             <div style="font-size:14px; font-weight:bold;">
+                 All Companies Rates
+                 </div>
+         </div>
+                                  <div class="table-scrollable table-bordered">
+                                    <table id="example1" class="display full-width table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Company Name</th>
+                                                <th>Package Name</th>
+                                                <th>City</th>
+                                                <th>Taxi Type</th>
+                                                <th>Tour Type</th>
+                                                <th>Kms Included</th>
+                                                <th>Hours Included</th>
+                                                <th>Extra Rate/Km(Rs.)</th>
+                                                <th>Extra Rate/Hr(Rs.)</th>
+                                                <th>Base Rate(Rs.)</th>
+                                                <th>Night Rate(Rs.)</th>
+                                                <th>Night Start</th>
+                                                <th>Night End</th>
+                                                <th>Edit / Delete</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                        {% for corporate_rate in corporate_rates %}
+                                            <tr>
+                                                <td>{{ corporate_rate.id }}</td>
+                                                <td>{{ corporate_rate.corporate_name }}</td>
+                                                <td>{{ corporate_rate.package_name }}</td>
+                                                <td>{{ corporate_rate.city_name|default:'' }}</td>
+                                                <td>{{ corporate_rate.taxi_type|default:'' }}</td>
+
+
+                                                {% if corporate_rate.tour_type == 2 %}
+                                                <td>Local</td>
+                                                {% else %}
+                                                <td>Outstation</td>
+                                                {% endif %}
+
+
+                                                <td>{{ corporate_rate.kms|default:'0' }}</td>
+                                                <td>{{ corporate_rate.hours|default:'0' }} hrs</td>
+                                                <td>{{ corporate_rate.km_rate|default:'0' }}</td>
+                                                <td>{{ corporate_rate.hour_rate|default:'0' }}</td>
+                                                <td>{{ corporate_rate.base_rate|default:'0' }}</td>
+                                                <td>{{ corporate_rate.night_rate|default:'0' }}</td>
+                                                <td>{{ corporate_rate.night_start|default:'' }}</td>
+                                                <td>{{ corporate_rate.night_end|default:'' }}</td>
+
+                                                <td>
+
+                                                    <a class="btn btn-tbl-edit btn-xs" data-delete_id="1"
+                                                       data-target="#model_add_new_group" data-toggle="modal" href="#" data-id="{{corporate_rate.id}}" data-corporate_name="{{ corporate_rate.corporate_id }}" data-package_name="{{ corporate_rate.package_name }}"
+                                                    data-city_name="{{corporate_rate.city_id}}" data-taxi_type="{{corporate_rate.taxi_type_id}}" data-tour_type="{{corporate_rate.tour_type}}"
+                                                    data-kms="{{corporate_rate.kms}}" data-hours="{{corporate_rate.hours}}" data-km_rate="{{corporate_rate.km_rate}}" data-hour_rate="{{corporate_rate.hour_rate}}"
+                                                    data-base_rate="{{corporate_rate.base_rate}}" data-night_rate="{{corporate_rate.night_rate}}" data-night_start="{{corporate_rate.night_start|default:''}}" data-night_end="{{corporate_rate.night_end|default:''}}">
+                                                        <i class="fa fa-check "></i>
+                                                    </a>
+
+                                                 </td>
+
+                                            </tr>
+                                        {% endfor %}
+                                            </tbody>
+                                        </table>
+	                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+                </div>
+
+
+            </div>
+
+
+            <!-- end page content -->
+
+
+
+
+
+{% else %}
+    <p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+<script type="text/javascript">
+
+    var data = [
+            {% for package in taxi_packages %}
+                {
+                    id: '{{package.package_name}}',
+                    text: '{{package.package_name}}',
+                    kms: '{{package.kms}}',
+                    hours: '{{package.hours}}',
+                    
+                },
+            
+            {% endfor %}    
+                
+            ];
+            
+                $("#taxi_package").select2(
+                    {
+                        data: data
+                    }
+                )  
+                
+</script>
+
+<script>
+
+    var eventSelect = $("#taxi_package");
+
+    var cityidSelect = $("#city_id");
+
+    var taxitypeSelect = $("#taxi_type");
+
+    var tourtypeSelect = $("#tour_type");
+
+    var corporateSelect = $('#corporate_name');
+
+    eventSelect.select2();
+
+    cityidSelect.select2();
+
+    taxitypeSelect.select2();
+
+    tourtypeSelect.select2();
+
+    corporateSelect.select2();
+    
+
+    eventSelect.on("change", function (e) { 
+
+        var package_id = $("#taxi_package").val();
+       
+        var kms = data.find(x => x.id == package_id).kms;
+
+        var hours = data.find(x => x.id == package_id).hours;
+      
+        var modal = $('#model_add_new_group');
+
+        modal.find('#kms').val(kms);
+        modal.find('#hours').val(hours);
+
+
+     });
+
+
+     $('#model_add_new_group').on('hidden.bs.modal', function() {
+        eventSelect.select2('destroy');
+        cityidSelect.select2('destroy');
+        taxitypeSelect.select2('destroy');
+        tourtypeSelect.select2('destroy');
+
+      })
+ 
+</script>
+
+
+
+<script type="text/javascript">
+$(function() {
+
+  $('#model_add_new_group').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var id = button.data('id'); // Extract info from data-* attributes
+    var tbl_name = "corporate_rates";
+    var modal = $(this);
+    modal.find('#company_id').val(id);
+    modal.find('#table_name').val(tbl_name);
+    });
+
+});
+</script>
+
+
+<script>
+function autocomplete(inp, arr) {
+  /*the autocomplete function takes two arguments,
+  the text field element and an array of possible autocompleted values:*/
+  var currentFocus;
+  /*execute a function when someone writes in the text field:*/
+  inp.addEventListener("input", function(e) {
+      var a, b, i, val = this.value;
+      /*close any already open lists of autocompleted values*/
+      closeAllLists();
+      if (!val) { return false;}
+      currentFocus = -1;
+      /*create a DIV element that will contain the items (values):*/
+      a = document.createElement("DIV");
+      a.setAttribute("id", this.id + "autocomplete-list");
+      a.setAttribute("class", "autocomplete-items");
+      /*append the DIV element as a child of the autocomplete container:*/
+      this.parentNode.appendChild(a);
+      /*for each item in the array...*/
+      for (i = 0; i < arr.length; i++) {
+        /*check if the item starts with the same letters as the text field value:*/
+        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+          /*create a DIV element for each matching element:*/
+          b = document.createElement("DIV");
+          /*make the matching letters bold:*/
+          b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+          b.innerHTML += arr[i].substr(val.length);
+          /*insert a input field that will hold the current array item's value:*/
+          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+          /*execute a function when someone clicks on the item value (DIV element):*/
+          b.addEventListener("click", function(e) {
+              /*insert the value for the autocomplete text field:*/
+              inp.value = this.getElementsByTagName("input")[0].value;
+              /*close the list of autocompleted values,
+              (or any other open lists of autocompleted values:*/
+              closeAllLists();
+          });
+          a.appendChild(b);
+        }
+      }
+  });
+  /*execute a function presses a key on the keyboard:*/
+  inp.addEventListener("keydown", function(e) {
+      var x = document.getElementById(this.id + "autocomplete-list");
+      if (x) x = x.getElementsByTagName("div");
+      if (e.keyCode == 40) {
+        /*If the arrow DOWN key is pressed,
+        increase the currentFocus variable:*/
+        currentFocus++;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 38) { //up
+        /*If the arrow UP key is pressed,
+        decrease the currentFocus variable:*/
+        currentFocus--;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 13) {
+        /*If the ENTER key is pressed, prevent the form from being submitted,*/
+        e.preventDefault();
+        if (currentFocus > -1) {
+          /*and simulate a click on the "active" item:*/
+          if (x) x[currentFocus].click();
+        }
+      }
+  });
+  function addActive(x) {
+    /*a function to classify an item as "active":*/
+    if (!x) return false;
+    /*start by removing the "active" class on all items:*/
+    removeActive(x);
+    if (currentFocus >= x.length) currentFocus = 0;
+    if (currentFocus < 0) currentFocus = (x.length - 1);
+    /*add class "autocomplete-active":*/
+    x[currentFocus].classList.add("autocomplete-active");
+  }
+  function removeActive(x) {
+    /*a function to remove the "active" class from all autocomplete items:*/
+    for (var i = 0; i < x.length; i++) {
+      x[i].classList.remove("autocomplete-active");
+    }
+  }
+  function closeAllLists(elmnt) {
+    /*close all autocomplete lists in the document,
+    except the one passed as an argument:*/
+    var x = document.getElementsByClassName("autocomplete-items");
+    for (var i = 0; i < x.length; i++) {
+      if (elmnt != x[i] && elmnt != inp) {
+        x[i].parentNode.removeChild(x[i]);
+      }
+    }
+  }
+  /*execute a function when someone clicks in the document:*/
+  document.addEventListener("click", function (e) {
+      closeAllLists(e.target);
+  });
+}
+
+/*An array containing all the country names in the world:*/
+var countries = [
+{% for taxi_package in taxi_packages %}
+"{{taxi_package.package_name}}",
+{% endfor %}
+]
+
+autocomplete(document.getElementById("myInput"), countries);
+</script>
+<script>
+$( document ).ready(function() {
+
+$('#model_serialize_update')
+.each(function(){
+$(this).data('serialized', $(this).serialize())
+})
+    .on('change input', function(){
+        $(this)
+            .find('input:submit, button:submit')
+                .attr('disabled', $(this).serialize() == $(this).data('serialized'))
+        ;
+     })
+.find('input:submit, button:submit')
+.attr('disabled', true);
+
+});
+
+$(document.body).on("change",".myselect",function(){
+  $('form')
+      .find('input:submit, button:submit')
+          .attr('disabled', $('#model_serialize_update').serialize() == $('#model_serialize_update').data('serialized'))
+  ;
+});
+
+</script>
+
+
+{% endblock %}
+

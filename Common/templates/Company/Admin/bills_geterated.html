@@ -1,0 +1,214 @@
+{% extends 'Company/Admin/layout/header.html' %}
+
+{% block content %}
+
+{% if user %}
+<!-- start page content -->
+{% include 'cotrav_alert_message.html' %}
+<!-- The Modal -->
+<div class="modal fade model_custom_style" role="dialog" id="model_action">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 id="delete_label" class="modal-title-status">Bill Action</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+            <form action="/Corporate/Admin/accept-bill" method="post" enctype="multipart/form-data" id="form_id">
+                <input type="hidden" name="booking_id" id="booking_id">
+                <input type="hidden" name="user_id" value="{{user.id}}">
+                <input type="hidden" name="accept_id" id="accept_id">
+                <input type="hidden" name="reject_id" id="reject_id">
+                <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+               <label>Are you sure you want to Perform Action</label>
+                <div class="modal-body">
+                <div class="row">
+                    <label class="control-label col-sm-2">Comment</label>
+                    <textarea class="form-control col-sm-10" id="user_comment" rows="4" name="user_comment" placeholder="Comment.."></textarea>
+                </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <button id="delete_btn" type="submit" class="btn btn-primary">Yes</button>
+                </div>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-topline-aqua">
+                    <div class="card-head">
+                        <header>Non-Taxable Invoice Status</header>
+                        <a href="/Corporate/Admin/reports/invoice" class="btn btn-info">Bill Report</a>
+                        <div class="tools">
+                            <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                            <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                            <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                        </div>
+                    </div>
+
+                    <div class="card-body ">
+                        <div class = "mdl-tabs mdl-js-tabs">
+                           <div class = "mdl-tabs__tab-bar tab-left-side">
+
+                              <a href = "/Corporate/Admin/bill/2" class = "mdl-tabs__tab {% if bill_type == 2 %} is-active {% endif %}">Pending for Verification</a>
+                              <a href = "/Corporate/Admin/bill/3" class = "mdl-tabs__tab {% if bill_type == 3 %} is-active {% endif %}">Raised for Correction</a>
+                              <a href = "/Corporate/Admin/bill/4" class = "mdl-tabs__tab {% if bill_type == 4 %} is-active {% endif %}">Verified Bills</a>
+
+                           </div>
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="card-body ">
+
+                        <div class="table-scrollable table-bordered">
+
+                            <table id="example1" class="display full-width table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Bill id</th>
+                                    <th>Corporate Name</th>
+                                    <th>No of Invoices</th>
+                                    <th>Billing Entity</th>
+                                    <th>Cotrav Billing Entity</th>
+                                    <th>Service Type</th>
+
+                                    <th>Created Date</th>
+
+                                    <th>Total Tax</th>
+                                    <th>Management Fee</th>
+                                    <th>Client TDS</th>
+                                    <th>System TDS</th>
+                                    <th>IGST</th>
+                                    <th>CGST</th>
+                                    <th>SGST</th>
+                                    <th>Total Amount</th>
+                                    {% if bill_type == 2  %}
+                                    <th>Action</th>
+                                    {% endif %}
+
+                                    <th>Details</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for bill in bills %}
+                                <tr>
+                                    <td>{{bill.bill_number}}</td>
+                                    <td>{{bill.corporate_name}}</td>
+                                    <td>{{bill.no_of_invoices}}</td>
+                                    <td>{{bill.client_entity_name}}</td>
+                                    <td>{{bill.cotrav_entity_name}}</td>
+
+
+                                    <td>
+                                        {% if bill.service_types == '1' %}
+                                            Radio
+                                        {% elif bill.service_types == '2' %}
+                                            Local
+                                        {% elif bill.service_types == '3' %}
+                                            Outstation
+                                        {% elif bill.service_types == '4' %}
+                                            Bus
+                                        {% elif bill.service_types == '5' %}
+                                            Train
+                                        {% elif bill.service_types == '6' %}
+                                            Hotel
+                                        {% elif bill.service_types == '7' %}
+                                            Flight
+                                        {% else %}
+                                            Travel
+
+                                        {% endif %}
+                                    </td>
+
+
+                                    <td>{{bill.bill_created_date}}</td>
+                                    <td>{{bill.total_gst_paid}}</td>
+                                    <td>{{bill.management_fee}}</td>
+                                    <td>{{bill.tds_deducted_by_client}}</td>
+                                    <td>{{bill.system_calculated_tds}}</td>
+                                    <td>{{bill.igst}}</td>
+                                    <td>{{bill.cgst}}</td>
+                                    <td>{{bill.sgst}}</td>
+                                    <td>{{bill.total_amount}}</td>
+                                    {% if bill_type == 2  %}
+
+                                    <td style="display: inline-flex;"><a title="Accept Bill" style="margin-left:10px; background:cadetblue; color:white;" data-target="#model_action" data-id="{{bill.id}}" data-accept_id="1"
+                                           data-toggle="modal" class="btn btn-tbl-edit btn-xs"> <i class="fa fa-check"></i>  </a>
+
+                                        <a title="Reject Bill" style="margin-left:10px;" data-target="#model_action" data-id="{{bill.id}}" data-reject_id="1"
+                                           data-toggle="modal" class="btn btn-tbl-delete btn-xs" >  <i class="fa fa-times "></i></a>
+                                    </td>
+
+                                    {% endif %}
+                                    <td >
+
+
+                                        <a href="#" class="btn btn-tbl-edit btn-xs" style="background:#6288b1;"> <i class="fa fa-search"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- end page content -->
+
+
+{% else %}
+<p>Welcome, new user. Please log in.<a href="/login">Login</a></p>
+{% endif %}
+
+<script type="text/javascript">
+$(function() {
+  $('#model_action').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var id = button.data('id'); // Extract info from data-* attributes
+    var accept_id = button.data('accept_id');
+    var reject_id = button.data('reject_id');
+
+    var modal = $(this);
+    modal.find('#booking_id').val(id);
+
+    if(reject_id == 1){
+        modal.find('#accept_id').val('');
+        modal.find('#reject_id').val(1);
+        modal.find('#user_comment').prop('required',true);
+    }
+    if(accept_id == 1){
+        modal.find('#reject_id').val('');
+        modal.find('#accept_id').val(1);
+        modal.find('#user_comment').prop('required',false);
+    }
+
+    });
+});
+
+
+
+</script>
+
+{% endblock %}

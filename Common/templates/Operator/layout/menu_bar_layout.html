@@ -1,0 +1,270 @@
+
+{% load static %}
+<div class="page-wrapper">
+        <!-- start header -->
+        <div class="page-header navbar navbar-fixed-top">
+           <div class="page-header-inner ">
+                <!-- logo start -->
+                <div class="page-logo">
+                    <a href="#">
+                    <img alt="" src="{% static 'assets/img/cotrav_logo.png' %}">
+                    </a>
+                </div>
+                <!-- logo end -->
+
+                 <ul class="nav navbar-nav navbar-left in">
+                	<!-- start full screen button -->
+                    <li><a href="javascript:;" class="fullscreen-click font-size-20"><i class="fa fa-arrows-alt"></i></a></li>
+                    <!-- end full screen button -->
+                </ul>
+
+                <!-- start mobile menu -->
+                <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span></span>
+                </a>
+               <!-- end mobile menu -->
+
+                <!-- start header menu -->
+                <div class="top-menu">
+
+                    <ul class="nav navbar-nav pull-right">
+
+
+ 						<!-- start manage user dropdown -->
+
+ 						<li class="dropdown dropdown-user">
+                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                 <img alt="" class="img-circle " src="{% static 'assets/img/dp.png' %}" /> <span><b>&nbsp;&nbsp; {{user.operator_name}} <i class="fa fa-arrow-down"></i></b>  </span>
+                            </a>
+
+                            <ul class="dropdown-menu dropdown-menu-default animated jello">
+                                <li>
+                                    <a href="/operator/user_profile">
+                                        <i class="fa fa-user-o"></i> Profile </a>
+                                </li>
+
+                                <li>
+                                    <a href="/operator/logout">
+                                        <i class="fa fa-sign-out"></i> Log Out </a>
+                                </li>
+                            </ul>
+
+                        </li>
+                        <!-- end manage user dropdown -->
+
+
+                    </ul>
+                </div>
+            </div>
+            <div class="navbar-custom">
+				<div class="hor-menu hidden-sm hidden-xs">
+                    <ul class="nav navbar-nav mynav">
+                        <li class="mega-menu-dropdown ">
+                            <a href="/operator/operator_home" class="dropdown-toggle"> <i class="material-icons">dashboard</i>  Home
+
+                            </a>
+
+                        </li>
+
+                        {% if user.is_radio == 1 or user.is_local == 1 or user.is_outstation == 1 %}
+
+						 <li class="classic-menu-dropdown mega-menu-dropdown">
+                                <a href="/operator/operator-rates/{{user.id}}" class=" megamenu-dropdown" data-close-others="true"> <i class="material-icons">dvr</i>  Rates
+                            </a>
+
+                        </li>
+                        {% endif %}
+
+
+						 <li class="classic-menu-dropdown mega-menu-dropdown">
+                                <a href="/operator/operator-contacts/{{user.id}}" class=" megamenu-dropdown" data-close-others="true"> <i class="material-icons">school</i>  Contacts
+                            </a>
+
+                        </li>
+                        <li class="mega-menu-dropdown ">
+	                         <a href="/operator/operator-banks/{{user.id}}" class="dropdown-toggle"> <i class="material-icons">person</i>Bank Accounts
+
+                            </a>
+
+                        </li>
+
+                        <li class="mega-menu-dropdown ">
+                            <a href="/operator/operator-drivers/{{user.id}}" class="dropdown-toggle"> <i class="material-icons">person_outline</i>Drivers
+
+                            </a>
+
+                        </li>
+
+                        {% if user.is_radio == 1 or user.is_local == 1 or user.is_outstation == 1 %}
+
+                        <li class="mega-menu-dropdown " id="taxi_li_menu">
+                             <a href="/operator/taxi-bookings/2" class="dropdown-toggle"> <i class="material-icons">local_taxi</i>Taxi
+
+                            </a>
+
+                         </li>
+
+                        {% endif %}
+
+                        {% if user.is_bus == 1 %}
+                         <li class="mega-menu-dropdown" id="bus_li_menu">
+                            <a href="/operator/bus-bookings/3" class="dropdown-toggle"> <i class="material-icons">directions_bus</i>Bus
+
+                            </a>
+
+                        </li>
+                        {% endif %}
+                        {% if user.is_hotel == 1 %}
+                        <li class="mega-menu-dropdown" id="hotel_li_menu">
+                            <a href="/operator/hotel-bookings/3" class="dropdown-toggle"> <i class="material-icons">hotel</i>Hotel
+                            </a>
+
+                        </li>
+                        {% endif %}
+                        {% if user.is_flight == 1 %}
+
+                        <li class="mega-menu-dropdown" id="flight_li_menu">
+                            <a href="/operator/flight-bookings/3" class="dropdown-toggle"> <i class="material-icons">flight_takeoff</i>Flight
+                            </a>
+
+                        </li>
+                         {% endif %}
+
+                         <li class="mega-menu-dropdown ">
+                            <a href="#" class="dropdown-toggle"> <i class="material-icons">description</i> Billing
+ 								<i class="fa fa-angle-down"></i>
+                                <span class="arrow "></span>
+                            </a>
+								<ul class="dropdown-menu" style="min-width: 200px;">
+									<li>
+										<div class="mega-menu-content">
+											<div class="row">
+												<div class="col-md-12">
+													<ul class="mega-menu-submenu">
+														<li><a href="/operator/bill/2"><i class="fa fa-list" aria-hidden="true"></i> Non-Taxable Invoice Status</a></li>
+														<li><a href="/operator/payment-status/1"><i class="fa fa-hotel" aria-hidden="true"></i> Payment Status</a></li>
+
+
+													</ul>
+												</div>
+											</div>
+										</div>
+									</li>
+								</ul>
+                        </li>
+
+
+                    </ul>
+                </div>
+			</div>
+        </div>
+        <!-- end header -->
+        <!-- start page container -->
+      <div class="page-container">
+            <!-- start sidebar menu -->
+ 			<div class="sidebar-container">
+ 				<div class="sidemenu-container navbar-collapse collapse fixed-menu">
+	                <div id="remove-scroll">
+	                    <ul class="sidemenu page-header-fixed p-t-20" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+	                                                <li class="mega-menu-dropdown ">
+                            <a href="/Corporate/Admin/home" class="dropdown-toggle"> <i class="material-icons">dashboard</i>  Home
+
+                            </a>
+
+                        </li>
+                        <li class="classic-menu-dropdown mega-menu-dropdown">
+                                <a href="/Corporate/Admin/company-billing_entities/{{user.corporate_id}}" class=" megamenu-dropdown" data-close-others="true"> <i class="material-icons">assignment_turned_in</i>Entities
+                            </a>
+
+                        </li>
+
+						 <li class="classic-menu-dropdown mega-menu-dropdown">
+                                <a href="/Corporate/Admin/company-rates/{{user.corporate_id}}" class=" megamenu-dropdown" data-close-others="true"> <i class="material-icons">dvr</i>  Rates
+                            </a>
+
+                        </li>
+							<li class="classic-menu-dropdown mega-menu-dropdown">
+							<a href="/Corporate/Admin/assessment_cities/{{user.corporate_id}}"><i class="fa fa-simplybuilt" aria-hidden="true"></i> Assessment Cities</a></li>
+
+						<li class="classic-menu-dropdown mega-menu-dropdown">
+							<a href="/Corporate/Admin/assessment_codes/{{user.corporate_id}}" class=" megamenu-dropdown" data-close-others="true"><i class="fa fa-code" aria-hidden="true"></i> Assessment Codes</a></li>
+
+
+                        <li class="classic-menu-dropdown mega-menu-dropdown">
+                                <a href="/Corporate/Admin/company-groups/{{user.corporate_id}}" class=" megamenu-dropdown" data-close-others="true"> <i class="material-icons">group</i>  Group
+                            </a>
+
+                        </li>
+						 <li class="classic-menu-dropdown mega-menu-dropdown">
+                                <a href="/Corporate/Admin/company-subgroups/{{user.corporate_id}}" class=" megamenu-dropdown" data-close-others="true"> <i class="material-icons">people_outline</i>  SubGroup
+                            </a>
+
+                        </li>
+						 <li class="classic-menu-dropdown mega-menu-dropdown">
+                                <a href="/Corporate/Admin/company-admins/{{user.corporate_id}}" class=" megamenu-dropdown" data-close-others="true"> <i class="material-icons">school</i>  Admins
+                            </a>
+
+                        </li>
+                        <li class="mega-menu-dropdown ">
+	                         <a href="/Corporate/Admin/company-spoc/{{user.corporate_id}}" class="dropdown-toggle"> <i class="material-icons">person</i>SPOC
+
+                            </a>
+
+                        </li>
+                        <li class="mega-menu-dropdown ">
+                            <a href="/Corporate/Admin/company-employees/{{user.corporate_id}}" class="dropdown-toggle"> <i class="material-icons">person_outline</i>Employee
+
+                            </a>
+
+                        </li>
+
+
+	                           <li class="nav-item">
+	                        <a href="/Corporate/Admin/taxi-bookings/1" class="nav-link nav-toggle">
+	                           <i class="material-icons">local_taxi</i> Taxi
+	                            </a>
+
+	                        </li>
+
+	                            <li class="nav-item">
+	                        <a href="/Corporate/Admin/bus-bookings/1" class="nav-link nav-toggle">
+	                            <i class="material-icons">directions_bus</i> Bus
+	                            </a>
+
+	                        </li>
+
+	                            <li class="nav-item">
+	                        <a href="/Corporate/Admin/train-bookings/1" class="nav-link nav-toggle">
+	                        <i class="material-icons">directions_subway</i> Train
+	                            </a>
+
+	                        </li>
+
+
+	                            <li class="nav-item">
+	                        <a href="/Corporate/Admin/hotel-bookings/1" class="nav-link nav-toggle">
+	                           <i class="material-icons">hotel</i> Hotel
+	                            </a>
+
+	                        </li>
+
+	                            <li class="nav-item">
+	                        <a href="/Corporate/Admin/flight-bookings/1" class="nav-link nav-toggle">
+	                        <i class="material-icons">flight</i> Flight
+	                            </a>
+	                        </li>
+
+
+
+
+	                            </ul>
+	                        </li>
+	                    </ul>
+	                </div>
+                </div>
+            </div>
+        </div>
+        <!-- end sidebar menu -->
+
+    </div>
+    <!-- end page container -->

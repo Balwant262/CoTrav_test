@@ -1,0 +1,849 @@
+{% extends 'main_base.html' %}
+
+{% block content %}
+
+{% load static %}
+ <div class="main-wrapper">
+             <!-- start project section -->
+           <section class="bg-very-light-gray">
+            <div class="container">
+                <div class="section-heading" >
+                    <h3 class="title-style2">CoTrav – Public API’s</h3>
+
+                </div>
+                <div class="row">
+
+
+                    <!-- start about left section -->
+                    <div class="col-lg-12 col-md-12 sm-margin-30px-bottom" style="text-align: justify">
+
+                        <div class="section-heading title-style5 left half">
+
+                            <h4 class="font-weight-700"></h4>
+                            <h6 class="font-weight-700">Introduction</h6>
+
+                        </div>
+
+                         <p>We are based at Head office in Delhi & Branch offices in Pune & Gurgaon and bring to you all travel related services
+                             under one roof. Our main line of operations is to serve the B2B agents and corporate clients with the best possible
+                             travel related services all across India. We are handling approximately 100 corporates at this time all across India.
+                             Handled by a team of Professionals with a 24X7 support call center consisting of experienced staff of the travel industry.</p>
+
+                        <div class="section-heading title-style5 left half"> <h6 class="font-weight-700">Product Overview</h6> </div>
+                        <div class="section-body">
+
+                             <ul class="sub-menu">
+                           <li style="list-style-type:square">  Cotrav is the booking system for Complete Travel Management for Corporate at one place.</li>
+                            <li style="list-style-type:square"> The platform manages all forms of travel viz: flights, hotels, buses, trains, Cabs etc.</li>
+                            <li style="list-style-type:square"> The platform offers end-to-end solutions – from pre-trip processes like approval to making
+                            bookings to compliance and analytics and finally post-travel reconciliation and expense management – for the organization.</li>
+                            <li style="list-style-type:square"> All the bookings that are made in the system are compliant with the policies of every client.</li>
+
+                        </ul>
+
+                        </div>
+
+                        <div class="section-heading title-style5 left half"> <h6 class="font-weight-700">Technology Overview</h6> </div>
+                        <div class="section-body">
+                            <p>Cotrav Booking System is developed on a very secure Django Framework with database as MySQL. Django is a premier Python
+                                Framework with over 75 million+ downloads.</p>
+
+                            <p>Some of the salient features of Django Framework are as follows:</p>
+
+                             <ul class="sub-menu">
+
+                                <li>	Pure object oriented web application framework.</li>
+<li style="list-style-type:square">	Advanced MVC implementation.</li>
+<li style="list-style-type:square">	Supports multi databases including MySQL, PostgresSQL, SQLite etc.,</li>
+<li style="list-style-type:square">	Session management.</li>
+<li style="list-style-type:square">	Data Encryption.</li>
+<li style="list-style-type:square">	Flexible URI Routing.</li>
+<li style="list-style-type:square">	Provides RESTful API development support.</li>
+<li style="list-style-type:square">	Code reusable and easier to maintain.</li>
+<li style="list-style-type:square">	Supports strong cryptography tools and password hashing techniques.</li>
+                                 <li>	All the transactions done through a secure connection.</li>
+
+                        </ul>
+
+                        </div>
+
+
+
+
+                </div>
+            </div>
+            </div>
+
+        </section>
+        <!-- end about section -->
+
+
+
+     <section class="bg-light-gray">
+            <div class="container">
+                <div class="section-heading" >
+                    <h3 class="title-style2">API Overview</h3>
+                    <p class="width-55 sm-width-75 xs-width-95 center-col">Integrate your Applications with our API’s to raise the booking requests with us.</p>
+                    <p>
+                        The Stripe API is organized around REST. Our API has predictable resource-oriented URLs, accepts form-encoded request bodies,
+                        returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs.
+                    </p>
+
+                </div>
+                <div style="float:right;">
+                <div class=" col-sm-2 "><a href="/api-test-guide" class="butn-style3 theme grey-hover butn_theme_white btn-align" >Test Live Api</a></div>
+                </div>
+
+
+            </div>
+        </section>
+        <!-- end features section -->
+
+    <!-- end main-wrapper section -->
+
+
+     <section class="bg-very-light-gray">
+            <div class="container">
+                <div class="section-heading" >
+                    <h3 class="title-style2">Authentication</h3>
+                    <p class="center-col">
+                        To get the Authentication key using the credentials provided by CoTrav
+                    </p>
+
+
+                </div>
+
+                <div class="owl-carousel owl-theme testmonial-style5">
+                    <div class="row testmonials-style5 sm-text-center">
+                        <div class="col-md-12 col-lg-12">
+                            <span>URL : <strong>https://cotrav.co/api/get_corporate_auth_token </strong></span><br>
+                            <span>Content-Type : <strong>application/json</strong></span><br>
+                            <span>Method : <strong>POST</strong></span>
+                            <div class="data">
+                                 <strong class="font_increase"> Request</strong>
+
+                                    <pre style="color:blue;">
+{
+    "corporate_id":"####ID#####",
+    "user_id":"####USERNAME#####",
+    "user_password":"####PASSWORD#####"
+}
+                                    </pre>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="row testmonials-style5 sm-text-center" style="height: 340px;">
+                        <div class="col-md-12 col-lg-12">
+                            <span>Response Type : <strong>JSON</strong></span><br>
+                            <div class="data">
+                                 <strong class="font_increase"> Response</strong>
+                                <pre style="color:blue;">
+{
+    "success": 1,
+    "message": "user details match successfully",
+    "access_token": "########ACCESS_TOKEN############"
+}
+                                    </pre>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    </div>
+
+            </div>
+        </section>
+        <!-- end features section -->
+
+
+
+    <section class="bg-light-gray">
+                <div class="container">
+                    <div class="section-heading" >
+                        <h3 class="title-style2">Create Taxi Booking</h3>
+                        <p class="width-55 sm-width-75 xs-width-95 center-col">To raise the taxi booking requests</p>
+
+
+                    </div>
+
+                    <div class="owl-carousel owl-theme testmonial-style5">
+                        <div class="row testmonials-style5 sm-text-center">
+                            <div class="col-md-12 col-lg-12">
+                                <span>URL : <strong>https://cotrav.co/api/create_taxi_booking </strong></span><br>
+                                <span>Content-Type : <strong>application/json</strong></span><br>
+                                <span>Method : <strong>POST</strong></span><br>
+                                <span>HEADER Authorization: <strong>Token ###ACCESS_TOKEN###</strong></span>
+                                <div class="data">
+                                     <strong class="font_increase"> Request</strong>
+
+                                        <pre style="color:blue; max-height: 200px;">
+    {
+        "travel_request_number": "###BOOKINGID###",
+        "tour_type": "2",
+        "pickup_city": "Pune",
+        "pickup_location": "Baner Pimpri Chinchwad",
+        "drop_location": "Sayaji Pimpri Chinchwad",
+        "pickup_date": "11-06-2020",
+        "pickup_time": "10:11",
+        "taxi_type": "1",
+        "package_name": "8 hr / 80 km",
+        "no_of_days":"0",
+        "reason_booking": "Test from Api",
+        "project_city": "Pune",
+        "ProjectCode": [
+            {
+                "project_code": "#####CODE####",
+                "code_description": "####DESC####",
+                "valid_from_date": "11-06-2020",
+                "valid_to_date": "11-08-2020"
+            }
+        ],
+        "Passengers": [
+            {
+                "employee_id": "###EMPID###",
+                "payroll_employee_id": "###EMPCOREID###",
+                "title": "",
+                "employee_name": "###NAME###",
+                "employee_email": "###EMAIL###",
+                "employee_contact": "###CONTACT###",
+                "age": "1",
+                "gender": "##GENDER##",
+                "id_proof_type": "",
+                "id_proof_no": "",
+                "is_cxo": "",
+                "designation": "",
+                "home_city_id": "",
+                "home_address": "",
+                "employee_band": "",
+                "date_of_birth": "",
+                "reporting_manager": [
+                    {
+                        "employee_id": "###EMPID###",
+                        "payroll_employee_id": "###EMPCOREID###",
+                        "title": "",
+                        "employee_name": "###NAME###",
+                        "employee_email": "###EMAIL###",
+                        "employee_contact": "###CONTACT###",
+                        "age": "1",
+                        "gender": "##GENDER##",
+                        "id_proof_type": "",
+                        "id_proof_no": "",
+                        "is_cxo": "",
+                        "designation": "",
+                        "home_city_id": "",
+                        "home_address": "",
+                        "employee_band": "",
+                        "date_of_birth": ""
+                    }
+                ],
+                "assistant_id": [
+                    {
+                        "employee_id": "###EMPID###",
+                        "payroll_employee_id": "###EMPCOREID###",
+                        "title": "",
+                        "employee_name": "###NAME###",
+                        "employee_email": "###EMAIL###",
+                        "employee_contact": "###CONTACT###",
+                        "age": "1",
+                        "gender": "##GENDER##",
+                        "id_proof_type": "",
+                        "id_proof_no": "",
+                        "is_cxo": "",
+                        "designation": "",
+                        "home_city_id": "",
+                        "home_address": "",
+                        "employee_band": "",
+                        "date_of_birth": ""
+                    }
+                ]
+            }
+
+        ]
+    }
+                                        </pre>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="row testmonials-style5 sm-text-center" style="height: 400px;">
+                            <div class="col-md-12 col-lg-12">
+                                <span>Response Type : <strong>JSON</strong></span><br>
+                                <div class="data">
+                                     <strong class="font_increase"> Response</strong>
+                                    <pre style="color:blue;">
+    {
+        "success": 1,
+        "message": "Taxi Booking Added Successfully..! Your Booking ID is : ###CTTX###########",
+        "booking_id": "###CTTX###########"
+    }
+                                        </pre>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                </div>
+                </div>
+            </section>
+            <!-- end features section -->
+
+
+    <section class="bg-very-light-gray">
+                <div class="container">
+                    <div class="section-heading" >
+                        <h3 class="title-style2">Create Bus Booking</h3>
+                        <p class="width-55 sm-width-75 xs-width-95 center-col">To raise the bus booking requests</p>
+
+
+                    </div>
+
+                    <div class="owl-carousel owl-theme testmonial-style5">
+                        <div class="row testmonials-style5 sm-text-center">
+                            <div class="col-md-12 col-lg-12">
+                                <span>URL : <strong>https://cotrav.co/api/create_bus_booking </strong></span><br>
+                                <span>Content-Type : <strong>application/json</strong></span><br>
+                                <span>Method : <strong>POST</strong></span><br>
+                                <span>HEADER Authorization: <strong>Token ###ACCESS_TOKEN###</strong></span>
+                                <div class="data">
+                                     <strong class="font_increase"> Request</strong>
+
+                                        <pre style="color:blue; max-height: 200px;">
+    {
+        "travel_request_number": "TVTCS000021132",
+        "from_city": "Pune",
+        "to_city": "Mumbai",
+        "preferred_board_point": "Sayaji Pimpri Chinchwad",
+        "preferred_drop_point":"Sayaji Pimpri Chinchwad",
+        "preferred_bus":"MSRTC",
+        "bus_type": "AC Sleeper",
+        "journey_from_date": "11-06-2020",
+        "journey_from_time": "10:11",
+        "journey_to_date": "12-06-2020",
+        "journey_to_time": "10:11",
+        "reason_booking": "Test from Api",
+        "project_city": "Pune",
+        "ProjectCode": [
+            {
+                "project_code": "#####CODE####",
+                "code_description": "####DESC####",
+                "valid_from_date": "11-06-2020",
+                "valid_to_date": "11-08-2020"
+            }
+        ],
+        "Passengers": [
+            {
+                "employee_id": "###EMPID###",
+                "payroll_employee_id": "###EMPCOREID###",
+                "title": "",
+                "employee_name": "###NAME###",
+                "employee_email": "###EMAIL###",
+                "employee_contact": "###CONTACT###",
+                "age": "1",
+                "gender": "##GENDER##",
+                "id_proof_type": "",
+                "id_proof_no": "",
+                "is_cxo": "",
+                "designation": "",
+                "home_city_id": "",
+                "home_address": "",
+                "employee_band": "",
+                "date_of_birth": "",
+                "reporting_manager": [
+                    {
+                        "employee_id": "###EMPID###",
+                        "payroll_employee_id": "###EMPCOREID###",
+                        "title": "",
+                        "employee_name": "###NAME###",
+                        "employee_email": "###EMAIL###",
+                        "employee_contact": "###CONTACT###",
+                        "age": "1",
+                        "gender": "##GENDER##",
+                        "id_proof_type": "",
+                        "id_proof_no": "",
+                        "is_cxo": "",
+                        "designation": "",
+                        "home_city_id": "",
+                        "home_address": "",
+                        "employee_band": "",
+                        "date_of_birth": ""
+                    }
+                ],
+                "assistant_id": [
+                    {
+                        "employee_id": "###EMPID###",
+                        "payroll_employee_id": "###EMPCOREID###",
+                        "title": "",
+                        "employee_name": "###NAME###",
+                        "employee_email": "###EMAIL###",
+                        "employee_contact": "###CONTACT###",
+                        "age": "1",
+                        "gender": "##GENDER##",
+                        "id_proof_type": "",
+                        "id_proof_no": "",
+                        "is_cxo": "",
+                        "designation": "",
+                        "home_city_id": "",
+                        "home_address": "",
+                        "employee_band": "",
+                        "date_of_birth": ""
+                    }
+                ]
+            }
+
+        ]
+    }
+                                        </pre>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="row testmonials-style5 sm-text-center" style="height: 400px;">
+                            <div class="col-md-12 col-lg-12">
+                                <span>Response Type : <strong>JSON</strong></span><br>
+                                <div class="data">
+                                     <strong class="font_increase"> Response</strong>
+                                    <pre style="color:blue;">
+    {
+        "success": 1,
+        "message": "Taxi Booking Added Successfully..! Your Booking ID is : ###CTBUS###########",
+        "booking_id": "###CTBUS###########"
+    }
+                                        </pre>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                </div>
+                </div>
+            </section>
+
+
+    <section class="bg-light-gray">
+                <div class="container">
+                    <div class="section-heading" >
+                        <h3 class="title-style2">Create Train Booking</h3>
+                        <p class="width-55 sm-width-75 xs-width-95 center-col">To raise the train booking requests</p>
+
+
+                    </div>
+
+                    <div class="owl-carousel owl-theme testmonial-style5">
+                        <div class="row testmonials-style5 sm-text-center">
+                            <div class="col-md-12 col-lg-12">
+                                <span>URL : <strong>https://cotrav.co/api/create_train_booking </strong></span><br>
+                                <span>Content-Type : <strong>application/json</strong></span><br>
+                                <span>Method : <strong>POST</strong></span><br>
+                                <span>HEADER Authorization: <strong>Token ###ACCESS_TOKEN###</strong></span>
+                                <div class="data">
+                                     <strong class="font_increase"> Request</strong>
+
+                                        <pre style="color:blue; max-height: 200px;">
+    {
+        "travel_request_number": "###BOOKING_ID####",
+        "from_station": "Pune Junction",
+        "to_station": "Allahabad Junction",
+        "preferred_train": "Satabdi Holiday Express",
+        "train_type": "Third AC (3A)",
+        "journey_from_date": "11-06-2020",
+        "journey_from_time": "10:11",
+        "journey_to_date": "12-06-2020",
+        "journey_to_time": "10:11",
+        "reason_booking": "Test from Api",
+        "project_city": "Pune",
+        "ProjectCode": [
+            {
+                "project_code": "#####CODE####",
+                "code_description": "####DESC####",
+                "valid_from_date": "11-06-2020",
+                "valid_to_date": "11-08-2020"
+            }
+        ],
+        "Passengers": [
+            {
+                "employee_id": "###EMPID###",
+                "payroll_employee_id": "###EMPCOREID###",
+                "title": "",
+                "employee_name": "###NAME###",
+                "employee_email": "###EMAIL###",
+                "employee_contact": "###CONTACT###",
+                "age": "1",
+                "gender": "##GENDER##",
+                "id_proof_type": "",
+                "id_proof_no": "",
+                "is_cxo": "",
+                "designation": "",
+                "home_city_id": "",
+                "home_address": "",
+                "employee_band": "",
+                "date_of_birth": "",
+                "reporting_manager": [
+                    {
+                        "employee_id": "###EMPID###",
+                        "payroll_employee_id": "###EMPCOREID###",
+                        "title": "",
+                        "employee_name": "###NAME###",
+                        "employee_email": "###EMAIL###",
+                        "employee_contact": "###CONTACT###",
+                        "age": "1",
+                        "gender": "##GENDER##",
+                        "id_proof_type": "",
+                        "id_proof_no": "",
+                        "is_cxo": "",
+                        "designation": "",
+                        "home_city_id": "",
+                        "home_address": "",
+                        "employee_band": "",
+                        "date_of_birth": ""
+                    }
+                ],
+                "assistant_id": [
+                    {
+                        "employee_id": "###EMPID###",
+                        "payroll_employee_id": "###EMPCOREID###",
+                        "title": "",
+                        "employee_name": "###NAME###",
+                        "employee_email": "###EMAIL###",
+                        "employee_contact": "###CONTACT###",
+                        "age": "1",
+                        "gender": "##GENDER##",
+                        "id_proof_type": "",
+                        "id_proof_no": "",
+                        "is_cxo": "",
+                        "designation": "",
+                        "home_city_id": "",
+                        "home_address": "",
+                        "employee_band": "",
+                        "date_of_birth": ""
+                    }
+                ]
+            }
+
+        ]
+    }
+                                        </pre>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="row testmonials-style5 sm-text-center" style="height: 400px;">
+                            <div class="col-md-12 col-lg-12">
+                                <span>Response Type : <strong>JSON</strong></span><br>
+                                <div class="data">
+                                     <strong class="font_increase"> Response</strong>
+                                    <pre style="color:blue;">
+    {
+        "success": 1,
+        "message": "Taxi Booking Added Successfully..! Your Booking ID is : ###CTTRN###########",
+        "booking_id": "###CTTRN###########"
+    }
+                                        </pre>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                </div>
+                </div>
+            </section>
+
+
+    <section class="bg-very-light-gray">
+                <div class="container">
+                    <div class="section-heading" >
+                        <h3 class="title-style2">Create Hotel Booking</h3>
+                        <p class="width-55 sm-width-75 xs-width-95 center-col">To raise the hotel booking requests</p>
+
+
+                    </div>
+
+                    <div class="owl-carousel owl-theme testmonial-style5">
+                        <div class="row testmonials-style5 sm-text-center">
+                            <div class="col-md-12 col-lg-12">
+                                <span>URL : <strong>https://cotrav.co/api/create_hotel_booking </strong></span><br>
+                                <span>Content-Type : <strong>application/json</strong></span><br>
+                                <span>Method : <strong>POST</strong></span><br>
+                                <span>HEADER Authorization: <strong>Token ###ACCESS_TOKEN###</strong></span>
+                                <div class="data">
+                                     <strong class="font_increase"> Request</strong>
+
+                                        <pre style="color:blue; max-height: 200px;">
+    {
+        "travel_request_number": "###BOOKINGID###",
+        "from_city": "Pune",
+        "stay_city": "Pune",
+        "preferred_location": "Baner Pimpri Chinchwad",
+        "preferred_hotel": "Sayaji Pimpri Chinchwad",
+        "min_budget": "1000",
+        "max_budget": "2000",
+        "room_occupancy": "Double",
+        "checkin_date": "11-06-2020",
+        "checkin_time": "10:11",
+        "checkout_date": "12-06-2020",
+        "checkout_time": "10:11",
+        "reason_booking": "Test from Api",
+        "project_city": "Pune",
+        "ProjectCode": [
+            {
+                "project_code": "#####CODE####",
+                "code_description": "####DESC####",
+                "valid_from_date": "11-06-2020",
+                "valid_to_date": "11-08-2020"
+            }
+        ],
+        "Passengers": [
+            {
+                "employee_id": "###EMPID###",
+                "payroll_employee_id": "###EMPCOREID###",
+                "title": "",
+                "employee_name": "###NAME###",
+                "employee_email": "###EMAIL###",
+                "employee_contact": "###CONTACT###",
+                "age": "1",
+                "gender": "##GENDER##",
+                "id_proof_type": "",
+                "id_proof_no": "",
+                "is_cxo": "",
+                "designation": "",
+                "home_city_id": "",
+                "home_address": "",
+                "employee_band": "",
+                "date_of_birth": "",
+                "reporting_manager": [
+                    {
+                        "employee_id": "###EMPID###",
+                        "payroll_employee_id": "###EMPCOREID###",
+                        "title": "",
+                        "employee_name": "###NAME###",
+                        "employee_email": "###EMAIL###",
+                        "employee_contact": "###CONTACT###",
+                        "age": "1",
+                        "gender": "##GENDER##",
+                        "id_proof_type": "",
+                        "id_proof_no": "",
+                        "is_cxo": "",
+                        "designation": "",
+                        "home_city_id": "",
+                        "home_address": "",
+                        "employee_band": "",
+                        "date_of_birth": ""
+                    }
+                ],
+                "assistant_id": [
+                    {
+                        "employee_id": "###EMPID###",
+                        "payroll_employee_id": "###EMPCOREID###",
+                        "title": "",
+                        "employee_name": "###NAME###",
+                        "employee_email": "###EMAIL###",
+                        "employee_contact": "###CONTACT###",
+                        "age": "1",
+                        "gender": "##GENDER##",
+                        "id_proof_type": "",
+                        "id_proof_no": "",
+                        "is_cxo": "",
+                        "designation": "",
+                        "home_city_id": "",
+                        "home_address": "",
+                        "employee_band": "",
+                        "date_of_birth": ""
+                    }
+                ]
+            }
+
+        ]
+    }
+                                        </pre>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="row testmonials-style5 sm-text-center" style="height: 400px;">
+                            <div class="col-md-12 col-lg-12">
+                                <span>Response Type : <strong>JSON</strong></span><br>
+                                <div class="data">
+                                     <strong class="font_increase"> Response</strong>
+                                    <pre style="color:blue;">
+    {
+        "success": 1,
+        "message": "Taxi Booking Added Successfully..! Your Booking ID is : ###CTHTL###########",
+        "booking_id": "###CTHTL###########"
+    }
+                                        </pre>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                </div>
+                </div>
+            </section>
+
+
+    <section class="bg-light-gray">
+                <div class="container">
+                    <div class="section-heading" >
+                        <h3 class="title-style2">Create Flight Booking</h3>
+                        <p class="width-55 sm-width-75 xs-width-95 center-col">To raise the flight booking requests</p>
+
+
+                    </div>
+
+                    <div class="owl-carousel owl-theme testmonial-style5">
+                        <div class="row testmonials-style5 sm-text-center">
+                            <div class="col-md-12 col-lg-12">
+                                <span>URL : <strong>https://cotrav.co/api/create_flight_booking </strong></span><br>
+                                <span>Content-Type : <strong>application/json</strong></span><br>
+                                <span>Method : <strong>POST</strong></span><br>
+                                <span>HEADER Authorization: <strong>Token ###ACCESS_TOKEN###</strong></span>
+                                <div class="data">
+                                     <strong class="font_increase"> Request</strong>
+
+                                        <pre style="color:blue; max-height: 200px;">
+    {
+        "travel_request_number": "###BOOKINGID###",
+        "usage_type": "Flight",
+        "trip_type": "One Way",
+        "seat_type": "Domastic",
+        "from_city": "Delhi",
+        "to_city": "Mumbai",
+        "preferred_flight": "Satabdi Holiday Express",
+        "departure_date": "11-06-2020",
+        "departure_time": "10:11",
+        "return_date": "12-06-2020",
+        "return_time": "10:11",
+        "reason_booking": "Test from Api",
+        "project_city": "Pune",
+        "ProjectCode": [
+            {
+                "project_code": "#####CODE####",
+                "code_description": "####DESC####",
+                "valid_from_date": "11-06-2020",
+                "valid_to_date": "11-08-2020"
+            }
+        ],
+        "Passengers": [
+            {
+                "employee_id": "###EMPID###",
+                "payroll_employee_id": "###EMPCOREID###",
+                "title": "",
+                "employee_name": "###NAME###",
+                "employee_email": "###EMAIL###",
+                "employee_contact": "###CONTACT###",
+                "age": "1",
+                "gender": "##GENDER##",
+                "id_proof_type": "",
+                "id_proof_no": "",
+                "is_cxo": "",
+                "designation": "",
+                "home_city_id": "",
+                "home_address": "",
+                "employee_band": "",
+                "date_of_birth": "",
+                "reporting_manager": [
+                    {
+                        "employee_id": "###EMPID###",
+                        "payroll_employee_id": "###EMPCOREID###",
+                        "title": "",
+                        "employee_name": "###NAME###",
+                        "employee_email": "###EMAIL###",
+                        "employee_contact": "###CONTACT###",
+                        "age": "1",
+                        "gender": "##GENDER##",
+                        "id_proof_type": "",
+                        "id_proof_no": "",
+                        "is_cxo": "",
+                        "designation": "",
+                        "home_city_id": "",
+                        "home_address": "",
+                        "employee_band": "",
+                        "date_of_birth": ""
+                    }
+                ],
+                "assistant_id": [
+                    {
+                        "employee_id": "###EMPID###",
+                        "payroll_employee_id": "###EMPCOREID###",
+                        "title": "",
+                        "employee_name": "###NAME###",
+                        "employee_email": "###EMAIL###",
+                        "employee_contact": "###CONTACT###",
+                        "age": "1",
+                        "gender": "##GENDER##",
+                        "id_proof_type": "",
+                        "id_proof_no": "",
+                        "is_cxo": "",
+                        "designation": "",
+                        "home_city_id": "",
+                        "home_address": "",
+                        "employee_band": "",
+                        "date_of_birth": ""
+                    }
+                ]
+            }
+
+        ]
+    }
+                                        </pre>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="row testmonials-style5 sm-text-center" style="height: 400px;">
+                            <div class="col-md-12 col-lg-12">
+                                <span>Response Type : <strong>JSON</strong></span><br>
+                                <div class="data">
+                                     <strong class="font_increase"> Response</strong>
+                                    <pre style="color:blue;">
+    {
+        "success": 1,
+        "message": "Taxi Booking Added Successfully..! Your Booking ID is : ###CTFLT###########",
+        "booking_id": "###CTFLT###########"
+    }
+                                        </pre>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                </div>
+                </div>
+            </section>
+
+    </div>
+    <!-- end main-wrapper section -->
+
+
+
+
+{% endblock %}

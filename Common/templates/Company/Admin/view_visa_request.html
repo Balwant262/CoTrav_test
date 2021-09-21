@@ -1,0 +1,416 @@
+{% extends 'Company/Admin/layout/header.html' %}
+
+{% block content %}
+
+{% if user %}
+<!-- start page content -->
+
+
+<!--{{bookings}}-->
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+                 <div class="text-center">
+                 <div style="font-size:14px; font-weight:bold;">
+                     Visa Request Details
+                     </div>
+            </div>
+
+
+
+{% for visa in visas %}
+
+        <div class="modal fade model_custom_style" role="dialog" id="upload_client_ticket">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title-status">Upload Required Document Form </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+            <form method="post" action="/agents/upload-client-ticket" enctype="multipart/form-data">
+                <input type="hidden" name="user_id" value="{{user.id}}">
+                <input type="hidden" name="booking_id" value="{{booking.id}}">
+                <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+                <input type="hidden" name="booking_type" value="3">
+                <input type="hidden" name="is_client" value="1">
+
+                <div class="form-group row">
+                    <label class="col-sm-5 control-label">Employee 1  </label>
+                    <div class="col-sm-7">
+                        <label class="form-control">Balwant Chauhan</label>
+                    </div>
+                 </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-5">
+                    <select class="form-control myselect" style="width:100%">
+                        <option selected >Address Proof</option>
+                        <option> ID Proof</option>
+                        <option>Date of Birth Proof</option>
+                    </select>
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="ticketToUpload" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-5">
+                    <select class="col-sm-5 form-control myselect" style="width:100%">
+                        <option>Address Proof</option>
+                        <option selected>ID Proof</option>
+                        <option>Date of Birth Proof</option>
+                    </select>
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="ticketToUpload" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-5">
+                    <select class="col-sm-5 form-control myselect" style="width:100%">
+                        <option>Address Proof</option>
+                        <option>ID Proof</option>
+                        <option selected>Date of Birth Proof</option>
+                    </select>
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="ticketToUpload" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-5">
+                    <select class="col-sm-5 form-control myselect" style="width:100%">
+                        <option selected>Other document</option>
+                    </select>
+                        <input type="text" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="ticketToUpload" type="file">
+                    </div>
+                 </div>
+
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <button id="delete_btn11" type="submit" class="btn btn-primary">Upload Document</button>
+                </div>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+        <div class="row">
+
+            <div class="col-md-3">
+
+				 <div class="card">
+                    <div class="card-head card-topline-aqua">
+                        <header>Request Details</header>
+                    </div>
+                    <div class="card-body no-padding height-9">
+
+                        <div class="form-group row">
+							<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+								 <tr>
+                                    <td>Request ID</td>
+                                    <td>{{ visa.reference_no }}</td>
+                                </tr>
+
+                                 <tr>
+                                    <td>Request Type</td>
+                                    <td>{{ visa.request_type }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Visa Request Type</td>
+                                    <td>{{ visa.visa_request_type }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Country Visa</td>
+                                    <td>{{ visa.country_name }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Visa Duration</td>
+                                    <td>{{ visa.visa_duration }} Month</td>
+                                </tr>
+                                <tr>
+                                    <td>Onward Travel Date</td>
+                                    <td>{{ visa.onward_travel_date }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Return Travel Date</td>
+                                    <td>{{ visa.onward_travel_date }}</td>
+                                </tr>
+<!--                                 <tr>-->
+<!--                                    <td>Current Country</td>-->
+<!--                                    <td>{{ visa.current_country_name }}</td>-->
+<!--                                </tr>-->
+<!--                                <tr>-->
+<!--                                    <td>Current State</td>-->
+<!--                                    <td>{{ visa.current_state_name }}</td>-->
+<!--                                </tr>-->
+                                <tr>
+                                    <td>Consulate Office</td>
+                                    <td>{{ visa.address_line_1|default:'' }}{{ visa.address_line_2|default:'' }}{{ visa.address_line_3|default:'' }}</td>
+                                </tr>
+                                <tr>
+                                    <td>No Of Employees</td>
+                                    <td>{{ visa.no_of_employees }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Application Status</td>
+                                    <td> Document Verified</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Visa Status</td>
+                                    <td>{{visa.client_status|default:''}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Cotrav Status</td>
+                                    <td>{{visa.cotrav_status|default:''}}</td>
+                                </tr>
+
+
+
+							 </table>
+                    </div>
+                </div>
+            </div>
+			</div>
+
+            <div class="col-md-3">
+            <div class="card">
+                    <div class="card-head card-topline-aqua">
+                        <header>SPOC Details</header>
+                    </div>
+                    <div class="card-body no-padding height-9">
+
+                        <div class="form-group row">
+							<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+								 <tr>
+                                    <td>SPOC Name</td>
+                                    <td>{{ visa.user_name }}</td>
+                                </tr>
+
+								 <tr>
+                                    <td>Contact</td>
+                                    <td>{{ visa.user_contact }}</td>
+                                </tr>
+								 <tr>
+                                    <td>Email Id</td>
+                                    <td>{{ visa.spoc_email }}</td>
+                                </tr>
+
+							 </table>
+                        </div>
+
+                    </div>
+                    </div>
+
+
+                {% if visa.request_type == 'Family' %}
+
+                <div class="card">
+                    <div class="card-head card-topline-aqua">
+                        <header>Family Member & Document</header>
+                    </div>
+                    <div class="card-body no-padding height-9">
+
+                        <div class="form-group row">
+							<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+
+                                {% for family in visa.FamailyDocs %}
+                                {% ifchanged family.members_name %}
+								 <tr>
+                                    <td>Member Name</td>
+                                    <td>{{ family.members_name }}</td>
+                                </tr>
+                                {% endifchanged %}
+
+                                {% ifchanged family.members_relationship %}
+								 <tr>
+                                    <td>Relationship</td>
+                                    <td>{{ family.members_relationship }}</td>
+                                </tr>
+                                {% endifchanged %}
+
+
+                                {% ifchanged family.document_name %}
+                                <tr>
+                                    <td>{{ family.document_name }}</td>
+                                    <td><a target="_blank" href="{{ family.document_path }}">{{family.members_name}}_{{ family.document_name }}.pdf</a></td>
+                                </tr>
+                                {% endifchanged %}
+
+                                {% endfor %}
+
+							 </table>
+                        </div>
+
+                    </div>
+                    </div>
+
+                {% endif %}
+
+
+            </div>
+
+
+            <div class="col-md-3">
+            <div class="card">
+                    <div class="card-head card-topline-aqua">
+                        <header>Application Download</header>
+                    </div>
+                    <div class="card-body no-padding height-9">
+
+                        <div class="form-group row">
+							<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+								 <tr>
+                                    <td>Application</td>
+                                    <td><a target="_blank" href="{{visa.application_form_link}}">Download</a></td>
+                                </tr>
+
+
+
+
+
+
+							 </table>
+                        </div>
+
+                    </div>
+                    </div>
+
+
+                <div class="card">
+                    <div class="card-head card-topline-aqua">
+                        <header>Employee Details & Document</header>
+                    </div>
+                    <div class="card-body no-padding height-9">
+
+                        <div class="form-group row">
+							<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+                                {% for employee in visa.EmployeesDocs %}
+								{% ifchanged employee.employee_cid %}
+                                <tr>
+                                    <td>Employee ID</td>
+                                    <td>{{employee.employee_cid}}</td>
+                                </tr>
+                                {% endifchanged %}
+
+                                {% ifchanged employee.employee_name %}
+                                <tr>
+                                    <td>Name</td>
+                                    <td>{{employee.employee_name}}</td>
+                                </tr>
+                                {% endifchanged %}
+
+                                {% ifchanged employee.employee_email %}
+                                <tr>
+                                    <td>Email</td>
+                                    <td>{{employee.employee_email}}</td>
+                                </tr>
+                                {% endifchanged %}
+
+                                {% ifchanged employee.employee_contact %}
+                                <tr>
+                                    <td>Mobile No</td>
+                                    <td>{{employee.employee_contact}}</td>
+                                </tr>
+                                {% endifchanged %}
+
+                                {% ifchanged employee.document_name %}
+                                <tr>
+                                    <td>{{employee.document_name}}</td>
+                                    <td><a target="_blank" href="{{employee.document_path}}">{{employee.employee_name}}_{{employee.document_name}}.pdf</a></td>
+                                </tr>
+                                {% endifchanged %}
+                                {% endfor %}
+
+
+							 </table>
+                        </div>
+
+                    </div>
+                    </div>
+
+
+
+            </div>
+
+            <div class="col-md-3">
+            <div class="card">
+                    <div class="card-head card-topline-aqua">
+                        <header>Visa Details</header>
+                    </div>
+                    <div class="card-body no-padding height-9">
+
+                        <div class="form-group row">
+							<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+
+                                <tr>
+                                    <td>Visa Booking ID</td>
+                                    <td>NA</td>
+                                </tr>
+                                <tr>
+                                    <td>Issuing Post Name</td>
+                                    <td>NA</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Visa Type</td>
+                                    <td>NA</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Issue Date</td>
+                                    <td>NA</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Expiry Date</td>
+                                    <td>NA</td>
+                                </tr>
+
+
+
+
+
+							 </table>
+                        </div>
+
+                    </div>
+                    </div>
+            </div>
+
+
+
+    </div>
+ {% endfor %}
+
+
+</div>
+<!-- end page content -->
+
+
+{% else %}
+<p>Welcome, new user. Please log in.<a href="/login">Login</a></p>
+{% endif %}
+
+{% endblock %}
+
+
+

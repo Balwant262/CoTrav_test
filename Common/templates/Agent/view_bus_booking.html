@@ -1,0 +1,1135 @@
+{% extends 'Agent/layout/header.html' %}
+{% load datetime_format %}
+{% block content %}
+
+{% if user %}
+<!-- start page content -->
+
+{% include 'cotrav_alert_message.html' %}
+<!--{{bookings}}-->
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+{% for booking in bookings %}
+
+<div class="modal fade model_custom_style" role="dialog" id="upload_client_ticket">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title-status">Add Client Ticket Form </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+            <form method="post" action="/agents/upload-client-ticket" enctype="multipart/form-data">
+                <input type="hidden" name="user_id" value="{{user.id}}">
+                <input type="hidden" name="booking_id" value="{{booking.id}}">
+                <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+                <input type="hidden" name="booking_type" value="2">
+                <input type="hidden" name="is_client" value="1">
+
+                <div class="form-group row">
+                    <label class="col-sm-5 control-label">Select Ticket</label>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="ticketToUpload" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-5 control-label">System Generate Ticket</label>
+                    <div class="col-sm-7">
+                        <input class="form-control" type="checkbox" name="client_ticket" value="1" onchange="valueChanged()">
+                    </div>
+                 </div>
+
+
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <button id="delete_btn11" type="submit" class="btn btn-primary">Upload ticket</button>
+                </div>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade model_custom_style" role="dialog" id="upload_vendor_ticket">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title-status">Add Client Ticket Form </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+            <form method="post" action="/agents/upload-client-ticket" enctype="multipart/form-data">
+                <input type="hidden" name="user_id" value="{{user.id}}">
+                <input type="hidden" name="booking_id" value="{{booking.id}}">
+                <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+                <input type="hidden" name="booking_type" value="2">
+                <input type="hidden" name="is_client" value="0">
+
+                <div class="form-group row">
+                    <label class="col-sm-5 control-label">Select Ticket</label>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="ticketToUpload" required type="file">
+                    </div>
+                 </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-primary">Upload ticket</button>
+                </div>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- The Modal -->
+<div class="modal fade model_custom_style" role="dialog" id="model_add_new_group1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 id="delete_label" class="modal-title-status">Add New Employee Form </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+            <form method="post" action="/agents/add-new-employee" enctype="multipart/form-data">
+                <input type="hidden" name="corporate_id" value="{{booking.corporate_id}}">
+                <input type="hidden" name="spoc_id" value="{{booking.spoc_id}}">
+                <input type="hidden" name="user_id" value="{{user.id}}">
+                <input type="hidden" name="delete_id" value="1">
+                <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+                <div class="form-group row">
+                    <label class="col-sm-5 control-label">Select Billing Entity</label>
+                    <div class="col-sm-7">
+                       <select name="employee_id" class="form-control myselect" style="width:100%;" required>
+                            <option value="">Select Billing Entity</option>
+                           {% for emp in booking.ClientEntity %}
+                            <option value="{{emp.id}}" >{{emp.entity_name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                 </div>
+
+                  <div class="form-group row">
+                    <label class="col-sm-5 control-label">Core Employee id</label>
+                    <div class="col-sm-7">
+                       <input type="text" class="form-control" name="core_employee_id" placeholder="Core Employee id">
+                    </div>
+                 </div>
+
+                 <div class="form-group row">
+                    <label class="col-sm-5 control-label">Employee Cid</label>
+                    <div class="col-sm-7">
+                       <input type="text" class="form-control" name="employee_cid"  placeholder="Employee Cid">
+                    </div>
+                 </div>
+
+                 <div class="form-group row">
+                    <label class="col-sm-5 control-label">Employee Name</label>
+                    <div class="col-sm-7">
+                       <input type="text" class="form-control" name="employee_name" required placeholder="Employee Name" required>
+                    </div>
+                 </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-5 control-label">Employee Email</label>
+                    <div class="col-sm-7">
+                       <input type="text" class="form-control" name="employee_email" required placeholder="Employee Email" required>
+                    </div>
+                 </div>
+
+                 <div class="form-group row">
+                    <label class="col-sm-5 control-label">Employee Contact</label>
+                    <div class="col-sm-7">
+                       <input type="text" class="form-control" name="employee_contact" required placeholder="Employee Contact" required>
+                    </div>
+                 </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-5 control-label">Gender</label>
+                    <div class="col-sm-7">
+                       <select name="gender" class="form-control" required>
+                         <option value="Male">Male</option>
+                         <option value="Female">Female</option>
+                       </select>
+                    </div>
+                 </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-5 control-label">Date Of Birth</label>
+                    <div class="col-sm-7">
+                       <input type="text" class="form-control datepicker1" autocomplete="off"  name="date_of_birth" required placeholder="Date Of Birth" required>
+                    </div>
+                 </div>
+
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <button id="delete_btn1" type="submit" class="btn btn-primary">Add Employee</button>
+                </div>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<form id="model_serialize_update" action="/agents/edit-bus-booking/{{booking.id}}" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="booking_id" value="{{booking.id}}">
+    <input type="hidden" name="user_id" value="{{user.id}}">
+    <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+    {% if booking.status_cotrav <= 3 %}
+    <div class="text-center">
+        <input type="submit" id="submit-data" disabled="" class="btn btn-info" value="edit booking details">
+    </div>
+    {% endif %}
+
+        <br>
+        <div class="row">
+
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-head card-topline-aqua">
+                        <header>Basic Details : <strong style="font-size:14px;">{{ booking.reference_no }}</strong></header>
+                    </div>
+                    <div class="card-body no-padding height-9">
+
+                        <div class="form-group row">
+							 <table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+								  <tr>
+                                    <td>Booking ID</td>
+                                    <td>{{ booking.reference_no }}</td>
+                                </tr>
+
+                                 <tr>
+                                    <td>Company Name</td>
+                                    <td>{{ booking.corporate_name }}</td>
+                                </tr>
+
+                                 <tr>
+                                    <td>Booking Email</td>
+                                     <td>{% if booking.booking_email %}
+                                         <a href="{{ booking.booking_email|default:'' }}">Download</a>
+                                         <input type="hidden" class="form-control" name="email_attachment" value="{{booking.booking_email}}">
+                                        {% else %}
+                                         <label style="color:red;">No Booking Email</label>
+                                         <input type="file" class="form-control" name="email_attachment"  placeholder="Booking Email Copy" >
+                                         {% endif %}
+                                     </td>
+                                </tr>
+
+                                 <tr>
+                                    <td>Travel Request No.</td>
+                                    <td>
+                                         <input type="text" class="form-control" name="bta_code_travel_req_no" value="{{booking.bta_code_travel_req_no}}" placeholder="Travel Request No.">
+                                    </td>
+                                </tr>
+
+
+								 <tr>
+                                    <td>Bus Priority1</td>
+                                     <td>
+                                         <select name="bus_type" class="form-control tour_type myselect">
+                                              <option value="1" {% if booking.bus_type_priority_1 == 'AC Seater' %} selected {% endif %}>AC Seater</option>
+                                              <option value="2" {% if booking.bus_type_priority_1 == 'AC Sleeper' %} selected {% endif %}>AC Sleeper</option>
+                                              <option value="3" {% if booking.bus_type_priority_1 == 'NON AC Seater' %} selected {% endif %}>NON AC Seater</option>
+                                              <option value="4" {% if booking.bus_type_priority_1 == 'NON AC Sleeper' %} selected {% endif %}>NON AC Sleeper</option>
+                                          </select>
+                                     </td>
+
+                                </tr>
+
+                                 <tr>
+                                    <td>Bus Priority2</td>
+                                     <td>
+                                         <select name="bus_type2" class="form-control tour_type myselect">
+                                              <option value="1" {% if booking.bus_type_priority_2 == 'AC Seater' %} selected {% endif %}>AC Seater</option>
+                                              <option value="2" {% if booking.bus_type_priority_2 == 'AC Sleeper' %} selected {% endif %}>AC Sleeper</option>
+                                              <option value="3" {% if booking.bus_type_priority_2 == 'NON AC Seater' %} selected {% endif %}>NON AC Seater</option>
+                                              <option value="4" {% if booking.bus_type_priority_2 == 'NON AC Sleeper' %} selected {% endif %}>NON AC Sleeper</option>
+                                          </select>
+                                     </td>
+
+                                </tr>
+
+								 <tr>
+                                    <td>Pickup Location</td>
+                                    <td><input class="form-control" name="pickup_location" placeholder="Pickup Location" type="text" value="{{ booking.pickup_location }}"></td>
+                                </tr>
+								 <tr>
+                                    <td>Drop Location</td>
+                                    <td><input class="form-control" name="drop_location" placeholder="Drop Location" type="text" value="{{ booking.drop_location }}"></td>
+                                </tr>
+								<tr>
+                                    <td>Pickup Date | Time</td>
+                                    <td><input class="form-control datetimepicker1" name="pickup_from_datetime" autocomplete="off" type="text" value="{{ booking.pickup_from_datetime }}"> To <br>
+                                    <input class="form-control datetimepicker2" name="pickup_to_datetime" autocomplete="off" type="text" value="{{ booking.pickup_to_datetime }}">
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <td>Booking Date | Time</td>
+                                    <td>{{ booking.booking_datetime|datetime_format }}</td>
+                                </tr>
+								 <tr>
+                                    <td>No Of Seats</td>
+                                    <td>{{ booking.no_of_seats }}</td>
+                                </tr>
+								<tr>
+                                    <td>Created By:</td>
+                                    <td>
+                                        {% with booking.ActionLogs|first as first_object %}
+                                            {{ first_object.employee_name }} ({{ first_object.name }})
+                                        {% endwith %}
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <td>Created Date | Time</td>
+                                    <td>
+                                        {% with booking.ActionLogs|first as first_object %}
+                                            {{ first_object.action_date|datetime_format }}
+                                        {% endwith %}
+                                    </td>
+                                </tr>
+								<tr>
+                                    <td>Booking Reason</td>
+                                    <td><input class="form-control" name="reason_booking" type="text" value="{{ booking.reason_booking }}"></td>
+                                </tr>
+
+                                 <tr>
+                                    <td>Assessment Code</td>
+                                    <td>
+										 <select class="form-control myselect" name="assessment_code" style="width:100%;">
+                                            <option value="">Select Assessment Code</option>
+                                           {% for code in booking.AssCodes %}
+                                            <option value="{{code.id}}" {% if code.assessment_code == booking.assessment_code %}  selected {%endif%}>{{code.assessment_code}}</option>
+                                            {% endfor %}
+                                        </select>
+									</td>
+                                </tr>
+
+                                   <tr>
+                                    <td>Assessment City</td>
+                                    <td>
+										 <select class="form-control myselect" name="assessment_city_id" style="width:100%;">
+                                            <option value="">Select Assessment Code</option>
+                                           {% for city in booking.AssCities %}
+                                            <option value="{{city.id}}" {% if city.city_name == booking.assessment_city_id %}  selected {%endif%}>{{city.city_name}}</option>
+                                            {% endfor %}
+                                        </select>
+									</td>
+                                </tr>
+
+								 <tr>
+                                    <td>Client Status</td>
+                                    <td>{{ booking.client_status }}</td>
+                                </tr>
+								 <tr>
+                                    <td>CoTrav Status</td>
+                                    <td>{{ booking.cotrav_status }}</td>
+                                </tr>
+
+                                 <tr>
+                                    <td>Client Billing Entity</td>
+                                    <td>
+										 <select class="form-control myselect" name="billing_entity_id" style="width:100%;" required>
+                                            <option value="">Select Client Billing Entity</option>
+                                           {% for entity in booking.ClientEntity %}
+                                            <option value="{{entity.id}}" {% if entity.id == booking.billing_entity_id %}  selected {%endif%}>{{entity.entity_name}}</option>
+                                            {% endfor %}
+                                        </select>
+									</td>
+                                </tr>
+
+                                 <tr>
+                                    <td>Cotrav Billing Entity</td>
+                                    <td>
+										<select class="form-control myselect" name="cotrav_billing_entity" style="width:100%;">
+                                            <option value="">Select Client Billing Entity</option>
+                                           {% for entity in booking.CotravEntity %}
+                                            <option value="{{entity.id}}" {% if entity.id == booking.cotrav_billing_entity %}  selected {%endif%}>{{entity.entity_name}}</option>
+                                            {% endfor %}
+                                        </select>
+									</td>
+                                </tr>
+
+							 </table>
+                        </div>
+                    </div>
+                </div>
+
+
+				 <div class="card">
+                    <div class="card-head card-topline-aqua">
+                        <header>SPOC Details</header>
+                    </div>
+                    <div class="card-body no-padding height-9">
+
+                        <div class="form-group row">
+							<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+								 <tr>
+                                    <td>Employee ID</td>
+                                    <td>{{ booking.user_cid }}</td>
+                                </tr>
+
+								  <tr>
+                                    <td>SPOC Name</td>
+                                    <td>{{ booking.user_name }}</td>
+                                </tr>
+
+								 <tr>
+                                    <td>Contact</td>
+                                    <td>{{ booking.user_contact }}</td>
+                                </tr>
+								 <tr>
+                                    <td>Email Id</td>
+                                    <td>{{ booking.user_email }}</td>
+                                </tr>
+							 </table>
+                    </div>
+                </div>
+            </div>
+			</div>
+
+
+             <div class="col-md-3">
+
+
+                 <div class="card">
+                    <div class="card-head card-topline-aqua">
+                        <header>Assigned Bus Details</header>
+                    </div>
+                    <div class="card-body no-padding height-9">
+
+                        <div class="form-group row">
+
+							<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+
+
+								 <tr>
+                                    <td>Assign Date | Time:</td>
+                                    <td>{{ booking.boarding_datetime|datetime_format }}</td>
+                                </tr>
+
+								 <tr>
+                                    <td>Bus Type: </td>
+                                    <td>{{ booking.assign_bus_type_id }}</td>
+                                </tr>
+
+								 <tr>
+                                    <td>Operator Name: </td>
+                                    <td>{{ booking.operator_name }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Operator Contact:</td>
+                                    <td>{{ booking.operator_contact }}</td>
+                                </tr>
+
+								 <tr>
+                                    <td>Ticket Number:</td>
+                                    <td>{{ booking.ticket_no }}</td>
+                                </tr>
+
+								<tr>
+                                    <td>PNR Number:</td>
+                                    <td>{{ booking.pnr_no }}</td>
+                                </tr>
+
+							 </table>
+                        </div>
+                    </div>
+                    </div>
+
+
+
+
+
+                 <div class="card">
+                    <div class="card-head card-topline-aqua">
+                        <header>Boarding Details</header>
+                    </div>
+                    <div class="card-body no-padding height-9">
+
+                        <div class="form-group row">
+							<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+								  <tr>
+                                    <td>Boarding Point</td>
+                                    <td>{{ booking.boarding_point }}</td>
+                                </tr>
+
+								 <tr>
+                                    <td>Boarding Date | Time</td>
+                                    <td>{{ booking.boarding_datetime|datetime_format }}</td>
+                                </tr>
+
+							 </table>
+                        </div>
+
+                    </div>
+                    </div>
+
+
+
+
+
+
+
+            </div>
+
+
+
+            <div class="col-md-6">
+
+                 <div class="card">
+                    <div class="card-head card-topline-aqua">
+                        <header>SPOC and Passenger Details</header>
+                        <a title="add New Employee" class="btn btn-info btn-xs" data-target="#model_add_new_group1" data-toggle="modal" href="#">
+                                                <i class="fa fa-plus "></i> Add New Employee </a>
+                    </div>
+                    <div class="card-body no-padding height-9">
+                        <input type="hidden" id="no_of_seats" name="no_of_seats" value="{{booking.no_of_seats}}">
+                        <div class="form-group row">
+                            <label class="col-sm-2" >Select Spoc</label>
+                            <select class="form-control col-sm-9 myselect" name="spoc_id" style="width:66%;" required>
+                                <option value="">Select Spoc</option>
+                               {% for spoc in booking.Spocs %}
+                                <option value='{{spoc.id}},{{spoc.group_id}},{{spoc.subgroup_id}}' {% if spoc.id == booking.spoc_id %}  selected {%endif%}>{{spoc.user_name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                         <div class="form-group row">
+                                <label class="col-sm-2" >Number Of Employees* </label>
+                                <select id="no_of_seats2" name="no_of_seats" class="form-control col-sm-9 no_of_seats  myselect" style="width:66%"  required>
+                                    <option value="1" {% if booking.no_of_seats == 1 %} selected {% endif %}>1</option>
+                                    <option value="2" {% if booking.no_of_seats == 2 %} selected {% endif %}>2</option>
+                                    <option value="3" {% if booking.no_of_seats == 3 %} selected {% endif %}>3</option>
+                                    <option value="4" {% if booking.no_of_seats == 4 %} selected {% endif %}>4</option>
+                                    <option value="5" {% if booking.no_of_seats == 5 %} selected {% endif %}>5</option>
+                                    <option value="6" {% if booking.no_of_seats == 6 %} selected {% endif %}>6</option>
+                                </select>
+                            </div>
+
+
+						<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+
+							<tr>
+									<th>  Employee  </th>
+									<th>  Name  </th>
+									<th>  Email Id </th>
+									<th>  Contact  </th>
+									<th>  Age   </th>
+									<th>  Gender </th>
+									<th>  SeatNo </th>
+							</tr>
+
+							{% for passanger in booking.Passangers %}
+								<tr id="emp_row_{{forloop.counter}}">
+                                    <td>
+                                        <select name="employee_id_{{forloop.counter}}" id="employee_id_{{forloop.counter}}" class="form-control myselect" style="width:100%;" required>
+                                            <option value="">Select Employee</option>
+                                           {% for emp in booking.Employees %}
+                                            <option value="{{emp.id}}" {% if emp.id == passanger.id %}  selected {%endif%} emp_cnt="{{emp.employee_contact}}" emp_name="{{emp.employee_name}}" emp_email="{{emp.employee_email}}" emp_age="{{emp.age}}" emp_gender="{{emp.gender}}">{{emp.employee_name}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </td>
+								<td><input name="employee_name_{{forloop.counter}}" id="employee_name_{{forloop.counter}}" class="form-control" type="text" value="{{ passanger.employee_name|default:'' }}"></td>
+								<td><input name="employee_email_{{forloop.counter}}" id="employee_email_{{forloop.counter}}" class="form-control" type="text" value="{{ passanger.employee_email|default:''}}"></td>
+							    <td><input name="employee_contact_{{forloop.counter}}" id="employee_contact_{{forloop.counter}}" class="form-control" type="text" value="{{ passanger.employee_contact|default:''}}"></td>
+								<td><input name="employee_age_{{forloop.counter}}" id="employee_age_{{forloop.counter}}" class="form-control" type="text" value="{{ passanger.age|default:''}}"></td>
+							    <td><input name="employee_gender_{{forloop.counter}}" id="employee_gender_{{forloop.counter}}" class="form-control" type="text" value="{{ passanger.gender|default:''}}"></td>
+								<td><input class="form-control" type="text" value="{{ passanger.seat_no|default:''}}"></td>
+                                </tr>
+							{% endfor %}
+
+                            {% for item in no_of_emp_rabge %}
+
+                            <tr id="emp_row_{{item|add:1}}">
+                                    <td>
+                                        <select name="employee_id_{{item|add:1}}" id="employee_id_{{item|add:1}}" class="form-control myselect" style="width:100%;" required>
+                                            <option value="">Select Employee</option>
+                                           {% for emp in booking.Employees %}
+                                            <option value="{{emp.id}}" emp_id="{{emp.employee_cid}}" emp_cnt="{{emp.employee_contact}}" emp_name="{{emp.employee_name}}" emp_email="{{emp.employee_email}}" emp_age="{{emp.age}}" emp_gender="{{emp.gender}}">{{emp.employee_name}}/{{emp.employee_cid}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </td>
+								<td><input name="employee_name_{{item|add:1}}" id="employee_name_{{item|add:1}}" class="form-control" type="text"></td>
+								<td><input name="employee_email_{{item|add:1}}" id="employee_email_{{item|add:1}}" class="form-control" type="text" ></td>
+							    <td><input name="employee_contact_{{item|add:1}}" id="employee_contact_{{item|add:1}}" class="form-control" type="text" ></td>
+								<td><input name="employee_age_{{item|add:1}}" id="employee_age_{{item|add:1}}" class="form-control" type="text"></td>
+							    <td><input name="employee_gender_{{forloop.counter|add:1}}" id="employee_gender_{{forloop.counter|add:1}}" class="form-control" type="text"></td>
+								</tr>
+
+                            {% endfor %}
+
+						 </table>
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+
+				 <div class="row">
+
+			   <div class="col-md-6">
+
+                 <div class="card">
+                    <div class="card-head card-topline-aqua">
+                        <header>Operator Details</header>
+                    </div>
+                    <div class="card-body no-padding height-9">
+
+						<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+
+							<tr>
+								<td>Name:</td>
+                                <td>{{ booking.operator_name }}</td>
+							</tr>
+
+
+							<tr>
+								<td>Contact:</td>
+                                <td>{{ booking.operator_contact|default:'' }}</td>
+							</tr>
+
+
+
+						 </table>
+
+                    </div>
+                </div>
+
+                   <div class="card">
+                    <div class="card-head card-topline-aqua">
+                        <header>Operator Bill Details</header>
+                    </div>
+                    <div class="card-body no-padding height-9">
+
+						<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+
+							<tr>
+								<td>Total Price</td>
+                                <td>{{booking.vi_ticket_price|default:''}}</td>
+							</tr>
+
+
+                            <tr>
+								<td>CGST</td>
+                                <td>{{booking.vi_cgst|default:''}}</td>
+							</tr>
+
+                            <tr>
+								<td>SGST</td>
+                                <td>{{booking.vi_sgst|default:''}}</td>
+							</tr>
+
+                            <tr>
+								<td>IGST</td>
+                                <td>{{booking.vi_igst|default:''}}</td>
+							</tr>
+
+                            <tr>
+								<td>Total</td>
+                                <td>{{booking.sub_total|default:''}}</td>
+							</tr>
+                            <tr>
+								<td>Ticket</td>
+                                <td>{% if booking.vender_ticket %}
+                                         <a target="_blank" href="{{ booking.vender_ticket|default:'' }}">Download</a>
+                                        {% else %}
+                                         <label style="color:red;">Ticket Not Uploded</label>
+                                         {% endif %}
+                                    <a title="Upload New Ticket" class="btn btn-info btn-xs" data-target="#upload_vendor_ticket" data-toggle="modal" href="#">
+                                                <i class="fa fa-plus "></i> Upload New Ticket </a>
+                                </td>
+							</tr>
+
+
+						 </table>
+
+                    </div>
+                </div>
+
+
+                    <div class="card">
+                    <div class="card-head card-topline-aqua">
+                        <header>ActionLog Details</header>
+                    </div>
+                    <div class="card-body no-padding height-9">
+
+						<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+                            {% for log in booking.ActionLogs %}
+							<tr>
+								<td>
+                                  {% if log.action == 1%}Created By{% else %}{{log.status}}{% endif %}  [{{log.action_date|datetime_format}}]: {{log.employee_name}}({{log.name}})
+                                </td>
+							</tr>
+                            {% endfor %}
+						 </table>
+
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+             {% if booking.is_invoice == 1 %}
+			 <div class="col-md-6">
+
+                 <div class="card">
+                    <div class="card-head card-topline-aqua">
+                        <header>Billing Details</header>
+                    </div>
+                    <div class="card-body no-padding height-9">
+
+						<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+
+                            <tr>
+								<td>Ticket Price :</td>
+                                <td>{{booking.ticket_price}}</td>
+							</tr>
+                            <tr>
+								<td>Management Fee:</td>
+                                <td>{{booking.management_fee}}</td>
+							</tr>
+                            <tr>
+								<td>IGST (On Mgmt Fee ):</td>
+                                <td>{{booking.management_fee_igst_rate}}</td>
+							</tr>
+                            <tr>
+								<td>CGST (On Mgmt Fee):</td>
+                                <td>{{booking.management_fee_cgst_rate}}</td>
+							</tr>
+                            <tr>
+								<td>SGST (On Mgmt Fee):</td>
+                                <td>{{booking.management_fee_sgst_rate}}</td>
+							</tr>
+
+							<tr>
+								<td>Invoice Amount:</td>
+                                <td>{{booking.sub_total}}</td>
+							</tr>
+
+                            <tr>
+								<td>Ticket:</td>
+                                <td>{% if booking.client_ticket %}
+                                         <a target="_blank" href="{{ booking.client_ticket|default:'' }}">Download</a>
+                                        {% else %}
+                                         <label style="color:red;">Ticket Not Uploded</label>
+                                         {% endif %}
+                                    <a title="Upload New Ticket" class="btn btn-info btn-xs" data-target="#upload_client_ticket" data-toggle="modal" href="#">
+                                                <i class="fa fa-plus "></i> Upload New Ticket </a>
+                                </td>
+							</tr>
+
+
+							<tr>
+								<td>Cotrav Status:</td>
+                                <td>{{booking.invoice_status_cotrav}}</td>
+							</tr>
+
+                            <tr>
+								<td>Client Status:</td>
+                                <td>{{booking.invoice_status_client}}</td>
+							</tr>
+
+
+						 </table>
+
+                    </div>
+                </div>
+
+                  <div class="card">
+                    <div class="card-head card-topline-aqua">
+                        <header>Invoice ActionLog Details</header>
+                    </div>
+                    <div class="card-body no-padding height-9">
+
+						<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+                            {% for log in booking.InvoiceActionLog %}
+							<tr>
+								<td>
+                                  {{log.status_name}} [{{log.action_date|datetime_format}}]: {{log.employee_name}}({{log.name}})
+                                </td>
+							</tr>
+                            {% endfor %}
+						 </table>
+
+                    </div>
+                </div>
+
+
+
+            </div>
+                     {% endif %}
+
+
+
+
+				 </div>
+
+
+        </div>
+
+        </div>
+    </form>
+
+
+<div class="row">
+    <div class="col-sm-6">
+                         <div class="card">
+                    <div class="card-head card-topline-aqua">
+                        <header>Comment Details</header>
+                    </div>
+                    <div class="card-body no-padding height-9">
+                        <form action="/agents/add-booking-tracking-status" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="booking_id" value="{{ booking.id }}">
+                        <input type="hidden" name="user_id" value="{{user.id}}">
+                        <input type="hidden" name="booking_type" value="2">
+                        <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+                                <div class="form-group row">
+                                    <table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+                                          <tr>
+                                            <td>Comment</td>
+                                            <td>{% for tracking in booking.TrackingStatus %}
+                                                <b>{{ tracking.user_name|default:'' }}</b> [ {{tracking.status_date|datetime_format}} ]: {{tracking.tracking_status}} <br/>
+                                                {% endfor %}
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Enter Commment</td>
+                                            <td><textarea class="form-control" rows="4" name="user_comment" placeholder="Enter Commment.." required></textarea></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Add New Commment</td>
+                                            <td><button id="delete_btn" type="submit" class="btn btn-primary">Add</button></td>
+                                        </tr>
+
+                                     </table>
+                                </div>
+                             </form>
+
+                    </div>
+                    </div>
+    </div>
+
+
+<div class="col-md-6">
+            <div class="card">
+                    <div class="card-head card-topline-aqua">
+                        <header>Feedback Details</header>
+                    </div>
+                    <div class="card-body no-padding height-9">
+
+                        <form action="/agents/add-booking-feedback" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="booking_id" value="{{ booking.id }}">
+                        <input type="hidden" name="user_id" value="{{user.id}}">
+                        <input type="hidden" name="booking_type" value="2">
+                        <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+                        <div class="form-group row">
+							<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+								  <tr>
+                                    <td>Feedbacks</td>
+                                      <td>
+                                    {% for tracking in booking.BookingFeedbacks %}
+                                      <b>{{ tracking.user_name|default:'' }}</b> [ {{tracking.status_date|datetime_format}} ]: <b>Rate:</b> ( {{tracking.booking_rates}} )  {{tracking.comments_text}} <br/>
+                                    {% endfor %}
+
+                                      </td>
+
+                                </tr>
+                                <tr>
+                                            <td>Select Rating</td>
+                                            <td><select class="form-control myselect" name="user_rating" id="user_rating" style="width:100%" required>
+                                                <option value="">Select Rate</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                            </select></td>
+                                        </tr>
+                                <tr>
+                                    <td>Select Feedback Options</td>
+                                    <td>
+                                        <div id="good">
+                                        <select class="form-control myselect" id="good_1" name="user_rating_text_good" style="width:100%">
+                                                <option value="">Select Feedback Options</option>
+                                                <option value="Overall Booking Experience was Excellent">Overall Booking Experience was Excellent</option>
+                                                <option value="Easy to use Booking Portals">Easy to use Booking Portals</option>
+                                                <option value="Excellent Support">Excellent Support</option>
+                                                <option value="Clarity and Accuracy of Information on Booking Details">Clarity and Accuracy of Information on Booking Details</option>
+                                                <option value="Professional Cotrav Staff">Professional Cotrav Staff</option>
+                                                <option value="other">Other</option>
+                                            </select>
+                                           </div>
+
+                                        <div id="bad">
+                                        <select class="form-control myselect" name="user_rating_text_bad" id="bad_1" style="width:100%" >
+                                                <option value="">Select Feedback Options</option>
+                                                <option value="Overall Booking Experience was not so Good">Overall Booking Experience was not so Good</option>
+                                                <option value="Average Quality of Support">Average Quality of Support</option>
+                                                <option value="Inaccurate Information on Booking Details">Inaccurate Information on Booking Details</option>
+                                                <option value="Unprofessional Cotrav Staff">Clarity and Accuracy of Information on Booking Details</option>
+                                                <option value="other">Other</option>
+                                            </select>
+                                        </div>
+
+
+                                    </td>
+                                </tr>
+
+                                <tr id="row_good_txt">
+                                    <td></td>
+                                    <td><input type="text" class="form-control" name="user_rating_text_good_txt" placeholder="Please Enter Comment.." id="good_txt"></td>
+                                </tr>
+
+                                <tr id="row_bad_txt">
+                                    <td></td>
+                                    <td><input type="text" class="form-control" name="user_rating_text_bad_txt" placeholder="Please Enter Comment.." id="bad_txt"></td>
+                                </tr>
+
+                                        <tr>
+                                            <td></td>
+                                            <td><button type="submit" class="btn btn-primary btn-sm">Give Feedback</button></td>
+                                        </tr>
+
+							 </table>
+                        </div>
+                        </form>
+
+                    </div>
+                    </div>
+        </div>
+</div>
+
+ {% endfor %}
+
+
+</div>
+</div>
+<!-- end page content -->
+
+
+{% else %}
+<p>Welcome, new user. Please log in.<a href="/login">Login</a></p>
+{% endif %}
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCstbhex4F6X2-AXz3B1sR1oRvxssE3sc&libraries=places"></script>
+<script type="text/javascript">
+$( document ).ready(function() {
+$('#bad').hide();
+$('#row_good_txt').hide();
+$('#row_bad_txt').hide();
+});
+
+$("#user_rating").change(function()
+{
+    var user_rating = $(this).val();
+    if(user_rating >= 4){
+        $('#good').show();
+        $("#good_1").attr('required',true);
+        $('#bad').hide();
+        $("#bad_1").attr('required',false);
+    }else{
+       $('#bad').show();
+       $("#bad_1").attr('required',true);
+       $('#good').hide();
+       $("#good_1").attr('required',false);
+    }
+
+});
+
+$("#good_1").change(function()
+{
+var good_opt = $(this).val();
+if(good_opt == 'other'){
+$('#row_good_txt').show();
+$("#row_good_txt").attr('required',true);
+}else{
+$('#row_good_txt').hide();
+$("#row_good_txt").attr('required',false);
+}
+});
+
+$("#bad_1").change(function()
+{
+var bad_opt = $(this).val();
+if(bad_opt == 'other'){
+$('#row_bad_txt').show();
+$("#row_bad_txt").attr('required',true);
+}else{
+$('#row_bad_txt').hide();
+$("#row_bad_txt").attr('required',false);
+}
+});
+
+</script>
+<script>
+$( document ).ready(function() {
+    var no_of_seats = $('#no_of_seats').val();
+
+    	if(no_of_seats > 0){
+           for(i=1;i<=no_of_seats;i++)
+            {
+                $('#emp_row_'+i).show();
+                $("#employee_id_"+i).attr('required',true);
+
+            }
+            var j = parseInt(no_of_seats) + 1;
+			for(j=j; j<=6; j++)
+			{
+				$('#emp_row_'+j).hide();
+				$("#employee_id_"+j).attr('required',false);
+
+			}
+    	}
+
+
+});
+
+$("#employee_id_1").change(function()
+    {
+    	$("#emp_id_1").val($(this).find("option:selected").attr("emp_id"));
+    	$("#employee_name_1").val($(this).find("option:selected").attr("emp_name"));
+    	$("#employee_contact_1").val($(this).find("option:selected").attr("emp_cnt"));
+    	$("#employee_email_1").val($(this).find("option:selected").attr("emp_email"));
+    	$("#employee_age_1").val($(this).find("option:selected").attr("emp_age"));
+    	$("#employee_gender_1").val($(this).find("option:selected").attr("emp_gender"));
+    });
+
+$("#employee_id_2").change(function()
+    {
+    	$("#emp_id_2").val($(this).find("option:selected").attr("emp_id"));
+    	$("#employee_name_2").val($(this).find("option:selected").attr("emp_name"));
+    	$("#employee_contact_2").val($(this).find("option:selected").attr("emp_cnt"));
+    	$("#employee_email_2").val($(this).find("option:selected").attr("emp_email"));
+    	$("#employee_age_2").val($(this).find("option:selected").attr("emp_age"));
+    	$("#employee_gender_2").val($(this).find("option:selected").attr("emp_gender"));
+    });
+
+$("#employee_id_3").change(function()
+    {
+    	$("#emp_id_3").val($(this).find("option:selected").attr("emp_id"));
+    	$("#employee_name_3").val($(this).find("option:selected").attr("emp_name"));
+    	$("#employee_contact_3").val($(this).find("option:selected").attr("emp_cnt"));
+    	$("#employee_email_3").val($(this).find("option:selected").attr("emp_email"));
+    	$("#employee_age_3").val($(this).find("option:selected").attr("emp_age"));
+    	$("#employee_gender_3").val($(this).find("option:selected").attr("emp_gender"));
+    });
+
+$("#employee_id_4").change(function()
+    {
+    	$("#emp_id_4").val($(this).find("option:selected").attr("emp_id"));
+    	$("#employee_name_4").val($(this).find("option:selected").attr("emp_name"));
+    	$("#employee_contact_4").val($(this).find("option:selected").attr("emp_cnt"));
+    	$("#employee_email_4").val($(this).find("option:selected").attr("emp_email"));
+    	$("#employee_age_4").val($(this).find("option:selected").attr("emp_age"));
+    	$("#employee_gender_4").val($(this).find("option:selected").attr("emp_gender"));
+    });
+
+$("#employee_id_5").change(function()
+    {
+    	$("#emp_id_5").val($(this).find("option:selected").attr("emp_id"));
+    	$("#employee_name_5").val($(this).find("option:selected").attr("emp_name"));
+    	$("#employee_contact_5").val($(this).find("option:selected").attr("emp_cnt"));
+    	$("#employee_email_5").val($(this).find("option:selected").attr("emp_email"));
+    	$("#employee_age_5").val($(this).find("option:selected").attr("emp_age"));
+    	$("#employee_gender_5").val($(this).find("option:selected").attr("emp_gender"));
+    });
+
+    $("#employee_id_6").change(function()
+    {
+    	$("#emp_id_6").val($(this).find("option:selected").attr("emp_id"));
+    	$("#employee_name_6").val($(this).find("option:selected").attr("emp_name"));
+    	$("#employee_contact_6").val($(this).find("option:selected").attr("emp_cnt"));
+    	$("#employee_email_6").val($(this).find("option:selected").attr("emp_email"));
+    	$("#employee_age_6").val($(this).find("option:selected").attr("emp_age"));
+    	$("#employee_gender_6").val($(this).find("option:selected").attr("emp_gender"));
+    });
+
+
+
+$(".no_of_seats").change(function()
+    {
+
+    	var no_of_seats = $(this).val();
+
+    	if(no_of_seats > 0){
+           for(i=1;i<=no_of_seats;i++)
+            {
+                $('#emp_row_'+i).show();
+                $("#employee_id_"+i).attr('required',true);
+
+            }
+            var j = parseInt(no_of_seats) + 1;
+			for(j=j; j<=6; j++)
+			{
+				$('#emp_row_'+j).hide();
+				$("#employee_id_"+j).attr('required',false);
+
+			}
+    	}
+    });
+
+ var input = document.getElementById('pickup_location');
+  var autocomplete = new google.maps.places.Autocomplete(input);
+
+  var input = document.getElementById('drop_location');
+  var autocomplete = new google.maps.places.Autocomplete(input);
+
+</script>
+<script>
+    $( document ).ready(function() {
+
+$('#model_serialize_update')
+.each(function(){
+$(this).data('serialized', $(this).serialize())
+})
+    .on('change input', function(){
+        $(this)
+            .find('input:submit')
+                .attr('disabled', $(this).serialize() == $(this).data('serialized'))
+        ;
+     })
+.find('input:submit')
+.attr('disabled', true);
+
+});
+
+$(document.body).on("change",".myselect",function(){
+  $('form')
+      .find('input:submit')
+          .attr('disabled', $('#model_serialize_update').serialize() == $('#model_serialize_update').data('serialized'))
+  ;
+});
+
+</script>
+{% endblock %}
+
+
+

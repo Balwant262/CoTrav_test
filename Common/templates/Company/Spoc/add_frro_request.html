@@ -1,0 +1,749 @@
+{% extends 'Company/Spoc/layout/header.html' %}
+
+{% block content %}
+
+
+{% if user %}
+<!-- start page content -->
+
+{% include 'cotrav_alert_message.html' %}
+
+
+<form method="post" action="/Corporate/Spoc/add-new-frro-request" enctype="multipart/form-data">
+    <input type="hidden" name="user_id" value="{{user.id}}">
+    <input type="hidden" name="corporate_id" value="{{user.corporate_id}}">
+    <input type="hidden" name="group_id" value="{{user.group_id}}">
+    <input type="hidden" name="subgroup_id" value="{{user.subgroup_id}}">
+    <input type="hidden" name="is_sms" value="1">
+    <input type="hidden" name="is_email" value="1">
+    <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+
+
+ <div class="page-content-wrapper">
+    <div class="page-content">
+
+            			<div class="text-center">
+     <div style="font-size:14px; font-weight:bold;">
+<input type="submit" class="btn btn-info" value="Add New Frro Request" id="theSubmitButton">
+
+         </div>
+   </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">FRRO Questionnaire Form</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+
+                    <div class="card card-topline-aqua">
+                        <div class="card-head">
+                            <header>Personal Details</header>
+                            <div class="tools">
+                                <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                                <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                                <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                            </div>
+                        </div>
+                        <div class="card-body ">
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="form-control col-sm-6" style="border: 0;">Father's Name</label>
+                                        <input type="text" class="form-control col-sm-6" id="father_name" name="father_name" placeholder="Father's Name" required="required"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="form-control col-sm-6" style="border: 0;">Mother's Name</label>
+                                        <input type="text" class="form-control col-sm-6" id="mother_name" name="mother_name" placeholder="Mother's Name" required="required"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="form-control col-sm-6" style="border: 0;">Spouse's Name</label>
+                                        <input type="text" class="form-control col-sm-6" id="spouse_name" name="spouse_name" placeholder="Spouse's Name" required="required"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="form-control col-sm-6" style="border: 0;">Height (in cm)</label>
+                                        <input type="text" class="form-control col-sm-6" id="height" name="height" placeholder="Height (in cm)"  required="required"/>
+                                    </div>
+                                </div>
+
+
+                            <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="form-control col-sm-6" style="border: 0;">Relegion</label>
+                                        <input type="text" class="form-control col-sm-6" id="relegion" name="relegion" placeholder="Relegion" required="required"/>
+                                    </div>
+                                </div>
+
+                            <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="form-control col-sm-6" style="border: 0;">Passport No</label>
+                                        <input type="text" class="form-control col-sm-6" id="passport_no" name="passport_no" placeholder="Passport No" required="required"/>
+                                    </div>
+                                </div>
+
+                            <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="form-control col-sm-6" style="border: 0;">Passport Issue Date</label>
+                                        <input type="text" class="form-control col-sm-6 datepicker1" id="passport_issue_date" name="passport_issue_date" placeholder="Passport Issue Date" required="required"/>
+                                    </div>
+                                </div>
+
+                            <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="form-control col-sm-6" style="border: 0;">Passport Expiry Date</label>
+                                        <input type="text" class="form-control col-sm-6 datepicker1" id="passport_expiry_date" name="passport_expiry_date" placeholder="Passport Expiry Date" required="required"/>
+                                    </div>
+                                </div>
+
+                            <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="form-control col-sm-6" style="border: 0;">Visa Number</label>
+                                        <input type="text" class="form-control col-sm-6" id="visa_number" name="visa_number" placeholder="Visa Number" required="required"/>
+                                    </div>
+                                </div>
+
+                            <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="form-control col-sm-6" style="border: 0;">Visa Expiry Date</label>
+                                        <input type="text" class="form-control col-sm-6 datepicker1" id="visa_expiry_date" name="visa_expiry_date" placeholder="Visa Expiry Date" required="required"/>
+                                    </div>
+                                </div>
+
+                            <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="form-control col-sm-6" style="border: 0;">Current Location</label>
+                                            <input type="text" class="form-control col-sm-6" id="current_location" name="current_location" placeholder="Current Location" required="required"/>
+                                    </div>
+                                </div>
+
+                             <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="form-control col-sm-6" style="border: 0;">Current Stay Address</label>
+                                        <input type="text" class="form-control col-sm-6" id="current_stay_address" name="current_stay_address" placeholder="Current Stay Address" required="required"/>
+                                    </div>
+                                </div>
+
+                            <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="form-control col-sm-6" style="border: 0;">Company Contract Expiry Date</label>
+                                        <input type="text" class="form-control col-sm-6 datepicker1" id="company_contract_expiry_date" name="company_contract_expiry_date" placeholder="Company Contract Expiry Date" required="required"/>
+                                    </div>
+                                </div>
+
+                            <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="form-control col-sm-6" style="border: 0;">Form-C Expiry Date</label>
+                                        <input type="text" class="form-control col-sm-6 datepicker1" id="formc_expiry_date" name="formc_expiry_date" placeholder="Form-C Expiry Date" required="required"/>
+                                    </div>
+                                </div>
+
+
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                        <label class="form-control col-sm-6" style="border: 0;">Lease Status</label>
+                                            <input type="text" class="form-control col-sm-6" id="lease_status" name="lease_status" placeholder="Lease Status" required="required"/>
+                                    </div>
+                                </div>
+
+
+                        </div>
+                        </div>
+                    </div>
+
+
+
+
+                <div class="card card-topline-aqua">
+                        <div class="card-head">
+                            <header>Address of last residence (Outside India)</header>
+                            <div class="tools">
+                                <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                                <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                                <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                            </div>
+                        </div>
+                        <div class="card-body ">
+
+                <div class="row">
+
+                     <div class="col-md-4">
+                                <div class="form-group row">
+                                        <label class="form-control col-sm-6" style="border: 0;">Address</label>
+                        <input type="text" class="form-control col-sm-6" id="outind_address" name="outind_address" placeholder="Address*" required="required"/>
+                                </div>
+                                </div>
+
+                     <div class="col-md-4">
+                                <div class="form-group row">
+                                        <label class="form-control col-sm-6" style="border: 0;">City</label>
+                        <input type="text" class="form-control col-sm-6" id="outind_city" name="outind_city" placeholder="City*" required="required"/>
+                                </div>
+                                </div>
+
+                     <div class="col-md-4">
+                                <div class="form-group row">
+                                        <label class="form-control col-sm-6" style="border: 0;">Country</label>
+                        <input type="text" class="form-control col-sm-6" id="outind_country" name="outind_country" placeholder="Country*" required="required"/>
+                                </div>
+                                </div>
+
+
+                </div>
+                             </div>
+                </div>
+
+
+                <div class="card card-topline-aqua">
+                        <div class="card-head">
+                            <header>Current Address in India (Residence)</header>
+                            <div class="tools">
+                                <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                                <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                                <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                            </div>
+                        </div>
+                        <div class="card-body ">
+                <div class="row">
+
+
+                    <div class="col-md-4">
+                                <div class="form-group row">
+                                         <label class="form-control col-sm-6" style="border: 0;">Address</label>
+                        <input type="text" class="form-control col-sm-6" id="ind_address" name="ind_address" placeholder="Address*" required="required"/>
+                                </div>
+                                </div>
+
+                    <div class="col-md-4">
+                                <div class="form-group row">
+                                        <label class="form-control col-sm-6" style="border: 0;">City</label>
+                        <input type="text" class="form-control col-sm-6" id="ind_city" name="ind_city" placeholder="City*" required="required"/>
+                                </div>
+                                </div>
+
+                    <div class="col-md-4">
+                                <div class="form-group row">
+                                        <label class="form-control col-sm-6" style="border: 0;">Country</label>
+                        <input type="text" class="form-control col-sm-6" id="ind_country" name="ind_country" placeholder="Country*" required="required"/>
+                                </div>
+                                </div>
+
+
+
+
+                </div>
+                </div>
+                </div>
+
+
+                     <div class="card card-topline-aqua">
+                        <div class="card-head">
+                            <header>Arrival Details</header>
+                            <div class="tools">
+                                <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                                <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                                <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                            </div>
+                        </div>
+                        <div class="card-body ">
+
+                <div class="row">
+                    <div class="col-md-6">
+                                <div class="form-group row">
+                                        <label class="form-control col-md-6" style="border: 0;">Place of embarkation for India</label>
+                        <input type="text" class="form-control col-md-6" id="embarkation_place" name="embarkation_place" placeholder="Place of embarkation/boarding for India*" required="required"/>
+                                </div>
+                                </div>
+
+
+
+
+                    <div class="col-md-6">
+                                <div class="form-group row">
+                                        <label class="form-control col-md-6" style="border: 0;">City of embarkation for India</label>
+                        <input type="text" class="form-control col-md-6" id="embarkation_city" name="embarkation_city" placeholder="City of embarkation/boarding for India" required="required"/>
+                                </div>
+                                </div>
+
+
+
+                    <div class="col-md-6">
+                                <div class="form-group row">
+                                        <label class="form-control col-md-6" style="border: 0;">Country of embarkation for India</label>
+                        <input type="text" class="form-control col-md-6" id="embarkation_country" name="embarkation_country" placeholder="Country of embarkation/boarding for India" required="required"/>
+                                </div>
+                                </div>
+
+
+
+                    <div class="col-md-6">
+                                <div class="form-group row">
+                                        <label class="form-control col-md-6" style="border: 0;">Date of arrival in India</label>
+                        <input type="text" class="form-control col-md-6 datepicker1" id="date_of_arrival" name="date_of_arrival" placeholder="Date of arrival in India* YYYY/MM/DD" required="required"/>
+                                </div>
+                                </div>
+
+
+
+                     <div class="col-md-6">
+                                <div class="form-group row">
+                                        <label class="form-control col-md-6" style="border: 0;">Place of disembarkation in India</label>
+                        <input type="text" class="form-control col-md-6" id="disembarkation_place" name="disembarkation_place" placeholder="Place of disembarkation/arrival in India*" required="required"/>
+                                </div>
+                                </div>
+
+
+                    <div class="col-md-6">
+                                <div class="form-group row">
+                                       <label class="form-control col-sm-6" style="border: 0;">Mode of Journey</label>
+                        <input type="text" class="form-control col-sm-6" id="mode_of_journey" name="mode_of_journey" placeholder="Mode of Journey" required="required"/>
+                                </div>
+                                </div>
+
+
+                      <div class="col-md-6">
+                                <div class="form-group row">
+                                       <label class="form-control col-sm-6" style="border: 0;">Flight/Train/Bus/Ship Number</label>
+                        <input type="text" class="form-control col-sm-6" id="trip_number" name="trip_number" placeholder="Flight/Train/Bus/Ship Number" required="required"/>
+                                </div>
+                                </div>
+
+
+
+                    <div class="col-md-6">
+                                <div class="form-group row">
+                                       <label class="form-control col-sm-6" style="border: 0;">Purpose of visit to India</label>
+                        <input type="text" class="form-control col-sm-6" id="purpose_of_visit" name="purpose_of_visit" placeholder="Purpose of visit to India*" required="required"/>
+                                </div>
+                                </div>
+
+
+
+                     <div class="col-md-6">
+                                <div class="form-group row">
+                                       <label class="form-control col-sm-6" style="border: 0;">Have you served in Military/Navy or Air Force or
+                            Reserve of any country?</label>
+                        <input type="text" class="form-control col-sm-6" id="is_military" name="is_military" placeholder="Have you served in Military/Navy or Air Force or Reserve of any country?*"
+                               required="required"/>
+                                </div>
+                                </div>
+
+
+
+                </div>
+                </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="employee_ques_btn">Ok</button>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+
+
+            <br/>
+
+            <div class="row">
+            <div class="col-md-5">
+                <div class="card card-topline-aqua">
+                    <div class="card-head">
+                        <header>Basic Details</header>
+                        <div class="tools">
+                            <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                            <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                            <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                        </div>
+                    </div>
+                    <div class="card-body ">
+
+                              <div class="form-group row">
+                                <label class="col-sm-4" >Request Type*</label>
+                                 <select id="country_id" name="country_id" class="form-control col-sm-8 tour_type  myselect" style="width:66%" required>
+                                     <option value="">Select Request Type</option>
+                                      {% for type in req_types %}
+                                        <option value="{{type.id}}">{{type.name}}</option>
+                                        {% endfor %}
+                                  </select>
+                            </div>
+
+                         <div class="form-group row">
+                                <label class="col-sm-4" >Resident City*</label>
+                                 <select id="city_id" name="city_id" class="form-control col-sm-8 tour_type  myselect" style="width:66%" required>
+                                     <option value="">Select Resident City</option>
+                                      {% for city in cities %}
+                                        <option value="{{city.id}}">{{city.city_name}}</option>
+                                        {% endfor %}
+                                  </select>
+                            </div>
+
+                        <div class="form-group row">
+                                <label class="col-sm-4" >Select Billing Entity*</label>
+                                 <select id="entity_id" name="billing_entity_id" class="form-control col-sm-8  myselect" style="width:66%"  required>
+                                      <option value="">Select Billing Entity </option>
+                                     {% for entity in entities %}
+                                        <option value="{{entity.id}}">{{entity.entity_name}}</option>
+                                        {% endfor %}
+
+                                  </select>
+                            </div>
+
+                               <div class="form-group row" id="emp_row_1">
+                                    <label class="col-sm-4" >Employee </label>
+                                     <select id="employee_id_1" name="employee_id" class="form-control col-sm-8 myselect" style="width:66%"  required>
+                                         <option value="">Select Employee</option>
+                                        {% for employee in employees %}
+                                        <option value="{{employee.id}}" emp_id="{{employee.employee_cid}}" emp_cnt="{{employee.employee_contact}}" emp_name="{{employee.employee_name}}" emp_email="{{employee.employee_email}}">{{employee.employee_name}}/{{employee.employee_cid}}</option>
+                                        {% endfor %}
+                                    </select>
+
+                                </div>
+
+                         <div class="form-group row">
+                                <label class="col-sm-4" >Registered Email*</label>
+                                <input type="email" class="form-control col-sm-8 " autocomplete="off" name="registered_email" placeholder="Registered Email" required>
+                         </div>
+
+                        <div class="form-group row">
+                                <label class="col-sm-4" >Booking Reason/ Comment</label>
+                                <input type="text" class="form-control col-sm-8 " autocomplete="off" name="reason_of_booking" placeholder="Booking Reason/ Comment" required>
+                         </div>
+
+                        <div class="form-group row">
+                                <label class="col-sm-4" >FRRO Username</label>
+                                <input type="text" class="form-control col-sm-8 " autocomplete="off" name="registered_username" placeholder="FRRO Username" required>
+                         </div>
+
+                        <div class="form-group row">
+                                <label class="col-sm-4" >FRRO Password</label>
+                                <input type="text" class="form-control col-sm-8 " autocomplete="off" name="registered_password" placeholder="FRRO Password" required>
+                         </div>
+
+                        <div class="form-group row">
+                                <label class="col-sm-4" >Add Questionnaire</label>
+                                <a href="" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-plus" aria-hidden="true"></i> Add Questionnaire</a>
+                         </div>
+
+
+
+
+
+
+                    </div>
+                </div>
+
+                <div class="card card-topline-aqua" id="requirements_row">
+                                <div class="card-head">
+                               <header>Rules</header>
+                               <div class="tools">
+                                   <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                                   <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                                   <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                               </div>
+                               </div>
+                               <div class="card-body ">
+
+                                   <div class="row">
+                                       <strong style="font-size:14px;" id="rules_display"></strong>
+                                   </div>
+
+                                </div>
+                       </div>
+
+
+                        </div>
+
+
+
+
+                   <div class="col-md-7" >
+
+
+                       <div class="card card-topline-aqua">
+                                <div class="card-head">
+                               <header> Upload Required Document Details </header>
+                               <div class="tools">
+                                   <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                                   <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                                   <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                               </div>
+                               </div>
+                               <div class="card-body ">
+                                   <table class="table table-striped table-bordered" id="document_table">
+                                   </table>
+
+
+                                </div>
+                       </div>
+                   </div>
+
+
+
+
+
+
+                     </div>
+
+
+
+
+
+</div>
+ </div>
+        </form>
+
+<!-- end page content -->
+
+
+
+
+
+{% else %}
+    <p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCstbhex4F6X2-AXz3B1sR1oRvxssE3sc&libraries=places"></script>
+
+<script type="text/javascript">
+
+$( document ).ready(function() {
+
+jQuery("#theSubmitButton").click(function(event) {
+var father_name = $("#father_name");
+
+var mother_name = $("#mother_name");
+var spouse_name = $("#spouse_name");
+var height = $("#height");
+var relegion = $("#relegion");
+
+var passport_no = $("#passport_no");
+var passport_issue_date = $("#passport_issue_date");
+var passport_expiry_date = $("#passport_expiry_date");
+var visa_number = $("#visa_number");
+var visa_expiry_date = $("#visa_expiry_date");
+var current_location = $("#current_location");
+var current_stay_address = $("#current_stay_address");
+var company_contract_expiry_date = $("#company_contract_expiry_date");
+var formc_expiry_date = $("#formc_expiry_date");
+var lease_status = $("#lease_status");
+
+var outind_address = $("#outind_address");
+var outind_city = $("#outind_city");
+var outind_country = $("#outind_country");
+var ind_address = $("#ind_address");
+var ind_city = $("#ind_city");
+var ind_country = $("#ind_country");
+var embarkation_place = $("#embarkation_place");
+var embarkation_city = $("#embarkation_city");
+var embarkation_country = $("#embarkation_country");
+var date_of_arrival = $("#date_of_arrival");
+var disembarkation_place = $("#disembarkation_place");
+var mode_of_journey = $("#mode_of_journey");
+var trip_number = $("#trip_number");
+var purpose_of_visit = $("#purpose_of_visit");
+var is_military = $("#is_military");
+
+if (father_name.val().length == 0 || mother_name.val().length == 0 || spouse_name.val().length == 0 || height.val().length == 0 || relegion.val().length == 0
+|| passport_no.val().length == 0 || passport_issue_date.val().length == 0 || passport_expiry_date.val().length == 0 || visa_number.val().length == 0 || visa_expiry_date.val().length == 0
+|| current_location.val().length == 0 || current_stay_address.val().length == 0 || company_contract_expiry_date.val().length == 0 || formc_expiry_date.val().length == 0 || lease_status.val().length == 0
+|| outind_address.val().length == 0 || outind_city.val().length == 0 || outind_country.val().length == 0 || ind_address.val().length == 0 || ind_city.val().length == 0
+|| ind_country.val().length == 0 || embarkation_place.val().length == 0 || embarkation_city.val().length == 0 || embarkation_country.val().length == 0 || date_of_arrival.val().length == 0 || ind_city.val().length == 0
+|| disembarkation_place.val().length == 0 || mode_of_journey.val().length == 0 || trip_number.val().length == 0 || purpose_of_visit.val().length == 0 || is_military.val().length == 0) {
+    // do something
+    alert('all field required please check FRRO Questionnaire Form also..!');
+}
+
+
+});
+});
+
+$("#employee_id_1").change(function()
+    {
+    	$("#emp_id_1").val($(this).find("option:selected").attr("emp_id"));
+    	$("#employee_name_1").val($(this).find("option:selected").attr("emp_name"));
+    	$("#employee_contact_1").val($(this).find("option:selected").attr("emp_cnt"));
+    	$("#employee_email_1").val($(this).find("option:selected").attr("emp_email"));
+
+    var_url_emp = '/api/'+'get_employee_questionnaire_details';
+    var employee_id = $("#employee_id_1").val();
+    $.ajaxSetup({
+            headers:{
+                'Authorization': "Token {{request.session.spoc_access_token}}",
+                'usertype': 4
+            }
+
+        });
+     $.post(var_url_emp,{ employee_id: employee_id },
+      function(data)
+      {
+       //alert(JSON.stringify(data['Details'][0]['father_name']));
+        $("#father_name").val(data['Details'][0]['father_name']);
+        $("#mother_name").val(data['Details'][0]['mother_name']);
+        $("#spouse_name").val(data['Details'][0]['spouse_name']);
+        $("#height").val(data['Details'][0]['height']);
+        $("#relegion").val(data['Details'][0]['relegion']);
+        $("#outind_address").val(data['Details'][0]['outind_address']);
+        $("#outind_city").val(data['Details'][0]['outind_city']);
+        $("#outind_country").val(data['Details'][0]['outind_country']);
+        $("#ind_address").val(data['Details'][0]['ind_address']);
+        $("#ind_city").val(data['Details'][0]['ind_city']);
+        $("#ind_country").val(data['Details'][0]['ind_country']);
+        $("#embarkation_place").val(data['Details'][0]['embarkation_place']);
+        $("#embarkation_city").val(data['Details'][0]['embarkation_city']);
+        $("#embarkation_country").val(data['Details'][0]['embarkation_country']);
+        $("#date_of_arrival").val(data['Details'][0]['date_of_arrival']);
+        $("#disembarkation_place").val(data['Details'][0]['disembarkation_place']);
+        $("#mode_of_journey").val(data['Details'][0]['mode_of_journey']);
+        $("#trip_number").val(data['Details'][0]['trip_number']);
+        $("#purpose_of_visit").val(data['Details'][0]['purpose_of_visit']);
+        $("#is_military").val(data['Details'][0]['is_military']);
+
+        $("#passport_no").val(data['Details'][0]['passport_no']);
+        $("#passport_issue_date").val(data['Details'][0]['passport_issue_date']);
+        $("#passport_expiry_date").val(data['Details'][0]['passport_expiry_date']);
+        $("#visa_number").val(data['Details'][0]['visa_number']);
+        $("#visa_expiry_date").val(data['Details'][0]['visa_expiry_date']);
+        $("#current_location").val(data['Details'][0]['current_location']);
+        $("#current_stay_address").val(data['Details'][0]['current_stay_address']);
+        $("#company_contract_expiry_date").val(data['Details'][0]['company_contract_expiry_date']);
+        $("#formc_expiry_date").val(data['Details'][0]['formc_expiry_date']);
+        $("#lease_status").val(data['Details'][0]['lease_status']);
+
+       });
+
+
+    });
+
+
+$("#country_id").change(function()
+{
+    var country_id = $("#country_id").val();
+    var visa_type = $("#visa_type").val();
+    $('#visa_type').empty();
+    var_url = '/api/'+'get_rules_to_display';
+    var_url_doc = '/api/'+'get_frro_document_list_by_request_type';
+
+    $.ajaxSetup({
+            headers:{
+                'Authorization': "Token {{request.session.spoc_access_token}}",
+                'usertype': 4
+            }
+
+        });
+<!--   For Visa Type  -->
+     $.post(var_url,{ request_type: country_id },
+      function(data)
+      {
+       //alert(data['Rules']);
+       if(data['Rules'].length != 0){
+        entities = data['Rules'];
+        $('#rules_display').html('');
+        $('#rules_display').html(entities[0]['rules_to_display']);
+        }
+       });
+
+
+ $.post(var_url_doc,{ request_type: country_id },
+  function(data)
+  {
+
+   if(data['Docs'].length != 0){
+   docs = data['Docs'];
+   var data = "<thead><th style='color: green; font-size: 13px'>Document Name</th><th style='color: green; font-size: 13px'>Upload Document</th></thead>";
+   for (var i=0;i<docs.length;i++) {
+
+        data += "<tr style='border: solid 1px #ddd'><td style='border: solid 1px #ddd; padding: 2px; width: 50%; font-size: 11px'>"+docs[i]['document_name']+"</td> <td style='border: solid 1px #ddd; padding: 2px; width: 50%; font-size: 11px'><input type='hidden' name='doc_select[]' value='"+docs[i]['document_name']+"'> <input class='control-label' name='document[]' type='file'></td></tr>";
+   }
+    $('#document_table').html(data);
+
+   }
+   });
+});
+
+
+
+
+$("#spoc_id").change(function(){
+    var spoc_idd =  $(this).val();
+    var spoc_id = spoc_idd.split(",");
+      $('#employee_id_1').empty();
+      $('#employee_id_2').empty();
+      $('#employee_id_3').empty();
+      $('#employee_id_4').empty();
+      $('#employee_id_5').empty();
+      $('#employee_id_6').empty();
+    $.ajaxSetup({
+            headers:{
+                'Authorization': "Token {{request.session.admin_access_token}}",
+                'usertype': 1
+            }
+
+        });
+
+        //       For Employees
+
+    var_url_spoc_employee = '/api/'+'spoc_employee'
+     $.post(var_url_spoc_employee,{ spoc_id: spoc_id[0] },
+      function(data)
+      {
+
+       if(data['Employees'].length != 0){
+        employee = data['Employees'];
+        $('#employee_id_1').append($("<option value=''>Select Employee</option>"));
+        $('#employee_id_2').append($("<option value=''>Select Employee</option>"));
+        $('#employee_id_3').append($("<option value=''>Select Employee</option>"));
+        $('#employee_id_4').append($("<option value=''>Select Employee</option>"));
+        $('#employee_id_5').append($("<option value=''>Select Employee</option>"));
+        $('#employee_id_6').append($("<option value=''>Select Employee</option>"));
+         for (var i=0;i<employee.length;i++) {
+
+            $('#employee_id_1').append($("<option value='"+employee[i].id+"' emp_id='"+employee[i].employee_cid+"' emp_cnt='"+employee[i].employee_contact+"' emp_name='"+employee[i].employee_name+"' emp_email='"+employee[i].employee_email+"' >"+employee[i].employee_name+"/"+employee[i].employee_cid+"</option>"));
+            $('#employee_id_2').append($("<option value='"+employee[i].id+"' emp_id='"+employee[i].employee_cid+"' emp_cnt='"+employee[i].employee_contact+"' emp_name='"+employee[i].employee_name+"' emp_email='"+employee[i].employee_email+"' >"+employee[i].employee_name+"/"+employee[i].employee_cid+"</option>"));
+            $('#employee_id_3').append($("<option value='"+employee[i].id+"' emp_id='"+employee[i].employee_cid+"' emp_cnt='"+employee[i].employee_contact+"' emp_name='"+employee[i].employee_name+"' emp_email='"+employee[i].employee_email+"' >"+employee[i].employee_name+"/"+employee[i].employee_cid+"</option>"));
+            $('#employee_id_4').append($("<option value='"+employee[i].id+"' emp_id='"+employee[i].employee_cid+"' emp_cnt='"+employee[i].employee_contact+"' emp_name='"+employee[i].employee_name+"' emp_email='"+employee[i].employee_email+"' >"+employee[i].employee_name+"/"+employee[i].employee_cid+"</option>"));
+            $('#employee_id_5').append($("<option value='"+employee[i].id+"' emp_id='"+employee[i].employee_cid+"' emp_cnt='"+employee[i].employee_contact+"' emp_name='"+employee[i].employee_name+"' emp_email='"+employee[i].employee_email+"' >"+employee[i].employee_name+"/"+employee[i].employee_cid+"</option>"));
+            $('#employee_id_6').append($("<option value='"+employee[i].id+"' emp_id='"+employee[i].employee_cid+"' emp_cnt='"+employee[i].employee_contact+"' emp_name='"+employee[i].employee_name+"' emp_email='"+employee[i].employee_email+"' >"+employee[i].employee_name+"/"+employee[i].employee_cid+"</option>"));
+
+         }
+       var emp_len = data['Employees'].length;
+       for (var i=emp_len+1;i<7;i++) {
+       var valueToCompare = $("#no_of_seats option[value='"+i+"']").text();
+            if(valueToCompare == i) {
+                $("#no_of_seats option[value='"+i+"']").attr("disabled", "disabled");
+            }
+       }
+
+       }else{
+        alert('No Employees Available')
+       }
+       });
+
+});
+
+
+</script>
+
+
+{% endblock %}

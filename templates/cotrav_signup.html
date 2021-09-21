@@ -1,0 +1,127 @@
+{% extends 'main_base.html' %}
+
+{% block description %}Sign Up with CoTrav in a matter of seconds and explore our wide range of services. {% endblock %}
+{% block keywords %}{% endblock %}
+{% block title %}Cotrav | Sign Up{% endblock %}
+
+{% block content %}
+
+{% load static %}
+{% include 'cotrav_alert_signup.html' %}
+
+<!-- start main-wrapper section -->
+    <div class="main-wrapper">
+             <!-- start registration form -->
+        <section class="parallax_1 position-relative box-hover" >
+            <div class="container">
+
+
+                    <div class="row" style="margin-top: -6%;">
+                         <div class="col-sm-7  text-center" style="background-image: url({% static 'img/bg/bg-sign.jpg' %}); background-repeat: no-repeat; "> <i class="fa fa-user-circle fa-5x" aria-hidden="true"></i>
+                         <h2 class="account-text">Don’t have an account? </h2>
+                            <h4 class="account-description" style="font-size: 20px;font-weight: 400;">Sign Up with CoTrav in a matter of seconds and explore our wide range of services. </h4>
+                         </div>
+                      <div class="col-sm-5 text-center abc">
+                        <form action="signup" method="POST" class="registration-form section_signup">
+                                <div class="row">
+
+                                    <div class="col-11">
+                                         <img src="{% static 'img/logos/6.png' %}" id="contact_icon1">
+                                        <input type="text" name="corporate_name" id="company_Name" required="required" placeholder="Name Of Your Company *" maxlength="70" class="medium-input input_signupform input_signup">
+                                        <p style="color:red; font-size:12px;" class="err_msg">{{err_msg}}</p>
+                                    </div>
+
+                                       <div class="col-11">
+                                         <img src="{% static 'img/logos/7.png' %}" id="contact_icon1">
+                                        <input type="text" name="corporate_location" id="company_location" required="required" placeholder="Location *" value="{{city}}" maxlength="70" class="medium-input input_signupform input_signup">
+                                    </div>
+                                     <div class="col-11">
+                                         <img src="{% static 'img/logos/1.png' %}" id="contact_icon1">
+                                        <input type="text" name="contact_person_name" id="Name" required="required" placeholder="Contact Person *" value="{{name}}" maxlength="70" class="medium-input input_signupform input_signup">
+                                    </div>
+                                      <div class="col-11">
+                                            <img src="{% static 'img/logos/3.png' %}" id="contact_icon1">
+                                        <input type="text" name="contact_person_no" id="phone" placeholder="Contact Number" maxlength="10" value="{{number}}" class="medium-input input_signupform input_signup">
+                                    </div>
+                                    <div class="col-11">
+                                         <img src="{% static 'img/logos/2.png' %}" id="contact_icon1">
+                                        <input type="email" name="contact_person_email" id="Contact_email" required="required" placeholder="Contact Email *" value="{{email}}" maxlength="70" class="medium-input input_signupform input_signup">
+                                    </div>
+
+                                    <div class="col-11">
+                                        <img src="{% static 'img/logos/2.png' %}" id="contact_icon1">
+                                        <select name="Hear_About_Us" class="form-control" style="height: 35px; color:#6F6F6F; width: 100%; border-color:#AFAFAF; border-radius: 5px; font-size: 12px; margin-left: 16px;" id="Hear_About_Us" required style="color:gray;padding-top: 4px;">
+                                            <option value="">How Did You Hear About Us?</option>
+                                            <option value="Website">Website</option>
+                                            <option value="news paper">News Paper</option>
+                                            <option value="Email">Email</option>
+                                            <option value="mobile sms">Mobile SMS</option>
+                                            <option value="other">Others</option>
+                                        </select>
+
+                                        <input type="text" style="display:none;" name="input_Hear_About_Us" id="input_field_here" class="medium-input input_signupform input_signup ">
+
+                                   </div>
+
+                                    <input type="hidden" value="Sign Up" name="Lead_Source">
+
+                                    <div class="col-11">
+                                       <img src="{% static 'img/logos/8.png' %}" id="contact_icon1">
+                                        <textarea name="message" rows="3" placeholder="Tell us more about your requirments.." data-constraints="@NotEmpty" value="{{message}}" class="medium-input input_signupform"></textarea>
+                                    </div>
+
+                                    <div class="col-11">
+
+                                       <script src='https://www.google.com/recaptcha/api.js'></script>
+                                        <div class="g-recaptcha" data-sitekey="6LdeNL8ZAAAAAEpwI40wncmtToh-0UF0KGM0sy02"></div>
+                                    </div>
+
+
+
+
+                                    <div class="col-12">
+                                        <button class="butn theme medium bt_par" type="submit"><span>Sign Up</span></button>
+                                        <p class="no-margin float-right" ><a href="/login" id="signup-txt-color" class="bt_par_a" >Already Registered?</a></p>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                     </div>
+
+
+
+
+            </div>
+        </section>
+        <!-- end registration form -->
+
+    </div>
+    <!-- end main-wrapper section -->
+
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCstbhex4F6X2-AXz3B1sR1oRvxssE3sc&libraries=places"></script>
+    {% load static %}
+    <!-- start js include path -->
+    <script src="{% static 'assets/plugins/jquery/jquery.min.js' %}" ></script>
+<script>
+  var company_location = document.getElementById('company_location');
+  var autocomplete = new google.maps.places.Autocomplete(company_location);
+</script>
+
+<script type="text/javascript">
+
+$('#Hear_About_Us').on('change', function (e) {
+    var optionSelected = $("option:selected", this);
+    var valueSelected = this.value;
+    if(valueSelected == 'other'){
+        $('#input_field_here').show();
+        $("#input_field_here").prop('required',true);
+    }else{
+        $('#input_field_here').hide();
+        $("#input_field_here").prop('required',false);
+    }
+});
+
+</script>
+{% endblock %}

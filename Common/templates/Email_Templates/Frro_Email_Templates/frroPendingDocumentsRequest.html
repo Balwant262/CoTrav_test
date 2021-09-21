@@ -1,0 +1,16 @@
+{% include 'Email_Templates/Frro_Email_Templates/header.html' %}
+ {% for booking in bookings %}
+Dear Sir<br><br>
+Greetings from CoTrav..!<br><br>
+PFA, Request you please share/upload the below documents for {{booking.frro_request_type_name|default:'NA'}} of {{ booking.reference_no|default:'NA' }}
+<br><br>
+Kindly share/upload
+<br>
+<ol>
+    {% for day in list_documents %}
+    <li>{{ day }}</li>
+{% endfor %}
+</ol>
+
+{% endfor %}
+{% include 'Email_Templates/Frro_Email_Templates/footer.html' %}

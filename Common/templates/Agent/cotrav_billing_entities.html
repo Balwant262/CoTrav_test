@@ -1,0 +1,383 @@
+{% extends 'Agent/layout/header.html' %}
+
+{% block content %}
+
+
+{% if user %}
+<!-- start page content -->
+
+<!-- The Modal -->
+<div class="modal fade" role="dialog" id="model_add_new_entities">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 id="delete_label" class="modal-title-status">Add New Cotrav Billing Entitie Form</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <form action="/agents/add-cotrav-billing-entity/0" method="post" enctype="multipart/form-data" id="model_serialize_update">
+                <input type="hidden" name="entity_id" id="entity_id">
+                <input type="hidden" name="user_id" value="{{user.id}}">
+                <input type="hidden" name="delete_id" id="delete_id">
+                 <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+                <!-- Modal footer -->
+                <div class="modal-body">
+
+                    <div class="form-group row" id="entity_name1">
+                        <label class="col-sm-3 control-label">Entity Name</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="entity_name" id="entity_name" placeholder="Entity Name" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="billing_city_id1">
+                        <label class="col-sm-3 control-label">Billing City</label>
+                        <div class="col-sm-9">
+                            <select class="form-control myselect" name="billing_city_id" id="billing_city_id" style="width:100%;" required>
+                                <option value="">Select City</option>
+                                {% for city in cities %}
+                                <option value="{{city.id}}">{{city.city_name}}</option>
+                                {% endfor %}
+                            </select>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="contact_person_name1">
+                        <label class="col-sm-3 control-label">Contact Name</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="contact_person_name" id="contact_person_name" required
+                                   placeholder="Contact Name">
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="contact_person_email1">
+                        <label class="col-sm-3 control-label">Contact Email</label>
+                        <div class="col-sm-9">
+                            <input type="email" class="form-control" name="contact_person_email" id="contact_person_email" required
+                                   placeholder="Contact Email">
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="contact_person_no1" >
+                        <label class="col-sm-3 control-label">Contact No</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="contact_person_no"  id="contact_person_no" placeholder="Contact No">
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="address_line_11">
+                        <label class="col-sm-3 control-label">Address Line 1</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="address_line_1" id="address_line_1" placeholder="Address Line 1">
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="address_line_21">
+                        <label class="col-sm-3 control-label">Address Line 2</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="address_line_2" id="address_line_2" placeholder="Address Line 2">
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="address_line_31">
+                        <label class="col-sm-3 control-label">Address Line 3</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="address_line_3" id="address_line_3" placeholder="Address Line 3">
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="gst_id1">
+                        <label class="col-sm-3 control-label">GSTIN NO</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="gst_id" id="gst_id" placeholder="GSTIN NO">
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="pan_no1">
+                        <label class="col-sm-3 control-label">PAN NO</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="pan_no" id="pan_no" placeholder="PAN NO">
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button id="delete_btn" type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+</div>
+
+
+{% include 'cotrav_alert_message.html' %}
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-topline-aqua">
+                    <div class="card-head">
+                        <header>ALL CORPORATE BILLING ENTITY LIST</header>
+                          <div class="row p-b-20">
+                            <div class="col-md-6 col-sm-6 col-6">
+                                <div class="btn-group">
+                                    <a class="btn btn-info" href="#" data-toggle="modal"
+                                       data-target="#model_add_new_entities"> Add New  <i class="fa fa-plus"></i> </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tools">
+                            <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                            <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                            <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                        </div>
+                    </div>
+                    <div class="card-body ">
+
+
+
+
+                        <div class="table-scrollable table-bordered">
+                            <table id="example1" class="display full-width table-striped">
+                                <thead>
+                                <tr>
+<!--                                    <th>ID</th>-->
+
+                                    <th>Entity name</th>
+                                    <th>Billing City</th>
+                                    <th>Contact Name</th>
+                                    <th>Contact Email</th>
+                                    <th>Contact No</th>
+                                    <th>Address Line 1</th>
+                                    <th>Address Line 2</th>
+                                    <th>Address Line 3</th>
+                                    <th>GSTIN NO</th>
+                                    <th>PAN NO</th>
+
+                                    <th>Edit/Delete</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for be in billing_entities %}
+                                <tr>
+<!--                                    <td>{{ be.id }}</td>-->
+
+                                    <td>{{ be.entity_name }}</td>
+                                    <td>{{ be.billing_city }}</td>
+                                    <td>{{ be.contact_person_name|default:'' }}</td>
+                                    <td>{{ be.contact_person_email|default:'' }}</td>
+                                    <td>{{ be.contact_person_no|default:'' }}</td>
+                                    <td>{{ be.address_line_1|default:'' }}</td>
+                                    <td>{{ be.address_line_2|default:'' }}</td>
+                                    <td>{{ be.address_line_3|default:'' }}</td>
+                                    <td>{{ be.gst_id|default:'' }}</td>
+                                    <td>{{ be.pan_no|default:'' }}</td>
+
+                                    <td>
+                                        <a href="#" data-toggle="modal" data-target="#model_add_new_entities"
+                                           class="btn btn-tbl-edit btn-xs" data-id="{{be.id}}" data-corporate_id="{{be.corporate_id}}" data-entity_name="{{ be.entity_name }}"
+                                           data-corporate_name="{{be.corporate_name}}" data-billing_city="{{be.billing_city_id}}" data-contact_person_name="{{be.contact_person_name}}"
+                                           data-contact_person_email="{{be.contact_person_email}}" data-contact_person_no="{{be.contact_person_no}}"
+                                        data-address_line_1="{{be.address_line_1}}" data-address_line_2="{{be.address_line_2}}" data-address_line_3="{{be.address_line_3}}"
+                                        data-pan_no="{{be.pan_no}}" data-gst_id="{{be.gst_id}}" >
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                        <a  href="#" data-toggle="modal" class="btn btn-tbl-delete btn-xs" data-target="#model_add_new_entities"  data-id="{{be.id}}" data-corporate_id="{{be.corporate_id}}" data-entity_name="{{ be.entity_name }}"
+                                           data-corporate_name="{{be.corporate_name}}" data-billing_city="{{be.billing_city_id}}" data-contact_person_name="{{be.contact_person_name}}"
+                                           data-contact_person_email="{{be.contact_person_email}}" data-contact_person_no="{{be.contact_person_no}}"
+                                        data-address_line_1="{{be.address_line_1}}" data-address_line_2="{{be.address_line_2}}" data-address_line_3="{{be.address_line_3}}"
+                                        data-pan_no="{{be.pan_no}}" data-gst_id="{{be.gst_id}}" data-delete_id="1">
+                                            <i class="fa fa-trash-o "></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- end page content -->
+
+
+{% else %}
+<p>Welcome, new user. Please log in.<a href="/login">Login</a></p>
+{% endif %}
+
+
+<script>
+
+        $(".myselect").select2();
+
+        var mymod = $('#corporate_id');
+
+        mymod.select2();
+
+        var billingcitySelect = $('#billing_city_id');
+
+        billingcitySelect.select2();
+
+</script>
+
+
+
+<script type="text/javascript">
+$(function() {
+  $('#model_add_new_entities').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var id = button.data('id'); // Extract info from data-* attributes
+    var entity_name = button.data('entity_name');
+    var corporate_name = button.data('corporate_name');
+    var id = button.data('id');
+    var corporate_id = button.data('corporate_id');
+    var billing_city = button.data('billing_city');
+    var contact_person_name = button.data('contact_person_name');
+    var contact_person_email = button.data('contact_person_email');
+    var contact_person_no = button.data('contact_person_no');
+    var address_line_1 = button.data('address_line_1');
+    var address_line_2 = button.data('address_line_2');
+    var address_line_3 = button.data('address_line_3');
+    var gst_id = button.data('gst_id');
+    var pan_no = button.data('pan_no');
+
+    var delete_id = button.data('delete_id');
+
+    var modal = $(this);
+
+    if(delete_id == 1){
+    modal.find('#delete_id').val(delete_id);
+    modal.find('#entity_id').val(id);
+
+    mymod.val(corporate_id);
+    mymod.trigger('change.select2');
+
+    billingcitySelect.val(billing_city);
+    billingcitySelect.trigger('change.select2');
+
+
+    modal.find('#entity_name').val(entity_name);
+    modal.find('#corporate_name').val(entity_name);
+    modal.find('#contact_person_name').val(contact_person_name);
+    modal.find('#contact_person_email').val(contact_person_email);
+    modal.find('#contact_person_no').val(contact_person_no);
+    modal.find('#address_line_1').val(address_line_1);
+    modal.find('#address_line_2').val(address_line_2);
+    modal.find('#address_line_3').val(address_line_3);
+    modal.find('#gst_id').val(gst_id);
+    if(pan_no != '')
+    modal.find('#pan_no').val(pan_no);
+    else
+    modal.find('#pan_no').val('');
+
+    $('#delete_label').text("do you want to delete this record");
+    $('#delete_btn').html("Yes");
+
+    $('#entity_id1').hide();
+    $('#corporate_id1').hide();
+    $("#billing_city_id1").val(billing_city).hide();
+    $('#entity_name1').hide();
+    $('#corporate_name1').hide();
+    $('#contact_person_name1').hide();
+    $('#contact_person_email1').hide();
+    $('#contact_person_no1').hide();
+    $('#address_line_11').hide();
+    $('#address_line_21').hide();
+    $('#address_line_31').hide();
+    $('#gst_id1').hide();
+    $('#pan_no1').hide();
+
+    }else{
+
+    modal.find('#entity_id').val(id);
+
+    mymod.val(corporate_id);
+    mymod.trigger('change.select2');
+
+    billingcitySelect.val(billing_city);
+    billingcitySelect.trigger('change.select2');
+
+
+    modal.find('#billing_city_id').val(billing_city).trigger('change');
+    modal.find('#entity_name').val(entity_name);
+    modal.find('#corporate_name').val(entity_name);
+    modal.find('#contact_person_name').val(contact_person_name);
+    modal.find('#contact_person_email').val(contact_person_email);
+    modal.find('#contact_person_no').val(contact_person_no);
+    modal.find('#address_line_1').val(address_line_1);
+    modal.find('#address_line_2').val(address_line_2);
+    modal.find('#address_line_3').val(address_line_3);
+    modal.find('#gst_id').val(gst_id);
+    if(pan_no != '')
+    modal.find('#pan_no').val(pan_no);
+    else
+    modal.find('#pan_no').val('');
+
+    modal.find('#delete_id').val('');
+
+    $('#delete_label').text("Entity Details");
+    $('#delete_btn').html("Save");
+
+    $('#entity_id1').show();
+    $('#corporate_id1').show();
+    $("#billing_city_id1").val(billing_city).show();
+    $('#entity_name1').show();
+    $('#corporate_name1').show();
+    $('#contact_person_name1').show();
+    $('#contact_person_email1').show();
+    $('#contact_person_no1').show();
+    $('#address_line_11').show();
+    $('#address_line_21').show();
+    $('#address_line_31').show();
+    $('#gst_id1').show();
+    $('#pan_no1').show();
+
+    }
+
+    });
+
+});
+
+</script>
+<script>
+$( document ).ready(function() {
+
+$('#model_serialize_update')
+.each(function(){
+$(this).data('serialized', $(this).serialize())
+})
+    .on('change input', function(){
+        $(this)
+            .find('input:submit, button:submit')
+                .attr('disabled', $(this).serialize() == $(this).data('serialized'))
+        ;
+     })
+.find('input:submit, button:submit')
+.attr('disabled', true);
+
+});
+
+$(document.body).on("change",".myselect",function(){
+  $('form')
+      .find('input:submit, button:submit')
+          .attr('disabled', $('#model_serialize_update').serialize() == $('#model_serialize_update').data('serialized'))
+  ;
+});
+
+</script>
+{% endblock %}
+
+

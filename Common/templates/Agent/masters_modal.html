@@ -1,0 +1,413 @@
+<!-- The Modal -->
+<div class="modal fade model_custom_style" role="dialog" id="add_flight_airports">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4  class="modal-title-status">flight_airports </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+            <form action="/agents/master/add" method="post" id="docsForm" enctype="multipart/form-data" >
+                <input type="hidden" name="idd" id="idd">
+                <input type="hidden" name="user_id" value="{{user.id}}">
+                <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+                <input type="hidden" name="table_flag" value="1">
+
+                 <div class="form-group row" >
+                       <label class="col-sm-5 control-label">city_name</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="city_name" name="city_name" placeholder="City Name" type="text" required>
+                            </div>
+                    </div>
+
+                 <div class="form-group row" >
+                       <label class="col-sm-5 control-label">country_name</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="country_name" name="country_name" placeholder="Country Name" type="text" required>
+                            </div>
+                    </div>
+
+                   <div class="form-group row" >
+                       <label class="col-sm-5 control-label">code</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="code" name="code" placeholder="Country Code" type="text" required>
+                            </div>
+                    </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- 11111 ############################ -->
+
+<!-- The Modal -->
+<div class="modal fade model_custom_style" role="dialog" id="add_invoice_status">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4  class="modal-title-status">invoice_status </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+            <form action="/agents/master/add" method="post" id="docsForm2" enctype="multipart/form-data" >
+                <input type="hidden" name="idd" id="idd2">
+                <input type="hidden" name="user_id" value="{{user.id}}">
+                <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+                <input type="hidden" name="table_flag" value="2">
+
+
+                 <div class="form-group row" >
+                       <label class="col-sm-5 control-label">status_name</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="status_name" name="status_name" placeholder="status_name" type="text" required>
+                            </div>
+                 </div>
+
+
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- 222222 ############################ -->
+
+<!-- The Modal -->
+<div class="modal fade model_custom_style" role="dialog" id="add_irctc_accounts">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4  class="modal-title-status">irctc_accounts </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+            <form action="/agents/master/add" method="post" id="docsForm3" enctype="multipart/form-data" >
+                <input type="hidden" name="idd" id="idd3">
+                <input type="hidden" name="user_id" value="{{user.id}}">
+                <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+                <input type="hidden" name="table_flag" value="3">
+
+                 <div class="form-group row" >
+                       <label class="col-sm-5 control-label">username</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="username" name="username" placeholder="username" type="text" required>
+                            </div>
+                 </div>
+
+                <div class="form-group row" >
+                       <label class="col-sm-5 control-label">password</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="password" name="password" placeholder="password" type="text" required>
+                            </div>
+                 </div>
+
+                <div class="form-group row" >
+                       <label class="col-sm-5 control-label">usage_limit</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="usage_limit" name="usage_limit" placeholder="usage_limit" type="text" required>
+                            </div>
+                 </div>
+
+                <div class="form-group row" >
+                       <label class="col-sm-5 control-label">is_used</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="is_used" name="is_used" placeholder="is_used" type="text" required>
+                            </div>
+                 </div>
+
+
+                <div class="form-group row" >
+                       <label class="col-sm-5 control-label">used_by</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="used_by" name="used_by" placeholder="used_by" type="text" required>
+                            </div>
+                 </div>
+
+                <div class="form-group row" >
+                       <label class="col-sm-5 control-label">usage_started_at</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="usage_started_at" name="usage_started_at" placeholder="usage_started_at" type="text" required>
+                            </div>
+                 </div>
+
+                <div class="form-group row" >
+                       <label class="col-sm-5 control-label">monthly_usage_count</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="monthly_usage_count" name="monthly_usage_count" placeholder="monthly_usage_count" type="text" required>
+                            </div>
+                 </div>
+
+                <div class="form-group row" >
+                       <label class="col-sm-5 control-label">booking_ids</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="booking_ids" name="booking_ids" placeholder="booking_ids" type="text" required>
+                            </div>
+                 </div>
+
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- 33333333 ############################ -->
+
+<!-- The Modal -->
+<div class="modal fade model_custom_style" role="dialog" id="add_nationality">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4  class="modal-title-status">nationality </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+            <form action="/agents/master/add" method="post" id="docsForm4" enctype="multipart/form-data" >
+                <input type="hidden" name="idd" id="idd4">
+                <input type="hidden" name="user_id" value="{{user.id}}">
+                <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+                <input type="hidden" name="table_flag" value="4">
+
+
+                 <div class="form-group row" >
+                       <label class="col-sm-5 control-label">name</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="name" name="name" placeholder="name" type="text" required>
+                            </div>
+                 </div>
+
+                <div class="form-group row" >
+                       <label class="col-sm-5 control-label">name</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="code4" name="code" placeholder="code" type="text" required>
+                            </div>
+                 </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- 444444444444444 ############################ -->
+
+<!-- The Modal -->
+<div class="modal fade model_custom_style" role="dialog" id="add_status_client">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4  class="modal-title-status">status_client </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+            <form action="/agents/master/add" method="post" id="docsForm5" enctype="multipart/form-data" >
+                <input type="hidden" name="idd" id="idd5">
+                <input type="hidden" name="user_id" value="{{user.id}}">
+                <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+                <input type="hidden" name="table_flag" value="5">
+
+
+                 <div class="form-group row" >
+                       <label class="col-sm-5 control-label">Status</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="status" name="status" placeholder="status" type="text" required>
+                            </div>
+                 </div>
+
+                <div class="form-group row" >
+                       <label class="col-sm-5 control-label">Description</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="description" name="description" placeholder="description" type="text" required>
+                            </div>
+                 </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- 55555555 ############################ -->
+
+<!-- The Modal -->
+<div class="modal fade model_custom_style" role="dialog" id="add_status_cotrav">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4  class="modal-title-status">status_cotrav </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+            <form action="/agents/master/add" method="post" id="docsForm6" enctype="multipart/form-data" >
+                <input type="hidden" name="idd" id="idd6">
+                <input type="hidden" name="user_id" value="{{user.id}}">
+                <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+                <input type="hidden" name="table_flag" value="6">
+
+
+                 <div class="form-group row" >
+                       <label class="col-sm-5 control-label">Status</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="status2" name="status" placeholder="status" type="text" required>
+                            </div>
+                 </div>
+
+                <div class="form-group row" >
+                       <label class="col-sm-5 control-label">Description</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="description2" name="description" placeholder="description" type="text" required>
+                            </div>
+                 </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- 66666666 ############################ -->
+
+<!-- The Modal -->
+<div class="modal fade model_custom_style" role="dialog" id="add_train_types">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4  class="modal-title-status">train_types </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+            <form action="/agents/master/add" method="post" id="docsForm7" enctype="multipart/form-data" >
+                <input type="hidden" name="idd" id="idd7">
+                <input type="hidden" name="user_id" value="{{user.id}}">
+                <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+                <input type="hidden" name="table_flag" value="7">
+
+
+                 <div class="form-group row" >
+                       <label class="col-sm-5 control-label">name</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="name2" name="name" placeholder="name" type="text" required>
+                            </div>
+                 </div>
+
+
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- 7777777 ############################ -->
+
+<!-- The Modal -->
+<div class="modal fade model_custom_style" role="dialog" id="add_user_type">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4  class="modal-title-status">user_type </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+            <form action="/agents/master/add" method="post" id="docsForm8" enctype="multipart/form-data" >
+                <input type="hidden" name="idd" id="idd8">
+                <input type="hidden" name="user_id" value="{{user.id}}">
+                <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+                <input type="hidden" name="table_flag" value="8">
+
+
+                 <div class="form-group row" >
+                       <label class="col-sm-5 control-label">name</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="name3" name="name" placeholder="name" type="text" required>
+                            </div>
+                 </div>
+
+
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>

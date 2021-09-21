@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+<title>Cotrav Flight Voucher</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+ <style>
+div.header {
+    display: block; text-align: center; 
+    position: running(header);
+
+}
+div.footer {
+    display: block; text-align: center;
+    position: running(footer);
+}
+@page {
+    @top-center { content: element(header) }
+}
+@page { 
+    @bottom-center { content: element(footer) }
+}
+
+body { 
+  font: 12pt  Montserrat; 
+ line-height: 19px;
+    margin-top: -50px;}
+  @page { 
+    /* switch to landscape */ 
+   size: a4 portrait;
+   /* set page margins */ 
+   margin: 0.0cm; 
+   /* Default footers */ 
+    @bottom-left { 
+     content: "Department of Strategy"; 
+   } 
+   @bottom-right { 
+     content: counter(page) " of " counter(pages); 
+  
+  }
+}
+#header { 
+  position: fixed; 
+  width: 100%; 
+  top: 0; 
+  left: 0; 
+  right: 0;
+ 
+}
+#footer { 
+  position: fixed; 
+  width: 100%; 
+  bottom: 0; 
+  left: 0;
+  right: 0;
+ }
+
+.custom-page-start {
+    margin-top: 100px;
+}
+
+
+.logo{
+       margin-top: -105px;
+    margin-left: 41px;
+    margin-bottom: 100px;
+    }
+ h5 {
+   font-family: montserrat,san-serif; 
+   font-weight: 600; 
+   font-size: 19px;
+    }
+
+       h6{
+   font-family: montserrat,san-serif; 
+   font-weight: 600; 
+   font-size: 17px;
+    }
+     h4{
+   font-family: montserrat,san-serif; 
+   font-weight: 600; 
+   font-size: 20px;
+    }
+    p{
+       font-family: 'Montserrat',Regular; 
+   font-weight: 600; 
+   font-size: 15px;
+    }
+  .p-1{
+     font-size: 13px;
+  }
+  .border{
+    border: solid 1px gray;
+  }
+.sec{
+  text-align: center;
+}
+.section{
+  text-decoration-line: underline;
+  line-height: 0px;
+}
+.border-bottom{
+  border-bottom: solid 1px gray;
+}
+.section2{
+  line-height: 20px;
+}
+td{
+  font-size: 13px;
+}
+.footer{
+  height: 140px;
+}
+.img1{
+  margin-top: -94px;
+    margin-bottom: 20px;
+  }
+.BAI{
+
+    margin-bottom: -45px;
+    margin-top: -57px;
+    color: white;
+      font-family: montserrat,san-serif;
+      line-height: 2px;
+      font-size: 15px;
+      text-align: center;}
+
+.agent{
+  margin-top: 45px;
+    font-size: 11px;
+    color: white;
+    font-family: montserrat,san-serif; 
+    padding-top: 12px;
+    text-align: center;
+}
+.fligh-head{
+  line-height: 3px;
+}
+.flight_section{
+      padding-left: 46px;
+    margin-bottom: -8px;
+    font-size: 15px;
+    font-family: montserrat,san-serif; 
+    font-weight: 600;
+    
+}
+.f1{
+  font-size: 16px;
+    font-family: montserrat,san-serif; 
+    font-weight: 600;
+}
+.section-f1{
+  font-size: 16px;
+    font-family: montserrat,san-serif; 
+    font-weight: 600;
+}
+.section-f2{
+  font-size: 13px;
+  font-family: montserrat,Regular; 
+  font-weight: 500;
+}
+.arow{
+  
+  margin-right: 25px;
+  margin-top: 12px
+}
+
+.fare-section{
+  font-size: 13px;
+  font-weight: 500;
+  color:black;
+    font-family: 'Montserrat', Medium; 
+ 
+}
+.fare-section1{
+  font-size: 16px;
+   font-weight: 600;
+    
+}
+span{
+font-size: 13px;
+font-weight: 600;
+text-align: center;
+}
+.plane{
+      width: 10px;
+}
+.plane_detail{
+  font-size: 12px;
+  text-align: center;
+
+}
+
+.plane_detail_1{
+  font-size: 12px;
+  text-align: center;
+   font-weight: 600;
+}
+.f-span{
+  margin-left: 81px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+</style>
+</head>
+<body>
+ <div class='header'></div>
+    <div class='footer'></div>
+
+
+     <table  align="center" width="100%" >
+  <tbody>
+  <tr>
+    <td class="fligh-head border-bottom" align="center">
+    <h5> PNR/Booking Ref : RMM3YN <small>( Your Booking is Confirmed) </small></h5>
+   
+    
+  </td>
+   </tr>
+
+
+
+<table  width="100%" style="margin-top: -30px;">
+
+    <tr>
+      <tr>
+      <p class="plane_detail_1">  <img src="plane.png" class="plane"> Departing Flight . 25 Oct 2019 . 1 Stop </p>
+      
+          <p class="plane_detail">Check in/ Bag Drop closes 03:55</p>
+      </tr>
+     <td class="f1"><br/>
+      <img src="flight_indigo.png" class="flight_section"> Indigo  <br> <span class="f-span">6E 936 (A320)<span> <br>
+    
+      </td>
+
+
+     <td><br/>
+     <p class="section-f1"> Pune(PQL)</p>
+    <p class="section-f2">Pune International Airport<br> 25-10-2019 <br>
+      (06:05AM)
+    </p>
+ 
+     </td>
+
+      <td class="align"><br/>
+
+       <img src="arow.png" class="arow">
+         <p class="section-f2 Ar-1"> 25-10-2019 <br>
+           (1h 50m)
+</p>
+     
+     </td>
+
+     <td><br/>
+     <p class="section-f1">  Delhi(DEL)</p>
+       <p class="section-f2">Indira Gandhi <br> 25-10-2019 <br>
+      (07:055AM)</p>
+    
+     </td>
+    
+   </tr>
+
+   
+</table>
+
+
+<table  width="100%">
+
+    <tr>
+      <tr>
+      <p class="plane_detail_1">  05 Hours 20 Mins layover at Ahmedabad Change of aircraft</p>
+      
+          <p class="plane_detail"> Bag Drop closes 03:55</p>
+      </tr>
+     <td class="f1">
+     <img src="flight_indigo.png" class="flight_section"> Indigo  <br> <span class="f-span">6E 936 (A320)<span> 
+    
+      </td>
+
+
+     <td>
+     <p class="section-f1"> Delhi(DEL) </p>
+    <p class="section-f2">Indira Gandhi<br> 25-10-2019 <br>
+      (11:05AM)
+    </p>
+ 
+     </td>
+
+      <td class="align">
+
+       <img src="arow.png" class="arow">
+         <p class="section-f2 Ar-1"> 25-10-2019 <br>
+           (1h 00m)
+</p>
+     
+     </td>
+
+     <td><br/>
+     <p class="section-f1"> Jaipur(JPR)</p>
+       <p class="section-f2">Jaipur International Airport <br> 25-10-2019<br>
+      (12:05PM) </p>
+    
+     </td>
+    
+   </tr>
+
+   
+</table>
+<table align="center" width="100%" class="section2 border-bottom"> 
+  
+    <tr>
+      <h6 align="center" class="section">Passenger Details</h6>
+    </tr>
+    <tr>
+     <td align="center">
+    Passenger Name : Md eliyaz Shaik<br>
+    (ticket)
+
+     </td>
+    
+      <td align="center">
+       Passenger Name : Md eliyaz Shaik<br>
+    (ticket)
+
+
+     </td>
+     
+   <td align="center">
+       Passenger Name : Md eliyaz Shaik<br>
+    (ticket)
+
+
+     </td>
+     
+     
+   </tr>
+     
+
+</table>  
+
+  <table  width="100%" class="border-bottom">  
+
+     <tr>
+      <h6 align="center"  class="section">Fare Summary</h6>
+    </tr>
+
+    <tr>
+      <td  align="center" class="fare-section">
+      Airfare Charges(INR)
+      </td>
+
+        <td   align="center" class="fare-section">
+     ASF(INR)
+      107.00
+      </td>
+
+      <td align="center" class="fare-section">
+     IGST for Uttar Pradesh(INR)
+      365.00s
+      </td>
+
+        <td align="center" class="fare-section">
+     User Development Fee(INR)
+      185.00
+      </td>
+  </tr>
+
+
+   <tr>
+      <td colspan="6px" align="center" class="fare-section fare-section1"><br>
+     Total Fare(INR)
+     7,406.00
+      </td>
+
+       
+  </tr>
+ 
+ 
+    
+</table>
+
+  <table  width="100%" class="border-bottom ">
+
+     <tr>
+      <h6 align="center"  class="section">GST Information</h6>
+    </tr>
+
+    <tr>
+      <td  align="center" class="fare-section" >
+     GST Company Name : BAI INFOSOLUTIONS PRIVATE LIMITED &nbsp &nbsp
+   ( GST Number : 07AAGCB3556P1Z7) 
+      </td>
+  </tr>
+
+ <table  width="100%" >
+
+<tr>
+    <td  align="center">
+  Interglobe Aviation ltd.(IndiGo), Global Business Park, Gurgaon, Haryana, India. Call +91 9910383838 or +91 124 6613838
+</td>
+   </tr>
+</table>
+
+</table>
+  <!-- Custom HTML header --> 
+  <div id="header"> 
+ <img src="bg1_flight.png" width="100%" height="125" >
+  
+  </div>  <!-- Custom HTML footer --> 
+  <div id="footer"> 
+  <img src="bg23.png" width="100%" height="125" >
+ 
+  </div> 
+
+ 
+  <!-- New page for each client  --> 
+  <div class="custom-page-start" style="page-break-before: always;"> 
+    
+  </div> 
+
+  
+
+</body>
+</html>                            

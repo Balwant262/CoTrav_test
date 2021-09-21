@@ -1,0 +1,2075 @@
+{% extends 'Company/Employee/layout/header.html' %}
+
+{% block content %}
+
+
+{% if user %}
+<!-- start page content -->
+
+{% include 'cotrav_alert_message.html' %}
+
+
+        <form method="post" action="/Corporate/Employee/add-new-visa-request" enctype="multipart/form-data">
+            <input type="hidden" name="user_id" value="{{user.id}}">
+            <input type="hidden" name="employee_id" value="{{user.id}}">
+            <input type="hidden" name="no_of_employees" id="no_of_employees" value="1">
+            <input type="hidden" name="corporate_id" value="{{user.corporate_id}}">
+            <input type="hidden" name="spoc_id" value="{{user.spoc_id}}">
+             <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+             <input type="hidden" name="current_country_id" value="101">
+             <input type="hidden" name="current_state_id" value="44">
+             <input type="hidden" id="application_form_link" name="application_form_link">
+             <input type="hidden" name="billing_entity_id" value="{{user.billing_entity_id}}">
+
+ <div class="page-content-wrapper">
+    <div class="page-content">
+
+         <div class="modal fade model_custom_style" role="dialog" id="upload_client_ticket">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title-status">Upload Required Document Form </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+<!--            <form method="post" action="/agents/upload-visa-required-doc" enctype="multipart/form-data">-->
+
+                <div id="emp_1">
+                    <label class="col-sm-12 alert alert-info" >Employee 1</label>
+                    <div class="form-group row">
+                    <div class="col-sm-5">
+                        <label >No. Of Documents</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <select required id="no_of_document" name="emp_no_of_document" class="form-control myselect" style="width:100%">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                    </div>
+                 </div>
+
+                     <div class="form-group row">
+                    <div class="col-sm-5">
+                    <label >Application Form</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="emp_application_form_1" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-5">
+                    <select id="option_1_emp_1" name="emp_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_1_emp_1" name="emp_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="emp_document_path_1_1" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row" id="row_1_col_2" style="display: none">
+                    <div class="col-sm-5">
+                   <select id="option_2_emp_1" name="emp_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_2_emp_1" name="emp_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="emp_document_path_1_2" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row" id="row_1_col_3" style="display: none">
+                    <div class="col-sm-5">
+                    <select id="option_3_emp_1" name="emp_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_3_emp_1" name="emp_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="emp_document_path_1_3" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row" id="row_1_col_4" style="display: none">
+                    <div class="col-sm-5">
+                    <select id="option_4_emp_1" name="emp_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_4_emp_1" name="emp_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="emp_document_path_1_4" type="file">
+                    </div>
+                 </div>
+
+
+
+            </div>
+
+
+                <div style="display: none" id="emp_2">
+                    <label class="col-sm-12 alert alert-info" >Employee 2</label>
+                    <div class="form-group row">
+                    <div class="col-sm-5">
+                        <label >No. Of Documents</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <select id="no_of_document_1" name="emp_no_of_document" class="form-control myselect" style="width:100%">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                    </div>
+                 </div>
+
+                     <div class="form-group row">
+                    <div class="col-sm-5">
+                    <label >Application Form</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="emp_application_form_2" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-5">
+                    <select id="option_1_emp_2" name="emp_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_1_emp_2" name="emp_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="emp_document_path_2_1" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row" id="row_2_col_2" style="display: none">
+                    <div class="col-sm-5">
+                    <select id="option_2_emp_2" name="emp_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_2_emp_2" name="emp_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="emp_document_path_2_2" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row" id="row_2_col_3" style="display: none">
+                    <div class="col-sm-5">
+                    <select id="option_3_emp_2" name="emp_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_3_emp_2" name="emp_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="emp_document_path_2_3" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row" id="row_2_col_4" style="display: none">
+                    <div class="col-sm-5">
+                    <select id="option_4_emp_2" name="emp_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_4_emp_2" name="emp_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="emp_document_path_2_4" type="file">
+                    </div>
+                 </div>
+
+            </div>
+
+
+                <div style="display: none" id="emp_3">
+                    <label class="col-sm-12 alert alert-info" >Employee 3</label>
+                    <div class="form-group row">
+                    <div class="col-sm-5">
+                        <label >No. Of Documents</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <select id="no_of_document_2" name="emp_no_of_document" class="form-control myselect" style="width:100%">
+                       <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                    </div>
+                 </div>
+
+                     <div class="form-group row">
+                    <div class="col-sm-5">
+                    <label >Application Form</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="emp_application_form_3" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-5">
+                    <select id="option_1_emp_3" name="emp_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_1_emp_3" name="emp_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="emp_document_path_3_1" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row" id="row_3_col_2" style="display: none">
+                    <div class="col-sm-5">
+                    <select id="option_2_emp_3" name="emp_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_2_emp_3" name="emp_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="emp_document_path_3_2" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row" id="row_3_col_3" style="display: none">
+                    <div class="col-sm-5">
+                    <select id="option_3_emp_3" name="emp_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_3_emp_3" name="emp_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="emp_document_path_3_3" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row" id="row_3_col_4" style="display: none">
+                    <div class="col-sm-5">
+                   <select id="option_4_emp_3" name="emp_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_4_emp_3" name="emp_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="emp_document_path_3_4" type="file">
+                    </div>
+                 </div>
+
+            </div>
+
+
+                <div style="display: none" id="emp_4">
+                    <label class="col-sm-12 alert alert-info" >Employee 4</label>
+                    <div class="form-group row">
+                    <div class="col-sm-5">
+                        <label >No. Of Documents</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <select id="no_of_document_3" name="emp_no_of_document" class="form-control myselect" style="width:100%">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                    </div>
+                 </div>
+
+                     <div class="form-group row">
+                    <div class="col-sm-5">
+                    <label >Application Form</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="emp_application_form_4" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-5">
+                    <select id="option_1_emp_4" name="emp_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_1_emp_4" name="emp_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="emp_document_path_4_1" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row" id="row_4_col_2" style="display: none">
+                    <div class="col-sm-5">
+                    <select id="option_2_emp_4" name="emp_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_2_emp_4" name="emp_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="emp_document_path_4_2" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row" id="row_4_col_3" style="display: none">
+                    <div class="col-sm-5">
+                    <select id="option_3_emp_4" name="emp_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_3_emp_4" name="emp_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="emp_document_path_4_3" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row" id="row_4_col_4" style="display: none">
+                    <div class="col-sm-5">
+                    <select id="option_4_emp_4" name="emp_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_4_emp_4" name="emp_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="emp_document_path_4_4" type="file">
+                    </div>
+                 </div>
+
+            </div>
+
+
+                <div style="display: none" id="emp_5">
+                    <label class="col-sm-12 alert alert-info" >Employee 5</label>
+                    <div class="form-group row">
+                    <div class="col-sm-5">
+                        <label >No. Of Documents</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <select id="no_of_document_4" name="emp_no_of_document" class="form-control myselect" style="width:100%">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                    </div>
+                 </div>
+
+                     <div class="form-group row">
+                    <div class="col-sm-5">
+                    <label >Application Form</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="emp_application_form_4" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-5">
+                    <select id="option_1_emp_5" name="emp_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_1_emp_5" name="emp_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="emp_document_path_5_1" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row" id="row_5_col_2" style="display: none">
+                    <div class="col-sm-5">
+                    <select id="option_2_emp_5" name="emp_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_2_emp_5" name="emp_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="emp_document_path_5_2" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row" id="row_5_col_3" style="display: none">
+                    <div class="col-sm-5">
+                    <select id="option_3_emp_5" name="emp_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_3_emp_5" name="emp_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="emp_document_path_5_3" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row" id="row_5_col_4" style="display: none">
+                    <div class="col-sm-5">
+                    <select id="option_4_emp_5" name="emp_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_4_emp_5" name="emp_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="emp_document_path_5_4" type="file">
+                    </div>
+                 </div>
+
+            </div>
+
+
+                <div style="display: none" id="emp_6">
+                    <label class="col-sm-12 alert alert-info" >Employee 6</label>
+                    <div class="form-group row">
+                    <div class="col-sm-5">
+                        <label >No. Of Documents</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <select id="no_of_document_5" name="emp_no_of_document" class="form-control myselect" style="width:100%">
+                       <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                    </div>
+                 </div>
+
+                     <div class="form-group row">
+                    <div class="col-sm-5">
+                    <label >Application Form</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="emp_application_form_6" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-5">
+                    <select id="option_1_emp_6" name="emp_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_1_emp_6" name="emp_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="emp_document_path_6_1" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row" id="row_6_col_2" style="display: none">
+                    <div class="col-sm-5">
+                    <select id="option_2_emp_6" name="emp_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_2_emp_6" name="emp_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="emp_document_path_6_2" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row" id="row_6_col_3" style="display: none">
+                    <div class="col-sm-5">
+                   <select id="option_3_emp_6" name="emp_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_3_emp_6" name="emp_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="emp_document_path_6_3" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row" id="row_6_col_4" style="display: none">
+                    <div class="col-sm-5">
+                    <select id="option_4_emp_6" name="emp_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_4_emp_6" name="emp_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="emp_document_path_6_4" type="file">
+                    </div>
+                 </div>
+
+            </div>
+
+<!-- Start Family Members    -->
+                <div style="display: none" id="empf_1">
+                    <label class="col-sm-12 alert alert-info" >Family Members 1</label>
+
+                     <div class="form-group row">
+                    <div class="col-sm-5">
+                    <label >Application Form</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="empf_application_1" type="file">
+                    </div>
+                 </div>
+
+                    <div class="form-group row">
+                    <div class="col-sm-5">
+                        <label >Family Members Name</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" name="family_members_name">
+                    </div>
+                 </div>
+
+                    <div class="form-group row">
+                    <div class="col-sm-5">
+                        <label >Relationship</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" name="family_members_relationship">
+                    </div>
+                 </div>
+
+
+
+                    <div class="form-group row">
+                    <div class="col-sm-5">
+                        <label >No. Of Documents</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <select id="no_of_documentf_1" name="empf_no_of_document" class="form-control myselect" style="width:100%">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                    </div>
+                 </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-5">
+                    <select id="option_1_empf_1" name="empf_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_1_empf_1" name="empf_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="empf_document_path_1_1" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row" id="rowf_2_col_2" style="display: none">
+                    <div class="col-sm-5">
+                    <select id="option_2_empf_1" name="empf_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_2_empf_1" name="empf_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="empf_document_path_1_2" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row" id="rowf_2_col_3" style="display: none">
+                    <div class="col-sm-5">
+                    <select id="option_3_empf_1" name="empf_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_3_empf_1" name="empf_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="empf_document_path_1_3" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row" id="rowf_2_col_4" style="display: none">
+                    <div class="col-sm-5">
+                    <select id="option_4_empf_1" name="empf_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_4_empf_1" name="empf_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="empf_document_path_1_4" type="file">
+                    </div>
+                 </div>
+
+            </div>
+
+
+                <div style="display: none" id="empf_2">
+
+                    <label class="col-sm-12 alert alert-info" >Family Members 2</label>
+
+                    <div class="form-group row">
+                    <div class="col-sm-5">
+                    <label >Application Form</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="empf_application_2" type="file">
+                    </div>
+                 </div>
+
+                    <div class="form-group row">
+                    <div class="col-sm-5">
+                        <label >Family Members Name</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" name="family_members_name">
+                    </div>
+                 </div>
+
+                    <div class="form-group row">
+                    <div class="col-sm-5">
+                        <label >Relationship</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" name="family_members_relationship">
+                    </div>
+                 </div>
+
+                    <div class="form-group row">
+                    <div class="col-sm-5">
+                        <label >No. Of Documents</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <select id="no_of_documentf_2" name="empf_no_of_document" class="form-control myselect" style="width:100%">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                    </div>
+                 </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-5">
+                    <select id="option_1_empf_2" name="empf_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_1_empf_2" name="empf_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="empf_document_path_2_1" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row" id="rowf_3_col_2" style="display: none">
+                    <div class="col-sm-5">
+                    <select id="option_2_empf_2" name="empf_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_2_empf_2" name="empf_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="empf_document_path_2_2" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row" id="rowf_3_col_3" style="display: none">
+                    <div class="col-sm-5">
+                    <select id="option_3_empf_2" name="empf_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_3_empf_2" name="empf_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="empf_document_path_2_3" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row" id="rowf_3_col_4" style="display: none">
+                    <div class="col-sm-5">
+                   <select id="option_4_empf_2" name="empf_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_4_empf_2" name="empf_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="empf_document_path_2_4" type="file">
+                    </div>
+                 </div>
+
+            </div>
+
+
+                <div style="display: none" id="empf_3">
+                    <label class="col-sm-12 alert alert-info" >Family Members 3</label>
+
+                    <div class="form-group row">
+                    <div class="col-sm-5">
+                    <label >Application Form</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="empf_application_3" type="file">
+                    </div>
+                 </div>
+
+                    <div class="form-group row">
+                    <div class="col-sm-5">
+                        <label >Family Members Name</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" name="family_members_name">
+                    </div>
+                 </div>
+
+                    <div class="form-group row">
+                    <div class="col-sm-5">
+                        <label >Relationship</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" name="family_members_relationship">
+                    </div>
+                 </div>
+
+
+                    <div class="form-group row">
+                    <div class="col-sm-5">
+                        <label >No. Of Documents</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <select id="no_of_documentf_3" name="empf_no_of_document" class="form-control myselect" style="width:100%">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                    </div>
+                 </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-5">
+                    <select id="option_1_empf_3" name="empf_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_1_empf_3" name="empf_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="empf_document_path_3_1" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row" id="rowf_4_col_2" style="display: none">
+                    <div class="col-sm-5">
+                    <select id="option_2_empf_3" name="empf_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_2_empf_3" name="empf_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="empf_document_path_3_2" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row" id="rowf_4_col_3" style="display: none">
+                    <div class="col-sm-5">
+                    <select id="option_3_empf_3" name="empf_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_3_empf_3" name="empf_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="empf_document_path_3_3" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row" id="rowf_4_col_4" style="display: none">
+                    <div class="col-sm-5">
+                    <select id="option_4_empf_3" name="empf_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_4_empf_3" name="empf_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="empf_document_path_3_4" type="file">
+                    </div>
+                 </div>
+
+            </div>
+
+
+                <div style="display: none" id="empf_4">
+                    <label class="col-sm-12 alert alert-info" >Family Members 4</label>
+
+                    <div class="form-group row">
+                    <div class="col-sm-5">
+                    <label >Application Form</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="empf_application_4" type="file">
+                    </div>
+                 </div>
+
+                    <div class="form-group row">
+                    <div class="col-sm-5">
+                        <label >Family Members Name</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" name="family_members_name">
+                    </div>
+                 </div>
+
+                    <div class="form-group row">
+                    <div class="col-sm-5">
+                        <label >Relationship</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" name="family_members_relationship">
+                    </div>
+                 </div>
+
+                    <div class="form-group row">
+                    <div class="col-sm-5">
+                        <label >No. Of Documents</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <select id="no_of_documentf_4" name="empf_no_of_document" class="form-control myselect" style="width:100%">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                    </div>
+                 </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-5">
+                    <select id="option_1_empf_4" name="empf_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_1_empf_4" name="empf_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="empf_document_path_4_1" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row" id="rowf_5_col_2" style="display: none">
+                    <div class="col-sm-5">
+                    <select id="option_2_empf_4" name="empf_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_2_empf_4" name="empf_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="empf_document_path_4_2" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row" id="rowf_5_col_3" style="display: none">
+                    <div class="col-sm-5">
+                   <select id="option_3_empf_4" name="empf_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_3_empf_4" name="empf_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="empf_document_path_4_3" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row" id="rowf_5_col_4" style="display: none">
+                    <div class="col-sm-5">
+                    <select id="option_4_empf_4" name="empf_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_4_empf_4" name="empf_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                        <input type="text" style="padding: 5px; margin-top: 7px;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="empf_document_path_4_4" type="file">
+                    </div>
+                 </div>
+
+            </div>
+
+
+                <div style="display: none" id="empf_5">
+                    <label class="col-sm-12 alert alert-info" >Family Members 5</label>
+
+                    <div class="form-group row">
+                    <div class="col-sm-5">
+                    <label >Application Form</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="empf_application_5" type="file">
+                    </div>
+                 </div>
+
+                    <div class="form-group row">
+                    <div class="col-sm-5">
+                        <label >Family Members Name</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" name="family_members_name">
+                    </div>
+                 </div>
+
+                    <div class="form-group row">
+                    <div class="col-sm-5">
+                        <label >Relationship</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" name="family_members_relationship">
+                    </div>
+                 </div>
+
+                    <div class="form-group row">
+                    <div class="col-sm-5">
+                        <label >No. Of Documents</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <select id="no_of_documentf_5" name="empf_no_of_document" class="form-control myselect" style="width:100%">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                    </div>
+                 </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-5">
+                   <select id="option_1_empf_5" name="empf_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_1_empf_5" name="empf_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="empf_document_path_5_1" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row" id="rowf_6_col_2" style="display: none">
+                    <div class="col-sm-5">
+                    <select id="option_2_empf_5" name="empf_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_2_empf_5" name="empf_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="empf_document_path_5_2" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row" id="rowf_6_col_3" style="display: none">
+                    <div class="col-sm-5">
+                    <select id="option_3_empf_5" name="empf_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_3_empf_5" name="empf_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="empf_document_path_5_3" type="file">
+                    </div>
+                 </div>
+
+                <div class="form-group row" id="rowf_6_col_4" style="display: none">
+                    <div class="col-sm-5">
+                    <select id="option_4_empf_5" name="empf_document" class="form-control myselect" style="width:100%">
+                        <option value="Address Proof" >Address Proof</option>
+                        <option value="ID Proof"> ID Proof</option>
+                        <option value="Date of Birth Proof">Date of Birth Proof</option>
+                        <option value="Other Document">Other Document</option>
+                    </select>
+                        <input id="input_4_empf_5" name="empf_document_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" >
+                        <input type="text" style="padding: 5px; margin-top: 7px;" class="col-sm-12 form-control" >
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" name="empf_document_path_5_4" type="file">
+                    </div>
+                 </div>
+
+            </div>
+<!-- End Family Members    -->
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+<!--                    <button id="delete_btn11" type="submit" class="btn btn-primary">Upload Document</button>-->
+                </div>
+<!--            </form>-->
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+            			<div class="text-center">
+     <div style="font-size:14px; font-weight:bold;">
+<input type="submit" class="btn btn-info" value="Add New Visa Request">
+
+         </div>
+   </div>
+            <br/>
+
+            <div class="row">
+            <div class="col-md-5">
+                <div class="card card-topline-aqua">
+                    <div class="card-head">
+                        <header>Basic Details</header>
+                        <div class="tools">
+                            <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                            <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                            <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                        </div>
+                    </div>
+                    <div class="card-body ">
+
+
+
+                              <div class="form-group row">
+                                <label class="col-sm-4" >Which Country Visa?*</label>
+                                 <select id="country_id" name="country_id" class="form-control col-sm-8 tour_type  myselect" style="width:66%" required>
+                                     <option value="">Select Country</option>
+                                      {% for country in countrys %}
+                                        <option value="{{country.id}}">{{country.country_name}}</option>
+                                        {% endfor %}
+                                  </select>
+                            </div>
+
+                              <div class="form-group row">
+                                <label class="col-sm-4" >Visa Type*</label>
+                                 <select id="visa_type" name="visa_type" class="form-control col-sm-8 myselect" style="width:66%" required>
+                                     <option value="">Select Visa Type</option>
+
+                                  </select>
+                            </div>
+
+                        <div class="form-group row">
+                                <label class="col-sm-4" >Visa Request Type</label>
+                                 <select id="visa_request_type" name="visa_request_type" class="form-control col-sm-8 tour_type  myselect" style="width:66%" required>
+                                     <option value="">Select Visa Request Type</option>
+
+                                  </select>
+                            </div>
+
+                         <div class="form-group row">
+                                <label class="col-sm-4" >Consulate Offices*</label>
+                                 <select id="consulate_office_id" name="consulate_office_id" class="form-control col-sm-8 tour_type  myselect" style="width:66%" required>
+
+                                  </select>
+                            </div>
+
+                         <div class="form-group row">
+                                <label class="col-sm-4" >Purpose of Visit*</label>
+                             <select id="purpose_of_trip" name="purpose_of_trip" class="form-control col-sm-8 myselect" style="width:66%" required>
+                                     <option value="">Select Purpose of Visit</option>
+                                     <option value="Business">Business</option>
+                                     <option value="Conference/Convention">Conference/Convention</option>
+                                     <option value="Education">Education</option>
+                                     <option value="Employment">Employment</option>
+                                     <option value="Exhibition">Exhibition</option>
+                                     <option value="Visiting Friends/Family">Visiting Friends/Family</option>
+                                     <option value="Holiday">Holiday</option>
+                                     <option value="Other">Other</option>
+                                  </select>
+                             <input id="purpose_of_trip_txt" name="purpose_of_trip_txt" type="text" style="padding: 5px; margin-top: 7px;display: none;" class="col-sm-12 form-control" placeholder="Purpose of Visit">
+                            </div>
+
+                        <div class="form-group row">
+                                <label class="col-sm-4" >Request Type</label>
+                                 <select id="request_type" name="request_type" class="form-control col-sm-8 tour_type  myselect" style="width:66%" required>
+                                     <option value="">Select Request Type</option>
+                                     <option value="Individual">Individual</option>
+                                     <option value="Family">Family</option>
+                                  </select>
+                            </div>
+
+                        <div class="form-group row" id="no_of_family_member_row">
+                                <label class="col-sm-4" >No of Family Member</label>
+                                 <select id="no_of_family_member" name="no_of_family_member" class="form-control col-sm-8  myselect" style="width:66%" >
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                  </select>
+                            </div>
+
+
+
+                        <div class="form-group row">
+                                <label class="col-sm-4" >Duration(in month)*</label>
+                                 <input type="text" name="visa_duration" class="form-control col-sm-8" placeholder="Duration(in month)" required>
+                            </div>
+
+
+
+
+
+
+                        <div class="form-group row">
+                            <label class="col-sm-4" >Required Document </label>
+                            <a style="text-align:center;" class="col-sm-8" title="Upload New Ticket" data-target="#upload_client_ticket" data-toggle="modal" href="#">
+                                                <i class="fa fa-plus "></i> Upload Document </a>
+                        </div>
+
+                        <br/>
+
+                        <div class="form-group row" id="downloadForm_row">
+                                        <label class="col-sm-4" >Download Visa Application Form</label>
+                            <div class="col-sm-8">
+                                         <a id="download_form" target="_blank" >Download</a>
+                         </div>
+                            </div>
+
+
+
+                    </div>
+                </div>
+
+
+
+                        </div>
+
+
+
+
+                   <div class="col-md-7" >
+                               <div class="card card-topline-aqua" id="requirements_row">
+                                <div class="card-head">
+                               <header>Visa Instructions</header>
+                               <div class="tools">
+                                   <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                                   <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                                   <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                               </div>
+                               </div>
+                               <div class="card-body ">
+
+                                   <object id="aa">
+                                      <embed width="100%" height="600px" type='application/pdf'>
+                                   </object>
+
+                                </div>
+                                </div>
+ </div>
+
+
+
+
+
+
+                     </div>
+
+
+
+
+
+</div>
+ </div>
+        </form>
+
+<!-- end page content -->
+
+
+
+
+
+{% else %}
+    <p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCstbhex4F6X2-AXz3B1sR1oRvxssE3sc&libraries=places"></script>
+
+<script type="text/javascript">
+
+$( document ).ready(function() {
+    $('#emp_row_2').hide();
+    $('#emp_row_3').hide();
+    $('#emp_row_4').hide();
+    $('#emp_row_5').hide();
+    $('#emp_row_6').hide();
+    $('#requirements_row').hide();
+    $('#downloadForm_row').hide();
+    $('#no_of_family_member_row').hide();
+
+    var emp_len = $('#employee_id_1 > option').length;
+       for (var i=emp_len;i<7;i++) {
+       var valueToCompare = $("#no_of_seats option[value='"+i+"']").text();
+            if(valueToCompare == i) {
+                $("#no_of_seats option[value='"+i+"']").attr("disabled", "disabled");
+            }
+       }
+
+});
+
+$("#employee_id_1").change(function()
+    {
+    	$("#emp_id_1").val($(this).find("option:selected").attr("emp_id"));
+    	$("#employee_name_1").val($(this).find("option:selected").attr("emp_name"));
+    	$("#employee_contact_1").val($(this).find("option:selected").attr("emp_cnt"));
+    	$("#employee_email_1").val($(this).find("option:selected").attr("emp_email"));
+    });
+
+$("#employee_id_2").change(function()
+    {
+    	$("#emp_id_2").val($(this).find("option:selected").attr("emp_id"));
+    	$("#employee_name_2").val($(this).find("option:selected").attr("emp_name"));
+    	$("#employee_contact_2").val($(this).find("option:selected").attr("emp_cnt"));
+    	$("#employee_email_2").val($(this).find("option:selected").attr("emp_email"));
+    });
+
+$("#employee_id_3").change(function()
+    {
+    	$("#emp_id_3").val($(this).find("option:selected").attr("emp_id"));
+    	$("#employee_name_3").val($(this).find("option:selected").attr("emp_name"));
+    	$("#employee_contact_3").val($(this).find("option:selected").attr("emp_cnt"));
+    	$("#employee_email_3").val($(this).find("option:selected").attr("emp_email"));
+    });
+
+$("#employee_id_4").change(function()
+    {
+    	$("#emp_id_4").val($(this).find("option:selected").attr("emp_id"));
+    	$("#employee_name_4").val($(this).find("option:selected").attr("emp_name"));
+    	$("#employee_contact_4").val($(this).find("option:selected").attr("emp_cnt"));
+    	$("#employee_email_4").val($(this).find("option:selected").attr("emp_email"));
+    });
+
+$("#employee_id_5").change(function()
+    {
+    	$("#emp_id_5").val($(this).find("option:selected").attr("emp_id"));
+    	$("#employee_name_5").val($(this).find("option:selected").attr("emp_name"));
+    	$("#employee_contact_5").val($(this).find("option:selected").attr("emp_cnt"));
+    	$("#employee_email_5").val($(this).find("option:selected").attr("emp_email"));
+    });
+
+    $("#employee_id_6").change(function()
+    {
+    	$("#emp_id_6").val($(this).find("option:selected").attr("emp_id"));
+    	$("#employee_name_6").val($(this).find("option:selected").attr("emp_name"));
+    	$("#employee_contact_6").val($(this).find("option:selected").attr("emp_cnt"));
+    	$("#employee_email_6").val($(this).find("option:selected").attr("emp_email"));
+    });
+
+
+
+$(".no_of_seats").change(function()
+    {
+    	var no_of_seats = $(this).val();
+    	if(no_of_seats > 0){
+           for(i=1;i<=no_of_seats;i++)
+            {
+                $('#emp_row_'+i).show();
+                $('#emp_'+i).show();
+                $("#employee_id_"+i).attr('required',true);
+            }
+            var j = parseInt(no_of_seats) + 1;
+			for(j=j; j<=6; j++)
+			{
+				$('#emp_row_'+j).hide();
+				$('#emp_'+j).hide();
+				$("#employee_id_"+j).attr('required',false);
+			}
+    	}
+    });
+
+$("#country_id").change(function()
+{
+    var country_id = $("#country_id").val();
+    var visa_type = $("#visa_type").val();
+    $('#visa_type').empty();
+    var_url = '/api/'+'get_visa_type_by_country'
+
+    $.ajaxSetup({
+            headers:{
+                'Authorization': "Token {{request.session.employee_access_token}}",
+                'usertype': 6
+            }
+
+        });
+<!--   For Visa Type  -->
+     $.post(var_url,{ country_id: country_id },
+      function(data)
+      {
+       //alert(data['Visa']);
+       if(data['Visa'].length != 0){
+        entities = data['Visa']
+        $('#visa_type').append($("<option value=''>Select Visa Type</option>"));
+         for (var i=0;i<entities.length;i++) {
+            $('#visa_type').append($("<option value='"+entities[i].id+"'>"+entities[i].visa_type_name+"</option>"));
+         }
+       }else{
+        alert('No Visa Type Available')
+       }
+       });
+
+});
+
+
+$("#visa_type").change(function()
+{
+    var country_id = $("#country_id").val();
+    var visa_type = $("#visa_type").val();
+    $('#visa_request_type').empty();
+    var_url = '/api/'+'get_request_visa_type_by_country'
+
+    $.ajaxSetup({
+            headers:{
+                'Authorization': "Token {{request.session.employee_access_token}}",
+                'usertype': 6
+            }
+
+        });
+<!--   For Visa Type  -->
+     $.post(var_url,{ country_id: country_id, visa_type:visa_type },
+      function(data)
+      {
+       //alert(data['Visa']);
+       if(data['Visa'].length != 0){
+        entities = data['Visa']
+        $('#visa_request_type').append($("<option value=''>Select Visa Type</option>"));
+         for (var i=0;i<entities.length;i++) {
+            $('#visa_request_type').append($("<option value='"+entities[i].id+"'>"+entities[i].service_name+"</option>"));
+         }
+       }else{
+        alert('No Visa Request Type Available')
+       }
+       });
+
+});
+
+$("#visa_request_type").change(function()
+{
+    var country_id = $("#country_id").val();
+    var visa_type = $("#visa_type").val();
+    var visa_request_type = $("#visa_request_type").val();
+    $('#consulate_office_id').empty();
+    var_url = '/api/'+'get_consulate_office_by_country'
+
+    $.ajaxSetup({
+            headers:{
+                'Authorization': "Token {{request.session.employee_access_token}}",
+                'usertype': 6
+            }
+
+        });
+<!--   For Visa Type  -->
+     $.post(var_url,{ country_id: country_id, visa_type:visa_type,visa_request_type:visa_request_type },
+      function(data)
+      {
+       //alert(data['Visa']);
+       if(data['Visa'].length != 0){
+        entities = data['Visa']
+        $('#consulate_office_id').append($("<option value=''>Select Consulate Offices</option>"));
+         for (var i=0;i<entities.length;i++) {
+            $('#consulate_office_id').append($("<option value='"+entities[i].id+"'>"+entities[i].city_name+"</option>"));
+         }
+       }else{
+        alert('No Consulate Office Available')
+       }
+       });
+
+});
+
+$("#consulate_office_id").change(function()
+{
+    var country_id = $("#country_id").val();
+    var visa_type = $("#visa_type").val();
+    var visa_request_type = $("#visa_request_type").val();
+    var consulate_office_id = $("#consulate_office_id").val();
+
+    var_url = '/api/'+'get_instruction_and_link'
+
+    $.ajaxSetup({
+            headers:{
+                'Authorization': "Token {{request.session.employee_access_token}}",
+                'usertype': 6
+            }
+
+        });
+<!--   For Visa Type  -->
+     $.post(var_url,{ country_id: country_id, visa_type:visa_type,visa_request_type:visa_request_type,consulate_office_id:consulate_office_id },
+      function(data)
+      {
+       //alert(data['Visa']);
+       if(data['Visa'].length != 0){
+        entities = data['Visa']
+
+         for (var i=0;i<entities.length;i++) {
+            $("a#download_form").attr("href", entities[i].link_visa_application_form);
+            $('#application_form_link').val(entities[i].link_visa_application_form);
+            var aa =  $("#aa").clone();
+            aa.find('embed').attr('src', 'https://cotrav.co/media/visa_requirements/'+entities[i].instructions_attachment);
+            $("#aa").replaceWith(aa);
+
+            $('#requirements_row').show();
+            $('#downloadForm_row').show();
+
+         }
+       }else{
+        alert('No Instruction Link Available')
+       }
+       });
+
+});
+
+$("#request_type").change(function()
+{
+
+    var request_type = $('#request_type').val();
+
+    if(request_type == 'Family'){
+        $('#no_of_family_member_row').show();
+        $('#empf_1').show();
+        $('#row_no_of_employee').hide();
+        $('#emp_1').hide();
+    }else{
+        $('#no_of_family_member_row').hide();
+        $('#empf_1').hide();
+        $('#row_no_of_employee').show();
+        $('#emp_1').show();
+    }
+
+    if(request_type == 'Group'){
+        $('#emp_1').show();
+    }
+
+
+
+});
+
+$("#no_of_document").change(function()
+{
+ var no_of_document = $('#no_of_document').val();
+if(no_of_document > 0){
+   for(i=1;i<=no_of_document;i++)
+    {
+        $('#row_1_col_'+i).show();
+    }
+    var j = parseInt(no_of_document) + 1;
+    for(j=j; j<=6; j++)
+    {
+        $('#row_1_col_'+j).hide();
+    }
+}
+});
+
+$("#no_of_document_1").change(function()
+{
+ var no_of_document = $('#no_of_document_1').val();
+if(no_of_document > 0){
+   for(i=1;i<=no_of_document;i++)
+    {
+        $('#row_2_col_'+i).show();
+    }
+    var j = parseInt(no_of_document) + 1;
+    for(j=j; j<=6; j++)
+    {
+        $('#row_2_col_'+j).hide();
+    }
+}
+});
+
+$("#no_of_document_2").change(function()
+{
+ var no_of_document = $('#no_of_document_2').val();
+if(no_of_document > 0){
+   for(i=1;i<=no_of_document;i++)
+    {
+        $('#row_3_col_'+i).show();
+    }
+    var j = parseInt(no_of_document) + 1;
+    for(j=j; j<=6; j++)
+    {
+        $('#row_3_col_'+j).hide();
+    }
+}
+});
+
+$("#no_of_document_3").change(function()
+{
+ var no_of_document = $('#no_of_document_3').val();
+if(no_of_document > 0){
+   for(i=1;i<=no_of_document;i++)
+    {
+        $('#row_4_col_'+i).show();
+    }
+    var j = parseInt(no_of_document) + 1;
+    for(j=j; j<=6; j++)
+    {
+        $('#row_4_col_'+j).hide();
+    }
+}
+});
+
+
+$("#no_of_document_4").change(function()
+{
+ var no_of_document = $('#no_of_document_4').val();
+if(no_of_document > 0){
+   for(i=1;i<=no_of_document;i++)
+    {
+        $('#row_5_col_'+i).show();
+    }
+    var j = parseInt(no_of_document) + 1;
+    for(j=j; j<=6; j++)
+    {
+        $('#row_5_col_'+j).hide();
+    }
+}
+});
+
+$("#no_of_document_5").change(function()
+{
+ var no_of_document = $('#no_of_document_5').val();
+if(no_of_document > 0){
+   for(i=1;i<=no_of_document;i++)
+    {
+        $('#row_6_col_'+i).show();
+    }
+    var j = parseInt(no_of_document) + 1;
+    for(j=j; j<=6; j++)
+    {
+        $('#row_6_col_'+j).hide();
+    }
+}
+});
+
+$("#no_of_family_member").change(function()
+{
+ var no_of_family_member = $('#no_of_family_member').val();
+    if(no_of_family_member > 0){
+       for(i=1;i<=no_of_family_member;i++)
+        {
+            $('#empf_'+i).show();
+        }
+        var j = parseInt(no_of_family_member) + 1;
+        for(j=j; j<=6; j++)
+        {
+            $('#empf_'+j).hide();
+        }
+    }
+});
+
+
+
+$("#option_1_emp_1").change(function()
+{
+ var option_1_emp_1 = $('#option_1_emp_1').val();
+ if(option_1_emp_1 == 'Other Document'){
+    $('#input_1_emp_1').show();
+ }else{
+    $('#input_1_emp_1').hide();
+ }
+});
+
+$("#option_2_emp_1").change(function()
+{
+ var option_2_emp_1 = $('#option_2_emp_1').val();
+ if(option_2_emp_1 == 'Other Document'){
+    $('#input_2_emp_1').show();
+ }else{
+    $('#input_2_emp_1').hide();
+ }
+});
+
+$("#option_3_emp_1").change(function()
+{
+ var option_3_emp_1 = $('#option_3_emp_1').val();
+ if(option_3_emp_1 == 'Other Document'){
+    $('#input_3_emp_1').show();
+ }else{
+    $('#input_3_emp_1').hide();
+ }
+});
+$("#option_4_emp_1").change(function()
+{
+ var option_4_emp_1 = $('#option_4_emp_1').val();
+ if(option_4_emp_1 == 'Other Document'){
+    $('#input_4_emp_1').show();
+ }else{
+    $('#input_4_emp_1').hide();
+ }
+});
+
+$("#option_4_emp_2").change(function()
+{
+ var option_4_emp_2 = $('#option_4_emp_2').val();
+ if(option_4_emp_2 == 'Other Document'){
+    $('#input_4_emp_2').show();
+ }else{
+    $('#input_4_emp_2').hide();
+ }
+});
+$("#option_3_emp_2").change(function()
+{
+ var option_3_emp_2 = $('#option_3_emp_2').val();
+ if(option_3_emp_2 == 'Other Document'){
+    $('#input_3_emp_2').show();
+ }else{
+    $('#input_3_emp_2').hide();
+ }
+});
+$("#option_2_emp_2").change(function()
+{
+ var option_2_emp_2 = $('#option_2_emp_2').val();
+ if(option_2_emp_2 == 'Other Document'){
+    $('#input_2_emp_2').show();
+ }else{
+    $('#input_2_emp_2').hide();
+ }
+});
+$("#option_1_emp_2").change(function()
+{
+ var option_1_emp_2 = $('#option_1_emp_2').val();
+ if(option_1_emp_2 == 'Other Document'){
+    $('#input_1_emp_2').show();
+ }else{
+    $('#input_1_emp_2').hide();
+ }
+});
+$("#option_1_emp_3").change(function()
+{
+ var option_1_emp_3 = $('#option_1_emp_3').val();
+ if(option_1_emp_3 == 'Other Document'){
+    $('#input_1_emp_3').show();
+ }else{
+    $('#input_1_emp_3').hide();
+ }
+});
+$("#option_2_emp_3").change(function()
+{
+ var option_2_emp_3 = $('#option_2_emp_3').val();
+ if(option_2_emp_3 == 'Other Document'){
+    $('#input_2_emp_3').show();
+ }else{
+    $('#input_2_emp_3').hide();
+ }
+});
+$("#option_3_emp_3").change(function()
+{
+ var option_3_emp_3 = $('#option_3_emp_3').val();
+ if(option_3_emp_3 == 'Other Document'){
+    $('#input_3_emp_3').show();
+ }else{
+    $('#input_3_emp_3').hide();
+ }
+});
+$("#option_4_emp_3").change(function()
+{
+ var option_4_emp_3 = $('#option_4_emp_3').val();
+ if(option_4_emp_3 == 'Other Document'){
+    $('#input_4_emp_3').show();
+ }else{
+    $('#input_4_emp_3').hide();
+ }
+});
+
+$("#option_4_emp_4").change(function()
+{
+ var option_4_emp_4 = $('#option_4_emp_4').val();
+ if(option_4_emp_4 == 'Other Document'){
+    $('#input_4_emp_4').show();
+ }else{
+    $('#input_4_emp_4').hide();
+ }
+});
+$("#option_3_emp_4").change(function()
+{
+ var option_3_emp_4 = $('#option_3_emp_4').val();
+ if(option_3_emp_4 == 'Other Document'){
+    $('#input_3_emp_4').show();
+ }else{
+    $('#input_3_emp_4').hide();
+ }
+});
+$("#option_2_emp_4").change(function()
+{
+ var option_2_emp_4 = $('#option_2_emp_4').val();
+ if(option_2_emp_4 == 'Other Document'){
+    $('#input_2_emp_4').show();
+ }else{
+    $('#input_2_emp_4').hide();
+ }
+});
+$("#option_1_emp_4").change(function()
+{
+ var option_1_emp_4 = $('#option_1_emp_4').val();
+ if(option_1_emp_4 == 'Other Document'){
+    $('#input_1_emp_4').show();
+ }else{
+    $('#input_1_emp_4').hide();
+ }
+});
+
+// <!--FAMAILALALALLA-->
+
+
+$("#option_1_empf_1").change(function()
+{
+ var option_1_empf_1 = $('#option_1_empf_1').val();
+ if(option_1_empf_1 == 'Other Document'){
+    $('#input_1_empf_1').show();
+ }else{
+    $('#input_1_empf_1').hide();
+ }
+});
+
+$("#option_2_empf_1").change(function()
+{
+ var option_2_empf_1 = $('#option_2_empf_1').val();
+ if(option_2_empf_1 == 'Other Document'){
+    $('#input_2_empf_1').show();
+ }else{
+    $('#input_2_empf_1').hide();
+ }
+});
+
+$("#option_3_empf_1").change(function()
+{
+ var option_3_empf_1 = $('#option_3_empf_1').val();
+ if(option_3_empf_1 == 'Other Document'){
+    $('#input_3_empf_1').show();
+ }else{
+    $('#input_3_empf_1').hide();
+ }
+});
+$("#option_4_empf_1").change(function()
+{
+ var option_4_empf_1 = $('#option_4_empf_1').val();
+ if(option_4_emp_1 == 'Other Document'){
+    $('#input_4_empf_1').show();
+ }else{
+    $('#input_4_empf_1').hide();
+ }
+});
+
+$("#option_4_empf_2").change(function()
+{
+ var option_4_empf_2 = $('#option_4_empf_2').val();
+ if(option_4_empf_2 == 'Other Document'){
+    $('#input_4_empf_2').show();
+ }else{
+    $('#input_4_empf_2').hide();
+ }
+});
+$("#option_3_empf_2").change(function()
+{
+ var option_3_empf_2 = $('#option_3_empf_2').val();
+ if(option_3_empf_2 == 'Other Document'){
+    $('#input_3_empf_2').show();
+ }else{
+    $('#input_3_empf_2').hide();
+ }
+});
+$("#option_2_empf_2").change(function()
+{
+ var option_2_empf_2 = $('#option_2_empf_2').val();
+ if(option_2_empf_2 == 'Other Document'){
+    $('#input_2_empf_2').show();
+ }else{
+    $('#input_2_empf_2').hide();
+ }
+});
+$("#option_1_empf_2").change(function()
+{
+ var option_1_empf_2 = $('#option_1_empf_2').val();
+ if(option_1_empf_2 == 'Other Document'){
+    $('#input_1_empf_2').show();
+ }else{
+    $('#input_1_empf_2').hide();
+ }
+});
+$("#option_1_empf_3").change(function()
+{
+ var option_1_empf_3 = $('#option_1_empf_3').val();
+ if(option_1_empf_3 == 'Other Document'){
+    $('#input_1_empf_3').show();
+ }else{
+    $('#input_1_empf_3').hide();
+ }
+});
+$("#option_2_empf_3").change(function()
+{
+ var option_2_empf_3 = $('#option_2_empf_3').val();
+ if(option_2_empf_3 == 'Other Document'){
+    $('#input_2_empf_3').show();
+ }else{
+    $('#input_2_empf_3').hide();
+ }
+});
+$("#option_3_empf_3").change(function()
+{
+ var option_3_empf_3 = $('#option_3_empf_3').val();
+ if(option_3_empf_3 == 'Other Document'){
+    $('#input_3_empf_3').show();
+ }else{
+    $('#input_3_empf_3').hide();
+ }
+});
+$("#option_4_empf_3").change(function()
+{
+ var option_4_empf_3 = $('#option_4_empf_3').val();
+ if(option_4_empf_3 == 'Other Document'){
+    $('#input_4_empf_3').show();
+ }else{
+    $('#input_4_empf_3').hide();
+ }
+});
+
+$("#option_4_empf_4").change(function()
+{
+ var option_4_empf_4 = $('#option_4_empf_4').val();
+ if(option_4_empf_4 == 'Other Document'){
+    $('#input_4_empf_4').show();
+ }else{
+    $('#input_4_empf_4').hide();
+ }
+});
+$("#option_3_empf_4").change(function()
+{
+ var option_3_empf_4 = $('#option_3_empf_4').val();
+ if(option_3_empf_4 == 'Other Document'){
+    $('#input_3_empf_4').show();
+ }else{
+    $('#input_3_empf_4').hide();
+ }
+});
+$("#option_2_empf_4").change(function()
+{
+ var option_2_empf_4 = $('#option_2_empf_4').val();
+ if(option_2_empf_4 == 'Other Document'){
+    $('#input_2_empf_4').show();
+ }else{
+    $('#input_2_empf_4').hide();
+ }
+});
+$("#option_1_empf_4").change(function()
+{
+ var option_1_empf_4 = $('#option_1_empf_4').val();
+ if(option_1_empf_4 == 'Other Document'){
+    $('#input_1_empf_4').show();
+ }else{
+    $('#input_1_empf_4').hide();
+ }
+});
+
+
+$("#no_of_documentf_1").change(function()
+{
+ var no_of_document = $('#no_of_documentf_1').val();
+if(no_of_document > 0){
+   for(i=1;i<=no_of_document;i++)
+    {
+        $('#rowf_2_col_'+i).show();
+    }
+    var j = parseInt(no_of_document) + 1;
+    for(j=j; j<=6; j++)
+    {
+        $('#rowf_2_col_'+j).hide();
+    }
+}
+});
+
+$("#no_of_documentf_2").change(function()
+{
+ var no_of_document = $('#no_of_documentf_2').val();
+if(no_of_document > 0){
+   for(i=1;i<=no_of_document;i++)
+    {
+        $('#rowf_3_col_'+i).show();
+    }
+    var j = parseInt(no_of_document) + 1;
+    for(j=j; j<=6; j++)
+    {
+        $('#rowf_3_col_'+j).hide();
+    }
+}
+});
+
+$("#no_of_documentf_3").change(function()
+{
+ var no_of_document = $('#no_of_documentf_3').val();
+if(no_of_document > 0){
+   for(i=1;i<=no_of_document;i++)
+    {
+        $('#rowf_4_col_'+i).show();
+    }
+    var j = parseInt(no_of_document) + 1;
+    for(j=j; j<=6; j++)
+    {
+        $('#rowf_4_col_'+j).hide();
+    }
+}
+});
+
+
+$("#no_of_documentf_4").change(function()
+{
+ var no_of_document = $('#no_of_documentf_4').val();
+if(no_of_document > 0){
+   for(i=1;i<=no_of_document;i++)
+    {
+        $('#rowf_5_col_'+i).show();
+    }
+    var j = parseInt(no_of_document) + 1;
+    for(j=j; j<=6; j++)
+    {
+        $('#rowf_5_col_'+j).hide();
+    }
+}
+});
+
+$("#no_of_documentf_5").change(function()
+{
+ var no_of_document = $('#no_of_documentf_5').val();
+if(no_of_document > 0){
+   for(i=1;i<=no_of_document;i++)
+    {
+        $('#rowf_6_col_'+i).show();
+    }
+    var j = parseInt(no_of_document) + 1;
+    for(j=j; j<=6; j++)
+    {
+        $('#rowf_6_col_'+j).hide();
+    }
+}
+});
+
+$("#purpose_of_trip").change(function()
+{
+ var purpose_of_trip = $('#purpose_of_trip').val();
+ if(purpose_of_trip == 'Other'){
+    $('#purpose_of_trip_txt').show();
+ }else{
+    $('#purpose_of_trip_txt').hide();
+ }
+});
+
+
+</script>
+
+
+{% endblock %}

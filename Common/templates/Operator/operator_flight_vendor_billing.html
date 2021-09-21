@@ -1,0 +1,502 @@
+{% extends 'Operator/layout/header.html' %}
+{% load datetime_format %}
+{% block content %}
+
+{% if user %}
+<!-- start page content -->
+
+<!-- Modal HTML -->
+  <div id="myModal" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title">Modal Window</h4>
+        </div>
+          <form action="/operator/flight-vendor-billing/verify" method="post" >
+ <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+        <div class="modal-body">
+
+
+
+
+        </div>
+
+        <div class="modal-footer">
+          <!-- <button type="button" class="btn btn-primary" class="close" data-dismiss="modal" onclick="submit()">Submit</button> -->
+            <input type="submit" class="btn btn-danger pull-right" id="revise_btn" name="revise" value="revise" />
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+{% include 'cotrav_alert_message.html' %}
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+        <div class="row">
+            <div class="col-xl-12" >
+                <div class="card card-topline-aqua">
+
+                    <div class="card-head">
+                        <header>OPERATOR FLIGHT BOOKINGS</header>
+
+                         <div class="btn-group">
+                                            <a data-toggle="modal" data-target="#modalDownloadTaxiReport" ><button class="btn btn-success pull-right btn-sm"><i class="fa fa-download"></i>&nbsp;&nbsp;&nbsp;Download Booking Report</button></a>
+                                        </div>
+
+                        <div class="tools">
+                            <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                            <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                            <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                        </div>
+                    </div>
+
+                <form action="/operator/flight-vendor-billing/verify" id="taxiBilling" method="post" >
+                    <input type="hidden" name="current_url" id="current_url" value="{{ request.get_full_path }}">
+                    <div class="card-body ">
+                         <div class="text-center">
+                         <a href = "/operator/flight-bookings/3" class = "btn btn-primary btn-xs ">Flight Bookings</a>
+
+                              <a href = "/operator/flight-vendor-billing/22" class = "btn btn-primary btn-xs disabled">Flight Invoices</a>
+                        </div>
+
+                    </div>
+
+                    <div class="card-body ">
+                        <div class = "mdl-tabs mdl-js-tabs">
+                           <div class = "mdl-tabs__tab-bar tab-left-side">
+                              <a href = "/operator/flight-vendor-billing/22" class = "mdl-tabs__tab {% if billing_type == 22 %} is-active {% endif %}">Pending for Operator Clearance</a>
+                              <a href = "/operator/flight-vendor-billing/23" class = "mdl-tabs__tab {% if billing_type == 23 %} is-active {% endif %}">Revise/Corrections Bills </a>
+                              <a href = "/operator/flight-vendor-billing/24" class = "mdl-tabs__tab {% if billing_type >= 24 %} is-active {% endif %}">Cleared for Billing</a>
+                           </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="card-body ">
+
+                    <div class="row p-b-20">
+                                <div class="row">
+
+                         <div class="col-sm-2">
+
+                        </div>
+
+
+                    {% if billing_type == 22 %}
+
+                        <div class="col-sm-5">
+                                        <div class="btn-group">
+
+                                            <input type="submit" class="btn btn-success pull-right" name="verify" value="verify" />
+                                        </div>
+                        </div>
+
+
+                        <div class="col-sm-5">
+                                        <div class="btn-group">
+                                           <!-- <input type="submit" class="btn btn-danger pull-right" name="revise" value="revise" /> -->
+                                           <!-- <a class="btn btn-info" href="#" data-toggle="modal"
+                                       data-target="#add_taxi_revise_comments"> revise <i class="fa fa-plus"></i> </a> -->
+
+                                            <button type="button" class="btn btn-danger pull-right" data-toggle="modal" data-target="#myModal" data-num="0">revise</button>
+
+
+                                        </div>
+                        </div>
+
+                    {% endif %}
+
+
+                     {% if billing_type == 23 %}
+
+                        <div class="col-sm-5">
+                                        <div class="btn-group">
+                                            <input type="submit" class="btn btn-danger pull-right" name="update_invoice" value="update" />
+                                           <!-- <a class="btn btn-info" href="#" data-toggle="modal"
+                                            data-target="#add_taxi_revise_comments"> revise <i class="fa fa-plus"></i> </a> -->
+
+                                        </div>
+                        </div>
+
+                    {% endif %}
+
+
+
+                                </div>
+                    </div>
+
+                        <div class="table-scrollable table-bordered">
+
+
+
+                            <table id="example1" class="display full-width table-striped">
+
+                                <thead>
+                                <tr>
+                                  {% if billing_type == 22 or billing_type == 23 %}
+
+                                    <th>Verify </th>
+
+                                  {% endif %}
+                                    <th>Booking Id</th>
+
+                                    {% if billing_type == 23 %}
+                                        <th>Comments</th>
+                                      {% endif %}
+
+                                    <th>From Location</th>
+                                    <th>To Location</th>
+                                    <th>Booking Date/Time</th>
+                                    <th>Departure Date/Time</th>
+
+                                    <th>Flight Class</th>
+
+                                    <th>Passenger Details</th>
+                                    <th>Cotrav Status</th>
+                                    <th>Operator Status</th>
+
+                                    {% if billing_type == 22  %}
+                                    <th>Invoice created date</th>
+                                    <th>Agent verified by</th>
+                                    <th>Agent verified date</th>
+                                    {% endif %}
+
+                                    {% if billing_type == 15 %}
+                                    <th>SPOC verified date</th>
+                                    {% endif %}
+
+                                    <th>Amount</th>
+
+                                    {% if billing_type == 25 %}
+                                    <th>Amount Paid</th>
+                                    {% endif %}
+
+                                    {% if billing_type == 23 %}
+                                    <th>Revise requested by</th>
+                                    <th>Revise Reason</th>
+                                    <th>Cotrav Agent Comment</th>
+                                    <th>Cotrav Agent revise date</th>
+                                    <th>Cotrav Agent revise by</th>
+                                    {% endif %}
+
+
+                                    <th>Details</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+
+                                {% for booking in bookings %}
+                                <tr>
+                                    {% if billing_type == 22 or billing_type == 23 %}
+
+                                    <td> <input class="bill_checkbox" class="bill_checkbox" type="checkbox" name="booking_ids" value="{{ booking.id }}" data-id1 = "{{ booking.corporate_id}}" data-id2 = "{{ booking.invoice_id}}" data-id3 = "{{ booking.reference_no}}"  >
+
+                                    </td>
+
+                                    {% endif %}
+                                    <td>{{ booking.reference_no }}</td>
+
+                                     {% if billing_type == 23 %}
+
+                                    <td>
+                                        <textarea name="invoice_comments" id="comment_{{ booking.id }}" ></textarea>
+                                        <p id="error_{{ booking.id }}"></p>
+
+                                    </td>
+
+                                    {% endif %}
+
+
+                                    <td>{{ booking.from_location }}</td>
+                                    <td>{{ booking.to_location }}</td>
+                                    <td>{{ booking.booking_datetime|datetime_format }}</td>
+                                    <td>{{ booking.departure_datetime }}</td>
+
+                                   <td>{{ booking.flight_class }}</td>
+
+                                    <td>
+                                        {% for passanger in booking.Passangers %}
+                                        {{ passanger.employee_name|default:'' }} <br/>({{ passanger.employee_contact|default:''}})<br/>
+                                        {% endfor %}
+                                    </td>
+
+                                    <td>{{booking.cotrav_status}}</td>
+
+                                    <td>{{booking.status_operator}}</td>
+
+                                    {% if billing_type == 22 %}
+                                    <td>
+                                        {% for invoice_log in booking.VendorInvoiceActionLog %}
+                                            {% if invoice_log.user_type == 10 and invoice_log.action == 1 %}
+                                                {{ invoice_log.created|datetime_format }}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                    <td>{% for invoice_log in booking.VendorInvoiceActionLog %}
+                                            {% if invoice_log.user_type == 10 and invoice_log.action == 1 %}
+                                                {{ invoice_log.employee_name }}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                    <td>{% for invoice_log in booking.VendorInvoiceActionLog %}
+                                            {% if invoice_log.user_type == 10 and invoice_log.action == 1 %}
+                                                {{ invoice_log.action_date|datetime_format }}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                    {% endif %}
+
+                                    {% if billing_type == 15 %}
+                                    <td>
+                                        {% for invoice_log in booking.VendorInvoiceActionLog %}
+                                            {% if invoice_log.user_type == 4 and invoice_log.action == 1 %}
+                                                {{ invoice_log.action_date|datetime_format }}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                    {% endif %}
+
+                                    <td>{{ booking.vi_sub_total }}</td>
+
+                                     {% if billing_type == 23 %}
+
+                                    <td>{% for invoice_log in booking.VendorInvoiceActionLog %}
+                                            {% if forloop.last %}
+                                                {{ invoice_log.employee_name }}<br/> ({{invoice_log.name}})
+                                            {% endif %}
+                                        {% endfor %}
+                                    </td>
+
+                                    <td>
+                                        {% for invoice_log in booking.VendorInvoiceActionLog %}
+                                            {% if forloop.last %}
+                                                {{ invoice_log.invoice_comment }}
+                                            {% endif %}
+                                        {% endfor %}
+
+                                    </td>
+
+                                    <td>{% for invoice_log in booking.VendorInvoiceActionLog %}
+                                            {% if invoice_log.user_type == 10 and invoice_log.action == 3 %}
+                                                {{ invoice_log.invoice_comment }}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                    <td>{% for invoice_log in booking.VendorInvoiceActionLog %}
+                                            {% if invoice_log.user_type == 10 and invoice_log.action == 3 %}
+                                                {{ invoice_log.action_date|datetime_format }}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                    <td>{% for invoice_log in booking.VendorInvoiceActionLog %}
+                                            {% if invoice_log.user_type == 10 and invoice_log.action == 3 %}
+                                                {{ invoice_log.employee_name }}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </td>
+
+
+
+                                    {% endif %}
+
+
+                                    <td>
+                                        <a title="Booking Details" href="/operator/view-flight-booking/{{ booking.id }}" class="btn btn-tbl-edit btn-xs" style="background:#6288b1;"> <i  class="fa fa-search"></i> </a>
+                                    </td>
+
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+               
+
+               </form>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- end page content -->
+
+
+{% else %}
+<p>Welcome, new user. Please log in.<a href="/login">Login</a></p>
+{% endif %}
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtPIcsjNx-GEuJDPmiXOVyB3G9k1eulX0&callback=initMap" async defer></script>
+
+<script>
+
+function getCheckedBoxes(chkboxName) {
+  var checkboxes = document.getElementsByName(chkboxName);
+  var checkboxesChecked = [];
+
+  for (var i=0; i<checkboxes.length; i++) {
+
+     if (checkboxes[i].checked) {
+        checkboxesChecked.push(checkboxes[i]);
+     }
+  }
+
+  return checkboxesChecked.length > 0 ? checkboxesChecked : null;
+}
+
+
+    function myCheck()
+    {
+        var checkedBoxes = getCheckedBoxes("booking_ids");
+
+        for(var i=0 ; i < checkedBoxes.length ; i++ )
+        {
+            val = checkedBoxes[i].value;
+            element_name = "comment_"+val;
+            comment_box = document.getElementById(element_name);
+            comment_box.required  = true;
+
+        }
+
+    }
+
+    $('#taxiBilling').submit(function(e) {
+
+    if ($("#taxiBilling input:checkbox:checked").length > 0)
+        {
+           var checkedBoxes = getCheckedBoxes("booking_ids");
+
+    submit_flag = true;
+
+    for(var i=0 ; i < checkedBoxes.length ; i++ )
+        {
+            val = checkedBoxes[i].value;
+            element_name = "comment_"+val;
+            error_msg_div = "error_"+val;
+            comment_box = document.getElementById(element_name);
+            error_div =  document.getElementById(error_msg_div);
+            if ( (comment_box.value).trim() == '' )
+                {
+                    submit_flag = false;
+                    error_div.innerHTML = "Comment is Required";
+                }
+            else{
+
+                  error_div.innerHTML = "";
+
+            }
+
+        }
+        return submit_flag;
+
+        }
+        else
+        {
+            alert("No Booking Selected");
+           return false;
+        }
+
+
+    });
+
+</script>
+
+<script>
+
+function getOptions() {
+
+var $buttonDiv = $('<div id="revise-modal-form"></div>');
+
+var checkedBoxes = getCheckedBoxes("booking_ids");
+
+var current_url = $('#current_url').val();
+
+//var num = parseInt(button.data('num'));
+
+for(var i=0 ; i < checkedBoxes.length ; i++ )
+        {
+
+        val = checkedBoxes[i].value;
+        cb = checkedBoxes[i];
+        val_corporate_ids = parseInt( $(cb).attr("data-id1") );
+        val_invoice_ids = parseInt ( $(cb).attr("data-id2") );
+        ref_no = $(cb).attr("data-id3") ;
+
+        var corporate_ids = '<input type="hidden" name="corporate_ids" value="' + val_corporate_ids +'">';
+        var invoice_ids = '<input type="hidden" name="invoice_ids" value="' + val_invoice_ids + '">';
+        var booking_ids = '<input type="hidden" name="booking_ids" value="' + val + '">';
+
+        form_str = '<div class="form-group row"><label class="col-sm-5 control-label">Booking Booking Id -'+ ref_no +'</label><div class="col-sm-7">' +
+        '<textarea class="form-control" name="invoice_comments" required id="comment_' + val + '" ></textarea></div></div>';
+
+        $buttonDiv.append(form_str);
+        $buttonDiv.append(corporate_ids);
+        $buttonDiv.append(invoice_ids);
+        $buttonDiv.append(booking_ids);
+
+        }
+
+    var current_url_input = '<input type="hidden" name="current_url" value="' + current_url + '">';
+    $buttonDiv.append(current_url_input);
+  return $buttonDiv;
+}
+
+function showCommentForm(event, $modal) {
+  var button = $(event.relatedTarget);  // Button that triggered the modal
+
+  $modal.find('.modal-title').text("Add Comment For Revise");
+  $modal.find('.modal-body').empty().append(getOptions());
+}
+
+$(function() {
+	$("#myModal").on('show.bs.modal', function(event) {
+	if ($("#taxiBilling input:checkbox:checked").length > 0)
+        {
+            showCommentForm(event, $(this));
+        }
+        else
+            {
+
+               $(".modal-body").html("");
+
+
+            }
+
+  });
+});
+
+$("input:checkbox.bill_checkbox").click(function() {
+if(!$(this).is(":checked"))
+{
+    current_id  = $(this).val();
+    $('#'+current_id).remove();
+    $('#'+current_id).remove();
+}
+
+if($(this).is(":checked"))
+{
+    val_corporate_ids = parseInt($(this).attr("data-id1") );
+    val_invoice_ids = parseInt($(this).attr("data-id2") );
+    $('#taxiBilling').prepend('<input type="hidden" name="corporate_ids" id="'+$(this).val()+'" value="'+ val_corporate_ids +'" />');
+    $('#taxiBilling').prepend('<input type="hidden" name="invoice_ids" id="'+$(this).val()+'" value="'+ val_invoice_ids +'" />');
+}
+
+
+    });
+</script>
+
+
+{% endblock %}
+

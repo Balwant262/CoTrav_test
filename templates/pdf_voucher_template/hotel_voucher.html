@@ -1,0 +1,394 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+   <head>
+       <title>Bus Voucher</title>
+     <style>
+
+@font-face {
+   font-family: Montserrat Medium;
+   src: url('{{HOST_BASE_PATH}}static/fonts/Montserrat-Medium.ttf');
+}
+
+body {
+
+font-family: Montserrat Medium;
+}
+
+@page {
+size: a4 portrait;
+
+
+
+
+@frame header_frame { /* Static Frame */
+-pdf-frame-content: header_content;
+ position: fixed;
+  top: 0;
+  left: 0;
+  height:50%;
+
+}
+
+@frame header_frame { /* Static Frame */
+-pdf-frame-content: logo_content;
+ position: fixed;
+  top: 40px;
+  left: 20px;
+}
+
+
+@frame content_frame { /* Content Frame */
+left: 39pt; width: 512pt; top: 90pt; height: 632pt;
+
+}
+
+
+@frame footer_frame { /* Another static Frame */
+-pdf-frame-content: footer_content;
+position: fixed;
+  bottom: 0pt;
+  left: 0;
+  top: 760pt;
+
+}
+
+@frame footer_frame { /* Another static Frame */
+-pdf-frame-content: ftr_content;
+position: fixed;
+  bottom: 0pt;
+  left: 250;
+  top: 800pt;
+
+}
+
+@frame footer_frame { /* Another static Frame */
+-pdf-frame-content: bus_logo;
+position: fixed;
+  bottom: 0pt;
+  left: 0;
+  top: 800pt;
+
+}
+
+}
+
+
+h1{
+  font-size: 12px;
+font-weight: 900;
+}
+
+
+h2{
+  font-size: 10px;
+}
+
+p{
+  font-size: 9px;
+  font-weight: 900;
+
+}
+#header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+
+}
+#footer {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+ }
+
+.custom-page-start {
+    margin-top: 100px;
+}
+
+  .p-1{
+     font-size: 13px;
+  }
+
+.sec{
+  text-align: center;
+}
+.section{
+  text-decoration-line: underline;
+  line-height: 0px;
+}
+.border-left{
+  border-left: solid 1px gray;
+}
+.section2{
+  line-height: 20px;
+}
+table{
+  overflow-wrap: break-word;
+word-break: break-all;
+font-family: Montserrat;
+}
+td{
+  font-size: 9px;
+  font-family: 'Montserrat';
+font-weight: 400;
+overflow-wrap: break-word;
+word-break: break-all;
+}
+.footer{
+  height: 140px;
+}
+.img1{
+  margin-top: -94px;
+    margin-bottom: 20px;
+  }
+
+
+.flight_section{
+      padding-left: 46px;
+    margin-bottom: -8px;
+    font-size: 15px;
+
+    font-weight: 600;
+
+}
+.f1{
+  font-size: 9px;
+
+    font-weight: 600;
+}
+.section-f1{
+  font-size: 9px;
+
+    font-weight: 600;
+}
+.section-f2{
+  font-size: 9px;
+  font-family: montserrat,Regular;
+  font-weight: 500;
+}
+
+table {
+
+ vertical-align: middle;
+
+}
+table td, table th {
+    border:none;
+     padding: 1px;
+
+
+}
+th{
+  font-size: 11px;
+
+}
+
+span{
+font-size: 9px;
+font-weight: 500;
+text-align: center;
+}
+.plane{
+      width: 9px;
+
+
+}
+.plane_detail{
+  font-size: 9px;
+  text-align: center;
+
+}
+
+.plane_detail_1{
+  font-size: 9px;
+  text-align: center;
+   font-weight: 600;
+}
+.f-span{
+  margin-left: 81px;
+  font-size: 11px;
+
+}
+.total_sec{
+font-family: 'Montserrat';
+    font-size: 17px;
+    font-weight: 500;
+    position: relative;
+    right: 18%;
+    padding: 15px;
+}
+.border_bott{
+  border-bottom: 1px solid gray;
+}
+
+</style>
+</head>
+
+<body>
+  <div id="header_content">
+ <img src="{{HOST_BASE_PATH}}static/img/voucher/img//bg1_flight.png" alt="bg1_flight">
+</div>
+
+
+  <div id="footer_content">
+     <img src="{{HOST_BASE_PATH}}static/img/voucher/img/bg2_hotel.png" alt="bg2_bus">
+</div>
+
+  <div class='header'></div>
+    <div class='footer'></div>
+  <h1 align="center" style="font-family: montserrat,san-serif; font-weight: 500;border-bottom: solid 1px silver;font-size: 18px;">Hotel Confirmation Voucher </h1>
+    <table  width="100%">
+
+   <tr>
+  
+   <td  align="center" > <h1 style="line-height: 0px;font-family: 'Montserrat'; font-weight: 500;font-size: 18px;">Dear {{user_name}} </h1> <p style="font-weight: normal;font-size: 13px;"> CoTrav Booking ID is {{reference_no}}</p> </td>
+    
+   </tr>
+
+    <tr>
+  
+    <td style="color:#383838;" align="center" >  <p style=" font-family: 'Montserrat';font-weight: normal;border-bottom: solid 1px silver;"> Thank You For using cotrav.co to book your hotel. For Your Reference, Your CoTrav Booking ID is <strong>{{reference_no}}</strong> Your Voucher ID (To be Used at the Hotel) is <strong> {{voucher_number}}</strong> </p>  </td>
+    
+   </tr>
+ </table>
+
+  <h1  align="center" style=" font-family: 'Montserrat';font-weight: 500;border-bottom: solid 1px silver;">User Details </h1>
+<table width="100%" >
+
+
+
+    {% for pasg in Passangers %}
+ <tr>
+  
+  <td align="left"  valign="top" colspan="16"><strong>Name: </strong>{{pasg.employee_name}}</td>
+   <!--<td style="color:#383838;" align="left"  valign="top" colspan="8">  &nbsp; </td>-->
+ 
+   <td align="center"  valign="top" colspan="16"><strong>Email: </strong>{{pasg.employee_email}}</td>
+   <!--<td style="color:#383838;" align="center"  valign="top" colspan="8">   &nbsp;  </td>-->
+
+     <td align="right"  valign="top" colspan="16"><strong>Contact: </strong>{{pasg.employee_contact}}</td>
+   <!--<td  style="color:#383838;" align="right"  valign="top" colspan="8"> &nbsp;  </td>-->
+
+ </tr>
+{% endfor %}
+    
+
+</table>
+<br>
+<table width="100%" >
+<tr>
+   <td align="center"  valign="top" style="background-color: whitesmoke;line-height: 15px;">
+<p style="text-align: center;font-weight: normal; font-size: 11px;padding: 5px;">THIS IS YOUR HOTEL CONFIRMATION VOUCHER A PRINTED COPY OF THIS MUST BE PRESENTED AT THE<br> HOTEL AT THE TIME OF CHECK-IN </p></td></tr>
+
+</table>
+
+  <h1 align="center" style=" font-family: 'Montserrat';font-weight: 500;line-height: 0px;border-bottom: solid 1px silver;">Hotel  Details </h1>
+<table  width="100%" >
+
+
+    <tr>
+
+         <td align="left"  valign="top" colspan="16"><strong>Hotel Name: </strong>{{operator_name}}</td>
+   <!--<td style="color:#383838;" align="left"  valign="top" colspan="8">&nbsp;</td>-->
+
+<td align="center"  valign="top" colspan="32"> <strong>Hotel Address: </strong>{{operator_address}}</td>
+   <!--<td style="color:#383838;" align="center"  valign="top" colspan="16">&nbsp;</td>-->
+
+
+    </tr>
+    <tr><td colspan="48">&nbsp;</td></tr>
+       <tr>
+  
+  <td align="left"  valign="top" colspan="16"><strong>CHECK-IN: </strong>{{checkin_datetime}}</td>
+   <!--<td style="color:#383838;" align="left"  valign="top" colspan="8">&nbsp;</td>-->
+
+<td align="center"  valign="top" colspan="16"> <strong>CHECK-OUT: </strong>{{checkout_datetime}}</td>
+   <!--<td style="color:#383838;" align="center"  valign="top" colspan="8">&nbsp;</td>-->
+
+
+ <td align="right"  valign="top" colspan="16"><strong>#Nights: </strong> {{no_of_nights}}</td>
+   <!--<td style="color:#383838;" align="right"  valign="top" colspan="8" >&nbsp;</td>-->
+
+  </tr>
+  
+<tr></tr>
+  <tr>
+
+<td align="left"  valign="top" colspan="16"><strong>No. Of Guests: </strong>{{no_of_seats}}</td>
+   <!--<td style="color:#383838;" align="left"  valign="top" colspan="8">&nbsp;</td>-->
+
+   <td align="center"  valign="top" colspan="16"> <strong>Is Room AC: </strong>{{is_ac_room|yesno:'Yes,No'}}</td>
+   <!--<td style="color:#383838;" align="center"  valign="top" colspan="8">&nbsp;</td>-->
+
+<td align="right"  valign="top" colspan="16"> <strong>Hotel Contact: </strong>{{operator_contact}}</td>
+   <!--<td style="color:#383838;" align="right"  valign="top" colspan="8">&nbsp;</td>-->
+
+
+
+
+  </tr>
+
+  
+
+</table>
+<br>
+
+ <table  width="100%" >
+
+   <tr>
+  
+   <td  align="center" > <h1 style="font-family: 'Montserrat'; font-weight: 500;border-bottom: solid 1px silver;">Hotel Cancellation Policy </td>
+    
+   </tr>
+
+    <tr>
+  
+    <td style="color:#383838;" align="left" >  <p style=" font-family: 'Montserrat';font-weight: normal;"> Following Cancellation charges will be applicable :</p>
+        <ul>
+            <li> The standard cancellation charges shall be applicable as per the below matrix:
+                <ul>
+                    <li>If the booking is cancelled 7 days before the check-in, no charges shall apply.</li>
+                    <li>If the booking is cancelled within 7 days of the check-in but before 3 days from check-in, 50% of the total charge shall be applicable.</li>
+                    <li>If the booking is cancelled within 3 days of check-in 100% of the total charge shall be applicable.</li>
+                </ul>
+            </li>
+            <li>Please note that some of the hotels have different cancellation policy and it may vary from the above. In case of variable cancellation charges, the same shall be applicable on actual.</li>
+        </ul>
+</td>
+    
+   </tr>
+ </table>
+
+
+ <table  width="100%" >
+
+   <tr>
+  
+       <td  align="center" > <h1 style="font-family: 'Montserrat'; font-weight: 500;border-bottom: solid 1px silver;">General Hotel Policy</h1> </td>
+    
+   </tr>
+
+    <tr>
+  
+    <td style="color:#383838;" align="left" >
+        <ul>
+            <li>The standard checkin time is 12:00 PM and the standard checkout time is 11:00 AM. Early checkin or late checkout is strictly subjected to availability and may be chargeable by the hotel. Any early checkin or late checkout request must be directed and reconfirmed with hotel directly.</li>
+            <li>Valid ID proof is required at the time of check in for all guests.</li>
+            <li>Locals and unmarried couples are not allowed ( 30 KM area radius from hotel take as a local area).</li>
+            <li>Most hotels do not allow unmarried / unrelated couples to checkin. </li>
+            <li>This is at full discretion of the hotel management. No refund would be applicable in case the hotel denies checkin under such circumstances.</li>
+            <li>In case the hotel policy changes for check-in or check-out or any other services, TaxiVaxi takes no responsibility of the same.</li>
+        </ul>
+    </td>
+    
+   </tr>
+ </table>
+
+
+ 
+</body>
+</html>

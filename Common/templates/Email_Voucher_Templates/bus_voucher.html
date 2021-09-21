@@ -1,0 +1,260 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<style>
+@page {
+size: a4 portrait;
+
+font-family:Montserrat,san-serif;
+ background: whitesmoke;
+
+
+@frame header_frame { /* Static Frame */
+-pdf-frame-content: header_content;
+ position: fixed;
+  top: 0;
+  left: 0;
+}
+
+@frame header_frame { /* Static Frame */
+-pdf-frame-content: logo_content;
+ position: fixed;
+  top: 0;
+  left: 0;
+}
+
+
+@frame content_frame { /* Content Frame */
+left: 50pt; width: 512pt; top: 90pt; height: 632pt;
+
+}
+
+
+@frame footer_frame { /* Another static Frame */
+-pdf-frame-content: footer_content;
+position: fixed;
+  bottom: 0pt;
+  left: 0;
+  top: 750pt;
+}
+
+@frame footer_frame { /* Another static Frame */
+-pdf-frame-content: ftr_content;
+position: fixed;
+  bottom: 0pt;
+  left: 250;
+  top: 800pt;
+
+}
+
+@frame footer_frame { /* Another static Frame */
+-pdf-frame-content: bus_logo;
+position: fixed;
+  bottom: 0pt;
+  left: 0;
+  top: 800pt;
+
+}
+
+
+}
+
+ body {
+                font-weight: 200;
+                font-size: 14px;
+                font-family: montserrat,sans-serif;
+
+            }
+            .header {
+                font-size: 20px;
+                font-weight: 100;
+                text-align: center;
+                color: #007cae;
+            }
+            .logo{
+
+                width: 135px;
+               margin-left: 40px;
+          padding-top: -100px;
+
+            }
+
+            .title {
+                font-size: 22px;
+                font-weight: 100;
+               /* text-align: right;*/
+               padding: 10px 20px 0px 20px;
+            }
+            .title span {
+                color: #007cae;
+            }
+
+            h5 {
+                font-family: montserrat;
+                font-weight: 600;
+                font-size: 17px;
+                 }
+
+                    h6{
+                font-family: montserrat,san-serif;
+                font-weight: 600;
+                font-size: 17px;
+                 }
+                  h4{
+                font-family: montserrat,san-serif;
+                font-weight: 600;
+                font-size: 20px;
+                 }
+                 p{
+                    font-family: montserrat,san-serif;
+                font-weight: 400;
+                font-size: 13px;
+                 }
+               .p-1{
+                  font-size: 12px;
+                  font-weight: 400;
+               }
+
+             .sec{
+               text-align: center;
+             }
+             .section{
+               text-decoration-line: underline;
+
+
+             }
+
+             .section2{
+               line-height: 35px;
+             }
+             td{
+               font-size: 15px;
+             }
+             .footer{
+               height: 153px;
+             }
+             .img1{
+               margin-top: -94px;
+                 margin-bottom: 37px;
+             }
+            .img1{
+           padding-top:-90px;
+            }
+             .detail{
+                 margin-top:50px;
+             }
+             .txt-block{
+                 margin-top: -100px;
+             }
+             .font{
+                font-size: 13px;
+                 text-align:center;
+                 color:white;
+                 font-weight:600;
+             }
+
+
+</style>
+<head>
+<body>
+<div id="header_content">
+
+  <img src="http://cotrav.co/static/email_template_images/bg1.png">
+
+</div>
+<div id="logo_content">
+    <img src="http://cotrav.co/static/email_template_images/logo.png" class="logo">
+
+</div>
+
+<div id="footer_content">
+    <img src="http://cotrav.co/static/email_template_images/bg2.png">
+
+</div>
+<div id="bus_logo">
+    <img src="http://cotrav.co/static/email_template_images/bus.png">
+</div>
+
+ <div id="ftr_content" >BAI INFOSOLUTION PVT LTD  <pdf:pagenumber>
+of <pdf:pagecount>
+      <br> <small style="font-weight: 500;font-size: 13px;">AGENT CONTACT : 0987654321<small>
+ </div>
+
+{% for booking in emp %}
+ <div class="detail">
+
+                    <table  class="border-bottom">
+                        <tr>
+                          <td align="center" style="font-weight: 600; font-size: 20px; font-family: 'Montserrat'"> <br> <br> <br>{{booking.pickup_location}} <img src="http://cotrav.co/static/email_template_images/arrow.png" style="margin-bottom: -5px; width: 59px;"> {{booking.drop_location}} <br><small style="font-weight: 500;font-size: 14px;">20-Sep-2019</small></td>
+
+                          <td  align="center"  style="font-weight: 600; font-size: 20px; font-family: 'Montserrat'"><br> <br> <br>PNR#<br><small style="font-weight: 500;font-size: 14px;">{{booking.pnr_no}}</small></td>
+
+
+                        </tr>
+
+                         <tr>
+                            <td  align="center" class="sec"  style="font-weight: 700; float: right; font-size: 24px; font-family: 'Montserrat'"><br /> Total Fare<br><small style="font-weight: 500;font-size: 22px;"> <img src="http://cotrav.co/static/email_template_images/rup.png" style="width: 11px; margin-left: 25px;"> {{booking.ticket_price}}</small></td>
+
+                     </tr>
+
+                          <tr>
+                          <td  align="center"  style="font-weight: 600; font-size: 20px; font-family: 'Montserrat'"> <br> <br> <br>Bus Operator<br><small style="font-weight: 500;font-size: 14px;">{{booking.operator_name}}</small></td>
+
+                          <td align="center"  style="font-weight: 600; font-size: 20px; font-family: 'Montserrat'"> <br> <br> <br>Ticket#<br><small style="font-weight: 500;font-size: 14px;">{{booking.ticket_no}}</small></td>
+
+                        </tr>
+
+
+                      </table>
+
+                      <table  width="100%" align="center" class="border-bottom1">
+
+                          <tr>
+                            <h4 style="text-align: center;">Booking Detail</h4>
+                          </tr>
+
+                            {% for passanger in booking.Passangers %}
+                          <tr>
+                            <td  align="center" >{{passanger.employee_name}}</td>
+                                <td  align="center" >{{passanger.employee_email}}</td>
+                          </tr>
+                            {% endfor %}
+
+
+
+                       </table>
+
+
+                       <table  width="100%" align="center" class="border-bottom1">
+                          <tr>
+                            <td  align="center" style="font-weight:bold" > <img src="http://cotrav.co/static/email_template_images/dot.png" style="margin-bottom: -2px;width: 17px;"> Boarding Point
+                             <p style="font-size: 10px;"><img src="http://cotrav.co/static/email_template_images/loca.png" style="width: 13px;margin-bottom: -4px;">{{booking.boarding_point}}</p>
+                              </td>
+                                 <td  align="center" style="font-weight:bold"><img src="http://cotrav.co/static/email_template_images/dot2.png" style="margin-bottom: -2px;width: 17px;"> Drop Point   <p style="font-size: 10px;"><img src="../static/img/voucher/img/loca.png" style="width: 13px;margin-bottom: -4px;">Model Colony - BABA TRAVELS- <br>Chandwadkar park, Opp. Nandan Sweet Shop Landmark,<br> Model Colony Landmark,<br> Model Colony</p></td>
+                          </tr>
+
+
+                       </table>
+
+
+                                  <table>
+
+                                <tr>
+                                   <td  align="center">
+                                      <h4 style="text-align: center;">Disclaimer</h4>
+                                      <p style="font-weight: 600; font-size :11px;text-align: center;"> Model Colony - BABA TRAVELS- Chandwadkar park, Opp. Nandan Sweet Shop Landmark, Model Colony Landmark, Model Colony</p>
+
+
+                                 </tr>
+                              </table>
+
+
+
+                               </tbody>
+                              </table>
+                          </div>
+ {% endfor %}
+
+
+</body>
+</html>

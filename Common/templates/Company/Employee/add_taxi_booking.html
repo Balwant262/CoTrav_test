@@ -1,0 +1,330 @@
+{% extends 'Company/Employee/layout/header.html' %}
+
+{% block content %}
+
+
+{% if user %}
+<!-- start page content -->
+
+{% include 'cotrav_alert_message.html' %}
+<div class="page-content-wrapper">
+    <div class="page-content">
+                          <div class="text-center">
+                     <div style="font-size:14px; font-weight:bold;">
+                        Add Taxi Booking
+                         </div>
+                </div>
+        <form method="post" action="/Corporate/Employee/add-taxi-booking/{{user.corporate_id}}">
+            <input type="hidden" name="employee_id" value="{{user.id}}">
+            <input type="hidden" name="spoc_id" value="{{user.spoc_id}}">
+            <input type="hidden" name="corporate_id" id="corporate_id" value="{{user.corporate_id}}">
+            <input type="hidden" name="entity_id" value="{{user.billing_entity_id}}">
+             <input type="hidden" name="current_url" value="{{ request.get_full_path }}">
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card card-topline-aqua">
+                    <div class="card-head">
+                        <header>ADD TAXI BOOKING</header>
+                        <div class="tools">
+                            <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                            <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                            <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                        </div>
+                    </div>
+                    <div class="card-body ">
+                     <div class="row">
+                         <div class="col-md-12 col-sm-12">
+
+                             <div class="form-group row">
+                                <label class="col-sm-4" >Tour Type*</label>
+                                 <select id="tour_type" name="tour_type" class="form-control col-sm-8 tour_type  myselect" style="width:66%"  required>
+                                      <option value="">Select Tour Type </option>
+                                    {% for corp_acces in corp_access %}
+
+
+                                      {% if corp_acces.is_radio == 1 %}
+                                      <option value="1">Radio </option>
+                                      {% endif %}
+                                      {% if corp_acces.is_local == 1 %}
+                                      <option value="2">Local </option>
+                                      {% endif %}
+                                      {% if corp_acces.is_outstation == 1 %}
+                                      <option value="3">Outstation </option>
+                                      {% endif %}
+
+
+                              {% endfor %}
+                                  </select>
+                            </div>
+
+
+                             <div class="form-group row" id="current_city_id_row">
+                                <label class="col-sm-4" >Pickup City*</label>
+                                 <select id="current_city_id" name="current_city_id" class="form-control col-sm-8 myselect" style="width:66%">
+                                      <option value="">Select City </option>
+                                        {% for citie in citiess %}
+                                         <option value="{{citie.id}}">{{citie.city_name}}</option>
+                                        {% endfor %}
+                                  </select>
+                            </div>
+
+                        <div class="form-group row" id="pickup_city_row">
+                                <label class="col-sm-4" >Pickup City*</label>
+                                 <input type="text" class="form-control col-sm-8" name="pickup_city" id="pickup_city" placeholder="Pickup City">
+                            </div>
+
+                              <div class="form-group row" id="tr_taxi_type">
+                                    <label class="col-sm-4" >Taxi Type</label>
+                                     <select name="taxi_type" class="form-control col-sm-8  myselect" style="width:66%"  id="select_taxi_type">
+                                         <option value="" >Select Taxi Type</option>
+                                        {% for taxi in taxies %}
+                                        <option value="{{taxi.id}}">{{taxi.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                             <div class="form-group row" id="tr_package" >
+                                    <label class="col-sm-4" >Select Package</label>
+                                     <select name="package_id" id="package_id" class="form-control col-sm-8  myselect" style="width:66%" >
+
+                                    </select>
+                                </div>
+
+                              <div class="form-group row" id="tr_no_of_days" >
+                                    <label class="col-sm-4" >No of Days</label>
+                                      <input type="text" class="form-control col-sm-8" name="no_of_days" id="id_no_of_days" placeholder="No of Days">
+                            </div>
+
+                              <div class="form-group row">
+                                <label class="col-sm-4" >Pickup Location*</label>
+                                 <input type="text" class="form-control col-sm-8" name="pickup_location" id="pickup_location" placeholder="Pickup Location" required>
+                            </div>
+
+                              <div class="form-group row">
+                                <label class="col-sm-4" >Drop Location*</label>
+                                 <input type="text" class="form-control col-sm-8" name="drop_location" id="drop_location" placeholder="Drop Location" required>
+                            </div>
+
+                              <div class="form-group row">
+                                <label class="col-sm-4" >Pickup Date | Time*</label>
+                                 <input type="text" class="form-control col-sm-8 datetimepicker1" autocomplete="off" name="pickup_datetime" placeholder="Pickup Date | Time" required>
+                            </div>
+
+
+                             {% for corp_acces in corp_access %}
+                                {% if corp_acces.has_assessment_codes == 1 %}
+
+                              <div class="form-group row">
+                                <label class="col-sm-4" >Assessment Code*</label>
+                                   <select name="assessment_code" class="form-control col-sm-8  myselect" style="width:66%" >
+                                       <option value="" >Select Assessment Code</option>
+                                        {% for assessment in assessments %}
+                                        <option value="{{assessment.id}}">{{assessment.assessment_code}}</option>
+                                        {% endfor %}
+                                    </select>
+                            </div>
+
+                              <div class="form-group row">
+                                <label class="col-sm-4" >Assessment City*</label>
+                                   <select name="assessment_city_id" class="form-control col-sm-8  myselect" style="width:66%" >
+                                       <option value="" >Select Assessment City</option>
+                                        {% for city in cities %}
+                                        <option value="{{city.id}}">{{city.city_name}}</option>
+                                        {% endfor %}
+                                    </select>
+                            </div>
+
+                              {% endif %}
+                              {% endfor %}
+
+
+
+                               <div class="form-group row">
+                                <label class="col-sm-4" >Booking Reason/ Comment*</label>
+                                <textarea name="reason_booking" class="form-control col-sm-8" required placeholder="Reason/Comment for Booking"></textarea>
+                            </div>
+
+
+
+
+
+                        </div>
+
+
+                     </div>
+
+
+
+
+                     </div>
+                      <div class="form-group">
+                    <div class="offset-md-3 col-md-9">
+                        <input type="submit" value="Submit" class="btn btn-info">
+                        <a href="{{request.META.HTTP_REFERER}}" class="btn btn-default">  Cancel  </a>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+<!-- end page content -->
+<script type="text/javascript">
+   $(".myselect").select2();
+</script>
+
+
+
+
+{% else %}
+    <p>Welcome, new user. Please log in.<a href="/login">Login</a> </p>
+{% endif %}
+
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCstbhex4F6X2-AXz3B1sR1oRvxssE3sc&libraries=places"></script>
+
+<!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCstbhex4F6X2-AXz3B1sR1oRvxssE3sc&libraries=places"></script>-->
+ <script>
+
+  var pickup_location = document.getElementById('pickup_location');
+  var autocomplete = new google.maps.places.Autocomplete(pickup_location);
+
+   var drop_location = document.getElementById('drop_location');
+   var autocomplete = new google.maps.places.Autocomplete(drop_location);
+
+</script>
+
+ <script>
+    function initialize() {
+      var options = {
+        types: ['(cities)'],
+        componentRestrictions: {
+          country: "in"
+        }
+      };
+
+      var input = document.getElementById('pickup_city');
+      var autocomplete = new google.maps.places.Autocomplete(input, options);
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+  </script>
+
+<script type="text/javascript">
+
+$( document ).ready(function() {
+    $('#tr_taxi_type').hide();
+    $('#tr_package').hide();
+    $('#tr_no_of_days').hide();
+
+});
+
+$("#tour_type").change(function()
+    {
+    	var tour_type = $(this).val();
+
+    	switch(tour_type){
+           case '1':
+              {
+                $('#tr_taxi_type').hide();
+                $('#tr_package').hide();
+                $('#tr_no_of_days').hide();
+                $("#package_id").attr('required',false);
+                $("#select_taxi_type").attr('required',false);
+                $("#id_no_of_days").attr('required',false);
+                $("#drop_location").attr('required',true);
+                $("#pickup_city").attr('required',true);
+                $("#current_city_id").attr('required',false);
+                $('#pickup_city_row').show();
+                $('#current_city_id_row').hide();
+                break;
+              }
+           case '2':
+              {
+                $('#tr_taxi_type').show();
+                $('#tr_package').show();
+                $('#tr_no_of_days').hide();
+                $("#select_taxi_type").attr('required',true);
+                $("#package_id").attr('required',true);
+                $("#id_no_of_days").attr('required',false);
+                $("#drop_location").attr('required',false);
+                $("#pickup_city").attr('required',false);
+                $("#current_city_id").attr('required',true);
+                $('#pickup_city_row').hide();
+                $('#current_city_id_row').show();
+                getPackage();
+                break;
+              }
+           case '3':
+              {
+                $('#tr_taxi_type').show();
+                $('#tr_package').show();
+                $('#tr_no_of_days').show();
+                $("#select_taxi_type").attr('required',true);
+                $("#package_id").attr('required',true);
+                $("#id_no_of_days").attr('required',true);
+                $("#drop_location").attr('required',true);
+                $("#pickup_city").attr('required',false);
+                $("#current_city_id").attr('required',true);
+                $('#pickup_city_row').hide();
+                $('#current_city_id_row').show();
+                getPackage();
+                break;
+              }
+    	}
+    });
+
+
+
+$("#select_taxi_type").change(function(){
+ getPackage();
+});
+
+
+function getPackage(){
+$('#package_id').empty();
+    var taxi_type =  $("#select_taxi_type").val();
+    var corporate_id= $("#corporate_id").val();
+    var tour_type= $("#tour_type").val();
+    var current_city_id= $("#current_city_id").val();
+
+    if(current_city_id && taxi_type && tour_type && corporate_id)
+    {
+        if(tour_type != '1')
+        {
+            $.ajaxSetup({
+                headers:{
+                    'Authorization': "Token {{request.session.employee_access_token}}",
+                    'usertype': {{request.session.employee_login_type}}
+                }
+            });
+
+            //       For Package
+
+            var_url_spoc = '/api/'+'corporate_package'
+             $.post(var_url_spoc,{ corporate_id: corporate_id, taxi_type : taxi_type, city_id:current_city_id, tour_type:tour_type },
+              function(data)
+              {
+               //alert(JSON.stringify(data));
+               if(data['Package'].length != 0){
+                package = data['Package'];
+                 $('#package_id').append($("<option value=''>Select Package</option>"));
+                 for (var i=0;i<package.length;i++) {
+                    $('#package_id').append($("<option value='"+package[i].id+"'>"+package[i].package_name+"</option>"));
+                 }
+               }else{
+                alert('No Package Available')
+               }
+               });
+        }
+    }
+
+
+}
+
+</script>
+
+{% endblock %}
